@@ -55,8 +55,8 @@ public class PsbDemographicWidgetPage {
     public  By nationalityHeader= By.xpath("//*[contains(text(),'Nationality')]");
     public  By mothersMaidenNameHeader= By.xpath("//*[contains(text(),'Maiden Name')]");
     public  By customerTypeHeader= By.xpath("//*[contains(text(),'Customer Type')]");
-    public  By primaryIdNumberHeader= By.xpath("//span[contains(text(),'Primary ID Number')]");
-    public  By secondaryIdNumberHeader= By.xpath("//span[contains(text(),'Secondary ID Number')]");
+    public  By primaryIdNumberHeader= By.xpath("//*[contains(text(),' Primary ID Number ')]");
+    public  By secondaryIdNumberHeader= By.xpath("//*[contains(text(),'Secondary ID Number')]");
 
 /*
 Values Locators

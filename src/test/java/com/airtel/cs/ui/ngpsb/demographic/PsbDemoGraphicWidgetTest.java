@@ -98,13 +98,13 @@ public class PsbDemoGraphicWidgetTest extends Driver {
                 commonLib.warning("Primary Id Type is not available so unable to display Primary Id Number");
             } else {
                 assertCheck.append(actions.assertEqualBoolean(pages.getPsbDemographicWidget().isPrimaryIdNumberHeaderVisible(), true, "Primary Id Number header is visible", "Primary Id Number header is NOT visible"));
-                assertCheck.append(actions.matchUiAndAPIResponse(pages.getPsbDemographicWidget().getPrimaryIdNumber(), pages.getDemoGraphicPage().getKeyValueAPI(clmDetails.getResult().getPrimaryIdType()), "Primary Id Number is same as Expected", "Primary Id Number is not same as Expected"));
+                assertCheck.append(actions.matchUiAndAPIResponse(pages.getPsbDemographicWidget().getPrimaryIdNumber(), pages.getDemoGraphicPage().getKeyValueAPI(clmDetails.getResult().getPrimaryIdNumber()), "Primary Id Number is same as Expected", "Primary Id Number is not same as Expected"));
             }
             /*
            Validating Secondary Id Type and Number
             */
             assertCheck.append(actions.assertEqualBoolean(pages.getPsbDemographicWidget().isSecondaryIdTypeHeaderVisible(), true, "Secondary Id Type header is visible", "Primary Id Type header is NOT visible"));
-            assertCheck.append(actions.matchUiAndAPIResponse(pages.getPsbDemographicWidget().getSecondaryIdType(), pages.getDemoGraphicPage().getKeyValueAPI(clmDetails.getResult().getPrimaryIdType()), "Secondary Id Type is same as Expected", "Primary Id Type is not same as Expected"));
+            assertCheck.append(actions.matchUiAndAPIResponse(pages.getPsbDemographicWidget().getSecondaryIdType(), pages.getDemoGraphicPage().getKeyValueAPI(clmDetails.getResult().getSecondaryIdType()), "Secondary Id Type is same as Expected", "Secondary Id Type is not same as Expected"));
             if (pages.getPsbDemographicWidget().getPrimaryIdType().equalsIgnoreCase("-")) {
                 commonLib.warning("Secondary Id Type is not available so unable to display Secondary Id Number is");
             } else {
@@ -141,9 +141,9 @@ public class PsbDemoGraphicWidgetTest extends Driver {
                 commonLib.warning("Address is not available so unable to display address line 2 ,3 and zone");
             } else {
                 pages.getPsbDemographicWidget().hoverOnAddressInfoIcon();
-                assertCheck.append(actions.assertEqualStringType(pages.getPsbDemographicWidget().getAddressLine2(), pages.getDemoGraphicPage().getKeyValueAPI(clmDetails.getResult().getAddressLine2()), "Address Line 2 is same as Expected", "Address Line 2 is not same as Expected"));
-                assertCheck.append(actions.assertEqualStringType(pages.getPsbDemographicWidget().getAddressLine3(), pages.getDemoGraphicPage().getKeyValueAPI(clmDetails.getResult().getAddressLine3()), "Address Line 2 is same as Expected", "Address Line 2 is not same as Expected"));
-                assertCheck.append(actions.assertEqualStringType(pages.getPsbDemographicWidget().getAddressZone(), pages.getDemoGraphicPage().getKeyValueAPI(clmDetails.getResult().getZone()), "Address's Zone is same as Expected", "Address's Zone is not same as Expected"));
+                assertCheck.append(actions.assertEqualStringType(pages.getPsbDemographicWidget().getAddressLine2().toLowerCase(), pages.getDemoGraphicPage().getKeyValueAPI(clmDetails.getResult().getAddressLine2()), "Address Line 2 is same as Expected", "Address Line 2 is not same as Expected"));
+                assertCheck.append(actions.assertEqualStringType(pages.getPsbDemographicWidget().getAddressLine3().toLowerCase(), pages.getDemoGraphicPage().getKeyValueAPI(clmDetails.getResult().getAddressLine3()), "Address Line 3 is same as Expected", "Address Line 3 is not same as Expected"));
+                assertCheck.append(actions.assertEqualStringType(pages.getPsbDemographicWidget().getAddressZone().toLowerCase(), pages.getDemoGraphicPage().getKeyValueAPI(clmDetails.getResult().getZone()), "Address's Zone is same as Expected", "Address's Zone is not same as Expected"));
             }
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (NoSuchElementException | TimeoutException | NullPointerException e) {
