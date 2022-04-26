@@ -19,6 +19,7 @@ public class WalletInformationTest extends Driver {
     CLMDetailsResponse clmDetails;
     String nubanId;
     String barringStatus;
+    String className = this.getClass().getName();
 
 
     @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"})
@@ -50,7 +51,7 @@ public class WalletInformationTest extends Driver {
             pages.getMsisdnSearchPage().clickOnSearch();
             assertCheck.append(actions.assertEqualIntType(clmDetails.getStatusCode(), 200, "CLM Details API Status Code Matched and is :" + clmDetails.getStatusCode(), "CLM Details API Status Code NOT Matched and is :" + clmDetails.getStatusCode(), false));
             if (clmDetails.getStatusCode() == 200) {
-                boolean pageLoaded = pages.getPsbDemographicWidget().isPageLoaded(clmDetails);
+                boolean pageLoaded = pages.getPsbDemographicWidget().isPageLoaded(clmDetails, className);
                 if (!pageLoaded)
                     continueExecutionFA = false;
             } else
@@ -102,7 +103,7 @@ public class WalletInformationTest extends Driver {
                 securityQuestion = securityQuestionsConfigured.toString();
             assertCheck.append(actions.assertEqualStringType(pages.getWalletInformation().getSecurityQuestionsConfigured(), pages.getDemoGraphicPage().getKeyValueAPI(securityQuestion), "Security Question Configured is same as Expected", "Security Question Configured  is not same as Expected"));
             barringStatus = pages.getWalletInformation().getBarringStatus();
-            assertCheck.append(actions.matchUiAndAPIResponse(barringStatus,clmDetails.getResult().getDetails().get(0).getUserBarred(), "Barring status is same as Expected", "Barring status  is not same as Expected"));
+            assertCheck.append(actions.matchUiAndAPIResponse(barringStatus, clmDetails.getResult().getDetails().get(0).getUserBarred(), "Barring status is same as Expected", "Barring status  is not same as Expected"));
             assertCheck.append(actions.assertEqualBoolean(pages.getWalletInformation().isBarringInfoIconVisible(), true, "Barring status info icon is visible", "Barring status info icon is NOT visible"));
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
@@ -114,10 +115,11 @@ public class WalletInformationTest extends Driver {
     public void testBarringStatus() {
         try {
             selUtils.addTestcaseDescription("Validate Barring Status widget data", "description");
-            pages.getWalletInformation().hoverOnBarringInfoIcon();
-            if (barringStatus.equalsIgnoreCase("NO"))
-                commonLib.info("Barring Status is N0, Unable to display barring details");
+            if (barringStatus.equalsIgnoreCase("NO")) {
+                commonLib.warning("Barring Status is N0, Unable to display barring details");
+            }
             else if (barringStatus.equalsIgnoreCase("YES")) {
+                pages.getWalletInformation().hoverOnBarringInfoIcon();
                 assertCheck.append(actions.assertEqualBoolean(pages.getWalletInformation().isBarTypeHeaderVisible(), true, "Bar type header is visible", "Bar Type header is NOT visible"));
                 assertCheck.append(actions.assertEqualBoolean(pages.getWalletInformation().isBarReasonHeaderVisible(), true, "Bar Reason header is visible", "Bar Reason header is NOT visible"));
                 assertCheck.append(actions.assertEqualBoolean(pages.getWalletInformation().isBarredByHeaderVisible(), true, "Bar By header is visible", "Bar By header is NOT visible"));
@@ -130,8 +132,9 @@ public class WalletInformationTest extends Driver {
                 assertCheck.append(actions.matchUiAndAPIResponse(pages.getWalletInformation().getBarredOn(), clmDetails.getResult().getDetails().get(0).getBarDetails().getBarredOn(), "Barred On is same as Expected", "Barred On is not same as Expected"));
                 assertCheck.append(actions.matchUiAndAPIResponse(pages.getWalletInformation().getRemarks(), clmDetails.getResult().getDetails().get(0).getBarDetails().getRemarks(), "Remarks is same as Expected", "Remarks is not same as Expected"));
 
-            }else
+            } else
                 commonLib.fail("Not able to get barring status", true);
+            actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
             commonLib.fail("Exception in Method - testBarringStatus" + e.fillInStackTrace(), true);
         }
@@ -149,13 +152,13 @@ public class WalletInformationTest extends Driver {
             String type = constants.getValue(ApplicationConstants.WALLET_TYPE);
             FetchBalanceResponse balance = api.getFetchBalance(customerNumber, nubanId, type);
             String currency = balance.getResult().currency;
-            assertCheck.append(actions.assertEqualStringType(pages.getWalletInformation().getBalance(), pages.getDemoGraphicPage().getKeyValueAPI(currency + " " + balance.getResult().getBalance()), "Balance is same as Expected", "Balance is not same as Expected"));
+            assertCheck.append(actions.assertEqualStringType(pages.getWalletInformation().getBalance().toLowerCase(), pages.getDemoGraphicPage().getKeyValueAPI(currency + " " + balance.getResult().getBalance()), "Balance is same as Expected", "Balance is not same as Expected"));
             if (pages.getWalletInformation().getBalance().trim().equalsIgnoreCase("- -"))
                 commonLib.warning("Balance is not available so unable to display Frozen and FIC Amount");
             else {
                 pages.getWalletInformation().hoverOnBalanceInfoIcon();
-                assertCheck.append(actions.assertEqualStringType(pages.getWalletInformation().getFrozenAmount(), pages.getDemoGraphicPage().getKeyValueAPI(currency + " " + balance.getResult().getFrozenAmt()), "Frozen Amount is same as Expected", "Frozen Amount is not same as Expected"));
-                assertCheck.append(actions.assertEqualStringType(pages.getWalletInformation().getFicAmount(), pages.getDemoGraphicPage().getKeyValueAPI(currency + " " + balance.getResult().getFundsInClearance()), "FIC Amount is same as Expected", "FIC Amount is not same as Expected"));
+                assertCheck.append(actions.assertEqualStringType(pages.getWalletInformation().getFrozenAmount().toLowerCase(), pages.getDemoGraphicPage().getKeyValueAPI(currency + " " + balance.getResult().getFrozenAmt()), "Frozen Amount is same as Expected", "Frozen Amount is not same as Expected"));
+                assertCheck.append(actions.assertEqualStringType(pages.getWalletInformation().getFicAmount().toLowerCase(), pages.getDemoGraphicPage().getKeyValueAPI(currency + " " + balance.getResult().getFundsInClearance()), "FIC Amount is same as Expected", "FIC Amount is not same as Expected"));
             }
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
@@ -222,7 +225,7 @@ public class WalletInformationTest extends Driver {
                     assertCheck.append(actions.assertEqualStringType(pages.getAmSmsTrails().getAction(row, 5).toLowerCase(), "Resend SMS", "Resend SMS is visible in Action", "Resend SMS is NOT visible in Action"));
                 }
             }
-
+            actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
             commonLib.fail("Exception in Method - testSMSLogsTab" + e.fillInStackTrace(), true);
         }

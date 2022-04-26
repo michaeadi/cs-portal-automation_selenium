@@ -13,6 +13,7 @@ public class BarUnBarTest extends Driver {
     PsbRequestSource api = new PsbRequestSource();
     CLMDetailsResponse clmDetails;
     boolean barIconVisible, unbarIconVisible = false;
+    String className = this.getClass().getName();
 
 
     @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"})
@@ -35,7 +36,7 @@ public class BarUnBarTest extends Driver {
             clmDetails = api.getCLMDetails(customerNumber);
             assertCheck.append(actions.assertEqualIntType(clmDetails.getStatusCode(), 200, "CLM Details API Status Code Matched and is :" + clmDetails.getStatusCode(), "CLM Details API Status Code NOT Matched and is :" + clmDetails.getStatusCode(), false));
             if (clmDetails.getStatusCode() == 200) {
-                boolean pageLoaded = pages.getPsbDemographicWidget().isPageLoaded(clmDetails);
+                boolean pageLoaded = pages.getPsbDemographicWidget().isPageLoaded(clmDetails, className);
                 if (!pageLoaded)
                     continueExecutionFA = false;
             } else
@@ -53,7 +54,7 @@ public class BarUnBarTest extends Driver {
             selUtils.addTestcaseDescription("Validate Bar Unbar Action", "description");
             barIconVisible = pages.getBarUnbar().isBarIconVisible();
             unbarIconVisible = pages.getBarUnbar().isUnBarIconVisible();
-            if (barIconVisible == true) {
+            if (barIconVisible) {
                 pages.getBarUnbar().clickBarIcon();
                 assertCheck.append(actions.assertEqualBoolean(pages.getBarUnbar().isIssuePopUpVisible(), true, "Issue Detail Pop up is visible", "Issue Detail Pop up is NOT visible"));
                 assertCheck.append(actions.assertEqualBoolean(pages.getBarUnbar().isBarHeaderVisible(), true, "BAR header is visible in Issue Detail Pop up", "BAR header is visible not Issue Detail Pop up"));
@@ -65,7 +66,7 @@ public class BarUnBarTest extends Driver {
                 assertCheck.append(actions.assertEqualBoolean(pages.getBarUnbar().isSuccessPopUpVisible(), true, "Success Popup is visible after performing Bar action", "Success Popup is not visible after performing Bar action"));
                 String successText = "Your Barring request of Smartcash Account is accepted and issue is also created successfully";
                 assertCheck.append(actions.assertEqualStringType(pages.getBarUnbar().getSuccessText(), successText, "Success text is displayed as expected", "Success text is not displayed as expected"));
-            } else if (unbarIconVisible == true) {
+            } else if (unbarIconVisible) {
                 pages.getBarUnbar().clickUnBarIcon();
                 assertCheck.append(actions.assertEqualBoolean(pages.getBarUnbar().isIssuePopUpVisible(), true, "Issue Detail Pop up is visible", "Issue Detail Pop up is NOT visible"));
                 assertCheck.append(actions.assertEqualBoolean(pages.getBarUnbar().isUnBarHeaderVisible(), true, "UNBAR header is visible in Issue Detail Pop up", "UNBAR header label is Issue Detail Pop up"));
@@ -85,14 +86,14 @@ public class BarUnBarTest extends Driver {
         }
     }
 
-    @Test(priority = 3, groups = {"SanityTest", "RegressionTest"}, dependsOnMethods = {"openCustomerInteraction","barUnbar"})
+    @Test(priority = 3, groups = {"SanityTest", "RegressionTest"}, dependsOnMethods = {"openCustomerInteraction", "barUnbar"})
     public void checkActionTrail() {
         try {
             selUtils.addTestcaseDescription("Validating entry should be captured in Action Trail after performing bar/unbar action", "description");
             pages.getBarUnbar().goToActionTrail();
-            if (barIconVisible == true)
+            if (barIconVisible)
                 assertCheck.append(actions.assertEqualStringType(pages.getBarUnbar().getActionType(), "SmartCash BARRED", "Action type for Bar is expected", "Action type for bar is not as expected"));
-            if (unbarIconVisible == true)
+            if (unbarIconVisible)
                 assertCheck.append(actions.assertEqualStringType(pages.getBarUnbar().getActionType(), "SmartCash UNBARRED", "Action type for UnBar is expected", "Action type for unbar is not as expected"));
             assertCheck.append(actions.assertEqualStringType(pages.getBarUnbar().getReason(), "Lost Sim", "Reason for bar/unbar is expected", "Reason for bar/unbar is not as expected"));
             assertCheck.append(actions.assertEqualStringType(pages.getBarUnbar().getComment(), constants.getValue(ApplicationConstants.COMMENT), "Comment for bar/unbar is expected", "Comment for bar/unbar is not as expected"));

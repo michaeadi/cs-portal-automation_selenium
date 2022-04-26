@@ -94,7 +94,7 @@ public class ActionTrailTest extends Driver {
                 for(int i=0;i<size;i++) {
                     commonLib.info("Printing Info for Row Number "+i+1);
                     assertCheck.append(actions.matchUiAndAPIResponse(pages.getActionTrailPage().getValue(i+1, 1), actionTrailAPI.getResult().get(i).getActionType(), "Action Type Column value displayed Correctly", "Action Type Column Value does not displayed Correctly"));
-                    assertCheck.append(actions.matchUiAndAPIResponse(pages.getActionTrailPage().getValue(i+1, 2), UtilsMethods.getDateFromEpoch(Long.valueOf(actionTrailAPI.getResult().get(i).getCreatedOn()),constants.getValue(CommonConstants.APPLICATION_UI_TIME_FORMAT)),"Date & Time Column displayed Correctly", "Date & Time Column does not displayed Correctly"));
+                    assertCheck.append(actions.matchUiAndAPIResponse(pages.getActionTrailPage().getValue(i+1, 2), UtilsMethods.getDateFromEpoch(Long.parseLong(actionTrailAPI.getResult().get(i).getCreatedOn()),constants.getValue(CommonConstants.APPLICATION_UI_TIME_FORMAT)),"Date & Time Column displayed Correctly", "Date & Time Column does not displayed Correctly"));
                     assertCheck.append(actions.matchUiAndAPIResponse(pages.getActionTrailPage().getValue(i+1, 3) ,actionTrailAPI.getResult().get(i).getReason(), "Reason Column displayed Correctly", "Reason Column does not displayed Correctly"));
                     assertCheck.append(actions.assertEqualStringType(pages.getActionTrailPage().getValue(i+1, 4), actionTrailAPI.getResult().get(i).getAgentId(), "Agent Id Column displayed Correctly", "Agent Id Column does not displayed Correctly"));
                     assertCheck.append(actions.matchUiAndAPIResponse(pages.getActionTrailPage().getValue(i+1, 5),actionTrailAPI.getResult().get(i).getAgentName() ,"Agent name Column displayed Correctly", "Agent name Column does not displayed in Correctly"));
@@ -125,9 +125,9 @@ public class ActionTrailTest extends Driver {
             assertCheck.append(actions.assertEqualIntType(statusCode, 200, "Action Trail API success and status code is :" + statusCode, "Action Trail API got failed and status code is :" + statusCode,false,true));
             if (statusCode == 200) {
                 List<EventResult> responseList= actionTrailAPI.getResult().stream().filter(ele -> "OSC Recharge".equalsIgnoreCase(ele.getActionType())).collect(Collectors.toList());
-                if(!responseList.isEmpty() && responseList.size() > 0) {
+                if(!responseList.isEmpty()) {
                     List<MetaInfo> metaInfoList = responseList.get(0).getMetaInfo();
-                    if(!metaInfoList.isEmpty() && metaInfoList.size() == 3){
+                    if(metaInfoList.size() == 3){
                         assertCheck.append(actions.assertEqualStringNotNull(metaInfoList.get(0).getValue(), "MetaInfo "+ metaInfoList.get(0).getLabel() + "param null check pass" , "MetaInfo "+ metaInfoList.get(0).getLabel() + " param null check fail"));
                         assertCheck.append(actions.assertEqualStringNotNull(metaInfoList.get(1).getValue(), "MetaInfo "+ metaInfoList.get(1).getLabel() + "param null check pass" , "MetaInfo "+ metaInfoList.get(1).getLabel() + " param null check fail"));
                         assertCheck.append(actions.assertEqualStringNotNull(metaInfoList.get(2).getValue(), "MetaInfo " + metaInfoList.get(2).getLabel() +" param null check pass" , "MetaInfo "+ metaInfoList.get(2).getLabel() + " param null check fail"));

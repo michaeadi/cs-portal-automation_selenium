@@ -18,6 +18,7 @@ public class PsbDemoGraphicWidgetTest extends Driver {
     PsbRequestSource api = new PsbRequestSource();
     CLMDetailsResponse clmDetails;
     String space = " ";
+    String className = this.getClass().getName();
 
 
     @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"})
@@ -40,7 +41,7 @@ public class PsbDemoGraphicWidgetTest extends Driver {
             clmDetails = api.getCLMDetails(customerNumber);
             assertCheck.append(actions.assertEqualIntType(clmDetails.getStatusCode(), 200, "CLM Details API Status Code Matched and is :" + clmDetails.getStatusCode(), "CLM Details API Status Code NOT Matched and is :" + clmDetails.getStatusCode(), false));
             if (clmDetails.getStatusCode() == 200) {
-                boolean pageLoaded = pages.getPsbDemographicWidget().isPageLoaded(clmDetails);
+                boolean pageLoaded = pages.getPsbDemographicWidget().isPageLoaded(clmDetails, className);
                 if (!pageLoaded)
                     continueExecutionFA = false;
             } else

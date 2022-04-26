@@ -19,6 +19,7 @@ public class SmartCashTransactionHistoryTest extends Driver {
     CLMDetailsResponse clmDetails;
     AirtelMoney amTransactionHistoryAPI;
     String nubanId;
+    String className = this.getClass().getName();
 
     @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"})
     public void checkExecution() {
@@ -40,7 +41,7 @@ public class SmartCashTransactionHistoryTest extends Driver {
             clmDetails = api.getCLMDetails(customerNumber);
             assertCheck.append(actions.assertEqualIntType(clmDetails.getStatusCode(), 200, "CLM Details API Status Code Matched and is :" + clmDetails.getStatusCode(), "CLM Details API Status Code NOT Matched and is :" + clmDetails.getStatusCode(), false));
             if (clmDetails.getStatusCode() == 200) {
-                boolean pageLoaded = pages.getPsbDemographicWidget().isPageLoaded(clmDetails);
+                boolean pageLoaded = pages.getPsbDemographicWidget().isPageLoaded(clmDetails, className);
                 if (!pageLoaded)
                     continueExecutionFA = false;
             } else
@@ -110,7 +111,7 @@ public class SmartCashTransactionHistoryTest extends Driver {
                         } else {
                             assertCheck.append(actions.assertEqualBoolean(pages.getSmartCashTransactionHistory().isNegSignDisplayOnSecondWidget(i + 1), true, (i + 1) + "th Negative Sign is displayed in case of Amount Debited.", (i + 1) + "th Negative Sign is not displayed in case of Amount Debited."));
                         }
-                        assertCheck.append(actions.matchUiAndAPIResponse(pages.getSmartCashTransactionHistory().getValueCorrespondingToHeader(i + 1, 2).replaceAll("\\R", " "), UtilsMethods.getDateFromString(amTransactionHistoryAPI.getResult().getData().get(i).getTransactionDate(), "dd-MMM-yyy hh:mm aa", "dd-MMM-yyyy hh:mm aa"), i + "th Date is expected as API response.", i + "th Date is not expected as API response."));
+                        assertCheck.append(actions.matchUiAndAPIResponse(pages.getSmartCashTransactionHistory().getValueCorrespondingToHeader(i + 1, 2).replaceAll("\\R", " "), UtilsMethods.getDateFromEpoch(Long.parseLong(amTransactionHistoryAPI.getResult().getData().get(i).getTransactionDate()), "dd-MMM-yyy hh:mm aa"), i + "th Date is expected as API response.", i + "th Date is not expected as API response."));
                         assertCheck.append(actions.matchUiAndAPIResponse(pages.getSmartCashTransactionHistory().getValueCorrespondingToHeader(i + 1, 3), amTransactionHistoryAPI.getResult().getData().get(i).getTransactionType(), (i + 1) + "th Transaction Type is same as expected in API response.", (i + 1) + "th Transaction Type is not expected as API response."));
                         assertCheck.append(actions.matchUiAndAPIResponse(pages.getSmartCashTransactionHistory().getValueCorrespondingToHeader(i + 1, 4), amTransactionHistoryAPI.getResult().getData().get(i).getSource(), (i + 1) + "th Sender MSISDN is expected as API response.", (i + 1) + "th Sender MSISDN is not expected as API response."));
                         assertCheck.append(actions.matchUiAndAPIResponse(pages.getSmartCashTransactionHistory().getValueCorrespondingToHeader(i + 1, 5), amTransactionHistoryAPI.getResult().getData().get(i).getMsisdn(), (i + 1) + "th Receiver MSISDN is expected as API response.", (i + 1) + "th Receiver MSISDN is not expected as API response."));

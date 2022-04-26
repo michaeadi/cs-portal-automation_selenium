@@ -7,7 +7,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 
-public class PsbDemographicWidget extends BasePage{
+public class PsbDemographicWidget extends BasePage {
     PsbDemographicWidgetPage pageElements;
 
     public PsbDemographicWidget(WebDriver driver) {
@@ -15,9 +15,12 @@ public class PsbDemographicWidget extends BasePage{
         pageElements = PageFactory.initElements(driver, PsbDemographicWidgetPage.class);
     }
 
-    public static int walletFlag,accountFlag;
+    public static int walletFlag;
+    public static int accountFlag;
+
     /**
      * This method is used to check Customer Name label visible or not
+     *
      * @return
      */
     public boolean isCustomerNameHeaderVisible() {
@@ -28,6 +31,7 @@ public class PsbDemographicWidget extends BasePage{
 
     /**
      * This method is used to check Email label visible or not
+     *
      * @return
      */
     public boolean isEmailIdHeaderVisible() {
@@ -38,6 +42,7 @@ public class PsbDemographicWidget extends BasePage{
 
     /**
      * This method is used to check Primary Id Type Header label visible or not
+     *
      * @return
      */
     public boolean isPrimaryIdTypeHeaderVisible() {
@@ -49,6 +54,7 @@ public class PsbDemographicWidget extends BasePage{
 
     /**
      * This method is used to check Secondary Id Type Header label visible or not
+     *
      * @return
      */
     public boolean isSecondaryIdTypeHeaderVisible() {
@@ -60,6 +66,7 @@ public class PsbDemographicWidget extends BasePage{
 
     /**
      * This method is used to check Address label visible or not
+     *
      * @return
      */
     public boolean isAddressHeaderVisible() {
@@ -70,6 +77,7 @@ public class PsbDemographicWidget extends BasePage{
 
     /**
      * This method is used to check user an agent  label visible or not
+     *
      * @return
      */
     public boolean isUserAgentHeaderVisible() {
@@ -80,6 +88,7 @@ public class PsbDemographicWidget extends BasePage{
 
     /**
      * This method is used to check Customer Id label visible or not
+     *
      * @return
      */
     public boolean isCustomerIdHeaderVisible() {
@@ -90,6 +99,7 @@ public class PsbDemographicWidget extends BasePage{
 
     /**
      * This method is used to check Customer Category label visible or not
+     *
      * @return
      */
     public boolean isCustomerCategoryHeaderVisible() {
@@ -97,11 +107,13 @@ public class PsbDemographicWidget extends BasePage{
         commonLib.info("Is Customer Category Header visible : " + status);
         return status;
     }
+
     /**
      * This method is used to check Customer Id is visible or not
+     *
      * @return
      */
-    public boolean isCustomerIdInfoIconVisible(){
+    public boolean isCustomerIdInfoIconVisible() {
         boolean status = isElementVisible(pageElements.customerIdInfoIcon);
         commonLib.info("Is Customer ID Hover visible : " + status);
         return status;
@@ -110,6 +122,7 @@ public class PsbDemographicWidget extends BasePage{
 
     /**
      * This method is used to check pin set label visible or not
+     *
      * @return
      */
     public boolean isPinSetHeaderVisible() {
@@ -120,6 +133,7 @@ public class PsbDemographicWidget extends BasePage{
 
     /**
      * This method is used to check Pin reset  label visible or not
+     *
      * @return
      */
     public boolean isPinResetHeaderVisible() {
@@ -130,6 +144,7 @@ public class PsbDemographicWidget extends BasePage{
 
     /**
      * This method is used to check Primary Id Number label visible or not
+     *
      * @return
      */
     public boolean isPrimaryIdNumberHeaderVisible() {
@@ -141,6 +156,7 @@ public class PsbDemographicWidget extends BasePage{
 
     /**
      * This method is used to check Secondary Id Number label visible or not
+     *
      * @return
      */
     public boolean isSecondaryIdNumberHeaderVisible() {
@@ -152,6 +168,7 @@ public class PsbDemographicWidget extends BasePage{
 
     /**
      * This method is used to check Gender label visible or not
+     *
      * @return
      */
     public boolean isGenderHeaderVisible() {
@@ -162,6 +179,7 @@ public class PsbDemographicWidget extends BasePage{
 
     /**
      * This method is used to check Dob label visible or not
+     *
      * @return
      */
     public boolean isDobHeaderVisible() {
@@ -172,6 +190,7 @@ public class PsbDemographicWidget extends BasePage{
 
     /**
      * This method is used to check Place of birth label visible or not
+     *
      * @return
      */
     public boolean isPobHeaderVisible() {
@@ -182,6 +201,7 @@ public class PsbDemographicWidget extends BasePage{
 
     /**
      * This method is used to check Mothers maiden name  label visible or not
+     *
      * @return
      */
     public boolean isMaidenNameHeaderVisible() {
@@ -192,6 +212,7 @@ public class PsbDemographicWidget extends BasePage{
 
     /**
      * This method is used to check Nationality label visible or not
+     *
      * @return
      */
     public boolean isNationalityHeaderVisible() {
@@ -202,6 +223,7 @@ public class PsbDemographicWidget extends BasePage{
 
     /**
      * This method is used to check Customer Type label visible or not
+     *
      * @return
      */
     public boolean isCustomerTypeHeaderVisible() {
@@ -236,6 +258,7 @@ public class PsbDemographicWidget extends BasePage{
 
     /**
      * This method is used to get customer name
+     *
      * @return String The value
      */
     public String getCustomerName() {
@@ -246,6 +269,7 @@ public class PsbDemographicWidget extends BasePage{
 
     /**
      * This method is used to get email id
+     *
      * @return String The value
      */
     public String getEmailId() {
@@ -256,6 +280,7 @@ public class PsbDemographicWidget extends BasePage{
 
     /**
      * This method is used to get primary id
+     *
      * @return String The value
      */
     public String getPrimaryIdType() {
@@ -267,6 +292,7 @@ public class PsbDemographicWidget extends BasePage{
 
     /**
      * This method is used to get Secondary Id Type
+     *
      * @return
      */
     public String getSecondaryIdType() {
@@ -278,6 +304,7 @@ public class PsbDemographicWidget extends BasePage{
 
     /**
      * This method is used to get Address
+     *
      * @return
      */
     public String getAddress() {
@@ -288,6 +315,7 @@ public class PsbDemographicWidget extends BasePage{
 
     /**
      * This method is used to get user an agent
+     *
      * @return
      */
     public String getIsUserAgent() {
@@ -299,6 +327,7 @@ public class PsbDemographicWidget extends BasePage{
 
     /**
      * This method is used to get Customer Id
+     *
      * @return
      */
     public String getCustomerId() {
@@ -310,6 +339,7 @@ public class PsbDemographicWidget extends BasePage{
 
     /**
      * This method is used to get Customer Category
+     *
      * @return
      */
     public String getCustomerCategory() {
@@ -321,6 +351,7 @@ public class PsbDemographicWidget extends BasePage{
 
     /**
      * This method is used to get Pin Set
+     *
      * @return
      */
     public String getPinSet() {
@@ -332,6 +363,7 @@ public class PsbDemographicWidget extends BasePage{
 
     /**
      * This method is used to get Pin Reset
+     *
      * @return
      */
     public String getPinReset() {
@@ -343,6 +375,7 @@ public class PsbDemographicWidget extends BasePage{
 
     /**
      * This method is used to get Primary Id Number
+     *
      * @return
      */
     public String getPrimaryIdNumber() {
@@ -354,6 +387,7 @@ public class PsbDemographicWidget extends BasePage{
 
     /**
      * This method is used to get Secondary Id Number
+     *
      * @return
      */
     public String getSecondaryIdNumber() {
@@ -365,6 +399,7 @@ public class PsbDemographicWidget extends BasePage{
 
     /**
      * This method is used to get Dob
+     *
      * @return
      */
     public String getDob() {
@@ -375,6 +410,7 @@ public class PsbDemographicWidget extends BasePage{
 
     /**
      * This method is used to get Gender
+     *
      * @return
      */
     public String getGender() {
@@ -385,6 +421,7 @@ public class PsbDemographicWidget extends BasePage{
 
     /**
      * This method is used to check Place of birth
+     *
      * @return
      */
     public String getPob() {
@@ -395,6 +432,7 @@ public class PsbDemographicWidget extends BasePage{
 
     /**
      * This method is used to get Mothers maiden name
+     *
      * @return
      */
     public String getMothersMaidenName() {
@@ -405,6 +443,7 @@ public class PsbDemographicWidget extends BasePage{
 
     /**
      * This method is used to get Nationality
+     *
      * @return
      */
     public String getNationality() {
@@ -415,6 +454,7 @@ public class PsbDemographicWidget extends BasePage{
 
     /**
      * This method is used to get Customer Type
+     *
      * @return
      */
     public String getCustomerType() {
@@ -425,6 +465,7 @@ public class PsbDemographicWidget extends BasePage{
 
     /**
      * This method is used to get Customer FirstName
+     *
      * @return
      */
     public String getFirstName() {
@@ -435,6 +476,7 @@ public class PsbDemographicWidget extends BasePage{
 
     /**
      * This method is used to get Customer LastName
+     *
      * @return
      */
     public String getLastName() {
@@ -445,6 +487,7 @@ public class PsbDemographicWidget extends BasePage{
 
     /**
      * This method is used to get Customer MSISDN
+     *
      * @return
      */
     public String getMSISDN() {
@@ -455,6 +498,7 @@ public class PsbDemographicWidget extends BasePage{
 
     /**
      * This method is used to check Intermediate Screen visible or not
+     *
      * @return
      */
     public boolean isIntermediateScreenVisible() {
@@ -465,6 +509,7 @@ public class PsbDemographicWidget extends BasePage{
 
     /**
      * This method is used to check Msisdn label visible or not
+     *
      * @return
      */
     public boolean isMsisdnVisible() {
@@ -475,6 +520,7 @@ public class PsbDemographicWidget extends BasePage{
 
     /**
      * This method is used to check Action label visible or not
+     *
      * @return
      */
     public boolean isActionVisible() {
@@ -485,6 +531,7 @@ public class PsbDemographicWidget extends BasePage{
 
     /**
      * This method is used to check Type label visible or not
+     *
      * @return
      */
     public boolean isTypeVisible() {
@@ -495,6 +542,7 @@ public class PsbDemographicWidget extends BasePage{
 
     /**
      * This method is used to check Created on label visible or not
+     *
      * @return
      */
     public boolean isCreatedOnVisible() {
@@ -505,6 +553,7 @@ public class PsbDemographicWidget extends BasePage{
 
     /**
      * This method is used to check Nuban id label visible or not
+     *
      * @return
      */
     public boolean isNubanIdVisible() {
@@ -515,32 +564,34 @@ public class PsbDemographicWidget extends BasePage{
 
     /**
      * This method is used click CTA of a particular row
+     *
      * @param row
      * @return
      */
     public void clickHeaderValue(int row) {
-        commonLib.info("Clicking"+row+ "is CTA");
-       clickAndWaitForLoaderToBeRemoved(By.xpath(pageElements.row +"[" +row + pageElements.column));
+        commonLib.info("Clicking" + row + "is CTA");
+        clickAndWaitForLoaderToBeRemoved(By.xpath(pageElements.row + "[" + row + pageElements.column));
 
     }
 
     /**
      * This method is used get total no of rows
+     *
      * @return
      */
     public int getNoOfRows() {
-        int no=getSizeOfElement(By.xpath(pageElements.row));
-        return no;
+        return getSizeOfElement(By.xpath(pageElements.row));
 
     }
 
     /**
      * This method is used get total no of rows
+     *
      * @return
      */
     public String getType(int row) {
-        String type=getText(By.xpath(pageElements.row+"[" +row + pageElements.typeRow));
-         commonLib.info("Reading Type of " + row + ":" + type);
+        String type = getText(By.xpath(pageElements.row + "[" + row + pageElements.typeRow));
+        commonLib.info("Reading Type of " + row + ":" + type);
         return type;
 
     }
@@ -548,6 +599,7 @@ public class PsbDemographicWidget extends BasePage{
 
     /**
      * This method is used to check Wallet Information widget visible or not
+     *
      * @return
      */
     public boolean isWalletInformationWidgetVisible() {
@@ -558,6 +610,7 @@ public class PsbDemographicWidget extends BasePage{
 
     /**
      * This method is used to check Account Information widget visible or not
+     *
      * @return
      */
     public boolean isAccountInformationWidgetVisible() {
@@ -568,6 +621,7 @@ public class PsbDemographicWidget extends BasePage{
 
     /**
      * This method is used to check footer auuid visible or not
+     *
      * @return
      */
     public String getFooterAuuid() {
@@ -578,6 +632,7 @@ public class PsbDemographicWidget extends BasePage{
 
     /**
      * This method is used to check middle auuid  visible or not
+     *
      * @return
      */
     public String getMiddleAuuid() {
@@ -588,11 +643,13 @@ public class PsbDemographicWidget extends BasePage{
 
     /**
      * This method will check whether customer profile page is loaded or not after searching the msisdn
-     * @return
+     *
+     * @param clmDetails the api response
+     * @param className  the classname
+     * @return page loaded or not?
      */
-    public boolean isPageLoaded(CLMDetailsResponse clmDetails)
-    {
-        boolean pageLoaded=false;
+    public boolean isPageLoaded(CLMDetailsResponse clmDetails, String className) {
+        boolean pageLoaded = false;
         int walletsSize = clmDetails.getResult().getDetails().get(0).getWallets().size();
         int accountsSize = clmDetails.getResult().getDetails().get(0).getAccounts().size();
         int totalSize = walletsSize + accountsSize;
@@ -604,16 +661,17 @@ public class PsbDemographicWidget extends BasePage{
             assertCheck.append(actions.assertEqualBoolean(pages.getPsbDemographicWidget().isMsisdnVisible(), true, "Msisdn is visible ", "Msisdn is not visible "));
             assertCheck.append(actions.assertEqualBoolean(pages.getPsbDemographicWidget().isCreatedOnVisible(), true, " Created ON is visible ", "Created on is not visible "));
             int size = pages.getPsbDemographicWidget().getNoOfRows();
-            for (int i = 1; i <=size; i++) {
+            for (int i = 1; i <= size; i++) {
                 String type = pages.getPsbDemographicWidget().getType(i);
-                pages.getPsbDemographicWidget().clickHeaderValue(i);
-                if (type.equalsIgnoreCase("Wallet")) {
+                if (type.equalsIgnoreCase("Wallet") || className.contains("Wallet")) {
+                    pages.getPsbDemographicWidget().clickHeaderValue(i + 1);
                     pageLoaded = pages.getPsbDemographicWidget().isWalletInformationWidgetVisible();
                     assertCheck.append(actions.assertEqualBoolean(pageLoaded, true, "Customer Profile Page is loaded and Wallet Information widget is also visible ", "Customer Profile Page is not loaded and Wallet Information widget is also not visible"));
                     walletFlag++;
                     break;
                 }
-                if (type.equalsIgnoreCase("Account")) {
+                if (type.equalsIgnoreCase("Account") || className.contains("Account")) {
+                    pages.getPsbDemographicWidget().clickHeaderValue(i);
                     pageLoaded = pages.getPsbDemographicWidget().isAccountInformationWidgetVisible();
                     assertCheck.append(actions.assertEqualBoolean(pageLoaded, true, "Customer Profile Page is loaded and Account Information widget is also visible ", "Customer Profile Page is not loaded and Account Information widget is also not visible"));
                     accountFlag++;
@@ -621,7 +679,7 @@ public class PsbDemographicWidget extends BasePage{
                 }
             }
         } else {
-            pageLoaded=pages.getCustomerProfilePage().isCustomerProfilePageLoaded();
+            pageLoaded = pages.getCustomerProfilePage().isCustomerProfilePageLoaded();
             assertCheck.append(actions.assertEqualBoolean(pageLoaded, true, "Customer Profile Page Loaded Successfully", "Customer Profile Page NOT Loaded"));
         }
 
@@ -630,6 +688,7 @@ public class PsbDemographicWidget extends BasePage{
 
     /**
      * This method is used to check smart cash logo visible or not
+     *
      * @return
      */
     public boolean isSmartCashLogoVisible() {
@@ -648,6 +707,7 @@ public class PsbDemographicWidget extends BasePage{
 
     /**
      * This method is used to get Address's Zone
+     *
      * @return
      */
     public String getAddressZone() {
@@ -658,6 +718,7 @@ public class PsbDemographicWidget extends BasePage{
 
     /**
      * This method is used to get Address Line 2
+     *
      * @return
      */
     public String getAddressLine2() {
@@ -668,6 +729,7 @@ public class PsbDemographicWidget extends BasePage{
 
     /**
      * This method is used to get Address Line 3
+     *
      * @return
      */
     public String getAddressLine3() {
