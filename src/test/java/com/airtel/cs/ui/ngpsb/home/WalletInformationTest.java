@@ -131,10 +131,10 @@ public class WalletInformationTest extends Driver {
                 assertCheck.append(actions.matchUiAndAPIResponse(pages.getWalletInformation().getBarredBy(), clmDetails.getResult().getDetails().get(0).getBarDetails().getBarredBy(), "Barred By is same as Expected", "Barred By is not same as Expected"));
                 assertCheck.append(actions.matchUiAndAPIResponse(pages.getWalletInformation().getBarredOn(), clmDetails.getResult().getDetails().get(0).getBarDetails().getBarredOn(), "Barred On is same as Expected", "Barred On is not same as Expected"));
                 assertCheck.append(actions.matchUiAndAPIResponse(pages.getWalletInformation().getRemarks(), clmDetails.getResult().getDetails().get(0).getBarDetails().getRemarks(), "Remarks is same as Expected", "Remarks is not same as Expected"));
-
-            } else
+                actions.assertAllFoundFailedAssert(assertCheck);
+            } else {
                 commonLib.fail("Not able to get barring status", true);
-            actions.assertAllFoundFailedAssert(assertCheck);
+            }
         } catch (Exception e) {
             commonLib.fail("Exception in Method - testBarringStatus" + e.fillInStackTrace(), true);
         }
@@ -222,7 +222,7 @@ public class WalletInformationTest extends Driver {
                     assertCheck.append(actions.assertEqualStringType(pages.getAmSmsTrails().getRowValue(row, 2).toLowerCase(), pages.getDemoGraphicPage().getKeyValueAPI(smsLogs.getResult().get(i).getTransactionId()), "Transaction Id is same as expected ", "Transaction Id is NOT same as expected"));
                     assertCheck.append(actions.assertEqualStringType(pages.getAmSmsTrails().getRowValue(row, 3).toLowerCase(), pages.getDemoGraphicPage().getKeyValueAPI(smsLogs.getResult().get(i).getSmsId()), "Sms Id is same as expected ", "Sms Id is NOT same as expected"));
                     assertCheck.append(actions.assertEqualStringType(pages.getAmSmsTrails().getRowValue(row, 4).toLowerCase(), pages.getDemoGraphicPage().getKeyValueAPI(smsLogs.getResult().get(i).getSmsBody()), "Sms Body is same as expected ", "Sms Body is NOT same as expected"));
-                    assertCheck.append(actions.assertEqualStringType(pages.getAmSmsTrails().getAction(row, 5).toLowerCase(), "Resend SMS", "Resend SMS is visible in Action", "Resend SMS is NOT visible in Action"));
+                    assertCheck.append(actions.assertEqualStringType(pages.getAmSmsTrails().getAction(row, 5), "Resend SMS", "Resend SMS is visible in Action", "Resend SMS is NOT visible in Action"));
                 }
             }
             actions.assertAllFoundFailedAssert(assertCheck);
