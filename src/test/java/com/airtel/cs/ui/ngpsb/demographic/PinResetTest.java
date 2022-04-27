@@ -85,7 +85,7 @@ public class PinResetTest extends Driver {
             pages.getPinReset().goToActionTrail();
             assertCheck.append(actions.assertEqualStringType(pages.getPinReset().getActionType(), "SmartCash PIN Reset", "Action type for pin reset is expected", "Action type for pin reset is not as expected"));
             assertCheck.append(actions.assertEqualStringType(pages.getPinReset().getReason(), "Customer Forgot PIN", "Reason for pin reset is expected", "Reason for pin reset is not as expected"));
-            assertCheck.append(actions.assertEqualStringType(pages.getPinReset().getComment(), constants.getValue(ApplicationConstants.COMMENT), "Comment for pin reset is expected", "Comment for pin reset is not as expected"));
+            assertCheck.append(actions.assertEqualStringType(pages.getPinReset().getComment(), ApplicationConstants.COMMENT, "Comment for pin reset is expected", "Comment for pin reset is not as expected"));
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
             commonLib.fail("Exception in Method - checkActionTrail" + e.fillInStackTrace(), true);
