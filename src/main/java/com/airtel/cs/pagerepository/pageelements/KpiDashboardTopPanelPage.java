@@ -30,6 +30,6 @@ public class KpiDashboardTopPanelPage {
     public By detailsBreachingWithin15To60MinsLabel = By.xpath("//div[contains(text(),' Breaching Within 15 - 60 Mins ')]");
     public By detailsBreachingWithin60MinsLabel = By.xpath("//div[contains(text(),' Breaching Within > 60 Mins ')]");
     public By backIcon = By.xpath("//img[contains(@src,'assets/service-request/images/icon/back.svg')]");
-    public By kpiDashboardIcon = By.xpath("//img[contains(@src,'assets/service-request/icons/kpi_dashboard.svg')]");
-    public By csDashboardIcon = By.xpath("//*[@id=\"left-side\"]/div/div/mat-nav-list/mat-list-item[4]/div/div[3]/mat-nav-list/mat-list-item/div/a");
+    public By kpiDashboardIcon = By.xpath("//img[contains(@src,'kpi_dashboard.svg')]");
+    public By csDashboardIcon = By.xpath("//a[contains(text(),'CS Dashboard')]");
 }

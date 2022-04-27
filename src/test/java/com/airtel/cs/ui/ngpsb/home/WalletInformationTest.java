@@ -62,7 +62,7 @@ public class WalletInformationTest extends Driver {
         }
     }
 
-    @Test(priority = 2, groups = {"SanityTest", "ProdTest", "SmokeTest"}, dependsOnMethods = {"openCustomerInteraction"})
+    @Test(priority = 2, groups = {"SanityTest", "ProdTest", "SmokeTest", "RegressionTest"}, dependsOnMethods = {"openCustomerInteraction"})
     public void testWalletInformationWidget() {
         try {
             selUtils.addTestcaseDescription("Validate Wallet Information widget", "description");
@@ -78,7 +78,7 @@ public class WalletInformationTest extends Driver {
         }
     }
 
-    @Test(priority = 3, groups = {"SanityTest", "ProdTest", "SmokeTest"}, dependsOnMethods = {"openCustomerInteraction"})
+    @Test(priority = 3, groups = {"SanityTest", "ProdTest", "SmokeTest", "RegressionTest"}, dependsOnMethods = {"openCustomerInteraction"})
     public void testWalletInformationWidgetData() {
         try {
             selUtils.addTestcaseDescription("Validate Account Information widget data", "description");
@@ -117,8 +117,7 @@ public class WalletInformationTest extends Driver {
             selUtils.addTestcaseDescription("Validate Barring Status widget data", "description");
             if (barringStatus.equalsIgnoreCase("NO")) {
                 commonLib.warning("Barring Status is N0, Unable to display barring details");
-            }
-            else if (barringStatus.equalsIgnoreCase("YES")) {
+            } else if (barringStatus.equalsIgnoreCase("YES")) {
                 pages.getWalletInformation().hoverOnBarringInfoIcon();
                 assertCheck.append(actions.assertEqualBoolean(pages.getWalletInformation().isBarTypeHeaderVisible(), true, "Bar type header is visible", "Bar Type header is NOT visible"));
                 assertCheck.append(actions.assertEqualBoolean(pages.getWalletInformation().isBarReasonHeaderVisible(), true, "Bar Reason header is visible", "Bar Reason header is NOT visible"));
@@ -144,7 +143,7 @@ public class WalletInformationTest extends Driver {
     /**
      * This method is used to check Wallets balance
      */
-    @Test(priority = 5, groups = {"SanityTest", "ProdTest"}, dependsOnMethods = "openCustomerInteraction")
+    @Test(priority = 5, groups = {"SanityTest", "ProdTest", "RegressionTest"}, dependsOnMethods = "openCustomerInteraction")
     public void testWalletsBalance() {
         try {
             selUtils.addTestcaseDescription("Validate Wallets balance", "description");
@@ -169,7 +168,7 @@ public class WalletInformationTest extends Driver {
     /**
      * This method is used to check Wallets data
      */
-    @Test(priority = 6, groups = {"SanityTest", "ProdTest", "SmokeTest"}, dependsOnMethods = "openCustomerInteraction")
+    @Test(priority = 6, groups = {"SanityTest", "ProdTest", "SmokeTest", "RegressionTest"}, dependsOnMethods = "openCustomerInteraction")
     public void testWalletsTab() {
         try {
             selUtils.addTestcaseDescription("Validate data of all the fields of Wallets tab", "description");
@@ -203,7 +202,7 @@ public class WalletInformationTest extends Driver {
     }
 
 
-    @Test(priority = 7, groups = {"SanityTest", "ProdTest", "SmokeTest"}, dependsOnMethods = {"openCustomerInteraction"})
+    @Test(priority = 7, groups = {"SanityTest", "ProdTest", "SmokeTest", "RegressionTest"}, dependsOnMethods = {"openCustomerInteraction"})
     public void testSMSLogsTab() {
         try {
             selUtils.addTestcaseDescription("Validate Wallets tab data", "description");

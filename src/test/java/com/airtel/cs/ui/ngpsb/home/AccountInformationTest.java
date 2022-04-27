@@ -61,7 +61,7 @@ public class AccountInformationTest extends Driver {
         }
     }
 
-    @Test(priority = 2, groups = {"SanityTest", "ProdTest", "SmokeTest"}, dependsOnMethods = {"openCustomerInteraction"})
+    @Test(priority = 2, groups = {"SanityTest", "ProdTest", "SmokeTest", "RegressionTest"}, dependsOnMethods = {"openCustomerInteraction"})
     public void testAccountInformationWidget() {
         try {
             selUtils.addTestcaseDescription("Validate Account Information widget", "description");
@@ -77,7 +77,7 @@ public class AccountInformationTest extends Driver {
         }
     }
 
-    @Test(priority = 3, groups = {"SanityTest", "ProdTest"}, dependsOnMethods = {"openCustomerInteraction"})
+    @Test(priority = 3, groups = {"SanityTest", "ProdTest", "RegressionTest"}, dependsOnMethods = {"openCustomerInteraction"})
     public void testAccountInformationWidgetData() {
         try {
             selUtils.addTestcaseDescription("Validate Account Information widget data", "description");
@@ -93,12 +93,8 @@ public class AccountInformationTest extends Driver {
             assertCheck.append(actions.assertEqualStringType(pages.getAccountInformation().getAccountNubanId().toLowerCase(), pages.getDemoGraphicPage().getKeyValueAPI(clmDetails.getResult().getDetails().get(0).getAccounts().get(0).getId()), "Account Nuban id is same as Expected", "Account nuban id is not same as Expected"));
             assertCheck.append(actions.assertEqualStringType(pages.getAccountInformation().getSecurityQuestionsSet().toLowerCase(), pages.getDemoGraphicPage().getKeyValueAPI(clmDetails.getResult().getDetails().get(0).getAccounts().get(0).getIsSecurityQuestionSet()), "Security Question Set is same as Expected", "Security Question Set is not same as Expected"));
             assertCheck.append(actions.assertEqualStringType(pages.getAccountInformation().getSecurityQuestionsConfigured().toLowerCase(), pages.getDemoGraphicPage().getKeyValueAPI(String.valueOf(clmDetails.getResult().getDetails().get(0).getAccounts().get(0).getSecurityQuestionsConfigured())), "Security Question Configured is same as Expected", "Security Question Configured is not same as Expected"));
-            assertCheck.append(actions.assertEqualStringType(pages.getAccountInformation().getBarringStatus().toLowerCase(), pages.getDemoGraphicPage().getKeyValueAPI(clmDetails.getResult().getDetails().get(0).getAccounts().get(0).getBarred()), "Barring status is same as Expected", "Barring status  is not same as Expected"));
-            assertCheck.append(actions.assertEqualBoolean(pages.getWalletInformation().isBarringInfoIconVisible(), true, "Barring status info icon is visible", "Barring status info icon is NOT visible"));
-            assertCheck.append(actions.assertEqualStringType(pages.getAccountInformation().getSecurityQuestionsConfigured(), pages.getDemoGraphicPage().getKeyValueAPI(clmDetails.getResult().getDetails().get(0).getAccounts().get(0).getSecurityQuestionsConfigured().toString()), "Security Question Configured is same as Expected", "Security Question Configured  is not same as Expected"));
             barringStatus = pages.getAccountInformation().getBarringStatus();
-            assertCheck.append(actions.assertEqualStringType(barringStatus, pages.getDemoGraphicPage().getKeyValueAPI(clmDetails.getResult().getDetails().get(0).getAccounts().get(0).getBarred()), "Barring status is same as Expected", "Barring status  is not same as Expected"));
-            assertCheck.append(actions.assertEqualBoolean(pages.getWalletInformation().isBarringInfoIconVisible(), true, "Barring status info icon is visible", "Barring status info icon is NOT visible"));
+            assertCheck.append(actions.assertEqualStringType(barringStatus.toLowerCase(), pages.getDemoGraphicPage().getKeyValueAPI(clmDetails.getResult().getDetails().get(0).getAccounts().get(0).getBarred()), "Barring status is same as Expected", "Barring status  is not same as Expected"));
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
             commonLib.fail("Exception in Method - testAccountInformationWidgetData" + e.fillInStackTrace(), true);
@@ -109,24 +105,24 @@ public class AccountInformationTest extends Driver {
     public void testBarringStatus() {
         try {
             selUtils.addTestcaseDescription("Validate Barring Status widget data", "description");
-            pages.getWalletInformation().hoverOnBarringInfoIcon();
-            if (barringStatus.equalsIgnoreCase("NO"))
-                commonLib.info("Barring Status is N0, Unable to display barring details");
-            else if (barringStatus.equalsIgnoreCase("YES")) {
+            if (barringStatus.equalsIgnoreCase("NO")) {
+                commonLib.warning("Barring Status is N0, Unable to display barring details");
+            } else if (barringStatus.equalsIgnoreCase("YES")) {
+                pages.getWalletInformation().hoverOnBarringInfoIcon();
                 assertCheck.append(actions.assertEqualBoolean(pages.getWalletInformation().isBarTypeHeaderVisible(), true, "Bar type header is visible", "Bar Type header is NOT visible"));
                 assertCheck.append(actions.assertEqualBoolean(pages.getWalletInformation().isBarReasonHeaderVisible(), true, "Bar Reason header is visible", "Bar Reason header is NOT visible"));
                 assertCheck.append(actions.assertEqualBoolean(pages.getWalletInformation().isBarredByHeaderVisible(), true, "Bar By header is visible", "Bar By header is NOT visible"));
                 assertCheck.append(actions.assertEqualBoolean(pages.getWalletInformation().isBarredOnHeaderVisible(), true, "Bar On is visible", "Bar On header is NOT visible"));
                 assertCheck.append(actions.assertEqualBoolean(pages.getWalletInformation().isRemarksHeaderVisible(), true, "Remarks header is visible", "Remarks header is NOT visible"));
-
                 assertCheck.append(actions.matchUiAndAPIResponse(pages.getWalletInformation().getBarType(), pages.getDemoGraphicPage().getKeyValueAPI(clmDetails.getResult().getDetails().get(0).getBarDetails().getBarType()), "Bar Type status is same as Expected", "Bar Type  is not same as Expected"));
                 assertCheck.append(actions.matchUiAndAPIResponse(pages.getWalletInformation().getBarReason(), pages.getDemoGraphicPage().getKeyValueAPI(clmDetails.getResult().getDetails().get(0).getBarDetails().getBarReason()), "Bar Reason is same as Expected", "Bar Reason is not same as Expected"));
                 assertCheck.append(actions.matchUiAndAPIResponse(pages.getWalletInformation().getBarredBy(), pages.getDemoGraphicPage().getKeyValueAPI(clmDetails.getResult().getDetails().get(0).getBarDetails().getBarredBy()), "Barred By is same as Expected", "Barred By is not same as Expected"));
                 assertCheck.append(actions.matchUiAndAPIResponse(pages.getWalletInformation().getBarredOn(), pages.getDemoGraphicPage().getKeyValueAPI(clmDetails.getResult().getDetails().get(0).getBarDetails().getBarredOn()), "Barred On is same as Expected", "Barred On is not same as Expected"));
                 assertCheck.append(actions.matchUiAndAPIResponse(pages.getWalletInformation().getRemarks(), pages.getDemoGraphicPage().getKeyValueAPI(clmDetails.getResult().getDetails().get(0).getBarDetails().getRemarks()), "Remarks is same as Expected", "Remarks is not same as Expected"));
-            } else
+                actions.assertAllFoundFailedAssert(assertCheck);
+            } else {
                 commonLib.fail("Not able to get barring status", true);
-            actions.assertAllFoundFailedAssert(assertCheck);
+            }
         } catch (Exception e) {
             commonLib.fail("Exception in Method - testBarringStatus" + e.fillInStackTrace(), true);
         }
@@ -136,7 +132,7 @@ public class AccountInformationTest extends Driver {
     /**
      * This method is used to check Accounts balance
      */
-    @Test(priority = 5, groups = {"SanityTest", "ProdTest"}, dependsOnMethods = "openCustomerInteraction")
+    @Test(priority = 5, groups = {"SanityTest", "ProdTest", "RegressionTest"}, dependsOnMethods = "openCustomerInteraction")
     public void testAccountsBalance() {
         try {
             selUtils.addTestcaseDescription("Validate Accounts balance", "description");
@@ -158,7 +154,7 @@ public class AccountInformationTest extends Driver {
     }
 
 
-    @Test(priority = 6, groups = {"SanityTest", "ProdTest", "SmokeTest"}, dependsOnMethods = {"openCustomerInteraction"})
+    @Test(priority = 6, groups = {"SanityTest", "ProdTest", "SmokeTest", "RegressionTest"}, dependsOnMethods = {"openCustomerInteraction"})
     public void testBankAccountsTabs() {
         try {
             selUtils.addTestcaseDescription("Validate Bank Accounts tab data", "description");
@@ -190,7 +186,7 @@ public class AccountInformationTest extends Driver {
         }
     }
 
-    @Test(priority = 7, groups = {"SanityTest", "ProdTest", "SmokeTest"}, dependsOnMethods = {"openCustomerInteraction"})
+    @Test(priority = 7, groups = {"SanityTest", "ProdTest", "SmokeTest", "RegressionTest"}, dependsOnMethods = {"openCustomerInteraction"})
     public void testSmsLogsTabs() {
         try {
             selUtils.addTestcaseDescription("Validate Wallets tab data", "description");

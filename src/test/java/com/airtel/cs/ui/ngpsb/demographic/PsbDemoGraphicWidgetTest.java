@@ -11,6 +11,8 @@ import org.testng.SkipException;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import java.util.Locale;
+
 
 @Log4j2
 public class PsbDemoGraphicWidgetTest extends Driver {
@@ -166,9 +168,9 @@ public class PsbDemoGraphicWidgetTest extends Driver {
                 assertCheck.append(actions.assertEqualBoolean(customerIdInfoIconVisible, true, "Customer Id Icon is visible", "Customer Id Icon is NOT visible"));
                 if (customerIdInfoIconVisible) {
                     pages.getPsbDemographicWidget().hoverOnCustomerInfoIdIcon();
-                    assertCheck.append(actions.assertEqualStringType(pages.getPsbDemographicWidget().getFirstName(), pages.getDemoGraphicPage().getKeyValueAPI(clmDetails.getResult().getKinDetails().getFirstName()), "Customer FirstName is as Expected", "Customer FirstName is not same as Expected"));
-                    assertCheck.append(actions.assertEqualStringType(pages.getPsbDemographicWidget().getLastName(), pages.getDemoGraphicPage().getKeyValueAPI(clmDetails.getResult().getKinDetails().getLastName()), "Customer LastName is as Expected", "Customer LastName is not same as Expected"));
-                    assertCheck.append(actions.assertEqualStringType(pages.getPsbDemographicWidget().getMSISDN(), pages.getDemoGraphicPage().getKeyValueAPI(clmDetails.getResult().getKinDetails().getMsisdn()), "Customer MSISDN is as Expected", "Customer MSISDN is not same as Expected"));
+                    assertCheck.append(actions.assertEqualStringType(pages.getPsbDemographicWidget().getFirstName().toLowerCase(), pages.getDemoGraphicPage().getKeyValueAPI(clmDetails.getResult().getKinDetails().getFirstName()), "Customer FirstName is as Expected", "Customer FirstName is not same as Expected"));
+                    assertCheck.append(actions.assertEqualStringType(pages.getPsbDemographicWidget().getLastName().toLowerCase(), pages.getDemoGraphicPage().getKeyValueAPI(clmDetails.getResult().getKinDetails().getLastName()), "Customer LastName is as Expected", "Customer LastName is not same as Expected"));
+                    assertCheck.append(actions.assertEqualStringType(pages.getPsbDemographicWidget().getMSISDN().toLowerCase(Locale.ROOT), pages.getDemoGraphicPage().getKeyValueAPI(clmDetails.getResult().getKinDetails().getMsisdn()), "Customer MSISDN is as Expected", "Customer MSISDN is not same as Expected"));
                 }
             }
             assertCheck.append(actions.assertEqualBoolean(pages.getPsbDemographicWidget().isCustomerCategoryHeaderVisible(), true, "Customer Category header is visible", "Customer Category  header is NOT visible"));

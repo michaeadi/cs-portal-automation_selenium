@@ -59,7 +59,7 @@ public class PinResetTest extends Driver {
             assertCheck.append(actions.assertEqualBoolean(pages.getPinReset().isCommentBoxVisible(), true, "Comment box is visible", "Comment box is NOT visible"));
             assertCheck.append(actions.assertEqualBoolean(pages.getPinReset().isSubmitBtnDisabled(), false, "Submit button is disabled", "Submit button is not disabled"));
             assertCheck.append(actions.assertEqualBoolean(pages.getPinReset().isCancelButtonVisible(), true, "Cancel Button is visible ", "Cancel Button is NOT visible"));
-            pages.getPinReset().enterComment(constants.getValue(ApplicationConstants.COMMENT));
+            pages.getPinReset().enterComment(ApplicationConstants.COMMENT);
             pages.getPinReset().clickOnCancelButton();
             /**
              Performing operations after clicking Cancel button of Issue Detail Pop up

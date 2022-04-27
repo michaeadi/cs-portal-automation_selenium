@@ -423,7 +423,7 @@
     <test name="Kpi Dashboard TopPanelTest " preserve-order="true">
         <groups>
             <run>
-                <include name="ProdTest"/>
+                <include name="SanityTest"/>
             </run>
         </groups>
         <classes>
@@ -433,7 +433,7 @@
     <test name="Kpi Dashboard 6MonthsOverviewPageTest " preserve-order="true">
         <groups>
             <run>
-                <include name="ProdTest"/>
+                <include name="SanityTest"/>
             </run>
         </groups>
         <classes>
@@ -443,7 +443,7 @@
     <test name="Kpi Dashboard 6MonthsTicketTypeTest" preserve-order="true">
         <groups>
             <run>
-                <include name="ProdTest"/>
+                <include name="SanityTest"/>
             </run>
         </groups>
         <classes>
@@ -453,7 +453,7 @@
     <test name="Kpi Dashboard OpenTicketAgeingTest " preserve-order="true">
         <groups>
             <run>
-                <include name="ProdTest"/>
+                <include name="SanityTest"/>
             </run>
         </groups>
         <classes>
@@ -463,7 +463,7 @@
     <test name="Kpi Dashboard QueueWiseSLAPerformancePageTest " preserve-order="true">
         <groups>
             <run>
-                <include name="ProdTest"/>
+                <include name="SanityTest"/>
             </run>
         </groups>
         <classes>
@@ -473,7 +473,7 @@
     <test name="Kpi Dashboard FeatureUsageOfActionsPageTest" preserve-order="true">
         <groups>
             <run>
-                <include name="ProdTest"/>
+                <include name="SanityTest"/>
             </run>
         </groups>
         <classes>
