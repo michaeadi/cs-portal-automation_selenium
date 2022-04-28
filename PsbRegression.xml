@@ -69,24 +69,44 @@
             <class name="com.airtel.cs.ui.ngpsb.home.SmartCashTransactionHistoryTest"/>
         </classes>
     </test>
-    <test name="Pin Reset Test" preserve-order="true">
+    <test name="Wallet Pin Reset Test" preserve-order="true">
         <groups>
             <run>
                 <include name="RegressionTest"/>
             </run>
         </groups>
         <classes>
-            <class name="com.airtel.cs.ui.ngpsb.demographic.PinResetTest"/>
+            <class name="com.airtel.cs.ui.ngpsb.demographic.WalletPinResetTest"/>
         </classes>
     </test>
-    <test name="Bar Unbar Test" preserve-order="true">
+    <test name="Account Pin Reset Test" preserve-order="true">
         <groups>
             <run>
                 <include name="RegressionTest"/>
             </run>
         </groups>
         <classes>
-            <class name="com.airtel.cs.ui.ngpsb.demographic.BarUnBarTest"/>
+            <class name="com.airtel.cs.ui.ngpsb.demographic.AccountPinResetTest"/>
+        </classes>
+    </test>
+    <test name="Wallet Bar Unbar Test" preserve-order="true">
+        <groups>
+            <run>
+                <include name="RegressionTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.ngpsb.demographic.WalletBarUnBarTest"/>
+        </classes>
+    </test>
+    <test name="Account Bar Unbar Test" preserve-order="true">
+        <groups>
+            <run>
+                <include name="RegressionTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.ngpsb.demographic.AccountBarUnBarTest"/>
         </classes>
     </test>
      <!--<test name="Validate Action Trail Tab Test">

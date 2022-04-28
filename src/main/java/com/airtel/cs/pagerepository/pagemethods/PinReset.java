@@ -274,4 +274,12 @@ public class PinReset extends BasePage {
         commonLib.info(getText(pageElements.comment));
         return getText(pageElements.comment);
     }
+
+    /**
+     * This method is use to click close tab button
+     */
+    public void clickCloseBtn() {
+        commonLib.info("Clicking on close button");
+        clickAndWaitForLoaderToBeRemoved(pageElements.pinRestCloseBtn);
+    }
 }

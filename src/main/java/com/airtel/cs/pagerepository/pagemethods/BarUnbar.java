@@ -6,7 +6,7 @@ import org.openqa.selenium.support.PageFactory;
 
 import static com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants.COMMENT;
 
-public class BarUnbar extends BasePage{
+public class BarUnbar extends BasePage {
     BarUnbarPage pageElements;
 
     public BarUnbar(WebDriver driver) {
@@ -16,6 +16,7 @@ public class BarUnbar extends BasePage{
 
     /**
      * This method is used to check BAR icon visible or not
+     *
      * @return
      */
     public boolean isBarIconVisible() {
@@ -26,6 +27,7 @@ public class BarUnbar extends BasePage{
 
     /**
      * This method is used to check UnBAR icon visible or not
+     *
      * @return
      */
     public boolean isUnBarIconVisible() {
@@ -36,6 +38,7 @@ public class BarUnbar extends BasePage{
 
     /**
      * This method is used to check issue pop up  is visible or not
+     *
      * @return
      */
     public boolean isIssuePopUpVisible() {
@@ -46,6 +49,7 @@ public class BarUnbar extends BasePage{
 
     /**
      * This method is used to check BAR header is visible or not in Issue pop up
+     *
      * @return
      */
     public boolean isBarHeaderVisible() {
@@ -56,6 +60,7 @@ public class BarUnbar extends BasePage{
 
     /**
      * This method is used to check UNBAR header is visible or not in Issue pop up
+     *
      * @return
      */
     public boolean isUnBarHeaderVisible() {
@@ -69,15 +74,16 @@ public class BarUnbar extends BasePage{
      */
     public void clickBarIcon() {
         commonLib.pass("Going to click bar icon ");
-        if (isVisible(pageElements.barIcon));
+        if (isVisible(pageElements.barIcon)) ;
         clickAndWaitForLoaderToBeRemoved(pageElements.barIcon);
     }
+
     /**
      * This method is used to click on unbar  icon
      */
     public void clickUnBarIcon() {
         commonLib.pass("Going to click unbar icon ");
-        if (isVisible(pageElements.unBarIcon));
+        if (isVisible(pageElements.unBarIcon)) ;
         clickAndWaitForLoaderToBeRemoved(pageElements.unBarIcon);
     }
 
@@ -132,7 +138,7 @@ public class BarUnbar extends BasePage{
      */
     public void clickOnSelectReason() {
         commonLib.info("Going to click Select Reason");
-        if (isVisible(pageElements.selectReason));
+        if (isVisible(pageElements.selectReason)) ;
         clickWithoutLoader((pageElements.selectReason));
     }
 
@@ -141,7 +147,7 @@ public class BarUnbar extends BasePage{
      */
     public void selectReasonFromDropdown() {
         commonLib.info("Going to Select Reason from dropdown");
-        if (isVisible(pageElements.selectReasonFromDropdown));
+        if (isVisible(pageElements.selectReasonFromDropdown)) ;
         clickWithoutLoader((pageElements.selectReasonFromDropdown));
     }
 
@@ -150,7 +156,7 @@ public class BarUnbar extends BasePage{
      */
     public void clickOnBarType() {
         commonLib.info("Going to click BAR Type");
-        if (isVisible(pageElements.selectBarTpe));
+        if (isVisible(pageElements.selectBarTpe)) ;
         clickWithoutLoader((pageElements.selectBarTpe));
     }
 
@@ -159,7 +165,7 @@ public class BarUnbar extends BasePage{
      */
     public void selectBarTypeFromDropdown() {
         commonLib.info("Going to select BAR Type from dropdown");
-        if (isVisible(pageElements.selectBarTypeFromDropdown));
+        if (isVisible(pageElements.selectBarTypeFromDropdown)) ;
         clickWithoutLoader((pageElements.selectBarTypeFromDropdown));
     }
 
@@ -179,7 +185,7 @@ public class BarUnbar extends BasePage{
      * @return true/false
      */
     public boolean isSubmitBtnDisabled() {
-        Boolean status=isEnabled(pageElements.submitButton);
+        Boolean status = isEnabled(pageElements.submitButton);
         commonLib.info("Is submit button disabled " + status);
         return status;
     }
@@ -200,8 +206,8 @@ public class BarUnbar extends BasePage{
      */
     public void clickCrossIcon() {
         commonLib.info("Going to click cross icon");
-        if (isVisible(pageElements.crossIcon));
-        clickWithoutLoader((pageElements.crossIcon));
+        if (isVisible(pageElements.crossIcon))
+            clickWithoutLoader((pageElements.crossIcon));
     }
 
     /**
@@ -215,7 +221,7 @@ public class BarUnbar extends BasePage{
     /**
      * This method is used to  BAR/UNBAR smartcash profile by selecting reason and comment
      */
-    public void performBarUnBar( ) {
+    public void performBarUnBar() {
         commonLib.info("Going to perform Bar/unbar Action");
         pages.getBarUnbar().clickOnSelectReason();
         pages.getBarUnbar().selectReasonFromDropdown();

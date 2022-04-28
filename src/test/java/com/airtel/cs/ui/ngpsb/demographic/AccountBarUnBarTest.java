@@ -8,7 +8,7 @@ import org.testng.SkipException;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-public class BarUnBarTest extends Driver {
+public class AccountBarUnBarTest extends Driver {
     private static String customerNumber = null;
     PsbRequestSource api = new PsbRequestSource();
     CLMDetailsResponse clmDetails;
@@ -83,6 +83,7 @@ public class BarUnBarTest extends Driver {
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
             commonLib.fail("Exception in Method - barUnbar" + e.fillInStackTrace(), true);
+            pages.getPinReset().clickCloseBtn();
         }
     }
 
@@ -96,7 +97,7 @@ public class BarUnBarTest extends Driver {
             if (unbarIconVisible)
                 assertCheck.append(actions.assertEqualStringType(pages.getBarUnbar().getActionType(), "SmartCash UNBARRED", "Action type for UnBar is expected", "Action type for unbar is not as expected"));
             assertCheck.append(actions.assertEqualStringType(pages.getBarUnbar().getReason(), "Lost Sim", "Reason for bar/unbar is expected", "Reason for bar/unbar is not as expected"));
-            assertCheck.append(actions.assertEqualStringType(pages.getBarUnbar().getComment(), constants.getValue(ApplicationConstants.COMMENT), "Comment for bar/unbar is expected", "Comment for bar/unbar is not as expected"));
+            assertCheck.append(actions.assertEqualStringType(pages.getBarUnbar().getComment(), ApplicationConstants.COMMENT, "Comment for bar/unbar is expected", "Comment for bar/unbar is not as expected"));
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
             commonLib.fail("Exception in Method - checkActionTrail" + e.fillInStackTrace(), true);

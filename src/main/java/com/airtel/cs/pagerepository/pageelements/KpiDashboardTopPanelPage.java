@@ -11,7 +11,7 @@ public class KpiDashboardTopPanelPage {
     public By openTicketsUnderSLALabel = By.xpath("//span[contains(text(),'Open Tickets Under SLA ')]");
     public By breachingWithin15MinsLabel = By.xpath("//span[contains(text(),'Breaching Within 15 Mins ')]");
     public By breachingWithin15To60MinsLabel = By.xpath("//span[contains(text(),'Breaching Within 15 - 60 Mins ')]");
-    public By breachingWithin60MinsLabel = By.xpath("//span[contains(text(),'Breaching Within > 60 Mins ')]");
+    public By breachingWithin60MinsLabel = By.xpath("//span[contains(text(),'Breaching beyond 60 Mins ')]");
     public By openTicketsBeyondSLADetailsIcon = By.xpath("//span[contains(text(),'Open Tickets Beyond SLA ')]/img");
     public By openTicketsUnderSLALDetailsIcon = By.xpath("//span[contains(text(),'Open Tickets Under SLA ')]/img");
     public By breachingWithin15MinsDetailsIcon = By.xpath("//span[contains(text(),'Breaching Within 15 Mins ')]/img");
@@ -25,7 +25,7 @@ public class KpiDashboardTopPanelPage {
     public By queueLabel = By.xpath("//span[contains(text(),'Queue')]");
     public By sourceLabel = By.xpath("//span[contains(text(),'Source')]");
     public By detailsOpenTicketsBeyondSLALabel = By.xpath("//div[contains(text(),' Open Tickets beyond SLA ')]");
-    public By detailsOpenTicketsUnderSLALabel = By.xpath("//div[contains(text(),' Open Tickets Under SLA ')]");
+    public By detailsOpenTicketsUnderSLALabel = By.xpath("//*[contains(text(),'Open Tickets Under SLA ')]");
     public By detailsBreachingWithin15MinsLabel = By.xpath("//div[contains(text(),' Breaching Within 15 Mins ')]");
     public By detailsBreachingWithin15To60MinsLabel = By.xpath("//div[contains(text(),' Breaching Within 15 - 60 Mins ')]");
     public By detailsBreachingWithin60MinsLabel = By.xpath("//div[contains(text(),' Breaching Within > 60 Mins ')]");

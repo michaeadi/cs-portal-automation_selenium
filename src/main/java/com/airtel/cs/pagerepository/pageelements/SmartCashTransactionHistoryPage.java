@@ -3,7 +3,7 @@ package com.airtel.cs.pagerepository.pageelements;
 import org.openqa.selenium.By;
 
 public class SmartCashTransactionHistoryPage {
-    public By smartCashTxnHistoryWidget=By.xpath("//div[@data-csautomation-key='AIRTEL_MONEY']");
+    public By smartCashTxnHistoryWidget = By.xpath("//div[@data-csautomation-key='AIRTEL_MONEY']");
     //    Filter pom
     public By todayFilterSec = By.xpath("//div[@data-csautomation-key='AIRTEL_MONEY']//parent::div//form//mat-radio-button//span[contains(text(),'Today')]");
     public By dateRangeFilterSec = By.xpath("//div[@data-csautomation-key='AIRTEL_MONEY']//parent::div//form/span/input");
@@ -19,8 +19,8 @@ public class SmartCashTransactionHistoryPage {
     public String valueColumns = "]//div[@class='data-container ng-star-inserted'][";
     public String iconColumn = "]//div[@class='quick-action ng-star-inserted'][";
     public String columnText = "]//span";
-    public String resendSmsIcon="]//span//img[contains(@src,'send-msg.svg')]";
-    public String reversalIcon="]//span//img[contains(@src,'reversal.svg')]";
+    public String resendSmsIcon = "]//span//img[contains(@src,'send-msg.svg')]";
+    public String reversalIcon = "]//span//img[contains(@src,'reversal.svg')]";
     public String negSymbol = "]//img[@class='sign-icon-before ng-star-inserted']";
     public String posSymbol = "]//img[@class='sign-icon-before ng-star-inserted']";
     public String headerRow = "//div[@data-csautomation-key='AIRTEL_MONEY']/div[@class='card__content restricted ng-star-inserted']/descendant::div[@class='card__card-header--card-body--table--list-heading ng-star-inserted']/div";
@@ -36,8 +36,10 @@ public class SmartCashTransactionHistoryPage {
     public By airtelMoneyError = By.xpath("//div[@data-csautomation-key='AIRTEL_MONEY']//div[@class='image-container']");
     public By title = By.xpath("//div[@data-csautomation-key='AIRTEL_MONEY']//span[@class='card__card-header--label']");
 
-    public String detailsRow = "//div[@class='card__card-header--card-body--table--list-heading']";
-    public String detailsColumn = "//div[@class='card__card-header--card-body--table--list-heading']//child::div";
-    public String detailsColumnText = "//div[@class='card__card-header--card-body--table--data-list']//child::div";
+    public String detailsRow = "//*[contains(@class,'table-data-wrapper')]/div[";
+    public String detailsColumn="]//*[contains(@class,'expansion-block display-block')]//*[@class='card__card-header--card-body--table--data-list']/div[";
+    public String detailsColumnText = "]/span";
+    public String rowMetaInfo1 = "//*[contains(@class,'table-data-wrapper')]/div[";
+    public String rowMetaInfo2 = "]//*[text()=' keyboard_arrow_down']";
 
 }

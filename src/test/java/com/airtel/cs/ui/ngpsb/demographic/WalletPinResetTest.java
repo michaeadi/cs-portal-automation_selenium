@@ -8,7 +8,7 @@ import org.testng.SkipException;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-public class PinResetTest extends Driver {
+public class WalletPinResetTest extends Driver {
     private static String customerNumber = null;
     PsbRequestSource api = new PsbRequestSource();
     CLMDetailsResponse clmDetails;
@@ -52,29 +52,34 @@ public class PinResetTest extends Driver {
         try {
             selUtils.addTestcaseDescription("Validate Pin Reset", "description");
             assertCheck.append(actions.assertEqualBoolean(pages.getPinReset().isPinResetIconVisible(), true, "Pin Reset Icon is visible", "Pin Reset Icon is NOT visible"));
-            pages.getPinReset().clickPinReset();
-            assertCheck.append(actions.assertEqualBoolean(pages.getPinReset().isIssuePopUpVisible(), true, "Issue Detail Pop up is visible", "Issue Detail Pop up is NOT visible"));
-            assertCheck.append(actions.assertEqualBoolean(pages.getPinReset().isPinResetPinHeaderVisible(), true, "Pin reset is visible in Issue Detail Pop up", "Pin Reset label is Issue Detail Pop up"));
-            assertCheck.append(actions.assertEqualBoolean(pages.getPinReset().isSelectReasonVisible(), true, "Select Reason Field is visible", "Select Reason Field is NOT visible"));
-            assertCheck.append(actions.assertEqualBoolean(pages.getPinReset().isCommentBoxVisible(), true, "Comment box is visible", "Comment box is NOT visible"));
-            assertCheck.append(actions.assertEqualBoolean(pages.getPinReset().isSubmitBtnDisabled(), false, "Submit button is disabled", "Submit button is not disabled"));
-            assertCheck.append(actions.assertEqualBoolean(pages.getPinReset().isCancelButtonVisible(), true, "Cancel Button is visible ", "Cancel Button is NOT visible"));
-            pages.getPinReset().enterComment(ApplicationConstants.COMMENT);
-            pages.getPinReset().clickOnCancelButton();
-            /**
-             Performing operations after clicking Cancel button of Issue Detail Pop up
-             */
-            assertCheck.append(actions.assertEqualBoolean(pages.getPinReset().isCancelConfirmMessageVisible(), true, "Cancel confirmation message is visible ", "Cancel confirm message  is NOT visible"));
-            pages.getPinReset().clickOnContinue();
-            assertCheck.append(actions.assertEqualBoolean(pages.getPinReset().isDemographicWidgetVisible(), true, "Demographic Widget is visible after closing the Issue Detail Pop up ", "Demographic Widget is NOT visible after closing the Issue Detail Pop up"));
-            pages.getPinReset().performResetPin();
-            assertCheck.append(actions.assertEqualBoolean(pages.getPinReset().isSuccessPopUpVisible(), true, "Success Popup visible after resetting pin  ", "Success Popup NOT visible after resetting pin"));
-            String successText = "SmartCash Pin Reset is successfull";
-            assertCheck.append(actions.assertEqualStringType(pages.getPinReset().getSuccessText(), successText, "Success text is displayed as expected", "Success text is not displayed as expected"));
-            pages.getPinReset().clickCrossIcon();
+            if (pages.getWalletInformation().getBarringStatus().equals("NO")) {
+                pages.getPinReset().clickPinReset();
+                assertCheck.append(actions.assertEqualBoolean(pages.getPinReset().isIssuePopUpVisible(), true, "Issue Detail Pop up is visible", "Issue Detail Pop up is NOT visible"));
+                assertCheck.append(actions.assertEqualBoolean(pages.getPinReset().isPinResetPinHeaderVisible(), true, "Pin reset is visible in Issue Detail Pop up", "Pin Reset label is Issue Detail Pop up"));
+                assertCheck.append(actions.assertEqualBoolean(pages.getPinReset().isSelectReasonVisible(), true, "Select Reason Field is visible", "Select Reason Field is NOT visible"));
+                assertCheck.append(actions.assertEqualBoolean(pages.getPinReset().isCommentBoxVisible(), true, "Comment box is visible", "Comment box is NOT visible"));
+                assertCheck.append(actions.assertEqualBoolean(pages.getPinReset().isSubmitBtnDisabled(), false, "Submit button is disabled", "Submit button is not disabled"));
+                assertCheck.append(actions.assertEqualBoolean(pages.getPinReset().isCancelButtonVisible(), true, "Cancel Button is visible ", "Cancel Button is NOT visible"));
+                pages.getPinReset().enterComment(ApplicationConstants.COMMENT);
+                pages.getPinReset().clickOnCancelButton();
+                /**
+                 Performing operations after clicking Cancel button of Issue Detail Pop up
+                 */
+                assertCheck.append(actions.assertEqualBoolean(pages.getPinReset().isCancelConfirmMessageVisible(), true, "Cancel confirmation message is visible ", "Cancel confirm message  is NOT visible"));
+                pages.getPinReset().clickOnContinue();
+                assertCheck.append(actions.assertEqualBoolean(pages.getPinReset().isDemographicWidgetVisible(), true, "Demographic Widget is visible after closing the Issue Detail Pop up ", "Demographic Widget is NOT visible after closing the Issue Detail Pop up"));
+                pages.getPinReset().performResetPin();
+                assertCheck.append(actions.assertEqualBoolean(pages.getPinReset().isSuccessPopUpVisible(), true, "Success Popup visible after resetting pin  ", "Success Popup NOT visible after resetting pin"));
+                String successText = "SmartCash Pin Reset is successful";
+                assertCheck.append(actions.assertEqualStringType(pages.getPinReset().getSuccessText(), successText, "Success text is displayed as expected", "Success text is not displayed as expected"));
+                pages.getPinReset().clickCrossIcon();
+            } else {
+                commonLib.warning("We can not perform PIN Reset as Wallet is BARRED, Please check this Manually");
+            }
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
             commonLib.fail("Exception in Method - pinReset" + e.fillInStackTrace(), true);
+            pages.getPinReset().clickCloseBtn();
         }
     }
 
