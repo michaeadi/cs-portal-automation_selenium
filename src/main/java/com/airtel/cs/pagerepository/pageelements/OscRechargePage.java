@@ -30,6 +30,7 @@ public class OscRechargePage {
     public By enterPin = By.xpath("//div[contains(@class,'enter-pin')]");
     public By rechargeButton = By.xpath("//button[contains(text(),'Recharge')]");
     public By confirmationPopUp=By.xpath("//div[@class='main-container']");
+    public By cancelBtn = By.xpath("//div[@class='action-btn-area']//button[contains(text(),'Cancel')]");
 
 
 
@@ -41,7 +42,7 @@ Action Trail tab
     public By viewHistory=By.xpath("//span[contains(text(),'VIEW HISTORY')]");
     public By actionTrail=By.xpath("//div[contains(text(),'Action Trail')]");
     public By actionTrailLatestDropdown=By.xpath("//span[contains(@class,'cursor')]");
-    public By rechargeAmount =By.xpath("//div[@id='collapseTwo']/div/form/ul/li[2]/p");
+    public By rechargeAmount =By.xpath("//div[@id='collapseTwo']/div/form/ul/li[2]/p[1]");
     public By rechargedMsisdn =By.xpath("//div[@id='collapseTwo']/div/form/ul/li[2]/p[2]");
     public By voucherNumber=By.xpath("//div[@id='collapseTwo']/div/form/ul/li[2]/p[3]");
     public By actionType=By.xpath("//div[@class='agent-list-container']/table/tbody/tr/td[1]");

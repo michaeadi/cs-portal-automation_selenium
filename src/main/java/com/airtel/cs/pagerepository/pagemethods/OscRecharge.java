@@ -234,6 +234,13 @@ public class OscRecharge extends BasePage {
     }
 
     /**
+     * This method is use to click Cancel button
+     */
+    public void clickCancelBtn() {
+        commonLib.info("Clicking Cancel button");
+        clickAndWaitForLoaderToBeRemoved(pageElements.cancelBtn);
+    }
+    /**
      * This method is used to go to Action Trail tab
      */
     public void goToActionTrail() {
@@ -365,7 +372,7 @@ public class OscRecharge extends BasePage {
      */
     public void clickRechargeButton() {
         commonLib.info("Going to click Recharge button");
-        clickAndWaitForLoaderToBeRemoved(pageElements.overscratchButton);
+        clickAndWaitForLoaderToBeRemoved(pageElements.rechargeButton);
     }
 
     /**
@@ -386,10 +393,11 @@ public class OscRecharge extends BasePage {
     }
 
     /**
-     * This method is used to perform OSC Recharge by entering msisdn and pin
+     * This method is used to perform OSC Recharge by searching voucher , entering msisdn and pin
      */
-    public void performOscRecharge(String pin ) {
+    public void performOscRecharge(String pin , String voucher ) throws InterruptedException {
         commonLib.info("Going to  enter msisdn , pin and then clicking Recharge Button ");
+        pages.getOscRecharge().searchVoucher(voucher);
         pages.getOscRecharge().clickOverScratchButton();
         pages.getOscRecharge().clickCopyMsisdnIcon();
         pages.getOscRecharge().enterPin(pin);
@@ -397,10 +405,20 @@ public class OscRecharge extends BasePage {
     }
 
     /**
+     * This method is used to search voucher
+     */
+    public void searchVoucher(String voucherId ) throws InterruptedException {
+        commonLib.info("Going to  search voucher");
+        pages.getRechargeHistoryWidget().writeVoucherId(voucherId);
+        pages.getRechargeHistoryWidget().clickSearchBtn();
+    }
+
+    /**
      * This method is used to perform OSC Recharge by entering msisdn
      */
-    public void performOscRechargeWithoutPin() {
+    public void performOscRechargeWithoutPin(String voucherid) throws InterruptedException {
         commonLib.info("Going to enter msisdn  and clicking Recharge Button");
+        pages.getOscRecharge().searchVoucher(voucherid);
         pages.getOscRecharge().clickOverScratchButton();
         pages.getOscRecharge().clickCopyMsisdnIcon();
         pages.getOscRecharge().clickRechargeButton();
@@ -420,13 +438,13 @@ public class OscRecharge extends BasePage {
     }
 
     /**
-     * This method is used to check enter comment
+     * This method is used to check success pop visible or not
      *
      * @return true/false
      */
     public Boolean isSuccessPopUpVisible() {
-        waitVisibility(pageElements.confirmationPopUp);
-        final boolean state = isElementVisible(pageElements.confirmationPopUp);
+        waitVisibility(pageElements.successMessage);
+        final boolean state = isElementVisible(pageElements.successMessage);
         commonLib.info("Is confirmation Pop Up visible :" + state);
         return state;
 

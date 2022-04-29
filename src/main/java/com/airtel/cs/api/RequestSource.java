@@ -637,13 +637,13 @@ public class RequestSource extends RestCommonUtils {
      * @param voucherId The voucherId
      * @return The Response
      */
-    public VoucherSearch voucherSearchTest(String voucherId) {
+    public VoucherSearch voucherDetail(String voucherId) {
         commonLib.infoColored(constants.getValue(CALLING_CS_API) + constants.getValue("voucher.detail"), JavaColors.GREEN, false);
         VoucherSearch result = null;
         try {
             commonPostMethod(URIConstants.VOUCHER_DETAILS, new VoucherSearchRequest(voucherId));
             result = response.as(VoucherSearch.class);
-            if (result.getStatusCode() != 200 || result.getApiErrors().getVoucherDetail().equalsIgnoreCase(constants.getValue("cs.voucher.detail.downstream.api.error"))) {
+            if (result.getStatusCode() != 200 ) {
                 esbRequestSource.callVoucherDetails(voucherId);
             }
         } catch (Exception e) {
