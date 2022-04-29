@@ -24,7 +24,7 @@
             <class name="com.airtel.cs.ui.frontendagent.loginandlogout.LoginPortalTests"/>
         </classes>
     </test>
-   <test name="Test Side Menu Options">
+ <!--<test name="Test Side Menu Options">
         <groups>
             <run>
                 <include name="RegressionTest"/>
@@ -172,6 +172,16 @@
         </groups>
         <classes>
             <class name="com.airtel.cs.ui.frontendagent.hometab.RechargeHistoryMenuWidgetTest"/>
+        </classes>
+    </test>
+    <test name="Validate OSC Recharge">
+        <groups>
+            <run>
+                <include name="RegressionTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.OscRechargeTest"/>
         </classes>
     </test>
     <test name="Validate Service Profile Widget Test" preserve-order="true">
@@ -464,16 +474,6 @@
             <class name="com.airtel.cs.ui.frontendagent.FrontendAgentTicketTest"/>
         </classes>
     </test>
-    <test name="Validate Voucher Tab">
-        <groups>
-            <run>
-                <include name="RegressionTest"/>
-            </run>
-        </groups>
-        <classes>
-            <class name="com.airtel.cs.ui.frontendagent.VoucherTabTest"/>
-        </classes>
-    </test>
     <test name="Clear Refill error">
         <groups>
             <run>
@@ -744,6 +744,16 @@
             <class name="com.airtel.cs.ui.ticketBulkUpdate.TicketBulkUpdateTest"/>
         </classes>
     </test>
+    <test name="Validate OSC Recharge">
+        <groups>
+            <run>
+                <include name="RegressionTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.OscRechargeWithoutPinTest"/>
+        </classes>
+    </test>
     <test name="Logout Supervisor Test">
         <groups>
             <run>
@@ -813,7 +823,7 @@
         <classes>
             <class name="com.airtel.cs.ui.frontendagent.loginandlogout.LogoutTest"/>
         </classes>
-    </test>
+    </test>-->
     <test name="LOGIN TO BACKEND AGENT">
         <groups>
             <run>
@@ -824,7 +834,7 @@
             <class name="com.airtel.cs.ui.backendAgent.BackendAgentLoginTest"/>
         </classes>
     </test>
-    <test name="Validate BACKEND AGENT Filter Options">
+   <test name="Validate BACKEND AGENT Filter Options">
         <groups>
             <run>
                 <include name="RegressionTest"/>
@@ -853,7 +863,7 @@
         <classes>
             <class name="com.airtel.cs.ui.backendAgent.BackendAgentAddCommentTest"/>
         </classes>
-    </test>
+    </test>-->
     <test name="BACKEND AGENT Transfer to Queue Test">
         <groups>
             <run>
@@ -873,7 +883,7 @@
         <classes>
             <class name="com.airtel.cs.ui.frontendagent.loginandlogout.LogoutTest"/>
         </classes>
-    </test>
+    </test>-->
     <test name="Login Admin Test For Kpi Dashboard">
         <groups>
             <run>
