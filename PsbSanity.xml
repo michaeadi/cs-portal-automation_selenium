@@ -69,27 +69,47 @@
             <class name="com.airtel.cs.ui.ngpsb.home.SmartCashTransactionHistoryTest"/>
         </classes>
     </test>
-    <test name="Pin Reset Test" preserve-order="true">
+    <test name="Wallet Pin Reset Test" preserve-order="true">
         <groups>
             <run>
                 <include name="SanityTest"/>
             </run>
         </groups>
         <classes>
-            <class name="com.airtel.cs.ui.ngpsb.demographic.PinResetTest"/>
+            <class name="com.airtel.cs.ui.ngpsb.demographic.WalletPinResetTest"/>
         </classes>
     </test>
-    <test name="Bar Unbar Test" preserve-order="true">
+    <test name="Account Pin Reset Test" preserve-order="true">
         <groups>
             <run>
-                <include name="SanityTest"/>
+                <include name="RegressionTest"/>
             </run>
         </groups>
         <classes>
-            <class name="com.airtel.cs.ui.ngpsb.demographic.BarUnBarTest"/>
+            <class name="com.airtel.cs.ui.ngpsb.demographic.AccountPinResetTest"/>
         </classes>
     </test>
-   <test name="Validate Action Trail Tab Test">
+    <test name="Wallet Bar Unbar Test" preserve-order="true">
+        <groups>
+            <run>
+                <include name="RegressionTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.ngpsb.demographic.WalletBarUnBarTest"/>
+        </classes>
+    </test>
+    <test name="Account Bar Unbar Test" preserve-order="true">
+        <groups>
+            <run>
+                <include name="RegressionTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.ngpsb.demographic.AccountBarUnBarTest"/>
+        </classes>
+    </test>
+   <!--<test name="Validate Action Trail Tab Test">
         <groups>
             <run>
                 <include name="SanityTest"/>
@@ -423,17 +443,17 @@
     <test name="Kpi Dashboard TopPanelTest " preserve-order="true">
         <groups>
             <run>
-                <include name="ProdTest"/>
+                <include name="SanityTest"/>
             </run>
         </groups>
         <classes>
             <class name="com.airtel.cs.ui.kpidashboard.KpiDashboardTopPanelTest"/>
         </classes>
-    </test>
+    </test>-->
     <test name="Kpi Dashboard 6MonthsOverviewPageTest " preserve-order="true">
         <groups>
             <run>
-                <include name="ProdTest"/>
+                <include name="SanityTest"/>
             </run>
         </groups>
         <classes>
@@ -443,7 +463,7 @@
     <test name="Kpi Dashboard 6MonthsTicketTypeTest" preserve-order="true">
         <groups>
             <run>
-                <include name="ProdTest"/>
+                <include name="SanityTest"/>
             </run>
         </groups>
         <classes>
@@ -453,7 +473,7 @@
     <test name="Kpi Dashboard OpenTicketAgeingTest " preserve-order="true">
         <groups>
             <run>
-                <include name="ProdTest"/>
+                <include name="SanityTest"/>
             </run>
         </groups>
         <classes>
@@ -463,7 +483,7 @@
     <test name="Kpi Dashboard QueueWiseSLAPerformancePageTest " preserve-order="true">
         <groups>
             <run>
-                <include name="ProdTest"/>
+                <include name="SanityTest"/>
             </run>
         </groups>
         <classes>
@@ -473,7 +493,7 @@
     <test name="Kpi Dashboard FeatureUsageOfActionsPageTest" preserve-order="true">
         <groups>
             <run>
-                <include name="ProdTest"/>
+                <include name="SanityTest"/>
             </run>
         </groups>
         <classes>

@@ -5,8 +5,9 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 
-public class SmartCashTransactionHistory extends BasePage{
+public class SmartCashTransactionHistory extends BasePage {
     SmartCashTransactionHistoryPage pageElements;
+
     public SmartCashTransactionHistory(WebDriver driver) {
         super(driver);
         pageElements = PageFactory.initElements(driver, SmartCashTransactionHistoryPage.class);
@@ -14,6 +15,7 @@ public class SmartCashTransactionHistory extends BasePage{
 
     /**
      * This method use to check SmartCash TransactionHistory widget visibility
+     *
      * @return true/false
      */
     public boolean isSmartCashTransactionHistoryVisible() {
@@ -24,6 +26,7 @@ public class SmartCashTransactionHistory extends BasePage{
 
     /**
      * This method use to check filter by today date display or not
+     *
      * @return true/false
      */
     public boolean isTodayFilterTabOnSecondWidget() {
@@ -34,6 +37,7 @@ public class SmartCashTransactionHistory extends BasePage{
 
     /**
      * This method use to check filter by last two day display or not
+     *
      * @return true/false
      */
     public boolean isLastTwoDayFilterTabOnSecondWidget() {
@@ -44,6 +48,7 @@ public class SmartCashTransactionHistory extends BasePage{
 
     /**
      * This method use to check filter by last seven day display or not
+     *
      * @return true/false
      */
     public boolean isLastSevenDayFilterTabOnSecondWidget() {
@@ -54,6 +59,7 @@ public class SmartCashTransactionHistory extends BasePage{
 
     /**
      * This method use to check is date range filter display or not
+     *
      * @return true/false
      */
     public boolean isDateRangeFilterTabOnSecondWidget() {
@@ -64,6 +70,7 @@ public class SmartCashTransactionHistory extends BasePage{
 
     /**
      * This method use to check negative sign display or not
+     *
      * @param row The row number
      * @return true/false
      */
@@ -74,6 +81,7 @@ public class SmartCashTransactionHistory extends BasePage{
 
     /**
      * This method use to check positive sign display or not
+     *
      * @param row The row number
      * @return true/false
      */
@@ -84,6 +92,7 @@ public class SmartCashTransactionHistory extends BasePage{
 
     /**
      * This method use to check AM menu widget display or not
+     *
      * @return true/false
      */
     public boolean isAMMenuHistoryTabDisplayOnSecondWidget() {
@@ -93,9 +102,9 @@ public class SmartCashTransactionHistory extends BasePage{
     }
 
 
-
     /**
      * This method use to check is transaction id box display or not
+     *
      * @return true/false
      */
     public boolean isSearchTxnIdBoxOnSecondWidget() {
@@ -106,6 +115,7 @@ public class SmartCashTransactionHistory extends BasePage{
 
     /**
      * This method use to write transaction id into search box
+     *
      * @param txnId The Transaction Id
      */
     public void searchByTxnIdOnSecondWidget(String txnId) {
@@ -123,6 +133,7 @@ public class SmartCashTransactionHistory extends BasePage{
 
     /**
      * This method use to check airtel money error visible
+     *
      * @return true/false
      */
     public boolean isAirtelMoneyErrorVisibleOnSecondWidget() {
@@ -132,6 +143,7 @@ public class SmartCashTransactionHistory extends BasePage{
 
     /**
      * This method use to get no result found message
+     *
      * @return String The String
      */
     public String gettingAirtelMoneyNoResultFoundMessageOnSecondWidget() {
@@ -141,6 +153,7 @@ public class SmartCashTransactionHistory extends BasePage{
 
     /**
      * This method use to get no result found icon display or not
+     *
      * @return true/false
      */
     public boolean isAirtelMoneyNoResultFoundVisibleOnSecondWidget() {
@@ -150,6 +163,7 @@ public class SmartCashTransactionHistory extends BasePage{
 
     /**
      * This method use to get header name based on column number
+     *
      * @param column The column number
      * @return String The Value
      */
@@ -161,7 +175,8 @@ public class SmartCashTransactionHistory extends BasePage{
 
     /**
      * This method use to get data value based on row and column number
-     * @param row The Row Number
+     *
+     * @param row    The Row Number
      * @param column The column number
      * @return String The Value
      */
@@ -173,15 +188,17 @@ public class SmartCashTransactionHistory extends BasePage{
 
     /**
      * This method use to check resend sms icon display or not
+     *
      * @return true/false
      */
-    public Boolean isResendSMSIconVisible(int row , int column) {
+    public Boolean isResendSMSIconVisible(int row, int column) {
         By check = By.xpath(pageElements.valueRowSec + row + pageElements.iconColumn + column + pageElements.resendSmsIcon);
         return isEnabled(check);
     }
 
     /**
      * This method use to check reversal sms icon display or not
+     *
      * @return true/false
      */
     public Boolean isReversalIconVisible(int row, int column) {
@@ -191,15 +208,25 @@ public class SmartCashTransactionHistory extends BasePage{
 
     /**
      * This method use to get data value based on row and column number for Transaction Details
-     * @param row The Row Number
+     *
+     * @param row    The Row Number
      * @param column The column number
      * @return detail
      */
-    public String getValueCorrespondingToTransactionDetailsHeader(int row, int column) {
+    public String getValueCorrespondingToTxnHeader(int row, int column) {
         String detail = getText(By.xpath(pageElements.detailsRow + row + pageElements.detailsColumn + column + pageElements.detailsColumnText));
         commonLib.info("Reading Value(" + row + "): " + detail);
         return detail;
     }
 
+    /**
+     * This Method is used to click on meta info drop down
+     *
+     * @param row the row for drop down
+     */
+    public void clickDropDownForMetaInfo(int row) {
+        commonLib.info("Going to click on meta info drop down");
+        clickWithoutLoader(By.xpath(pageElements.rowMetaInfo1 + row + pageElements.rowMetaInfo2));
+    }
 
 }

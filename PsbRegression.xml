@@ -69,30 +69,50 @@
             <class name="com.airtel.cs.ui.ngpsb.home.SmartCashTransactionHistoryTest"/>
         </classes>
     </test>
-    <test name="Pin Reset Test" preserve-order="true">
+    <test name="Wallet Pin Reset Test" preserve-order="true">
         <groups>
             <run>
                 <include name="RegressionTest"/>
             </run>
         </groups>
         <classes>
-            <class name="com.airtel.cs.ui.ngpsb.demographic.PinResetTest"/>
+            <class name="com.airtel.cs.ui.ngpsb.demographic.WalletPinResetTest"/>
         </classes>
     </test>
-    <test name="Bar Unbar Test" preserve-order="true">
+    <test name="Account Pin Reset Test" preserve-order="true">
         <groups>
             <run>
                 <include name="RegressionTest"/>
             </run>
         </groups>
         <classes>
-            <class name="com.airtel.cs.ui.ngpsb.demographic.BarUnBarTest"/>
+            <class name="com.airtel.cs.ui.ngpsb.demographic.AccountPinResetTest"/>
         </classes>
     </test>
-     <test name="Validate Action Trail Tab Test">
+    <test name="Wallet Bar Unbar Test" preserve-order="true">
+        <groups>
+            <run>
+                <include name="RegressionTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.ngpsb.demographic.WalletBarUnBarTest"/>
+        </classes>
+    </test>
+    <test name="Account Bar Unbar Test" preserve-order="true">
+        <groups>
+            <run>
+                <include name="RegressionTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.ngpsb.demographic.AccountBarUnBarTest"/>
+        </classes>
+    </test>
+     <!--<test name="Validate Action Trail Tab Test">
          <groups>
              <run>
-                 <include name="SanityTest"/>
+                 <include name="RegressionTest"/>
              </run>
          </groups>
          <classes>
@@ -102,7 +122,7 @@
      <test name="Create NFTR FTR Tickets TEST">
          <groups>
              <run>
-                 <include name="SanityTest"/>
+                 <include name="RegressionTest"/>
              </run>
          </groups>
          <classes>
@@ -112,7 +132,7 @@
      <test name="Add Interaction Ticket Comment">
          <groups>
              <run>
-                 <include name="SanityTest"/>
+                 <include name="RegressionTest"/>
              </run>
          </groups>
          <classes>
@@ -123,7 +143,7 @@
      <test name="Validate Frontend Agent Ticket Page">
          <groups>
              <run>
-                 <include name="SanityTest"/>
+                 <include name="RegressionTest"/>
              </run>
          </groups>
          <classes>
@@ -133,7 +153,7 @@
      <test name="Validate Create Configuration API">
          <groups>
              <run>
-                 <include name="SanityTest"/>
+                 <include name="RegressionTest"/>
              </run>
          </groups>
          <classes>
@@ -143,7 +163,7 @@
      <test name="Supervisors Login Test">
          <groups>
              <run>
-                 <include name="SanityTest"/>
+                 <include name="RegressionTest"/>
              </run>
          </groups>
          <classes>
@@ -153,7 +173,7 @@
     <test name="Source App Test">
         <groups>
             <run>
-                <include name="SanityTest"/>
+                <include name="RegressionTest"/>
             </run>
         </groups>
         <classes>
@@ -163,7 +183,7 @@
      <test name="Supervisors Global Search Ticket Test">
          <groups>
              <run>
-                 <include name="SanityTest"/>
+                 <include name="RegressionTest"/>
              </run>
          </groups>
          <classes>
@@ -173,7 +193,7 @@
      <test name="Supervisors Search Ticket Test ">
          <groups>
              <run>
-                 <include name="SanityTest"/>
+                 <include name="RegressionTest"/>
              </run>
          </groups>
          <classes>
@@ -183,7 +203,7 @@
      <test name="Supervisors Validate Filter Option ">
          <groups>
              <run>
-                 <include name="SanityTest"/>
+                 <include name="RegressionTest"/>
              </run>
          </groups>
          <classes>
@@ -193,7 +213,7 @@
      <test name="Supervisors Update Ticket Test">
          <groups>
              <run>
-                 <include name="SanityTest"/>
+                 <include name="RegressionTest"/>
              </run>
          </groups>
          <classes>
@@ -203,7 +223,7 @@
      <test name="Supervisors Assign To Agent Test">
          <groups>
              <run>
-                 <include name="SanityTest"/>
+                 <include name="RegressionTest"/>
              </run>
          </groups>
          <classes>
@@ -213,7 +233,7 @@
      <test name="Supervisors Ticket Transfer To Queue Test">
          <groups>
              <run>
-                 <include name="SanityTest"/>
+                 <include name="RegressionTest"/>
              </run>
          </groups>
          <classes>
@@ -223,7 +243,7 @@
      <test name="Supervisor Re-Open Ticket">
          <groups>
              <run>
-                 <include name="SanityTest"/>
+                 <include name="RegressionTest"/>
              </run>
          </groups>
          <classes>
@@ -233,7 +253,7 @@
      <test name="Ticket Escalation">
          <groups>
              <run>
-                 <include name="SanityTest"/>
+                 <include name="RegressionTest"/>
              </run>
          </groups>
          <classes>
@@ -243,7 +263,7 @@
      <test name="Supervisors Add Comment on Ticket">
          <groups>
              <run>
-                 <include name="SanityTest"/>
+                 <include name="RegressionTest"/>
              </run>
          </groups>
          <classes>
@@ -253,7 +273,7 @@
      <test name="Ticket Transfer Rule Test ">
          <groups>
              <run>
-                 <include name="SanityTest"/>
+                 <include name="RegressionTest"/>
              </run>
          </groups>
          <classes>
@@ -263,7 +283,7 @@
      <test name="Validate Ticket State Queue Mapping">
          <groups>
              <run>
-                 <include name="SanityTest"/>
+                 <include name="RegressionTest"/>
              </run>
          </groups>
          <classes>
@@ -273,7 +293,7 @@
      <test name="Supervisors Ticket Bulk Update Test">
          <groups>
              <run>
-                 <include name="SanityTest"/>
+                 <include name="RegressionTest"/>
              </run>
          </groups>
          <classes>
@@ -283,7 +303,7 @@
      <test name="Logout Supervisor Test">
          <groups>
              <run>
-                 <include name="SanityTest"/>
+                 <include name="RegressionTest"/>
              </run>
          </groups>
          <classes>
@@ -293,7 +313,7 @@
      <test name="Login Admin Test">
          <groups>
              <run>
-                 <include name="SanityTest"/>
+                 <include name="RegressionTest"/>
              </run>
          </groups>
          <classes>
@@ -303,7 +323,7 @@
      <test name="Create Template Test">
          <groups>
              <run>
-                 <include name="SanityTest"/>
+                 <include name="RegressionTest"/>
              </run>
          </groups>
          <classes>
@@ -313,7 +333,7 @@
      <test name="View Template Test">
          <groups>
              <run>
-                 <include name="SanityTest"/>
+                 <include name="RegressionTest"/>
              </run>
          </groups>
          <classes>
@@ -323,7 +343,7 @@
      <test name="UserManagement Test">
          <groups>
              <run>
-                 <include name="SanityTest"/>
+                 <include name="RegressionTest"/>
              </run>
          </groups>
          <classes>
@@ -333,7 +353,7 @@
      <test name="Profile Management Test">
          <groups>
              <run>
-                 <include name="SanityTest"/>
+                 <include name="RegressionTest"/>
              </run>
          </groups>
          <classes>
@@ -343,7 +363,7 @@
      <test name="Logout Test from ADMIN/SUPERVISOR">
          <groups>
              <run>
-                 <include name="SanityTest"/>
+                 <include name="RegressionTest"/>
              </run>
          </groups>
          <classes>
@@ -353,7 +373,7 @@
      <test name="LOGIN TO BACKEND AGENT">
          <groups>
              <run>
-                 <include name="SanityTest"/>
+                 <include name="RegressionTest"/>
              </run>
          </groups>
          <classes>
@@ -363,7 +383,7 @@
      <test name="Validate BACKEND AGENT Filter Options">
          <groups>
              <run>
-                 <include name="SanityTest"/>
+                 <include name="RegressionTest"/>
              </run>
          </groups>
          <classes>
@@ -373,7 +393,7 @@
      <test name="BACKEND AGENT Update Ticket">
          <groups>
              <run>
-                 <include name="SanityTest"/>
+                 <include name="RegressionTest"/>
              </run>
          </groups>
          <classes>
@@ -383,7 +403,7 @@
      <test name="BACKEND AGENT Add Comment on Ticket">
          <groups>
              <run>
-                 <include name="SanityTest"/>
+                 <include name="RegressionTest"/>
              </run>
          </groups>
          <classes>
@@ -393,7 +413,7 @@
      <test name="BACKEND AGENT Transfer to Queue Test">
          <groups>
              <run>
-                 <include name="SanityTest"/>
+                 <include name="RegressionTest"/>
              </run>
          </groups>
          <classes>
@@ -403,7 +423,7 @@
      <test name="Logout Test from Backend Agent">
          <groups>
              <run>
-                 <include name="SanityTest"/>
+                 <include name="RegressionTest"/>
              </run>
          </groups>
          <classes>
@@ -413,17 +433,17 @@
     <test name="Login Admin Test For Kpi Dashboard">
         <groups>
             <run>
-                <include name="SanityTest"/>
+                <include name="RegressionTest"/>
             </run>
         </groups>
         <classes>
             <class name="com.airtel.cs.ui.frontendagent.loginandlogout.LoginPortalTests"/>
         </classes>
-    </test>
+    </test>-->
     <test name="Kpi Dashboard TopPanelTest " preserve-order="true">
         <groups>
             <run>
-                <include name="ProdTest"/>
+                <include name="RegressionTest"/>
             </run>
         </groups>
         <classes>
@@ -433,7 +453,7 @@
     <test name="Kpi Dashboard 6MonthsOverviewPageTest " preserve-order="true">
         <groups>
             <run>
-                <include name="ProdTest"/>
+                <include name="RegressionTest"/>
             </run>
         </groups>
         <classes>
@@ -443,7 +463,7 @@
     <test name="Kpi Dashboard 6MonthsTicketTypeTest" preserve-order="true">
         <groups>
             <run>
-                <include name="ProdTest"/>
+                <include name="RegressionTest"/>
             </run>
         </groups>
         <classes>
@@ -453,7 +473,7 @@
     <test name="Kpi Dashboard OpenTicketAgeingTest " preserve-order="true">
         <groups>
             <run>
-                <include name="ProdTest"/>
+                <include name="RegressionTest"/>
             </run>
         </groups>
         <classes>
@@ -463,7 +483,7 @@
     <test name="Kpi Dashboard QueueWiseSLAPerformancePageTest " preserve-order="true">
         <groups>
             <run>
-                <include name="ProdTest"/>
+                <include name="RegressionTest"/>
             </run>
         </groups>
         <classes>
@@ -473,7 +493,7 @@
     <test name="Kpi Dashboard FeatureUsageOfActionsPageTest" preserve-order="true">
         <groups>
             <run>
-                <include name="ProdTest"/>
+                <include name="RegressionTest"/>
             </run>
         </groups>
         <classes>

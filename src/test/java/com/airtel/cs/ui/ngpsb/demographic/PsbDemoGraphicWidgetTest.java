@@ -11,6 +11,8 @@ import org.testng.SkipException;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import java.util.Locale;
+
 
 @Log4j2
 public class PsbDemoGraphicWidgetTest extends Driver {
@@ -18,6 +20,7 @@ public class PsbDemoGraphicWidgetTest extends Driver {
     PsbRequestSource api = new PsbRequestSource();
     CLMDetailsResponse clmDetails;
     String space = " ";
+    String className = this.getClass().getName();
 
 
     @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"})
@@ -40,7 +43,7 @@ public class PsbDemoGraphicWidgetTest extends Driver {
             clmDetails = api.getCLMDetails(customerNumber);
             assertCheck.append(actions.assertEqualIntType(clmDetails.getStatusCode(), 200, "CLM Details API Status Code Matched and is :" + clmDetails.getStatusCode(), "CLM Details API Status Code NOT Matched and is :" + clmDetails.getStatusCode(), false));
             if (clmDetails.getStatusCode() == 200) {
-                boolean pageLoaded = pages.getPsbDemographicWidget().isPageLoaded(clmDetails);
+                boolean pageLoaded = pages.getPsbDemographicWidget().isPageLoaded(clmDetails, className);
                 if (!pageLoaded)
                     continueExecutionFA = false;
             } else
@@ -98,13 +101,13 @@ public class PsbDemoGraphicWidgetTest extends Driver {
                 commonLib.warning("Primary Id Type is not available so unable to display Primary Id Number");
             } else {
                 assertCheck.append(actions.assertEqualBoolean(pages.getPsbDemographicWidget().isPrimaryIdNumberHeaderVisible(), true, "Primary Id Number header is visible", "Primary Id Number header is NOT visible"));
-                assertCheck.append(actions.matchUiAndAPIResponse(pages.getPsbDemographicWidget().getPrimaryIdNumber(), pages.getDemoGraphicPage().getKeyValueAPI(clmDetails.getResult().getPrimaryIdType()), "Primary Id Number is same as Expected", "Primary Id Number is not same as Expected"));
+                assertCheck.append(actions.matchUiAndAPIResponse(pages.getPsbDemographicWidget().getPrimaryIdNumber(), pages.getDemoGraphicPage().getKeyValueAPI(clmDetails.getResult().getPrimaryIdNumber()), "Primary Id Number is same as Expected", "Primary Id Number is not same as Expected"));
             }
             /*
            Validating Secondary Id Type and Number
             */
             assertCheck.append(actions.assertEqualBoolean(pages.getPsbDemographicWidget().isSecondaryIdTypeHeaderVisible(), true, "Secondary Id Type header is visible", "Primary Id Type header is NOT visible"));
-            assertCheck.append(actions.matchUiAndAPIResponse(pages.getPsbDemographicWidget().getSecondaryIdType(), pages.getDemoGraphicPage().getKeyValueAPI(clmDetails.getResult().getPrimaryIdType()), "Secondary Id Type is same as Expected", "Primary Id Type is not same as Expected"));
+            assertCheck.append(actions.matchUiAndAPIResponse(pages.getPsbDemographicWidget().getSecondaryIdType(), pages.getDemoGraphicPage().getKeyValueAPI(clmDetails.getResult().getSecondaryIdType()), "Secondary Id Type is same as Expected", "Secondary Id Type is not same as Expected"));
             if (pages.getPsbDemographicWidget().getPrimaryIdType().equalsIgnoreCase("-")) {
                 commonLib.warning("Secondary Id Type is not available so unable to display Secondary Id Number is");
             } else {
@@ -141,9 +144,9 @@ public class PsbDemoGraphicWidgetTest extends Driver {
                 commonLib.warning("Address is not available so unable to display address line 2 ,3 and zone");
             } else {
                 pages.getPsbDemographicWidget().hoverOnAddressInfoIcon();
-                assertCheck.append(actions.assertEqualStringType(pages.getPsbDemographicWidget().getAddressLine2(), pages.getDemoGraphicPage().getKeyValueAPI(clmDetails.getResult().getAddressLine2()), "Address Line 2 is same as Expected", "Address Line 2 is not same as Expected"));
-                assertCheck.append(actions.assertEqualStringType(pages.getPsbDemographicWidget().getAddressLine3(), pages.getDemoGraphicPage().getKeyValueAPI(clmDetails.getResult().getAddressLine3()), "Address Line 2 is same as Expected", "Address Line 2 is not same as Expected"));
-                assertCheck.append(actions.assertEqualStringType(pages.getPsbDemographicWidget().getAddressZone(), pages.getDemoGraphicPage().getKeyValueAPI(clmDetails.getResult().getZone()), "Address's Zone is same as Expected", "Address's Zone is not same as Expected"));
+                assertCheck.append(actions.assertEqualStringType(pages.getPsbDemographicWidget().getAddressLine2().toLowerCase(), pages.getDemoGraphicPage().getKeyValueAPI(clmDetails.getResult().getAddressLine2()), "Address Line 2 is same as Expected", "Address Line 2 is not same as Expected"));
+                assertCheck.append(actions.assertEqualStringType(pages.getPsbDemographicWidget().getAddressLine3().toLowerCase(), pages.getDemoGraphicPage().getKeyValueAPI(clmDetails.getResult().getAddressLine3()), "Address Line 3 is same as Expected", "Address Line 3 is not same as Expected"));
+                assertCheck.append(actions.assertEqualStringType(pages.getPsbDemographicWidget().getAddressZone().toLowerCase(), pages.getDemoGraphicPage().getKeyValueAPI(clmDetails.getResult().getZone()), "Address's Zone is same as Expected", "Address's Zone is not same as Expected"));
             }
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (NoSuchElementException | TimeoutException | NullPointerException e) {
@@ -155,8 +158,21 @@ public class PsbDemoGraphicWidgetTest extends Driver {
     public void testCustomerIdAndCategory() {
         try {
             selUtils.addTestcaseDescription("Validate Customer Id, Validate Customer Category", "description");
-            assertCheck.append(actions.assertEqualBoolean(pages.getPsbDemographicWidget().isCustomerIdHeaderVisible(), true, "Customer Id header is visible", "Email Id header is NOT visible"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getPsbDemographicWidget().isCustomerIdHeaderVisible(), true, "Customer Id header is visible", "Customer Id header is NOT visible"));
             assertCheck.append(actions.matchUiAndAPIResponse(pages.getPsbDemographicWidget().getCustomerId(), pages.getDemoGraphicPage().getKeyValueAPI(clmDetails.getResult().getCustomerId()), "Customer Id is same as Expected", "Customer Id is not same as Expected"));
+
+            if (pages.getPsbDemographicWidget().getCustomerId().equalsIgnoreCase("-")) {
+                commonLib.warning("Customer Id is not visible, unable to display KIN details");
+            } else {
+                final boolean customerIdInfoIconVisible = pages.getPsbDemographicWidget().isCustomerIdInfoIconVisible();
+                assertCheck.append(actions.assertEqualBoolean(customerIdInfoIconVisible, true, "Customer Id Icon is visible", "Customer Id Icon is NOT visible"));
+                if (customerIdInfoIconVisible) {
+                    pages.getPsbDemographicWidget().hoverOnCustomerInfoIdIcon();
+                    assertCheck.append(actions.assertEqualStringType(pages.getPsbDemographicWidget().getFirstName().toLowerCase(), pages.getDemoGraphicPage().getKeyValueAPI(clmDetails.getResult().getKinDetails().getFirstName()), "Customer FirstName is as Expected", "Customer FirstName is not same as Expected"));
+                    assertCheck.append(actions.assertEqualStringType(pages.getPsbDemographicWidget().getLastName().toLowerCase(), pages.getDemoGraphicPage().getKeyValueAPI(clmDetails.getResult().getKinDetails().getLastName()), "Customer LastName is as Expected", "Customer LastName is not same as Expected"));
+                    assertCheck.append(actions.assertEqualStringType(pages.getPsbDemographicWidget().getMSISDN().toLowerCase(Locale.ROOT), pages.getDemoGraphicPage().getKeyValueAPI(clmDetails.getResult().getKinDetails().getMsisdn()), "Customer MSISDN is as Expected", "Customer MSISDN is not same as Expected"));
+                }
+            }
             assertCheck.append(actions.assertEqualBoolean(pages.getPsbDemographicWidget().isCustomerCategoryHeaderVisible(), true, "Customer Category header is visible", "Customer Category  header is NOT visible"));
             assertCheck.append(actions.assertEqualStringType(pages.getPsbDemographicWidget().getCustomerCategory(), pages.getDemoGraphicPage().getKeyValueAPI(clmDetails.getResult().getCustomerCategory()), "Customer Category  is same as Expected", "Customer Category  is not same as Expected"));
             actions.assertAllFoundFailedAssert(assertCheck);

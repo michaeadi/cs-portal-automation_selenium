@@ -8,10 +8,11 @@ import org.testng.SkipException;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-public class PinResetTest extends Driver {
+public class WalletPinResetTest extends Driver {
     private static String customerNumber = null;
     PsbRequestSource api = new PsbRequestSource();
     CLMDetailsResponse clmDetails;
+    String className = this.getClass().getName();
 
 
     @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"})
@@ -34,7 +35,7 @@ public class PinResetTest extends Driver {
             clmDetails = api.getCLMDetails(customerNumber);
             assertCheck.append(actions.assertEqualIntType(clmDetails.getStatusCode(), 200, "CLM Details API Status Code Matched and is :" + clmDetails.getStatusCode(), "CLM Details API Status Code NOT Matched and is :" + clmDetails.getStatusCode(), false));
             if (clmDetails.getStatusCode() == 200) {
-                boolean pageLoaded = pages.getPsbDemographicWidget().isPageLoaded(clmDetails);
+                boolean pageLoaded = pages.getPsbDemographicWidget().isPageLoaded(clmDetails, className);
                 if (!pageLoaded)
                     continueExecutionFA = false;
             } else
@@ -51,40 +52,45 @@ public class PinResetTest extends Driver {
         try {
             selUtils.addTestcaseDescription("Validate Pin Reset", "description");
             assertCheck.append(actions.assertEqualBoolean(pages.getPinReset().isPinResetIconVisible(), true, "Pin Reset Icon is visible", "Pin Reset Icon is NOT visible"));
-            pages.getPinReset().clickPinReset();
-            assertCheck.append(actions.assertEqualBoolean(pages.getPinReset().isIssuePopUpVisible(), true, "Issue Detail Pop up is visible", "Issue Detail Pop up is NOT visible"));
-            assertCheck.append(actions.assertEqualBoolean(pages.getPinReset().isPinResetPinHeaderVisible(), true, "Pin reset is visible in Issue Detail Pop up", "Pin Reset label is Issue Detail Pop up"));
-            assertCheck.append(actions.assertEqualBoolean(pages.getPinReset().isSelectReasonVisible(), true, "Select Reason Field is visible", "Select Reason Field is NOT visible"));
-            assertCheck.append(actions.assertEqualBoolean(pages.getPinReset().isCommentBoxVisible(), true, "Comment box is visible", "Comment box is NOT visible"));
-            assertCheck.append(actions.assertEqualBoolean(pages.getPinReset().isSubmitBtnDisabled(), false, "Submit button is disabled", "Submit button is not disabled"));
-            assertCheck.append(actions.assertEqualBoolean(pages.getPinReset().isCancelButtonVisible(), true, "Cancel Button is visible ", "Cancel Button is NOT visible"));
-            pages.getPinReset().enterComment(constants.getValue(ApplicationConstants.COMMENT));
-            pages.getPinReset().clickOnCancelButton();
-            /**
-             Performing operations after clicking Cancel button of Issue Detail Pop up
-             */
-            assertCheck.append(actions.assertEqualBoolean(pages.getPinReset().isCancelConfirmMessageVisible(), true, "Cancel confirmation message is visible ", "Cancel confirm message  is NOT visible"));
-            pages.getPinReset().clickOnContinue();
-            assertCheck.append(actions.assertEqualBoolean(pages.getPinReset().isDemographicWidgetVisible(), true, "Demographic Widget is visible after closing the Issue Detail Pop up ", "Demographic Widget is NOT visible after closing the Issue Detail Pop up"));
-            pages.getPinReset().performResetPin();
-            assertCheck.append(actions.assertEqualBoolean(pages.getPinReset().isSuccessPopUpVisible(), true, "Success Popup visible after resetting pin  ", "Success Popup NOT visible after resetting pin"));
-            String successText = "SmartCash Pin Reset is successfull";
-            assertCheck.append(actions.assertEqualStringType(pages.getPinReset().getSuccessText(), successText, "Success text is displayed as expected", "Success text is not displayed as expected"));
-            pages.getPinReset().clickCrossIcon();
+            if (pages.getWalletInformation().getBarringStatus().equals("NO")) {
+                pages.getPinReset().clickPinReset();
+                assertCheck.append(actions.assertEqualBoolean(pages.getPinReset().isIssuePopUpVisible(), true, "Issue Detail Pop up is visible", "Issue Detail Pop up is NOT visible"));
+                assertCheck.append(actions.assertEqualBoolean(pages.getPinReset().isPinResetPinHeaderVisible(), true, "Pin reset is visible in Issue Detail Pop up", "Pin Reset label is Issue Detail Pop up"));
+                assertCheck.append(actions.assertEqualBoolean(pages.getPinReset().isSelectReasonVisible(), true, "Select Reason Field is visible", "Select Reason Field is NOT visible"));
+                assertCheck.append(actions.assertEqualBoolean(pages.getPinReset().isCommentBoxVisible(), true, "Comment box is visible", "Comment box is NOT visible"));
+                assertCheck.append(actions.assertEqualBoolean(pages.getPinReset().isSubmitBtnDisabled(), false, "Submit button is disabled", "Submit button is not disabled"));
+                assertCheck.append(actions.assertEqualBoolean(pages.getPinReset().isCancelButtonVisible(), true, "Cancel Button is visible ", "Cancel Button is NOT visible"));
+                pages.getPinReset().enterComment(ApplicationConstants.COMMENT);
+                pages.getPinReset().clickOnCancelButton();
+                /**
+                 Performing operations after clicking Cancel button of Issue Detail Pop up
+                 */
+                assertCheck.append(actions.assertEqualBoolean(pages.getPinReset().isCancelConfirmMessageVisible(), true, "Cancel confirmation message is visible ", "Cancel confirm message  is NOT visible"));
+                pages.getPinReset().clickOnContinue();
+                assertCheck.append(actions.assertEqualBoolean(pages.getPinReset().isDemographicWidgetVisible(), true, "Demographic Widget is visible after closing the Issue Detail Pop up ", "Demographic Widget is NOT visible after closing the Issue Detail Pop up"));
+                pages.getPinReset().performResetPin();
+                assertCheck.append(actions.assertEqualBoolean(pages.getPinReset().isSuccessPopUpVisible(), true, "Success Popup visible after resetting pin  ", "Success Popup NOT visible after resetting pin"));
+                String successText = "SmartCash Pin Reset is successful";
+                assertCheck.append(actions.assertEqualStringType(pages.getPinReset().getSuccessText(), successText, "Success text is displayed as expected", "Success text is not displayed as expected"));
+                pages.getPinReset().clickCrossIcon();
+            } else {
+                commonLib.warning("We can not perform PIN Reset as Wallet is BARRED, Please check this Manually");
+            }
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
             commonLib.fail("Exception in Method - pinReset" + e.fillInStackTrace(), true);
+            pages.getPinReset().clickCloseBtn();
         }
     }
 
-    @Test(priority = 3, groups = {"SanityTest", "RegressionTest"}, dependsOnMethods = {"openCustomerInteraction","pinReset"})
+    @Test(priority = 3, groups = {"SanityTest", "RegressionTest"}, dependsOnMethods = {"openCustomerInteraction", "pinReset"})
     public void checkActionTrail() {
         try {
             selUtils.addTestcaseDescription("Validating entry should be captured in Action Trail after performing reset pin", "description");
             pages.getPinReset().goToActionTrail();
             assertCheck.append(actions.assertEqualStringType(pages.getPinReset().getActionType(), "SmartCash PIN Reset", "Action type for pin reset is expected", "Action type for pin reset is not as expected"));
             assertCheck.append(actions.assertEqualStringType(pages.getPinReset().getReason(), "Customer Forgot PIN", "Reason for pin reset is expected", "Reason for pin reset is not as expected"));
-            assertCheck.append(actions.assertEqualStringType(pages.getPinReset().getComment(), constants.getValue(ApplicationConstants.COMMENT), "Comment for pin reset is expected", "Comment for pin reset is not as expected"));
+            assertCheck.append(actions.assertEqualStringType(pages.getPinReset().getComment(), ApplicationConstants.COMMENT, "Comment for pin reset is expected", "Comment for pin reset is not as expected"));
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
             commonLib.fail("Exception in Method - checkActionTrail" + e.fillInStackTrace(), true);
