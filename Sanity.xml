@@ -628,7 +628,7 @@
         <classes>
             <class name="com.airtel.cs.ui.configurationtest.ConfigurationListTest"/>
         </classes>
-    </test>-->
+    </test>
     <test name="Supervisors Login Test">
         <groups>
             <run>
@@ -758,7 +758,7 @@
         <classes>
             <class name="com.airtel.cs.ui.ticketBulkUpdate.TicketBulkUpdateTest"/>
         </classes>
-    </test>-->
+    </test>
     <test name="Validate OSC Recharge Without Pin">
         <groups>
             <run>

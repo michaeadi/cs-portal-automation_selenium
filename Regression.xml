@@ -863,7 +863,7 @@
         <classes>
             <class name="com.airtel.cs.ui.backendAgent.BackendAgentAddCommentTest"/>
         </classes>
-    </test>-->
+    </test>
     <test name="BACKEND AGENT Transfer to Queue Test">
         <groups>
             <run>
@@ -883,7 +883,7 @@
         <classes>
             <class name="com.airtel.cs.ui.frontendagent.loginandlogout.LogoutTest"/>
         </classes>
-    </test>-->
+    </test>
     <test name="Login Admin Test For Kpi Dashboard">
         <groups>
             <run>
