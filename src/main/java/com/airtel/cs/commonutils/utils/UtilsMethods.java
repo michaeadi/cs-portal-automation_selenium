@@ -380,8 +380,7 @@ public class UtilsMethods extends Driver {
                 if (Integer.parseInt(metadataConfigs.getRulePriority()) == -1) {
                     return metadataConfigs;
                 }
-                if (ticketMetaInfoMap.containsKey(metadataConfigs.getAttributeName()) && metadataConfigs.getAttributeValue()
-                        .contains(ticketMetaInfoMap.get(metadataConfigs.getAttributeName()))) {
+                if (ticketMetaInfoMap.containsKey(metadataConfigs.getAttributeName()) && metadataConfigs.getAttributeValue().contains(ticketMetaInfoMap.get(metadataConfigs.getAttributeName()))) {
                     return metadataConfigs;
                 }
             }

@@ -42,7 +42,7 @@ public class SupervisorTicketList extends BasePage {
     }
 
     /**
-     * This method use to get error message while performing transfer to queue
+     * This method use to get success message while performing transfer to queue
      * @return String The value
      * */
     public String getTransferSuccessMessage() {
@@ -420,10 +420,10 @@ public class SupervisorTicketList extends BasePage {
         clickAndWaitForLoaderToBeRemoved(pageElements.closedTicketType);
     }
     /**
-     * This method is use to enter commment and click Submit Button
+     * This method is use to enter comment and click Submit Button
      * */
     public void enterCommentAndClickSubmit() {
-        commonLib.info("Updating ticket's state from open to closed");
+        commonLib.info("Entering comment and clicking Submit button");
         enterComment(COMMENT);
         clickAndWaitForLoaderToBeRemoved(pageElements.submitButton);
     }

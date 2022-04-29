@@ -20,4 +20,6 @@ public class VoucherDetail {
     private String voucherGroup;
     private String timestamp;
     private String subscriberId;
+    private String activationCode;
+    private String message;
 }

@@ -37,6 +37,8 @@ public class PermissionConstants {
     public static final String SEND_POSTPAID_BILL = "send.bill";
     public static final String PROMISE_TO_PAY_POSTPAID_BILL="promise.to.pay";
     public static final String AM_PROFILE_DETAILS_PERMISSION = "am.profile.details";
+    public static final String OSC_RECHARGE_PERMISSION="osc.recharge";
+    public static final String PIN_NON_MANDATORY_PERMISSION="voucher.pin.non.mandatory";
 
     private PermissionConstants() {
         throw new IllegalStateException();
