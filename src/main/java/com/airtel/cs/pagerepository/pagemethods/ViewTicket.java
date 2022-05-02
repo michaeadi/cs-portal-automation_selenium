@@ -101,30 +101,26 @@ public class ViewTicket extends BasePage {
     }
 
     /**
-     * This method is use to validate comment type  found  or not in comment section based on comment type
+     * This method is used to validate issue comment type found  or not in comment section
      *
      * @param text The comment type
      * @return true/false
      */
     public boolean validateCommentType(String text) {
-        try {
-            List<WebElement> list = returnListOfElement(pageElements.allComment);
-            for (int i = 1; i <= list.size(); i++) {
-                By commentType = By.xpath(pageElements.commentSection + i + pageElements.commentType);
-                commonLib.info(READING_COMMENT + getText(commentType));
-                if (getText(commentType).trim().equalsIgnoreCase(text)) {
-                    commonLib.pass("Comment type found on ticket: " + getText(commentType));
-                    return true;
-                }
+        if (isVisible(pageElements.issueComment)) {
+            String commentType = getText(pageElements.issueComment);
+            commonLib.info(READING_COMMENT + commentType);
+            if (getText(pageElements.issueComment).trim().equalsIgnoreCase(text)) {
+                commonLib.pass("Comment type found on ticket: " + commentType);
+                return true;
+            } else {
+                commonLib.warning("No Issue Comment type found on ticket: " + text);
+                return false;
             }
-            commonLib.warning("No Issue Comment type found on ticket: " + text);
-            return false;
-        } catch (Exception e) {
-            e.printStackTrace();
-            commonLib.info("Exception Occurred: " + e.fillInStackTrace());
-            return false;
         }
+        return false;
     }
+
 
     /**
      * This method use to add comment in comment box

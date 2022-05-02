@@ -14,7 +14,7 @@
             <class name="com.airtel.cs.ui.frontendagent.loginandlogout.LoginAPITest"/>
         </classes>
     </test>
- <test name="Prod Test Login With Advisor Supervisor-To check Auto-Assignment">
+    <test name="Prod Test Login With Advisor Supervisor-To check Auto-Assignment">
         <groups>
             <run>
                 <include name="SmokeTest"/>
@@ -94,7 +94,7 @@
             <class name="com.airtel.cs.ui.frontendagent.leftmenu.SideMenuTests"/>
         </classes>
     </test>
-  <test name="Demo Graphic Widget Test By Prepaid MSISDN" preserve-order="true">
+    <test name="Demo Graphic Widget Test By Prepaid MSISDN" preserve-order="true">
         <groups>
             <run>
                 <include name="ProdTest"/>
@@ -293,6 +293,16 @@
         </groups>
         <classes>
             <class name="com.airtel.cs.ui.frontendagent.hometab.RechargeHistoryWidgetTest"/>
+        </classes>
+    </test>
+    <test name="Validate OSC Recharge">
+        <groups>
+            <run>
+                <include name="ProdTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.OscRechargeTest"/>
         </classes>
     </test>
     <test name="Display Offer Widget Test" preserve-order="true">
@@ -553,6 +563,16 @@
         </groups>
         <classes>
             <class name="com.airtel.cs.ui.ticketBulkUpdate.TicketBulkUpdateTest"/>
+        </classes>
+    </test>
+    <test name="Validate OSC Recharge Without Pin">
+        <groups>
+            <run>
+                <include name="ProdTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.OscRechargeWithoutPinTest"/>
         </classes>
     </test>
     <test name="Logout Supervisor Test">

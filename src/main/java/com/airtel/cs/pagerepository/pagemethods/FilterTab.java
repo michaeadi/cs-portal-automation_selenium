@@ -334,7 +334,7 @@ public class FilterTab extends BasePage {
     public void clickCloseFilter() {
         try {
             commonLib.info("Closing Filter Tab");
-            clickWithoutLoader(tabElements.closeFilter);
+            clickAndWaitForLoaderToBeRemoved(tabElements.closeFilter);
         } catch (NoSuchElementException | TimeoutException e) {
             commonLib.info("Close Filter Button does not display");
         }

@@ -25,4 +25,5 @@ public class ViewTicketPage {
     public String editCommentSection="]//td[1]//a[1]//img[1]";
     public String deleteIcon="]//td[1]//a[2]//img[1]";
     public String iconList="//table[@class='ng-star-inserted']/tbody//tr[";
+    public By issueComment=By.xpath("//table[@class='ng-star-inserted']//tbody//tr[1]/td/span/span[1]");
 }

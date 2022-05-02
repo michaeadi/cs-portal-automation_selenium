@@ -162,7 +162,7 @@ public class TransferToQueueTest extends Driver {
             assertCheck.append(actions.assertEqualBoolean(UtilsMethods.isUserHasPermission(workflow_override), true, "Agent has permission of ticket workflow override as expected", "Agent does not have permission of ticket workflow override as expected"));
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
-            commonLib.fail("Exception in Method - isUserHasHLRPermission" + e.fillInStackTrace(), true);
+            commonLib.fail("Exception in Method - isUserHasWorkFlowOverRidePermission" + e.fillInStackTrace(), true);
         }
     }
 
@@ -172,7 +172,7 @@ public class TransferToQueueTest extends Driver {
             selUtils.addTestcaseDescription("Verify that when only one ticket is selected for Transfer to Queue on the Ticket List Page, Validate that transfer to queue option displayed,Click on Transfer to queue option,Validate transfer to queue tab open, click on first queue available,Check error screen visible or not", "description");
             ticketId = pages.getSupervisorTicketList().getTicketIdValue();
             pages.getSupervisorTicketList().clickCheckbox();
-            assertCheck.append(actions.assertEqualBoolean(pages.getSupervisorTicketList().isTransferToQueue(), true, "Agent have permission to transfer to queue and option visible after selecting ticket", "Agent have permission to transfer to queue but option does not visible after selecting ticket"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getSupervisorTicketList().isTransferToQueue(), true, "Agent has permission to transfer to queue and option visible after selecting ticket", "Agent have permission to transfer to queue but option does not visible after selecting ticket"));
             try {
                 pages.getSupervisorTicketList().clickTransfertoQueue();
                 assertCheck.append(actions.assertEqualBoolean(pages.getTransferToQueue().validatePageTitle(), true, "Transfer to Queue Pop up open as expected", "Transfer to Queue Page Title Does not Display"));
@@ -182,7 +182,12 @@ public class TransferToQueueTest extends Driver {
                 if (pages.getSupervisorTicketList().isTransferAnyWayBtn()) {
                     commonLib.info("Performing Transfer Anyway operation as ticket not transfer to given queue: " + pages.getSupervisorTicketList().getTransferErrorMessage());
                     pages.getSupervisorTicketList().clickTransferAnyWayBtn();
-                    assertCheck.append(actions.assertEqualBoolean(pages.getSupervisorTicketList().getTransferSuccessMessage().contains("successfully"), true, "Ticket transfer to queue message successfully displayed", "Ticket does not transfer to queue message successfully displayed"));
+                    pages.getSupervisorTicketList().searchTicket(ticketId);
+                    if (pages.getSupervisorTicketList().getQueueValue().trim().equalsIgnoreCase(toQueueName.trim()))
+                        commonLib.pass("Ticket successfully transferred to the selected queue");
+                    else
+                        commonLib.fail("Ticket not transferred to the selected queue", true);
+                    pages.getSupervisorTicketList().clearInputBox();
                 }
             } catch (NoSuchElementException | TimeoutException e) {
                 commonLib.fail("Not able to perform Transfer to Queue: " + e.fillInStackTrace(), true);
@@ -190,7 +195,7 @@ public class TransferToQueueTest extends Driver {
             }
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
-            commonLib.fail("Exception in Method - performSingleTicketTransferToQueue" + e.fillInStackTrace(), true);
+            commonLib.fail("Exception in Method - validateTransferAnyWay" + e.fillInStackTrace(), true);
         }
     }
 

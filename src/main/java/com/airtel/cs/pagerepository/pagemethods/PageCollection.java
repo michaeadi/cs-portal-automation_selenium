@@ -172,8 +172,8 @@ public class PageCollection {
         return new ViewTicket(driver);
     }
 
-    public VoucherTab getVoucherTab() {
-        return new VoucherTab(driver);
+    public OscRecharge getOscRecharge() {
+        return new OscRecharge(driver);
     }
 
     public WidgetInteraction getWidgetInteraction() {

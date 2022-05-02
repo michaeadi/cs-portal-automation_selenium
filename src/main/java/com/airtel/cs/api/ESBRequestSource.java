@@ -1,6 +1,7 @@
 package com.airtel.cs.api;
 
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
+import com.airtel.cs.commonutils.applicationutils.constants.URIConstants;
 import com.airtel.cs.commonutils.restutils.RestCommonUtils;
 import com.airtel.cs.commonutils.utils.UtilsMethods;
 import com.airtel.cs.commonutils.applicationutils.constants.ESBURIConstants;
@@ -20,6 +21,7 @@ import com.airtel.cs.model.cs.request.StatementRequest;
 import com.airtel.cs.model.cs.request.UsageHistoryMenuRequest;
 import com.airtel.cs.model.cs.request.UsageHistoryRequest;
 import com.airtel.cs.model.cs.request.UsageRequestV3DTO;
+import com.airtel.cs.model.cs.request.am.SmsLogsRequest;
 import com.airtel.cs.model.cs.request.enterprise.AccountLevelInformationRequest;
 import com.airtel.cs.model.cs.request.layout.FieldsConfigDTO;
 import com.airtel.cs.model.cs.request.vas.ActiveVasRequest;
@@ -28,11 +30,13 @@ import com.airtel.cs.model.cs.response.InvoiceHistoryResponse;
 import com.airtel.cs.model.cs.response.PaymentResponse;
 import com.airtel.cs.model.cs.response.PlanPackESBResponse;
 import com.airtel.cs.model.cs.response.PostpaidBillDetailsResponse;
+import com.airtel.cs.model.cs.response.am.SmsLogsResponse;
 import com.airtel.cs.model.cs.response.customeprofile.CustomerProfileResponse;
 import com.airtel.cs.model.cs.response.enterprise.AccountLevelInformationResponse;
 import com.airtel.cs.model.cs.response.postpaid.AccountStatementResponse;
 import com.airtel.cs.model.cs.response.postpaid.enterprise.AccountLinesResponse;
 import com.airtel.cs.model.cs.response.serviceclassrateplan.ServiceClassRatePlanResponseDTO;
+import com.airtel.cs.model.cs.response.voucher.VoucherDetail;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.json.simple.JSONObject;
@@ -278,21 +282,24 @@ public class ESBRequestSource extends RestCommonUtils {
     }
 
     /**
-     * This Method will hit the Downstream APIs related to voucher details
+     * This Method will hit the Downstream API related to voucher details
      *
      * @param voucherId The voucher id
      */
-    public void callVoucherDetails(String voucherId) {
+    public VoucherDetail callVoucherDetails(String voucherId) {
+        VoucherDetail result = null;
         try {
             commonLib.infoColored(constants.getValue(DOWNSTREAM_API_CALLING) + constants.getValue("voucher.detail"), JavaColors.GREEN, false);
-            if (StringUtils.isNotBlank(voucherId)) {
-                queryParam.put("serial_number", voucherId);
-                commonGetMethodWithQueryParam(INGRESS_DOWNSTREAM_BASE_URL + ESBURIConstants.VOUCHER_DETAIL, queryParam);
-            }
-            checkDownstreamAPI(response.getStatusCode(), "Downstream API voucher details not working with data ", "Downstream API voucher details working with data ");
-        } catch (Exception e) {
+            queryParam.put("serial_number", voucherId);
+            commonGetMethodWithQueryParam(constants.getValue("voucher.service.base.url") + ESBURIConstants.VOUCHER_DETAIL, queryParam);
+            result = response.as(VoucherDetail.class);
+            if (!result.getMessage().equalsIgnoreCase("Success"))
+                checkDownstreamAPI(response.getStatusCode(), "Downstream API voucher details not working with data ", "Downstream API voucher details working with data ");
+
+        } catch (NullPointerException e) {
             commonLib.fail(constants.getValue(DOWNSTREAM_API_ERROR) + VOUCHER_DETAILS + e.getMessage(), false);
         }
+        return result;
     }
 
     /**
@@ -1140,7 +1147,7 @@ public class ESBRequestSource extends RestCommonUtils {
         AccountLevelInformationResponse result = null;
         try {
             commonLib.infoColored(constants.getValue(DOWNSTREAM_API_CALLING) + constants.getValue("v1.account.level.information"), JavaColors.GREEN, false);
-            commonPostMethod(INGRESS_DOWNSTREAM_BASE_URL + ESBURIConstants.ACCOUNT_LEVEL_INFO, new AccountLevelInformationRequest(custMobileNo,10,0));
+            commonPostMethod(INGRESS_DOWNSTREAM_BASE_URL + ESBURIConstants.ACCOUNT_LEVEL_INFO, new AccountLevelInformationRequest(custMobileNo, 10, 0));
             result = response.as(AccountLevelInformationResponse.class);
         } catch (Exception e) {
             commonLib.fail(EXCEPTION_IN_METHOD + "callAccountLevelInfo " + e.getMessage(), false);

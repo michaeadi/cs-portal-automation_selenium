@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Automation Framework CS PORTAl Test Suite" preserve-order="true" allow-return-values="true">
+    <listeners>
+        <listener class-name="com.airtel.cs.commonutils.listeners.TestListenerMethod"/>
+    </listeners>
+    <test name="Prod Test Login API">
+        <groups>
+            <run>
+                <include name="ProdTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.loginandlogout.LoginAPITest"/>
+        </classes>
+    </test>
+    <test name="Prod Test Login With Advisor Supervisor-To check Auto-Assignment">
+           <groups>
+               <run>
+                   <include name="ProdTest"/>
+               </run>
+           </groups>
+           <classes>
+               <class name="com.airtel.cs.ui.frontendagent.loginandlogout.LoginPortalTests"/>
+           </classes>
+       </test>
+       <test name="Auto Assignment Test" preserve-order="true">
+           <groups>
+               <run>
+                   <include name="ProdTest"/>
+               </run>
+           </groups>
+           <classes>
+               <class name="com.airtel.cs.ui.autoassignment.AutoAssignmentTest"/>
+           </classes>
+       </test>
+       <test name="Logout Advisor Supervisor Test-To check Auto Un-assignment">
+           <groups>
+               <run>
+                   <include name="ProdTest"/>
+               </run>
+           </groups>
+           <classes>
+               <class name="com.airtel.cs.ui.frontendagent.loginandlogout.LogoutTest"/>
+           </classes>
+       </test>
+       <test name="Prod Test Login With Advisor Supervisor-To check Auto-Un Assignment After Logout">
+           <groups>
+               <run>
+                   <include name="ProdTest"/>
+               </run>
+           </groups>
+           <classes>
+               <class name="com.airtel.cs.ui.frontendagent.loginandlogout.LoginPortalTests"/>
+           </classes>
+       </test>
+       <test name="Validate ticket auto un-assignment Test-Smoke Testing before x hour">
+           <groups>
+               <run>
+                   <include name="PositiveFlowUnAssignment"/>
+               </run>
+           </groups>
+           <classes>
+               <class name="com.airtel.cs.ui.autounassignment.AutoUnAssignmentTest"/>
+           </classes>
+       </test>
+       <test name="Logout Advisor Supervisor Test-To check Auto Un-assignment before x hour">
+           <groups>
+               <run>
+                   <include name="ProdTest"/>
+               </run>
+           </groups>
+           <classes>
+               <class name="com.airtel.cs.ui.frontendagent.loginandlogout.LogoutTest"/>
+           </classes>
+       </test>
+    <test name="Test Login Into Portal">
+        <groups>
+            <run>
+                <include name="ProdTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.loginandlogout.LoginPortalTests"/>
+        </classes>
+    </test>
+    <test name="Supervisors Login Test">
+         <groups>
+             <run>
+                 <include name="ProdTest"/>
+             </run>
+         </groups>
+         <classes>
+             <class name="com.airtel.cs.ui.backendSupervisor.SupervisorTicketListingPageTest"/>
+         </classes>
+     </test>
+    <test name="Create NFTR FTR Tickets TEST">
+        <groups>
+            <run>
+                <include name="ProdTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.CreateInteractionTest"/>
+        </classes>
+    </test>
+    <test name="Supervisor Ticket Source App Test">
+        <groups>
+            <run>
+                <include name="ProdTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.ticketsourceapp.SupervisorTicketSourceAppTest"/>
+        </classes>
+    </test>
+     <test name="Supervisors Validate Filter Option ">
+         <groups>
+             <run>
+                 <include name="ProdTest"/>
+             </run>
+         </groups>
+         <classes>
+             <class name="com.airtel.cs.ui.backendSupervisor.SupervisorFilterTest"/>
+         </classes>
+     </test>
+     <test name="Supervisors Search/View Ticket ">
+         <groups>
+             <run>
+                 <include name="ProdTest"/>
+             </run>
+         </groups>
+         <classes>
+             <class name="com.airtel.cs.ui.backendSupervisor.SupervisorSearchTicketTest"/>
+         </classes>
+     </test>
+     <test name="Supervisors Update Ticket Test">
+         <groups>
+             <run>
+                 <include name="ProdTest"/>
+             </run>
+         </groups>
+         <classes>
+             <class name="com.airtel.cs.ui.backendSupervisor.SupervisorUpdateTicketTest"/>
+         </classes>
+     </test>
+     <test name="Supervisor Re-Open Ticket">
+         <groups>
+             <run>
+                 <include name="ProdTest"/>
+             </run>
+         </groups>
+         <classes>
+             <class name="com.airtel.cs.ui.backendSupervisor.SupervisorReopenTicketTest"/>
+         </classes>
+     </test>
+     <test name="Supervisors Ticket Bulk Update Test">
+         <groups>
+             <run>
+                 <include name="ProdTest"/>
+             </run>
+         </groups>
+         <classes>
+             <class name="com.airtel.cs.ui.ticketBulkUpdate.TicketBulkUpdateTest"/>
+         </classes>
+     </test>
+    <test name="Validate OSC Recharge Without Pin">
+        <groups>
+            <run>
+                <include name="ProdTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.OscRechargeWithoutPinTest"/>
+        </classes>
+    </test>
+     <test name="Logout Supervisor Test">
+         <groups>
+             <run>
+                 <include name="ProdTest"/>
+             </run>
+         </groups>
+         <classes>
+             <class name="com.airtel.cs.ui.frontendagent.loginandlogout.LogoutTest"/>
+         </classes>
+     </test>
+</suite>

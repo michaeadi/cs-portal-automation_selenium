@@ -118,6 +118,7 @@ public class ApplicationConstants {
     public static final String AUTO_FILL_ISSUE_FIELD_API_ENABLED="sr.auto.fill.issue.field.api.enabled";
     public static final String WALLET_TYPE = "cs.wallet.type";
     public static final String ACCOUNT_TYPE = "cs.account.type";
+    public static final String OSC_VOUCHER = "cs.osc.voucher";
 
     private ApplicationConstants() {
         throw new IllegalStateException();

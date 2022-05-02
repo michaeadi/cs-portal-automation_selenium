@@ -169,6 +169,16 @@
             <class name="com.airtel.cs.ui.configurationtest.ConfigurationListTest"/>
         </classes>
     </test>
+    <test name="Validate OSC Recharge">
+        <groups>
+            <run>
+                <include name="SanityTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.OscRechargeTest"/>
+        </classes>
+    </test>
     <test name="Validate HBB Profile">
         <groups>
             <run>
@@ -479,16 +489,6 @@
             <class name="com.airtel.cs.ui.frontendagent.FrontendAgentTicketTest"/>
         </classes>
     </test>
-    <test name="Validate Voucher Tab">
-        <groups>
-            <run>
-                <include name="SanityTest"/>
-            </run>
-        </groups>
-        <classes>
-            <class name="com.airtel.cs.ui.frontendagent.VoucherTabTest"/>
-        </classes>
-    </test>
     <test name="Clear Refill error">
         <groups>
             <run>
@@ -516,7 +516,7 @@
             </run>
         </groups>
         <classes>
-            <class name="com.airtel.cs.ui.ticketsourceapp.TicketSourceAppTest"/>
+            <class name="com.airtel.cs.ui.ticketsourceapp.SupervisorTicketSourceAppTest"/>
         </classes>
     </test>
     <test name="SIM Bar Unbar Test">
@@ -636,7 +636,7 @@
             </run>
         </groups>
         <classes>
-            <class name="com.airtel.cs.ui.backendSupervisor.SupervisorLoginTest"/>
+            <class name="com.airtel.cs.ui.backendSupervisor.SupervisorTicketListingPageTest"/>
         </classes>
     </test>
     <test name="Supervisors Global Search Ticket Test">
@@ -757,6 +757,16 @@
         </groups>
         <classes>
             <class name="com.airtel.cs.ui.ticketBulkUpdate.TicketBulkUpdateTest"/>
+        </classes>
+    </test>
+    <test name="Validate OSC Recharge Without Pin">
+        <groups>
+            <run>
+                <include name="SanityTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.OscRechargeWithoutPinTest"/>
         </classes>
     </test>
     <test name="Logout Supervisor Test">

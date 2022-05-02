@@ -59,13 +59,13 @@ public class BackendAgentAddCommentTest extends Driver {
     }
 
     @Test(priority = 3, dependsOnMethods = "agentQueueLogin", groups = {"SanityTest", "RegressionTest"})
-    public void validateIssueCommentBS() {
+    public void validateIssueComment() {
         try {
             selUtils.addTestcaseDescription("Validate issue comment as Backend Agent", "description");
             assertCheck.append(actions.assertEqualBoolean(pages.getViewTicket().validateCommentType(constants.getValue(CommonConstants.ISSUE_COMMENT_TYPE)), true, "Issue Comment found on ticket", "Issue Comment does not found on ticket"));
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (NotFoundException | TimeoutException | ElementClickInterceptedException e) {
-            commonLib.fail("Exception in Method - validateIssueCommentBS", true);
+            commonLib.fail("Exception in Method - validateIssueComment", true);
         }
     }
 
