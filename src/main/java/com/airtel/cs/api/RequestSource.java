@@ -643,7 +643,7 @@ public class RequestSource extends RestCommonUtils {
         try {
             commonPostMethod(URIConstants.VOUCHER_DETAILS, new VoucherSearchRequest(voucherId));
             result = response.as(VoucherSearch.class);
-            if (result.getStatusCode() != 200 ) {
+            if (result.getStatusCode() != 200) {
                 esbRequestSource.callVoucherDetails(voucherId);
             }
         } catch (Exception e) {
@@ -2217,9 +2217,9 @@ public class RequestSource extends RestCommonUtils {
         commonLib.infoColored(constants.getValue(CALLING_CS_API) + constants.getValue("tcp.limits"), JavaColors.GREEN, false);
         TcpLimitsResponse result = null;
         try {
-            String userType=constants.getValue(CommonConstants.TCP_LIMIT_USER_TYPE);
-            String bearer=constants.getValue(CommonConstants.TCP_LIMIT_BEARER);
-            commonPostMethod(TCP_LIMITS, new TcpLimitsRequest(msisdn, tcpId,userType,bearer));
+            String userType = constants.getValue(CommonConstants.TCP_LIMIT_USER_TYPE);
+            String bearer = constants.getValue(CommonConstants.TCP_LIMIT_BEARER);
+            commonPostMethod(TCP_LIMITS, new TcpLimitsRequest(msisdn, tcpId, userType, bearer));
             result = response.as(TcpLimitsResponse.class);
             if (response.getStatusCode() != 200) {
                 esbRequestSource.callTcpLimits(tcpId);
@@ -2269,6 +2269,7 @@ public class RequestSource extends RestCommonUtils {
 
     /**
      * This Method will hit the API "/cs-am-service/v1/sms/trail" and return the response
+     *
      * @param msisdn The msisdn
      * @return The Response
      */
@@ -2276,9 +2277,9 @@ public class RequestSource extends RestCommonUtils {
         commonLib.infoColored(constants.getValue(CALLING_CS_API) + constants.getValue("sms.trails"), JavaColors.GREEN, false);
         SmsLogsResponse result = null;
         try {
-            commonPostMethod(URIConstants.SMS_TRAILS, new SmsLogsRequest(msisdn,null,null,1,5));
+            commonPostMethod(URIConstants.SMS_TRAILS, new SmsLogsRequest(msisdn, null, null, 1, 5));
             result = response.as(SmsLogsResponse.class);
-            if(result.getStatusCode()!=200)
+            if (result.getStatusCode() != 200)
                 esbRequestSource.callSmsLogs(msisdn);
         } catch (Exception e) {
             commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + " - getSmsLogs " + e.getMessage(), false);
