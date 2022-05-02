@@ -21,7 +21,7 @@ public class AirtelMoneyMenuSecondaryWidgetTest extends Driver {
     RequestSource api = new RequestSource();
     private AirtelMoney amTransactionHistoryAPI;
 
-    @BeforeMethod(groups = {"ProdTest", "SmokeTest"})
+    @BeforeMethod(groups = {"ProdTest"})
     public void checkExecution() {
         if (!continueExecutionFA) {
             commonLib.skip("Skipping tests because user NOT able to login Over Portal");
@@ -29,7 +29,7 @@ public class AirtelMoneyMenuSecondaryWidgetTest extends Driver {
         }
     }
 
-    @BeforeMethod(groups = {"ProdTest", "SmokeTest"})
+    @BeforeMethod(groups = {"ProdTest"})
     public void checkAirtelMoneyFlag() {
         if (!StringUtils.equals(RUN_AIRTEL_MONEY_WIDGET_TEST_CASE, "true")) {
             commonLib.skip("Skipping because Multiple Wallet not enabled for this " + OPCO);
@@ -37,7 +37,7 @@ public class AirtelMoneyMenuSecondaryWidgetTest extends Driver {
         }
     }
 
-    @BeforeMethod(groups = {"ProdTest", "SmokeTest"})
+    @BeforeMethod(groups = {"ProdTest"})
     public void checkMultiWalletFlag() {
         if (!StringUtils.equals(MULTI_AM_WALLET, "true")) {
             commonLib.skip("Skipping because Airtel Multi-Wallet Test Case Flag Value is - " + MULTI_AM_WALLET);
@@ -45,7 +45,7 @@ public class AirtelMoneyMenuSecondaryWidgetTest extends Driver {
         }
     }
 
-    @Test(priority = 1, groups = {"ProdTest", "SmokeTest"})
+    @Test(priority = 1, groups = {"ProdTest"})
     public void openCustomerInteraction() {
         try {
             selUtils.addTestcaseDescription("Open Customer Profile Page with valid MSISDN, Validate Customer Profile Page Loaded or not", "description");
@@ -64,7 +64,7 @@ public class AirtelMoneyMenuSecondaryWidgetTest extends Driver {
     }
 
     @DataProviders.Table(name = "More Airtel Money Secondary History")
-    @Test(priority = 2, groups = {"ProdTest", "SmokeTest"}, dataProvider = "HeaderData", dataProviderClass = DataProviders.class, dependsOnMethods = {"openCustomerInteraction"})
+    @Test(priority = 2, groups = {"ProdTest"}, dataProvider = "HeaderData", dataProviderClass = DataProviders.class, dependsOnMethods = {"openCustomerInteraction"})
     public void amDetailedHistorySecondaryWidgetHeaderTest(HeaderDataBean data) {
         try {
             selUtils.addTestcaseDescription("Validating Airtel Money History's Header Name  Menu of User :" + customerNumber + ",Validating all the filter display as per config,Validate search by transaction id box displayed as per config.", "description");

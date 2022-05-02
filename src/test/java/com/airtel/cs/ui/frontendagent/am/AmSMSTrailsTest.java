@@ -14,11 +14,11 @@ public class AmSMSTrailsTest extends Driver {
     String customerNumber = null;
     SmsLogsResponse smsLogs;
     int size;
-    Boolean isPermissionEnable=false;
+    Boolean isPermissionEnable = false;
 
     public static final String RUN_AM_SMS_TRAILS = constants.getValue(ApplicationConstants.RUN_AM_SMS_TRAILS);
 
-    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"})
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void checkExecution() {
         if (!continueExecutionFA) {
             commonLib.skip("Skipping tests because user NOT able to login Over Portal");
@@ -27,7 +27,7 @@ public class AmSMSTrailsTest extends Driver {
     }
 
 
-    @BeforeMethod(groups = {"ProdTest", "SmokeTest","SanityTest", "RegressionTest"})
+    @BeforeMethod(groups = {"ProdTest", "SanityTest", "RegressionTest"})
     public void checkLinkedWalletFlag() {
         if (!StringUtils.equals(RUN_AM_SMS_TRAILS, "true")) {
             commonLib.skip("Skipping because Run Airtel Money SMS Trails Test Case Flag Value is - " + RUN_AM_SMS_TRAILS);
@@ -38,7 +38,7 @@ public class AmSMSTrailsTest extends Driver {
     /**
      * This method is used to Open Customer Profile Page with valid MSISDN
      */
-    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"})
+    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void openCustomerInteraction() {
         try {
             selUtils.addTestcaseDescription("Open Customer Profile Page with valid MSISDN, Validate Customer Profile Page Loaded or not", "description");
@@ -73,19 +73,19 @@ public class AmSMSTrailsTest extends Driver {
     /**
      * This method is used to Open SMS Logs tab
      */
-    @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"}, dependsOnMethods = "openCustomerInteraction")
+    @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "openCustomerInteraction")
     public void openSmsLogs() {
         try {
             selUtils.addTestcaseDescription("Validate AM Transactions Widget visible or not ,Open detailed page of Am Transactions widget , Open Sms Logs,Validate auuid at the footer and middle of the widget", "description");
             assertCheck.append(actions.assertEqualBoolean(pages.getAmSmsTrails().isAmTransactionsWidgetVisible(), true, "Am Transaction Widget is visible", "Am Transaction Widget is NOT visible"));
             if (isPermissionEnable) {
-            assertCheck.append(actions.assertEqualBoolean(pages.getAmSmsTrails().isMoreIconVisible(), true, "AM Transaction Widget detailed icon  is visible", "AM Transaction Widget detailed icon is NOT visible"));
-            pages.getAmSmsTrails().clickMoreIcon();
-            assertCheck.append(actions.assertEqualBoolean(pages.getAmSmsTrails().isAmProfileDetailsDetailWidgetVisible(), true, "Am Profile Details widget is visible", "Am Profile Details widget is NOT visible"));
-            pages.getAmSmsTrails().clickSmsLogs();
-            assertCheck.append(actions.assertEqualBoolean(pages.getAmSmsTrails().isSmsLogVisible(), true, "SMS Logs tab is visible", "SMS Logs tab is NOT visible"));
-            assertCheck.append(actions.assertEqualStringType(pages.getAmSmsTrails().getFooterAuuid(), loginAUUID, "Auuid shown at the footer of SMS Logs widget and is expected ", "Auuid NOT shown at the footer of SMS Logs widget "));
-            assertCheck.append(actions.assertEqualStringType(pages.getAmSmsTrails().getMiddleAuuid(), loginAUUID, "Auuid shown at the middle of SMS Logs widget and is expected", "Auuid NOT shown at the middle of SMS Logs widget "));
+                assertCheck.append(actions.assertEqualBoolean(pages.getAmSmsTrails().isMoreIconVisible(), true, "AM Transaction Widget detailed icon  is visible", "AM Transaction Widget detailed icon is NOT visible"));
+                pages.getAmSmsTrails().clickMoreIcon();
+                assertCheck.append(actions.assertEqualBoolean(pages.getAmSmsTrails().isAmProfileDetailsDetailWidgetVisible(), true, "Am Profile Details widget is visible", "Am Profile Details widget is NOT visible"));
+                pages.getAmSmsTrails().clickSmsLogs();
+                assertCheck.append(actions.assertEqualBoolean(pages.getAmSmsTrails().isSmsLogVisible(), true, "SMS Logs tab is visible", "SMS Logs tab is NOT visible"));
+                assertCheck.append(actions.assertEqualStringType(pages.getAmSmsTrails().getFooterAuuid(), loginAUUID, "Auuid shown at the footer of SMS Logs widget and is expected ", "Auuid NOT shown at the footer of SMS Logs widget "));
+                assertCheck.append(actions.assertEqualStringType(pages.getAmSmsTrails().getMiddleAuuid(), loginAUUID, "Auuid shown at the middle of SMS Logs widget and is expected", "Auuid NOT shown at the middle of SMS Logs widget "));
             } else
                 commonLib.fail("Am Profile Details widget is not visible as user has not permission to view it", true);
             actions.assertAllFoundFailedAssert(assertCheck);
@@ -97,13 +97,13 @@ public class AmSMSTrailsTest extends Driver {
     /**
      * This method is used to test Sms Logs tab Layout
      */
-    @Test(priority = 4, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"}, dependsOnMethods = "openCustomerInteraction")
+    @Test(priority = 4, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "openCustomerInteraction")
     public void testSmsLogsLayout() {
         try {
             selUtils.addTestcaseDescription("Validate all the fields are visible or not in SMS Logs", "description");
             smsLogs = api.getSMSLogs(customerNumber);
             assertCheck.append(actions.assertEqualIntType(smsLogs.getStatusCode(), 200, "Sms Trails API Status Code Matched and is :" + smsLogs.getStatusCode(), "Sms Trails Status Code NOT Matched and is :" + smsLogs.getStatusCode(), false));
-            if (smsLogs.getStatusCode() == 200 && smsLogs.getResult().size()==0) {
+            if (smsLogs.getStatusCode() == 200 && smsLogs.getResult().size() == 0) {
                 assertCheck.append(actions.assertEqualBoolean(pages.getAmSmsTrails().isNoResultFoundVisible(), true, "Error Message is Visible", "Error Message is not Visible"));
                 assertCheck.append(actions.assertEqualStringType(pages.getAmSmsTrails().getNoResultFoundMessage(), "No Result found", "Error Message is as expected", "Error Message is not as expected"));
                 commonLib.warning("SMS Logs data is not available for the test msisdn");
@@ -129,12 +129,12 @@ public class AmSMSTrailsTest extends Driver {
     /**
      * This method is used to check Sms Logs data
      */
-    @Test(priority = 5, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"}, dependsOnMethods = "openCustomerInteraction")
+    @Test(priority = 5, groups = {"SanityTest", "RegressionTest"}, dependsOnMethods = "openCustomerInteraction")
     public void testSmsLogsData() {
         try {
             selUtils.addTestcaseDescription("Validate all the fields are visible or not in SMS Logs", "description");
-            if (smsLogs.getStatusCode() == 200 && smsLogs.getResult().size()==0) {
-              commonLib.warning("SMS Logs data is not available for the test msisdn");
+            if (smsLogs.getStatusCode() == 200 && smsLogs.getResult().size() == 0) {
+                commonLib.warning("SMS Logs data is not available for the test msisdn");
             } else if (smsLogs.getStatusCode() == 2500 && smsLogs.getStatus().equalsIgnoreCase("status.failure")) {
                 commonLib.fail("CS API is unable to give Sms Logs data ", true);
             } else {
@@ -154,7 +154,7 @@ public class AmSMSTrailsTest extends Driver {
     }
 
 
-    @Test(priority = 6, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"openCustomerInteraction","testSmsLogsData"})
+    @Test(priority = 6, groups = {"SanityTest", "RegressionTest"}, dependsOnMethods = {"openCustomerInteraction","testSmsLogsData"})
     public void checkPaginationForSmsLogs() {
         selUtils.addTestcaseDescription("Validate pagination and pagination count ,Validate user should be able to click next button if rows > 5 ,After navigating to next page user should be able to navigate back using previous button ", "description");
         try {

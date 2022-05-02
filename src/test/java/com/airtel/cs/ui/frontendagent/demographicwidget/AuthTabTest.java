@@ -24,7 +24,7 @@ public class AuthTabTest extends Driver {
     RequestSource api = new RequestSource();
     Map<String, AuthDataConfigResult> authTabConfig;
 
-    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest"})
     public void checkExecution() {
         if (!continueExecutionFA) {
             commonLib.skip("Skipping tests because user NOT able to login Over Portal");
@@ -33,7 +33,7 @@ public class AuthTabTest extends Driver {
     }
 
 
-    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @Test(priority = 1, groups = {"SanityTest", "RegressionTest"})
     public void openCustomerInteraction() {
         try {
             selUtils.addTestcaseDescription("Open Customer Profile Page with valid MSISDN, Validate Customer Profile Page Loaded or not", "description");
@@ -52,7 +52,7 @@ public class AuthTabTest extends Driver {
         }
     }
 
-    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"openCustomerInteraction"})
+    @Test(priority = 2, groups = {"SanityTest", "RegressionTest"}, dependsOnMethods = {"openCustomerInteraction"})
     public void validateAnswerQuestionConfig() {
         try {
             selUtils.addTestcaseDescription("Jira id - CSP-63443,Verify that the answers of the questions in pop up should either show data from configuration or show inline spinner", "description");
@@ -67,7 +67,7 @@ public class AuthTabTest extends Driver {
         }
     }
 
-    @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"openCustomerInteraction"})
+    @Test(priority = 3, groups = {"SanityTest", "RegressionTest"}, dependsOnMethods = {"openCustomerInteraction"})
     public void validateAnswerKey() {
         try {
             selUtils.addTestcaseDescription("Verify the question Answer as Per Config", "description");
@@ -80,7 +80,7 @@ public class AuthTabTest extends Driver {
         }
     }
 
-    @Test(priority = 4, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"openCustomerInteraction"})
+    @Test(priority = 4, groups = {"SanityTest", "RegressionTest"}, dependsOnMethods = {"openCustomerInteraction"})
     public void validateLockedSectionStatus() {
         try {
             selUtils.addTestcaseDescription("Jira id - CSP-63442,Verify that there is a authorization pop for the actions like SIM Bar Unbar, PIN reset", "description");
@@ -97,7 +97,7 @@ public class AuthTabTest extends Driver {
         }
     }
 
-    @Test(priority = 5, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "openCustomerInteraction")
+    @Test(priority = 5, groups = {"SanityTest", "RegressionTest"}, dependsOnMethods = "openCustomerInteraction")
     public void validateAuthTab() {
         boolean isTabOpened = false;
         try {
@@ -119,7 +119,7 @@ public class AuthTabTest extends Driver {
         }
     }
 
-    @Test(priority = 6, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"openCustomerInteraction", "validateAuthTab"})
+    @Test(priority = 6, groups = {"SanityTest", "RegressionTest"}, dependsOnMethods = {"openCustomerInteraction", "validateAuthTab"})
     public void validateAuthTabMinQuestion() {
         try {
             selUtils.addTestcaseDescription("Verify the Authentication tab Minimum question Configured correctly", "description");
@@ -134,7 +134,7 @@ public class AuthTabTest extends Driver {
         }
     }
 
-    @Test(priority = 7, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"openCustomerInteraction", "validateAuthTabMinQuestion"})
+    @Test(priority = 7, groups = {"SanityTest", "RegressionTest"}, dependsOnMethods = {"openCustomerInteraction", "validateAuthTabMinQuestion"})
     public void authCustomer() {
         try {
             selUtils.addTestcaseDescription("Authenticate User", "description");

@@ -28,7 +28,7 @@ public class CreateInteractionTest extends Driver {
     String customerNumber = null;
     RequestSource api = new RequestSource();
 
-    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"})
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void checkExecution() {
         if (!continueExecutionFA) {
             commonLib.skip("Skipping tests because user NOT able to login Over Portal");
@@ -36,7 +36,7 @@ public class CreateInteractionTest extends Driver {
         }
     }
 
-    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"})
+    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void openCustomerInteraction() {
         try {
             selUtils.addTestcaseDescription("Open Customer Profile Page with valid MSISDN, Validate Customer Profile Page Loaded or not", "description");
@@ -55,7 +55,7 @@ public class CreateInteractionTest extends Driver {
     }
 
 
-    @Test(priority = 2, dependsOnMethods = "openCustomerInteraction", groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"}, dataProvider = "getTestData1", dataProviderClass = DataProviders.class)
+    @Test(priority = 2, dependsOnMethods = "openCustomerInteraction", groups = {"SanityTest", "RegressionTest", "ProdTest"}, dataProvider = "getTestData1", dataProviderClass = DataProviders.class)
     public void createInteraction(FtrDataBeans data) {
         try {
             final String issueCode = data.getIssueCode();
@@ -98,7 +98,7 @@ public class CreateInteractionTest extends Driver {
     }
 
     @Test(priority = 3, dependsOnMethods = "openCustomerInteraction", groups = {"SanityTest", "RegressionTest", "ProdTest"}, dataProvider = "getTestData2", dataProviderClass = DataProviders.class)
-    public void CreateNFTRInteraction(NftrDataBeans data) throws InterruptedException, IOException {
+    public void CreateNFTRInteraction(NftrDataBeans data) {
         String ticketNumber = null;
         try {
             final String issueCode = data.getIssueCode();

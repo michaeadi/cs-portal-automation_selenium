@@ -82,7 +82,7 @@ public class ActionTrailTest extends Driver {
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
-    @Test(priority = 4, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"validateActionTrailOpenCorrectly"})
+    @Test(priority = 4, groups = {"SanityTest", "RegressionTest"}, dependsOnMethods = {"validateActionTrailOpenCorrectly"})
     public void validateActionTrailValue() {
         try {
             selUtils.addTestcaseDescription("Verify View History tab opened successfully,Verify Action Trail History tab is visible,Validate column's value are visible and correct", "description");
@@ -116,7 +116,7 @@ public class ActionTrailTest extends Driver {
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
-    @Test(priority = 5, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"validateActionTrailOpenCorrectly"})
+    @Test(priority = 5, groups = {"SanityTest", "RegressionTest"}, dependsOnMethods = {"validateActionTrailOpenCorrectly"})
     public void validateRechargeActionTrailValue() {
         try {
             selUtils.addTestcaseDescription("validateRechargeActionTrailValue", "description");

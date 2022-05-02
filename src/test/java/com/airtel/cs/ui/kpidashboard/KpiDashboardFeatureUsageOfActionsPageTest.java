@@ -11,7 +11,7 @@ public class KpiDashboardFeatureUsageOfActionsPageTest extends Driver {
     ObjectMapper mapper = new ObjectMapper();
 
 
-    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"})
+    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void FeatureUsageOfActions() {
         try {
             selUtils.addTestcaseDescription("Feature Usage Of Actions", "description");
@@ -27,7 +27,7 @@ public class KpiDashboardFeatureUsageOfActionsPageTest extends Driver {
         }
     }
 
-    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"})
+    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void FeatureUsageOfActionsDetailsPage() {
         try {
             selUtils.addTestcaseDescription("Feature Usage Of Actions Details Page", "description");

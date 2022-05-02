@@ -66,7 +66,7 @@ public class SupervisorReopenTicketTest extends Driver {
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
-    @Test(priority = 3, dependsOnMethods = {"openSupervisorDashboard", "reopenTicket"}, groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @Test(priority = 3, dependsOnMethods = {"openSupervisorDashboard", "reopenTicket"}, groups = {"SanityTest", "RegressionTest"})
     public void validateSLAAfterReopen() {
         try {
             selUtils.addTestcaseDescription("Validate SLA reset once ticket is ticket is re-open and new config must be applied,Validate Queue name reset,Validate Priority name reset,Validate workgroup name reset,Validate Workgroup SLA reset once ticket is reopen.", "description");

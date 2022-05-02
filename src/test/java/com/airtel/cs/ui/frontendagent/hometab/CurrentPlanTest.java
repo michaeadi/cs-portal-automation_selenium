@@ -153,7 +153,7 @@ public class CurrentPlanTest extends Driver {
     /**
      * This method is used to validate widgets in profile management
      */
-    @Test(priority = 6, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"isUserHasCurrentPlanWidgetPermission"})
+    @Test(priority = 6, groups = {"SanityTest", "RegressionTest"}, dependsOnMethods = {"isUserHasCurrentPlanWidgetPermission"})
     public void currentPlanProfileManagement() {
         try {
             selUtils.addTestcaseDescription("Validating widgets in profile management", "description");

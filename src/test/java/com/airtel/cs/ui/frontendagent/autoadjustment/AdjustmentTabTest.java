@@ -34,7 +34,7 @@ public class AdjustmentTabTest extends Driver {
     private RechargeHistory rechargeHistoryAPI;
     private static String adjustmentReason;
 
-    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"})
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void checkAdjustmentFlag() {
         if (!StringUtils.equals(RUN_ADJUSTMENT_TEST_CASE, "true")) {
             commonLib.skip("Adjustment widget is NOT Enabled for this Opco " + OPCO);
@@ -42,7 +42,7 @@ public class AdjustmentTabTest extends Driver {
         }
     }
 
-    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"})
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void checkExecution() {
         if (!continueExecutionFA) {
             commonLib.skip("Skipping tests because user NOT able to login Over Portal");
@@ -148,7 +148,7 @@ public class AdjustmentTabTest extends Driver {
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
-    @Test(priority = 5, dependsOnMethods = {"openCustomerInteraction", "isUserHasPermissionAdjustUsage"}, groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @Test(priority = 5, dependsOnMethods = {"openCustomerInteraction", "isUserHasPermissionAdjustUsage"}, groups = {"SanityTest", "RegressionTest"})
     public void ValidateReasonFromUsageWidget() {
         try {
             selUtils.addTestcaseDescription("Validate usage adjustment reason type populated in dropdown after opening adjustment dropdown from usage detailed history widget,validate usage action displayed as per api response,Validate on UI also displayed all the reasons as per api response", "description");
@@ -164,7 +164,7 @@ public class AdjustmentTabTest extends Driver {
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
-    @Test(priority = 6, dependsOnMethods = {"openCustomerInteraction"}, groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @Test(priority = 6, dependsOnMethods = {"openCustomerInteraction"}, groups = {"SanityTest", "RegressionTest"})
     public void isUserHasPermissionAdjustRecharge() {
         try {
             selUtils.addTestcaseDescription("validate that Adjustment Action is displayed for Usage History transactions when necessary permissions are given,Validate User has permission to see action along with transaction.", "description");
@@ -191,7 +191,7 @@ public class AdjustmentTabTest extends Driver {
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
-    @Test(priority = 7, dependsOnMethods = {"openCustomerInteraction", "isUserHasPermissionAdjustRecharge"}, groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @Test(priority = 7, dependsOnMethods = {"openCustomerInteraction", "isUserHasPermissionAdjustRecharge"}, groups = {"SanityTest", "RegressionTest"})
     public void ValidateReasonFromRechargeWidget() {
         try {
             selUtils.addTestcaseDescription("Validate usage adjustment reason type populated in dropdown after opening adjustment dropdown from usage detailed history widget,validate usage action displayed as per api response,Validate on UI also displayed all the reasons as per api response", "description");
@@ -207,7 +207,7 @@ public class AdjustmentTabTest extends Driver {
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
-    @Test(priority = 8, dependsOnMethods = {"openCustomerInteraction"}, groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @Test(priority = 8, dependsOnMethods = {"openCustomerInteraction"}, groups = {"SanityTest", "RegressionTest"})
     public void isUserHasPermissionCreditTypeAdjustment() {
         try {
             selUtils.addTestcaseDescription("Verify that agent have permission to perform credit type Adjustment Action should be visible to the logged in agent if adjustment permission is enabled in UM, Check User has permission to perform credit type Adjustment.", "description");
@@ -255,7 +255,7 @@ public class AdjustmentTabTest extends Driver {
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
-    @Test(priority = 10, dependsOnMethods = {"openCustomerInteraction"}, groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @Test(priority = 10, dependsOnMethods = {"openCustomerInteraction"}, groups = {"SanityTest", "RegressionTest"})
     public void isUserHasPermissionDebitTypeAdjustment() {
         try {
             selUtils.addTestcaseDescription("Verify that agent have permission to perform debit type Adjustment Action should be visible to the logged in agent if adjustment permission is enabled in UM, Check User has permission to perform credit type Adjustment.", "description");

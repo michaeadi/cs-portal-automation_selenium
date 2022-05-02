@@ -7,7 +7,7 @@ import org.testng.annotations.Test;
 public class KpiDashboardQueueWiseSLAPerformancePageTest extends Driver {
     ObjectMapper mapper = new ObjectMapper();
 
-    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"})
+    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void queueWiseSLAPerformance() {
         try {
             selUtils.addTestcaseDescription("Queue Wise SLA Performance", "description");
@@ -25,7 +25,7 @@ public class KpiDashboardQueueWiseSLAPerformancePageTest extends Driver {
 
     }
 
-    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"})
+    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void queueWiseSLAPerformanceDetailsQueueWise() {
         try {
             selUtils.addTestcaseDescription("Queue Wise SLA Performance Details Queue Wise ", "description");
@@ -46,7 +46,7 @@ public class KpiDashboardQueueWiseSLAPerformancePageTest extends Driver {
 
     }
 
-    @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"})
+    @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void queueWiseSLAPerformanceDetailsIssueTypeWise() {
         try {
             selUtils.addTestcaseDescription("Queue Wise SLA Performance Details Issue Type  Wise ", "description");
@@ -67,7 +67,7 @@ public class KpiDashboardQueueWiseSLAPerformancePageTest extends Driver {
 
     }
 
-    @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"})
+    @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void agentPerformanceLabelVisible() {
         try {
             selUtils.addTestcaseDescription("Agent PerformanceLabel ", "description");
@@ -89,7 +89,7 @@ public class KpiDashboardQueueWiseSLAPerformancePageTest extends Driver {
 
     }
 
-    @Test(priority = 4, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"})
+    @Test(priority = 4, groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void dayWiseAgentPerformanceDetailsLabelVisible() {
         try {
             selUtils.addTestcaseDescription("Day Wise Agent Performance Details Label Visible ", "description");
@@ -114,7 +114,7 @@ public class KpiDashboardQueueWiseSLAPerformancePageTest extends Driver {
 
     }
 
-    @Test(priority = 5, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"})
+    @Test(priority = 5, groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void dayWiseInSLAPerformanceDetailsQueueWise() {
         try {
             selUtils.addTestcaseDescription("Queue Wise SLA Performance Details Queue Wise ", "description");
@@ -139,7 +139,7 @@ public class KpiDashboardQueueWiseSLAPerformancePageTest extends Driver {
 
     }
 
-    @Test(priority = 6, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"})
+    @Test(priority = 6, groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void dayWiseInSLAPerformanceDetailsIssueTypeWise() {
         try {
             selUtils.addTestcaseDescription("Queue Wise SLA Performance Details Queue Wise ", "description");

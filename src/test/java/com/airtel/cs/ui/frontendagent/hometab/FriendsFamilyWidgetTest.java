@@ -30,7 +30,7 @@ public class FriendsFamilyWidgetTest extends Driver {
     private final String ADD_FNF_COMMENT = "Adding new msisdn in FNF List using automation";
     private final String DELETE_FNF_COMMENT = "Deleting Newly Added member from FnF List";
 
-    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"})
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void checkExecution() {
         if (!continueExecutionFA) {
             commonLib.skip("Skipping tests because user NOT able to login Over Portal");
@@ -38,7 +38,7 @@ public class FriendsFamilyWidgetTest extends Driver {
         }
     }
 
-    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"})
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void checkFnFWidgetFlag() {
         if (!StringUtils.equals(RUN_FNF_WIDGET_TEST_CASE, "true")) {
             commonLib.skip("FNF Widget is NOT Enabled for this Opco=" + OPCO);
@@ -46,7 +46,7 @@ public class FriendsFamilyWidgetTest extends Driver {
         }
     }
 
-    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"})
+    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void openCustomerInteraction() {
         try {
             selUtils.addTestcaseDescription("Open Customer Profile Page with valid MSISDN, Validate Customer Profile Page Loaded or not", "description");
@@ -65,7 +65,7 @@ public class FriendsFamilyWidgetTest extends Driver {
     }
 
     @DataProviders.Table(name = "Friends and Family")
-    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"}, dataProvider = "HeaderData", dataProviderClass = DataProviders.class, dependsOnMethods = "openCustomerInteraction")
+    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dataProvider = "HeaderData", dataProviderClass = DataProviders.class, dependsOnMethods = "openCustomerInteraction")
     public void friendFamilyHeaderTest(HeaderDataBean headerValues) {
         selUtils.addTestcaseDescription("Validate Friend and Family widget header visible and display all the Column name as per config,Validate Header Name Same as mentioned in config sheet.", "description");
         try {
@@ -104,7 +104,7 @@ public class FriendsFamilyWidgetTest extends Driver {
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
-    @Test(priority = 4, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dataProviderClass = DataProviders.class, dependsOnMethods = {"openCustomerInteraction"})
+    @Test(priority = 4, groups = {"SanityTest", "RegressionTest"}, dataProviderClass = DataProviders.class, dependsOnMethods = {"openCustomerInteraction"})
     public void validateFriendsFamilyWidget() {
         try {
             selUtils.addTestcaseDescription("Verify friends & family Widget with customer number: " + customerNumber + ",Check friends & family giving response without fail,Validate widget data detail as per api response", "description");
@@ -139,7 +139,7 @@ public class FriendsFamilyWidgetTest extends Driver {
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
-    @Test(priority = 5, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"isUserHasFriendFamilyPermission", "openCustomerInteraction"})
+    @Test(priority = 5, groups = {"SanityTest", "RegressionTest"}, dependsOnMethods = {"isUserHasFriendFamilyPermission", "openCustomerInteraction"})
     public void isUserHasFriendFamilyPermissionToAddMember() {
         try {
             selUtils.addTestcaseDescription("Verify that agent having the UM permission Add FnF should be able to add FnF, Validate the user have permission to add new member, Validate if user has permission then Add member Icon must display on Widget", "description");
@@ -151,7 +151,7 @@ public class FriendsFamilyWidgetTest extends Driver {
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
-    @Test(priority = 6, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"isUserHasFriendFamilyPermissionToAddMember", "openCustomerInteraction"})
+    @Test(priority = 6, groups = {"SanityTest", "RegressionTest"}, dependsOnMethods = {"isUserHasFriendFamilyPermissionToAddMember", "openCustomerInteraction"})
     public void addMemberToFNF() {
         try {
             selUtils.addTestcaseDescription("Verify for adding a number into Customer's FnF list,Click on Add member Icon, Validate Add member pop up open, validate user have option to add new member,Add new Member into FnF List,Click on Submit button,Validate newly added member show in list,", "description");
@@ -200,7 +200,7 @@ public class FriendsFamilyWidgetTest extends Driver {
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
-    @Test(priority = 7, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"addMemberToFNF", "openCustomerInteraction"})
+    @Test(priority = 7, groups = {"SanityTest", "RegressionTest"}, dependsOnMethods = {"addMemberToFNF", "openCustomerInteraction"})
     public void validateActionTabAfterAddFnFMember() {
         try {
             selUtils.addTestcaseDescription("Verify Action trail tab after adding number into Customer's FnF list,Hit action trail event api, Validate action type & comments & agent id", "description");
@@ -222,7 +222,7 @@ public class FriendsFamilyWidgetTest extends Driver {
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
-    @Test(priority = 8, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"addMemberToFNF", "isUserHasFriendFamilyPermission", "openCustomerInteraction"})
+    @Test(priority = 8, groups = {"SanityTest", "RegressionTest"}, dependsOnMethods = {"addMemberToFNF", "isUserHasFriendFamilyPermission", "openCustomerInteraction"})
     public void isUserHasFriendFamilyPermissionToDeleteMember() {
         try {
             selUtils.addTestcaseDescription("Verify that agent having the UM permission delete FnF should be able to delete FnF, Validate the user have permission to delete existing member, Validate if user has permission then delete member icon must display on Widget", "description");
@@ -234,7 +234,7 @@ public class FriendsFamilyWidgetTest extends Driver {
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
-    @Test(priority = 9, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"isUserHasFriendFamilyPermissionToDeleteMember", "validateFriendsFamilyWidget", "openCustomerInteraction", "addMemberToFNF"})
+    @Test(priority = 9, groups = {"SanityTest", "RegressionTest"}, dependsOnMethods = {"isUserHasFriendFamilyPermissionToDeleteMember", "validateFriendsFamilyWidget", "openCustomerInteraction", "addMemberToFNF"})
     public void deleteMemberToFnF() {
         try {
             selUtils.addTestcaseDescription("Verify for adding a number into Customer's FnF list,Click on Add member Icon, Validate Add member pop up open, validate user have option to add new member,Add new Member into FnF List,Click on Submit button,Validate newly added member show in list,", "description");
@@ -287,7 +287,7 @@ public class FriendsFamilyWidgetTest extends Driver {
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
-    @Test(priority = 10, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"deleteMemberToFnF", "openCustomerInteraction"})
+    @Test(priority = 10, groups = {"SanityTest", "RegressionTest"}, dependsOnMethods = {"deleteMemberToFnF", "openCustomerInteraction"})
     public void validateActionTabAfterDeleteFnFMember() {
         try {
             selUtils.addTestcaseDescription("Verify Action trail tab after removing number into Customer's FnF list,Hit action trail event api, Validate action type & comments & agent id", "description");

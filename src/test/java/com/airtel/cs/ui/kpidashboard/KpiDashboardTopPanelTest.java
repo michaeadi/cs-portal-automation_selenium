@@ -7,7 +7,7 @@ import org.testng.annotations.Test;
 public class KpiDashboardTopPanelTest extends Driver {
 
 
-    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"})
+    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void dashboardTopPanel() {
         try {
             selUtils.addTestcaseDescription("Verify Dashboard Top Panel", "description");
@@ -29,7 +29,7 @@ public class KpiDashboardTopPanelTest extends Driver {
         }
     }
 
-    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"})
+    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void dashboardTopPanelDetailsPage() {
         try {
             selUtils.addTestcaseDescription(" Dashboard Top Panel Details Page", "description");
@@ -52,7 +52,7 @@ public class KpiDashboardTopPanelTest extends Driver {
         }
     }
 
-    @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"})
+    @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void dashboardOpenTicketsUnderSLADetails() {
         try {
             selUtils.addTestcaseDescription(" Open Tickets Under SLA Details", "description");
@@ -75,7 +75,7 @@ public class KpiDashboardTopPanelTest extends Driver {
         }
     }
 
-    @Test(priority = 4, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"})
+    @Test(priority = 4, groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void dashboardBreachingWithin15MinsDetails() {
         try {
             selUtils.addTestcaseDescription(" Breaching Within 15 Mins Details", "description");
@@ -97,7 +97,7 @@ public class KpiDashboardTopPanelTest extends Driver {
         }
     }
 
-    @Test(priority = 5, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"})
+    @Test(priority = 5, groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void dashboardBreachingWithin15To60MinsDetails() {
         try {
             selUtils.addTestcaseDescription(" Breaching Within 15 To 60 Mins Details", "description");
@@ -119,7 +119,7 @@ public class KpiDashboardTopPanelTest extends Driver {
         }
     }
 
-    @Test(priority = 6, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"})
+    @Test(priority = 6, groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void dashboardBreachingGreaterThan60MinsDetails() {
         try {
             selUtils.addTestcaseDescription(" Breaching Greater Than 60 Mins Details", "description");

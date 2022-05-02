@@ -25,7 +25,7 @@ public class TransferToQueueTest extends Driver {
      * Transfer to queue not working once need to verify one Env Up
      */
 
-    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest"})
     public void checkExecution() {
         if (!continueExecutionBA) {
             commonLib.skip("Skipping tests because user NOT able to login Over Portal");
@@ -33,7 +33,7 @@ public class TransferToQueueTest extends Driver {
         }
     }
 
-    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @Test(priority = 1, groups = {"SanityTest", "RegressionTest"})
     public void verifyPermission() {
         try {
             selUtils.addTestcaseDescription("Verify the permission for transfer to queue given to backend agent", "description");
@@ -52,7 +52,7 @@ public class TransferToQueueTest extends Driver {
         }
     }
 
-    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"verifyPermission"})
+    @Test(priority = 2, groups = {"SanityTest", "RegressionTest"}, dependsOnMethods = {"verifyPermission"})
     public void agentQueueLogin() {
         try {
             selUtils.addTestcaseDescription("Backend Agent Login into Queue", "description");
@@ -72,7 +72,7 @@ public class TransferToQueueTest extends Driver {
         }
     }
 
-    @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"verifyPermission", "agentQueueLogin"})
+    @Test(priority = 3, groups = {"SanityTest", "RegressionTest"}, dependsOnMethods = {"verifyPermission", "agentQueueLogin"})
     public void checkTransferToQueueVisible() {
         try {
             selUtils.addTestcaseDescription("Backend Agent selects the ticket from list , Validate the user able to view transfer to queue option", "description");
@@ -154,7 +154,7 @@ public class TransferToQueueTest extends Driver {
         }
     }
 
-    @Test(priority = 7, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"verifyPermission", "agentQueueLogin"})
+    @Test(priority = 7, groups = {"SanityTest", "RegressionTest"}, dependsOnMethods = {"verifyPermission", "agentQueueLogin"})
     public void isUserHasWorkFlowOverRidePermission() {
         try {
             selUtils.addTestcaseDescription("Verify that Service Profile widget should be visible to the logged in agent if HLR permission is enabled in UM, Check User has permission to view HLR Widget Permission", "description");

@@ -15,11 +15,10 @@ public class ActiveVasWidgetTest extends Driver {
 
     public static final String RUN_VAS_WIDGET_TEST_CASE = constants.getValue(ApplicationConstants.RUN_VAS_WIDGET_TESTCASE);
     private static String customerNumber=null;
-    private Integer size=0;
     private List<String> vasSubscriptionHistory;
 
 
-    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"})
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void checkExecution() {
         if (!continueExecutionFA) {
             commonLib.skip("Skipping tests because user NOT able to login Over Portal");
@@ -27,7 +26,7 @@ public class ActiveVasWidgetTest extends Driver {
         }
     }
 
-    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"})
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void checkActiveVasWidgetFlag() {
         if (!StringUtils.equals(RUN_VAS_WIDGET_TEST_CASE, "true")) {
             commonLib.skip("Skipping because Run VAS widget Test Case Flag Value is - " + RUN_VAS_WIDGET_TEST_CASE);
@@ -35,7 +34,7 @@ public class ActiveVasWidgetTest extends Driver {
         }
     }
 
-    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"})
+    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void openCustomerInteraction() {
         try {
             selUtils.addTestcaseDescription("Open Customer Profile Page with valid MSISDN, Validate Customer Profile Page Loaded or not", "description");
@@ -53,7 +52,7 @@ public class ActiveVasWidgetTest extends Driver {
         }
     }
 
-    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"}, dependsOnMethods = "openCustomerInteraction")
+    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "openCustomerInteraction")
     public void testHeaderAndAuuid() {
         try {
             selUtils.addTestcaseDescription("Validate Active VAS Widget visibility ,Validate Footer and Middle Auuid", "description");
@@ -67,7 +66,7 @@ public class ActiveVasWidgetTest extends Driver {
         }
     }
 
-    @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"}, dependsOnMethods = "openCustomerInteraction")
+    @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "openCustomerInteraction")
     public void testActiveVasWidget() {
         try {
             selUtils.addTestcaseDescription("Validate all the column names in Active VAS widget", "description");
@@ -94,11 +93,11 @@ public class ActiveVasWidgetTest extends Driver {
         }
     }
 
-    @Test(priority = 4, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"}, dependsOnMethods = {"openCustomerInteraction","testActiveVasWidget"})
+    @Test(priority = 4, groups = {"SanityTest", "RegressionTest"}, dependsOnMethods = {"openCustomerInteraction","testActiveVasWidget"})
     public void testActiveVasData() {
         try {
             selUtils.addTestcaseDescription("Validate all the data in column names in Active VAS widget", "description");
-            size = pages.getActiveVasWidget().getNumberOfRows();
+            Integer size = pages.getActiveVasWidget().getNumberOfRows();
             String ServiceName = pages.getAccountInformationWidget().getValue(vasSubscriptionHistory, "vasName", "vasName");
             String VasStartDate = UtilsMethods.getDateFromEpoch(Long.parseLong(pages.getAccountInformationWidget().getValue(vasSubscriptionHistory, "vasStartDate", "vasStartDate")), constants.getValue(CommonConstants.ACTIVE_VAS_START_DATE_PATTERN));
             String NextRenewDate = UtilsMethods.getDateFromEpoch(Long.parseLong(pages.getAccountInformationWidget().getValue(vasSubscriptionHistory, "nextRenewDate", "nextRenewDate")), constants.getValue(CommonConstants.ACTIVE_VAS_RENEWAL_DATE_PATTERN));
@@ -134,7 +133,7 @@ public class ActiveVasWidgetTest extends Driver {
         }
     }
 
-        @Test(priority = 5, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"}, dependsOnMethods = "openCustomerInteraction")
+        @Test(priority = 5, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "openCustomerInteraction")
     public void testDetailedWidget() {
         try {
             selUtils.addTestcaseDescription("Validate detailed Page of Active VAS Widget ", "description");

@@ -5,7 +5,7 @@ import org.testng.annotations.Test;
 
 public class KpiDashboard6MonthsTicketTypeTest extends Driver {
 
-    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"})
+    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void SixMonthsTicketType() {
         try {
             selUtils.addTestcaseDescription("Six Months Ticket Type", "description");
@@ -26,7 +26,7 @@ public class KpiDashboard6MonthsTicketTypeTest extends Driver {
         }
     }
 
-    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"})
+    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void SixMonthsTicketTypeDetails() {
         try {
             selUtils.addTestcaseDescription("Six Months Ticket Type Details", "description");

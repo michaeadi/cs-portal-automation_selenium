@@ -151,7 +151,7 @@ public class LinkedMsisdnToAccountNoTest extends Driver {
 
     }
 
-    @Test(priority = 6, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"userWithAccountInfoWidgetPermission"})
+    @Test(priority = 6, groups = {"SanityTest", "RegressionTest"}, dependsOnMethods = {"userWithAccountInfoWidgetPermission"})
     public void uiValueWithResponse() {
         /**
          * Calling CS api

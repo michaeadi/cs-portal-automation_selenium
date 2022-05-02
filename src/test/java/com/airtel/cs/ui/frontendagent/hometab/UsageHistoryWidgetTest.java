@@ -26,7 +26,7 @@ public class UsageHistoryWidgetTest extends Driver {
     private static String customerNumber = null;
     RequestSource api = new RequestSource();
 
-    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"})
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void checkExecution() {
         if (!continueExecutionFA) {
             commonLib.skip("Skipping tests because user NOT able to login Over Portal");
@@ -34,7 +34,7 @@ public class UsageHistoryWidgetTest extends Driver {
         }
     }
 
-    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"})
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void checkUsageHistoryFlag() {
         if (!StringUtils.equals(RUN_USAGE_WIDGET_TEST_CASE, "true")) {
             commonLib.skip("Skipping because Run Usage widget Test Case Flag Value is - " + RUN_USAGE_WIDGET_TEST_CASE);
@@ -42,7 +42,7 @@ public class UsageHistoryWidgetTest extends Driver {
         }
     }
 
-    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"})
+    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void openCustomerInteraction() {
         try {
             selUtils.addTestcaseDescription("Open Customer Profile Page with valid MSISDN, Validate Customer Profile Page Loaded or not", "description");
@@ -60,7 +60,7 @@ public class UsageHistoryWidgetTest extends Driver {
         }
     }
 
-    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"}, dependsOnMethods = "openCustomerInteraction")
+    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "openCustomerInteraction")
     public void usageHistoryWidgetHeaderTest() {
         try {
             selUtils.addTestcaseDescription("Validate is Usage History Widget Visible?,Validate footer and middle auuid,Validate Header Text", "description");
@@ -75,7 +75,7 @@ public class UsageHistoryWidgetTest extends Driver {
     }
 
     @DataProviders.Table(name = "Usage History")
-    @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dataProvider = "HeaderData", dataProviderClass = DataProviders.class, dependsOnMethods = "openCustomerInteraction")
+    @Test(priority = 3, groups = {"SanityTest", "RegressionTest"}, dataProvider = "HeaderData", dataProviderClass = DataProviders.class, dependsOnMethods = "openCustomerInteraction")
     public void usageHistoryWidgetTest(HeaderDataBean data) {
         try {
             selUtils.addTestcaseDescription("Validating Usage History Widget of User :" + customerNumber, "description");

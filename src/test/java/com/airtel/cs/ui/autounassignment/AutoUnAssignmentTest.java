@@ -15,7 +15,7 @@ public class AutoUnAssignmentTest extends Driver {
 
     RequestSource api = new RequestSource();
 
-    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest","PositiveFlowUnAssignment"})
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest"})
     public void checkExecution() {
         if (!continueExecutionFA) {
             commonLib.skip("Skipping tests because user NOT able to login Over Portal");
@@ -23,21 +23,21 @@ public class AutoUnAssignmentTest extends Driver {
         }
     }
 
-    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest","PositiveFlowUnAssignment"})
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest"})
     public void autoUnAssignmentRunCheck() {
         if (!continueUnAssignment) {
             commonLib.skip("Skipping tests because Ticket AutoAssignment is failed . Please check AutoAssignment Test case .");
             throw new SkipException("Skipping tests because Ticket AutoAssignment is failed . Please check AutoAssignment Test case .");
         }
     }
-    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"})
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest","SmokeTest"})
     public void ticketIdPresentCheck() {
-        if (Boolean.valueOf(constants.getValue(String.valueOf(CommonConstants.AUTO_ASSIGNMENT_TICKET_ID==null)))) {
+        if (Boolean.parseBoolean(constants.getValue(String.valueOf(CommonConstants.AUTO_ASSIGNMENT_TICKET_ID==null)))) {
             commonLib.skip("Skipping tests because ticket id is not present");
             throw new SkipException("Skipping tests because ticket id is not present");
         }
     }
-    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest","PositiveFlowUnAssignment"})
+    @Test(priority = 1, groups = {"SanityTest", "RegressionTest"})
     public void openSupervisorDashboard() {
         try {
             selUtils.addTestcaseDescription("Open Supervisor Dashboard , Validate agent redirect to ticket List Page", "description");
@@ -51,7 +51,7 @@ public class AutoUnAssignmentTest extends Driver {
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
-    @Test(priority = 2,groups ={"SanityTest", "RegressionTest","SmokeTest","PositiveFlowUnAssignment"},dependsOnMethods = {"openSupervisorDashboard"})
+    @Test(priority = 2,groups ={"SanityTest", "RegressionTest"},dependsOnMethods = {"openSupervisorDashboard"})
     public void validateTicketAutoNotUnAssigned(){
         try {
             selUtils.addTestcaseDescription("Validate Agent have already assigned a ticket, Validate Agent login into portal before X hour then Ticket must not be unassigned from agent bucket. ", "description");
@@ -72,7 +72,7 @@ public class AutoUnAssignmentTest extends Driver {
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
-    @Test(priority = 3,groups ={"SanityTest", "RegressionTest", "ProdTest","SmokeTest"} )
+    @Test(priority = 3,groups ={"SanityTest", "RegressionTest"} )
     public void validateTicketAutoUnAssigned(){
         try {
             selUtils.addTestcaseDescription("Validate Agent Login into queue,Validate ticket assigned to login agent", "description");

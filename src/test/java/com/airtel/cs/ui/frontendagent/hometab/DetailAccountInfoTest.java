@@ -136,7 +136,7 @@ public class DetailAccountInfoTest extends Driver {
      * This method is used to show account info detailed icon
      */
     @DataProviders.Table(name = "ACCOUNT INFORMATION DETAIL")
-    @Test(priority = 5, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dataProvider = "HeaderData", dataProviderClass = DataProviders.class)
+    @Test(priority = 5, groups = {"SanityTest", "RegressionTest"}, dataProvider = "HeaderData", dataProviderClass = DataProviders.class)
     public void accountInfoIcon(HeaderDataBean data) {
         try {
             selUtils.addTestcaseDescription("Verify that detailed account info icon should be visible to the logged in agent", "description");
@@ -214,7 +214,7 @@ public class DetailAccountInfoTest extends Driver {
     /**
      * This method is used to validate widgets in profile management
      */
-    @Test(priority = 6, groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @Test(priority = 6, groups = {"SanityTest", "RegressionTest"})
     public void detailAccountInfoProfileManagement() {
         try {
             selUtils.addTestcaseDescription("Validating widgets in profile management", "description");

@@ -22,7 +22,7 @@ public class AdjustmentAgentLimitTest extends Driver {
     private String roleId = null;
 
 
-    @BeforeMethod
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void checkAdjustmentFlag() {
         if (!StringUtils.equals(RUN_ADJUSTMENT_TEST_CASE, "true")) {
             commonLib.skip("Adjustment widget is NOT Enabled for this Opco " + OPCO);
@@ -30,7 +30,7 @@ public class AdjustmentAgentLimitTest extends Driver {
         }
     }
 
-    @BeforeMethod
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void checkExecution() {
         if (!continueExecutionFA) {
             commonLib.skip("Skipping tests because user NOT able to login Over Portal");

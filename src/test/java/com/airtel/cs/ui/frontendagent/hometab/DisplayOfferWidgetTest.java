@@ -25,7 +25,7 @@ public class DisplayOfferWidgetTest extends Driver {
     RequestSource api = new RequestSource();
     private OfferDetail offerDetailPOJO = null;
 
-    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"})
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void checkExecution() {
         if (!continueExecutionFA) {
             commonLib.skip("Skipping tests because user NOT able to login via API");
@@ -33,7 +33,7 @@ public class DisplayOfferWidgetTest extends Driver {
         }
     }
 
-    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"})
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void checkServiceProfileFlag() {
         if (!StringUtils.equals(RUN_DISPLAY_OFFER_TEST_CASE, "true")) {
             commonLib.skip("Display Offer Widget is NOT Enabled for this Opco=" + OPCO);
@@ -41,7 +41,7 @@ public class DisplayOfferWidgetTest extends Driver {
         }
     }
 
-    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"})
+    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void openCustomerInteraction() {
         try {
             selUtils.addTestcaseDescription("Open Customer Profile Page with valid MSISDN, Validate Customer Profile Page Loaded or not", "description");
@@ -60,7 +60,7 @@ public class DisplayOfferWidgetTest extends Driver {
     }
 
     @DataProviders.Table(name = "UC-UT Offer")
-    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"}, dataProvider = "HeaderData", dataProviderClass = DataProviders.class, dependsOnMethods = {"openCustomerInteraction"})
+    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dataProvider = "HeaderData", dataProviderClass = DataProviders.class, dependsOnMethods = {"openCustomerInteraction"})
     public void displayOfferHeaderTest(HeaderDataBean headerValues) {
         selUtils.addTestcaseDescription("CSP-63664 : Validate Offers widget header visible and display all the Column name as per config ", "description");
         try {
@@ -85,7 +85,7 @@ public class DisplayOfferWidgetTest extends Driver {
         }
     }
 
-    @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dataProviderClass = DataProviders.class, dependsOnMethods = {"displayOfferHeaderTest", "openCustomerInteraction"})
+    @Test(priority = 3, groups = {"SanityTest", "RegressionTest"}, dataProviderClass = DataProviders.class, dependsOnMethods = {"displayOfferHeaderTest", "openCustomerInteraction"})
     public void displayOfferWidgetTest() {
         selUtils.addTestcaseDescription("Validate Offers widget Column value display as per API Response ", "description");
         DADetails daDetailsPage = pages.getDaDetailsPage();
@@ -116,7 +116,7 @@ public class DisplayOfferWidgetTest extends Driver {
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
-    @Test(priority = 4, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"displayOfferHeaderTest", "openCustomerInteraction"})
+    @Test(priority = 4, groups = {"SanityTest", "RegressionTest"}, dependsOnMethods = {"displayOfferHeaderTest", "openCustomerInteraction"})
     public void associatedDAPopUpTest() {
         try {
             selUtils.addTestcaseDescription("Validate Associated DA's widget Column value display as per API Response ", "description");
@@ -149,7 +149,7 @@ public class DisplayOfferWidgetTest extends Driver {
         }
     }
 
-    @Test(priority = 5, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"associatedDAPopUpTest", "openCustomerInteraction"})
+    @Test(priority = 5, groups = {"SanityTest", "RegressionTest"}, dependsOnMethods = {"associatedDAPopUpTest", "openCustomerInteraction"})
     public void checkPaginationForOfferWidget() {
         selUtils.addTestcaseDescription("Validate Offers widget display pagination and agent able to navigate through pagination ", "description");
         try {
@@ -171,7 +171,7 @@ public class DisplayOfferWidgetTest extends Driver {
         }
     }
 
-    @Test(priority = 6, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"associatedDAPopUpTest", "openCustomerInteraction"})
+    @Test(priority = 6, groups = {"SanityTest", "RegressionTest"}, dependsOnMethods = {"associatedDAPopUpTest", "openCustomerInteraction"})
     public void isUserHasOfferPermission() {
         try {
             selUtils.addTestcaseDescription("Verify that necessary permissions are added for offers widget to be displayed.", "description");

@@ -18,7 +18,7 @@ public class AutoAssignmentTest extends Driver {
     String customerNumber = null;
     RequestSource api = new RequestSource();
 
-    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"})
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "SmokeTest"})
     public void checkExecution() {
         if (!continueExecutionFA) {
             commonLib.skip("Skipping tests because user NOT able to login Over Portal");
@@ -26,7 +26,7 @@ public class AutoAssignmentTest extends Driver {
         }
     }
 
-    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"})
+    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "SmokeTest"})
     public void openCustomerInteraction() {
         try {
             selUtils.addTestcaseDescription("Open Customer Profile Page with valid MSISDN, Validate Customer Profile Page Loaded or not", "description");
@@ -44,7 +44,7 @@ public class AutoAssignmentTest extends Driver {
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
-    @Test(priority = 2, dependsOnMethods = {"openCustomerInteraction"}, groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @Test(priority = 2, dependsOnMethods = {"openCustomerInteraction"}, groups = {"SanityTest", "RegressionTest"})
     public void CreateNFTRInteraction() {
         String ticketNumber = null;
         try {
@@ -85,7 +85,7 @@ public class AutoAssignmentTest extends Driver {
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
-    @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"openCustomerInteraction", "CreateNFTRInteraction"})
+    @Test(priority = 3, groups = {"SanityTest", "RegressionTest"}, dependsOnMethods = {"openCustomerInteraction", "CreateNFTRInteraction"})
     public void openSupervisorDashboard() {
         try {
             selUtils.addTestcaseDescription("Open Supervisor Dashboard , Validate agent redirect to ticket List Page", "description");
@@ -99,7 +99,7 @@ public class AutoAssignmentTest extends Driver {
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
-    @Test(priority = 4, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"openCustomerInteraction", "openSupervisorDashboard", "CreateNFTRInteraction"})
+    @Test(priority = 4, groups = {"SanityTest", "RegressionTest"}, dependsOnMethods = {"openCustomerInteraction", "openSupervisorDashboard", "CreateNFTRInteraction"})
     public void loginIntoTestAutomationQueue() {
         try {
             selUtils.addTestcaseDescription("Validate Agent Login into queue button display,click on login into queue button,validate queue login pop up display,Click on Test queue name", "description");
@@ -114,7 +114,7 @@ public class AutoAssignmentTest extends Driver {
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
-    @Test(priority = 5, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"openCustomerInteraction", "openSupervisorDashboard", "CreateNFTRInteraction", "loginIntoTestAutomationQueue"})
+    @Test(priority = 5, groups = {"SanityTest", "RegressionTest"}, dependsOnMethods = {"openCustomerInteraction", "openSupervisorDashboard", "CreateNFTRInteraction", "loginIntoTestAutomationQueue"})
     public void validateTicketAutoAssigned() {
         try {
             selUtils.addTestcaseDescription("Validate Agent Login into queue,Validate ticket assigned to login agent", "description");
