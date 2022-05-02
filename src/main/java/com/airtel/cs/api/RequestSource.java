@@ -65,7 +65,7 @@ import com.airtel.cs.model.cs.response.accounts.AccountsBalance;
 import com.airtel.cs.model.cs.response.accumulators.Accumulators;
 import com.airtel.cs.model.cs.response.actionconfig.ActionConfigResponse;
 import com.airtel.cs.model.cs.response.actionconfig.ActionConfigResult;
-import com.airtel.cs.model.cs.response.actiontrail.ActionTrail;
+import com.airtel.cs.model.cs.response.actiontrail.EventLogsResponse;
 import com.airtel.cs.model.cs.response.adjustmenthistory.AdjustmentHistory;
 import com.airtel.cs.model.cs.response.adjustmentreason.AdjustmentReasonRequest;
 import com.airtel.cs.model.cs.response.agentlimit.AgentLimit;
@@ -202,11 +202,11 @@ public class RequestSource extends RestCommonUtils {
             commonPostMethod(URIConstants.TARIFF_AVAILABLE_PLANS, new GenericRequest(TARIFF_PLAN_TEST_NUMBER));
             result = response.as(AvailablePlan.class);
             if (result.getStatusCode() != 200) {
-                esbRequestSource.callAvailableTarrifPlan(new GenericRequest(TARIFF_PLAN_TEST_NUMBER));
+                esbRequestSource.callAvailableTariffPlan(new GenericRequest(TARIFF_PLAN_TEST_NUMBER));
             }
         } catch (Exception e) {
             commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + " - availablePlanRequest " + e.getMessage(), false);
-            esbRequestSource.callAvailableTarrifPlan(new GenericRequest(TARIFF_PLAN_TEST_NUMBER));
+            esbRequestSource.callAvailableTariffPlan(new GenericRequest(TARIFF_PLAN_TEST_NUMBER));
         }
         return result;
     }
@@ -583,13 +583,13 @@ public class RequestSource extends RestCommonUtils {
                 commonPostMethod(constants.getValue(AM_TRANSACTION_HISTORY_API_URL) + ESBURIConstants.TRANSACTION_HISTORY, new TransactionHistoryRequest(msisdn, 5, 1, null, null));
                 commonLib.info(CALLING_ESB_APIS);
                 queryParam.put(MSISDN, msisdn);
-                commonGetMethodWithQueryParam(constants.getValue("gsm.customer.profile.base.url") + ESBURIConstants.QUERY_BALANCE, queryParam);
+                commonGetMethodWithQueryParam(constants.getValue("subscriber.profile.base.url") + ESBURIConstants.QUERY_BALANCE, queryParam);
             }
         } catch (Exception e) {
             commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + " - balanceAPITest " + e.getMessage(), false);
             commonLib.info(CALLING_ESB_APIS);
             queryParam.put(MSISDN, msisdn);
-            commonGetMethodWithQueryParam(constants.getValue("gsm.customer.profile.base.url") + ESBURIConstants.QUERY_BALANCE, queryParam);
+            commonGetMethodWithQueryParam(constants.getValue("subscriber.profile.base.url") + ESBURIConstants.QUERY_BALANCE, queryParam);
         }
         return result;
     }
@@ -643,7 +643,7 @@ public class RequestSource extends RestCommonUtils {
         try {
             commonPostMethod(URIConstants.VOUCHER_DETAILS, new VoucherSearchRequest(voucherId));
             result = response.as(VoucherSearch.class);
-            if (result.getStatusCode() != 200 ) {
+            if (result.getStatusCode() != 200) {
                 esbRequestSource.callVoucherDetails(voucherId);
             }
         } catch (Exception e) {
@@ -751,11 +751,11 @@ public class RequestSource extends RestCommonUtils {
             commonPostMethod(URIConstants.REFILL_STATUS, new GenericRequest(msisdn));
             result = response.as(RefillStatus.class);
             if (!"200".equals(result.getStatusCode())) {
-                esbRequestSource.callVoucherRefilBarred(msisdn);
+                esbRequestSource.callVoucherRefilLBarred(msisdn);
             }
         } catch (Exception e) {
             commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + " - clearRefillTest " + e.getMessage(), false);
-            esbRequestSource.callVoucherRefilBarred(msisdn);
+            esbRequestSource.callVoucherRefilLBarred(msisdn);
         }
         return result;
     }
@@ -999,13 +999,13 @@ public class RequestSource extends RestCommonUtils {
      * @param eventType The event type
      * @return The Response
      */
-    public ActionTrail getEventHistory(String msisdn, String eventType) {
+    public EventLogsResponse getEventHistory(String msisdn, String eventType) {
         commonLib.infoColored(constants.getValue(CALLING_CS_API) + constants.getValue("event.logs"), JavaColors.GREEN, false);
-        ActionTrail result = null;
+        EventLogsResponse result = null;
         try {
             clientInfo.put(MSISDN, msisdn);
             commonPostMethod(URIConstants.EVENTS_LOG, new ActionTrailRequest(msisdn, eventType, 10, 0, clientInfo));
-            result = response.as(ActionTrail.class);
+            result = response.as(EventLogsResponse.class);
         } catch (Exception e) {
             commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + " - getEventHistory " + e.getMessage(), false);
         }
@@ -1102,10 +1102,10 @@ public class RequestSource extends RestCommonUtils {
     /**
      * This Method will hit the API "/cs-service/api/cs-service/v1/actions/config" and return the response
      *
-     * @param actionName The action tag name
+     * @param actionKey The action tag name
      * @return The Response
      */
-    public ActionConfigResult getActionConfig(String actionName) {
+    public ActionConfigResult getActionConfig(String actionKey) {
         commonLib.infoColored(constants.getValue(CALLING_CS_API) + constants.getValue("action.config"), JavaColors.GREEN, false);
         ActionConfigResponse actionConfigResponse;
         ActionConfigResult actionConfigResult = null;
@@ -1117,10 +1117,9 @@ public class RequestSource extends RestCommonUtils {
             }
             if (statusCode == 200 && ObjectUtils.isNotEmpty(actionConfigResponse.getResult())) {
                 List<ActionConfigResult> actionConfigResultList = actionConfigResponse.getResult();
-                Optional<ActionConfigResult> actionConfigResultop = actionConfigResultList.stream()
-                        .filter(result -> actionName.equals(result.getActionKey())).findFirst();
-                if (actionConfigResultop.isPresent()) {
-                    actionConfigResult = actionConfigResultop.get();
+                Optional<ActionConfigResult> actionConfigResultTop = actionConfigResultList.stream().filter(result -> actionKey.equals(result.getActionKey())).findFirst();
+                if (actionConfigResultTop.isPresent()) {
+                    actionConfigResult = actionConfigResultTop.get();
                 }
             } else {
                 actionConfigResult = new ActionConfigResult();
@@ -2218,9 +2217,9 @@ public class RequestSource extends RestCommonUtils {
         commonLib.infoColored(constants.getValue(CALLING_CS_API) + constants.getValue("tcp.limits"), JavaColors.GREEN, false);
         TcpLimitsResponse result = null;
         try {
-            String userType=constants.getValue(CommonConstants.TCP_LIMIT_USER_TYPE);
-            String bearer=constants.getValue(CommonConstants.TCP_LIMIT_BEARER);
-            commonPostMethod(TCP_LIMITS, new TcpLimitsRequest(msisdn, tcpId,userType,bearer));
+            String userType = constants.getValue(CommonConstants.TCP_LIMIT_USER_TYPE);
+            String bearer = constants.getValue(CommonConstants.TCP_LIMIT_BEARER);
+            commonPostMethod(TCP_LIMITS, new TcpLimitsRequest(msisdn, tcpId, userType, bearer));
             result = response.as(TcpLimitsResponse.class);
             if (response.getStatusCode() != 200) {
                 esbRequestSource.callTcpLimits(tcpId);
@@ -2270,6 +2269,7 @@ public class RequestSource extends RestCommonUtils {
 
     /**
      * This Method will hit the API "/cs-am-service/v1/sms/trail" and return the response
+     *
      * @param msisdn The msisdn
      * @return The Response
      */
@@ -2277,9 +2277,9 @@ public class RequestSource extends RestCommonUtils {
         commonLib.infoColored(constants.getValue(CALLING_CS_API) + constants.getValue("sms.trails"), JavaColors.GREEN, false);
         SmsLogsResponse result = null;
         try {
-            commonPostMethod(URIConstants.SMS_TRAILS, new SmsLogsRequest(msisdn,null,null,1,5));
+            commonPostMethod(URIConstants.SMS_TRAILS, new SmsLogsRequest(msisdn, null, null, 1, 5));
             result = response.as(SmsLogsResponse.class);
-            if(result.getStatusCode()!=200)
+            if (result.getStatusCode() != 200)
                 esbRequestSource.callSmsLogs(msisdn);
         } catch (Exception e) {
             commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + " - getSmsLogs " + e.getMessage(), false);

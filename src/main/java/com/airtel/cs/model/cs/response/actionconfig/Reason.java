@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @ToString
@@ -16,8 +17,7 @@ import java.util.List;
 public class Reason {
   private String key;
   private String fieldType;
-  private String mandatory;
   private String placeHolder;
-  private List<String> fieldOptions;
-  private Boolean isActionType;
+  private ArrayList<Object> fieldOptions;
+  private Object isActionType;
 }

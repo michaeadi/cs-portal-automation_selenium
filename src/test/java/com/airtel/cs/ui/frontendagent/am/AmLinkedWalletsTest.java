@@ -6,6 +6,7 @@ import com.airtel.cs.commonutils.applicationutils.constants.PermissionConstants;
 import com.airtel.cs.commonutils.utils.UtilsMethods;
 import com.airtel.cs.driver.Driver;
 import com.airtel.cs.model.cs.response.amprofile.AMProfile;
+import org.apache.commons.lang3.StringUtils;
 import org.testng.SkipException;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -15,6 +16,7 @@ public class AmLinkedWalletsTest extends Driver {
     AMProfile amProfile;
     Boolean isPermissionEnable = false;
     int size;
+    public static final String RUN_AM_LINKED_WALLET = constants.getValue(ApplicationConstants.RUN_AM_LINKED_WALLET);
 
     @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"})
     public void checkExecution() {
@@ -24,6 +26,13 @@ public class AmLinkedWalletsTest extends Driver {
         }
     }
 
+    @BeforeMethod(groups = {"ProdTest", "SmokeTest","SanityTest", "RegressionTest"})
+    public void checkLinkedWalletFlag() {
+        if (!StringUtils.equals(RUN_AM_LINKED_WALLET, "true")) {
+            commonLib.skip("Skipping because Run Airtel Money Linked Wallets Test Case Flag Value is - " + RUN_AM_LINKED_WALLET);
+            throw new SkipException("Skipping because this functionality does not applicable for current Opco");
+        }
+    }
     /**
      * This method is used to Open Customer Profile Page with valid MSISDN
      */

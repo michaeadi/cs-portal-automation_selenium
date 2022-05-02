@@ -370,7 +370,7 @@ public class DemoGraphicWidgetHybridMsisdnTest extends Driver {
                 if (ObjectUtils.isNotEmpty(actionConfigResult.getConditions())) {
                     Condition condition = actionConfigResult.getConditions().get(0);
                     operator = condition.getOperator();
-                    Integer thresholdValue = condition.getThresholdValue();
+                    Integer thresholdValue = Integer.valueOf(condition.getThresholdValue());
                     if (hasRole && (">=".equals(operator) && airtelMoney >= thresholdValue
                             || "<".equals(operator) && airtelMoney < thresholdValue || "=".equals(operator) && airtelMoney == thresholdValue
                             || "<=".equals(operator) && airtelMoney <= thresholdValue || ">".equals(operator) && airtelMoney > thresholdValue)) {

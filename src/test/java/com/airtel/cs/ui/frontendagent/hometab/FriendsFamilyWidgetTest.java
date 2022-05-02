@@ -9,7 +9,7 @@ import com.airtel.cs.commonutils.applicationutils.enums.JavaColors;
 import com.airtel.cs.commonutils.dataproviders.dataproviders.DataProviders;
 import com.airtel.cs.commonutils.dataproviders.databeans.HeaderDataBean;
 import com.airtel.cs.driver.Driver;
-import com.airtel.cs.model.cs.response.actiontrail.ActionTrail;
+import com.airtel.cs.model.cs.response.actiontrail.EventLogsResponse;
 import com.airtel.cs.model.cs.response.actiontrail.EventResult;
 import com.airtel.cs.model.cs.response.friendsfamily.FriendsFamily;
 import com.airtel.cs.model.cs.response.friendsfamily.FriendsFamilyResponse;
@@ -204,7 +204,7 @@ public class FriendsFamilyWidgetTest extends Driver {
     public void validateActionTabAfterAddFnFMember() {
         try {
             selUtils.addTestcaseDescription("Verify Action trail tab after adding number into Customer's FnF list,Hit action trail event api, Validate action type & comments & agent id", "description");
-            ActionTrail actionTrailAPI = api.getEventHistory(customerNumber, "ACTION");
+            EventLogsResponse actionTrailAPI = api.getEventHistory(customerNumber, "ACTION");
             final int statusCode = actionTrailAPI.getStatusCode();
             assertCheck.append(actions.assertEqualIntType(statusCode, 200, "Friends & Family Widget API success and status code is :" + statusCode, "Friends & Family Widget API got failed and status code is :" + statusCode, false));
             if (statusCode == 200) {
@@ -291,7 +291,7 @@ public class FriendsFamilyWidgetTest extends Driver {
     public void validateActionTabAfterDeleteFnFMember() {
         try {
             selUtils.addTestcaseDescription("Verify Action trail tab after removing number into Customer's FnF list,Hit action trail event api, Validate action type & comments & agent id", "description");
-            ActionTrail actionTrailAPI = api.getEventHistory(customerNumber, "ACTION");
+            EventLogsResponse actionTrailAPI = api.getEventHistory(customerNumber, "ACTION");
             final int statusCode = actionTrailAPI.getStatusCode();
             assertCheck.append(actions.assertEqualIntType(statusCode, 200, "Friends & Family Widget API success and status code is :" + statusCode, "Friends & Family Widget API got failed and status code is :" + statusCode, false));
             if (statusCode == 200) {

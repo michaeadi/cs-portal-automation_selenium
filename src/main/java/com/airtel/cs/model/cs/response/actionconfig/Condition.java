@@ -15,6 +15,6 @@ public class Condition {
 
   private String operator;
   private String thresholdType;
-  private Integer thresholdValue;
+  private String thresholdValue;
   private String attributeField;
 }

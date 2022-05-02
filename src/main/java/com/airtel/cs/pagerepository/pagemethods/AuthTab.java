@@ -21,6 +21,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants.COMMENT;
+
 public class AuthTab extends BasePage {
 
     AuthTabPage pageElements;
@@ -392,5 +394,65 @@ public class AuthTab extends BasePage {
         }
     }
 
+    /**
+     * This method is used to perform send internet settings action  by selecting reason and comment
+     */
+    public void performSendInternetSettings() {
+        commonLib.info("Going to perform Send Internet Settings");
+        pages.getAuthTabPage().clickSelectReason();
+        pages.getAuthTabPage().selectReasonFromDropdown();
+        pages.getPinReset().enterComment(COMMENT);
+        pages.getPinReset().clickOnSubmitButton();
+    }
 
+    /**
+     * This method is used to select reason from dropdown
+     */
+    public void selectReasonFromDropdown() {
+        commonLib.info("Going to select Reason from dropdown");
+        if (isVisible(pageElements.selectReasonFromDropdown)) ;
+        clickWithoutLoader((pageElements.selectReasonFromDropdown));
+    }
+
+    /**
+     * This method is used to check enter comment
+     *
+     * @return true/false
+     */
+    public Boolean isSuccessPopUpVisible() {
+        waitVisibility(pageElements.confirmationPopUp);
+        final boolean state = isElementVisible(pageElements.confirmationPopUp);
+        commonLib.info("Is confirmation Pop Up visible :" + state);
+        return state;
+
+    }
+
+    /**
+     * This method is used to get text of success message
+     *
+     * @return text
+     */
+    public String getSuccessText() {
+        final String text = getText(pageElements.successMessage);
+        commonLib.info("Getting success pop up text :" + text);
+        return text;
+    }
+
+    /**
+     * This method is used to click on cross icon of success pop up
+     */
+    public void clickCrossIcon() {
+        commonLib.info("Going to click cross icon");
+        if (isVisible(pageElements.crossIcon)) ;
+        clickWithoutLoader((pageElements.crossIcon));
+    }
+
+    /**
+     * This method is used to click on select reason
+     */
+    public void clickSelectReason() {
+        commonLib.info("Going to click Select Reason");
+        if (isVisible(pageElements.selectReason)) ;
+        clickWithoutLoader((pageElements.selectReason));
+    }
 }

@@ -6,7 +6,7 @@ import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
 import com.airtel.cs.commonutils.utils.UtilsMethods;
 import com.airtel.cs.driver.Driver;
 import com.airtel.cs.model.cs.response.actionconfig.MetaInfo;
-import com.airtel.cs.model.cs.response.actiontrail.ActionTrail;
+import com.airtel.cs.model.cs.response.actiontrail.EventLogsResponse;
 import com.airtel.cs.model.cs.response.adjustmenthistory.AdjustmentHistory;
 import com.airtel.cs.model.cs.response.adjustmenthistory.AdjustmentResult;
 import org.openqa.selenium.NoSuchElementException;
@@ -54,7 +54,7 @@ public class HbbViewHistory extends Driver {
             selUtils.addTestcaseDescription("Verify View History tab opened successfully,Verify Action Trail History tab is visible,Validate column's value are visible and correct", "description");
             pages.getCustomerProfilePage().goToViewHistory();
             pages.getViewHistory().clickOnActionTrailHistory();
-            ActionTrail actionTrailAPI = api.getEventHistory(customerNumber, "ACTION");
+            EventLogsResponse actionTrailAPI = api.getEventHistory(customerNumber, "ACTION");
             final int statusCode = actionTrailAPI.getStatusCode();
             assertCheck.append(actions.assertEqualIntType(statusCode, 200, "Action Trail API success and status code is :" + statusCode, "Action Trail API got failed and status code is :" + statusCode, false, true));
             if (statusCode == 200) {
