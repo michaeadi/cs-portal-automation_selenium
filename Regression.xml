@@ -744,7 +744,7 @@
             <class name="com.airtel.cs.ui.ticketBulkUpdate.TicketBulkUpdateTest"/>
         </classes>
     </test>
-    <test name="Validate OSC Recharge">
+    <test name="Validate OSC Recharge Without Pin">
         <groups>
             <run>
                 <include name="RegressionTest"/>
