@@ -26,7 +26,7 @@ public class AmLinkedWalletsTest extends Driver {
         }
     }
 
-    @BeforeMethod(groups = {"ProdTest", "SmokeTest"})
+    @BeforeMethod(groups = {"ProdTest", "SmokeTest","SanityTest", "RegressionTest"})
     public void checkLinkedWalletFlag() {
         if (!StringUtils.equals(RUN_AM_LINKED_WALLET, "true")) {
             commonLib.skip("Skipping because Run Airtel Money Linked Wallets Test Case Flag Value is - " + RUN_AM_LINKED_WALLET);

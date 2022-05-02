@@ -115,7 +115,6 @@ public class SendInternetSettingsTest extends Driver {
             assertCheck.append(actions.assertEqualIntType(statusCode, 200, "Event Logs API success and status code is :" + statusCode, "Event Logs API got failed and status code is :" + statusCode, false, true));
             EventResult eventResult = eventLogs.getResult().get(0);
             if (statusCode == 200) {
-                //pages.getActionTrailPage().assertMetaInfoAfterActionPerformed(constants.getValue(CommonConstants.SEND_INTERNET_SETTING_ACTION_KEY), eventResult);
                 assertCheck.append(actions.assertEqualStringNotNull(eventResult.getActionType(), "Action Type is same as expected", "Action Type is not same as expected"));
                 assertCheck.append(actions.matchUiAndAPIResponse(eventResult.getComments(), ApplicationConstants.COMMENT, "Comment same as expected.", "Comment same as not expected."));
                 assertCheck.append(actions.matchUiAndAPIResponse(eventResult.getAgentId(), constants.getValue(CommonConstants.BETA_USER_ROLE_AUUID), "Agent id same as expected", "Agent id same as not expected"));
@@ -127,7 +126,7 @@ public class SendInternetSettingsTest extends Driver {
         }
     }
 
-    @Test(priority = 5, groups = {"SanityTest", "RegressionTest", }, dependsOnMethods = "checkActionTrail")
+    @Test(priority = 5, groups = {"SanityTest", "RegressionTest", }, dependsOnMethods = "validateSendInternetSetting")
     public void checkCategoryCode() {
         try {
             selUtils.addTestcaseDescription("Validate category code", "description");
