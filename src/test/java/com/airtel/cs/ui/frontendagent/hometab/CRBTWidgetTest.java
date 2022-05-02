@@ -21,9 +21,8 @@ public class CRBTWidgetTest extends Driver {
 
     private static String customerNumber = null;
     RequestSource api = new RequestSource();
-    private String crbtWidgetId;
 
-    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"})
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void isCRBTFeatureEnabled() {
         if (StringUtils.equalsIgnoreCase(constants.getValue(ApplicationConstants.CRBT_WIDGET), "false")) {
             commonLib.skip("CRBT Widget is NOT Enabled for this Opco=" + OPCO);
@@ -31,7 +30,7 @@ public class CRBTWidgetTest extends Driver {
         }
     }
 
-    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"})
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void checkExecution() {
         if (!continueExecutionFA) {
             commonLib.skip("Skipping tests because user NOT able to login Over Portal");
@@ -39,7 +38,7 @@ public class CRBTWidgetTest extends Driver {
         }
     }
 
-    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"})
+    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void openCustomerInteraction() {
         try {
             selUtils.addTestcaseDescription("Open Customer Profile Page with valid MSISDN, Validate Customer Profile Page Loaded or not", "description");
@@ -57,11 +56,11 @@ public class CRBTWidgetTest extends Driver {
         }
     }
 
-    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"}, dependsOnMethods = "openCustomerInteraction")
+    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "openCustomerInteraction")
     public void testHeaderAndAuuid() {
         try {
             selUtils.addTestcaseDescription("Validate is CRBT Widget Visible,Validate is CRBT Widget Loaded?,Validate Footer and Middle Auuid", "description");
-            crbtWidgetId = pages.getCrbtWidgetPage().getCRBTWidgetId();
+            String crbtWidgetId = pages.getCrbtWidgetPage().getCRBTWidgetId();
             assertCheck.append(actions.assertEqualBoolean(widgetMethods.isWidgetVisible(crbtWidgetId), true, "CRBT Widget is visible", "CRBT Widget is not visible"));
             assertCheck.append(actions.assertEqualStringType(pages.getCrbtWidgetPage().getFooterAuuidCRBT(), loginAUUID, "Auuid shown at the footer of the CRBT widget and is correct", "Auuid NOT shown at the footer of CRBT widget"));
             assertCheck.append(actions.assertEqualStringType(pages.getCrbtWidgetPage().getMiddleAuuidCRBT(), loginAUUID, "Auuid shown at the middle of the CRBT widget and is correct", "Auuid NOT shown at the middle of CRBT widget"));
@@ -103,7 +102,7 @@ public class CRBTWidgetTest extends Driver {
     }
 
     @DataProviders.Table(name = "Search Tune Tab")
-    @Test(priority = 4, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dataProvider = "HeaderData", dataProviderClass = DataProviders.class, dependsOnMethods = "openCustomerInteraction")
+    @Test(priority = 4, groups = {"SanityTest", "RegressionTest"}, dataProvider = "HeaderData", dataProviderClass = DataProviders.class, dependsOnMethods = "openCustomerInteraction")
     public void testTop20Tunes(HeaderDataBean data) {
         try {
             selUtils.addTestcaseDescription("Validate top 20 tunes tab, Validate top 20 tune CS API,", "description");
@@ -132,7 +131,7 @@ public class CRBTWidgetTest extends Driver {
     }
 
     @DataProviders.Table(name = "Search Tune Tab")
-    @Test(priority = 5, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dataProvider = "HeaderData", dataProviderClass = DataProviders.class, dependsOnMethods = "openCustomerInteraction")
+    @Test(priority = 5, groups = {"SanityTest", "RegressionTest"}, dataProvider = "HeaderData", dataProviderClass = DataProviders.class, dependsOnMethods = "openCustomerInteraction")
     public void testSearchTune(HeaderDataBean data) {
         try {
             selUtils.addTestcaseDescription("Validate Search Tune Tab, Validate Search With Keyword and result, Validate Search By Option,Validate Headers and there values after search", "description");

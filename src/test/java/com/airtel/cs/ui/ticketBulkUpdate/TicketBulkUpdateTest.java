@@ -23,7 +23,7 @@ public class TicketBulkUpdateTest extends Driver {
     public static final String BULK_UPDATE_TRANSFER_QUEUE_STATUS = constants.getValue(ApplicationConstants.BULK_UPDATE_TRANSFER_TO_QUEUE_STATUS);
     public static boolean continueExecTicketBulkUpdateTC = true;
 
-    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"})
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void checkExecution() {
         if (!(continueExecutionFA && continueExecutionBU)) {
             commonLib.skip("Skipping tests because user NOT able to login Over Portal");
@@ -39,7 +39,7 @@ public class TicketBulkUpdateTest extends Driver {
         }
     }
 
-    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"})
+    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void isUserHasTicketBulkUpdatePermission() {
         try {
             selUtils.addTestcaseDescription("Validate user has permission to perform validate Ticket Bulk Update operation", "description");
@@ -53,7 +53,7 @@ public class TicketBulkUpdateTest extends Driver {
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
-    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"}, dependsOnMethods = {"isUserHasTicketBulkUpdatePermission"})
+    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"isUserHasTicketBulkUpdatePermission"})
     public void openTicketBulkUpdate() {
         try {
             selUtils.addTestcaseDescription("Open Ticket Bulk Update Dashboard,Validate Ticket Bulk Update Dashboard Opened", "description");
@@ -86,7 +86,7 @@ public class TicketBulkUpdateTest extends Driver {
         }
     }
 
-    @Test(priority = 4, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "openTicketBulkUpdate")
+    @Test(priority = 4, groups = {"SanityTest", "RegressionTest"}, dependsOnMethods = "openTicketBulkUpdate")
     public void validateStartEndSameDate() {
         try {
             selUtils.addTestcaseDescription("validate same start date and end date in date duration", "description");
@@ -102,7 +102,7 @@ public class TicketBulkUpdateTest extends Driver {
         }
     }
 
-    @Test(priority = 5, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "openTicketBulkUpdate")
+    @Test(priority = 5, groups = {"SanityTest", "RegressionTest"}, dependsOnMethods = "openTicketBulkUpdate")
     public void validateDateRange() {
         try {
             selUtils.addTestcaseDescription("validating date range end date can not be previous date", "description");
@@ -119,7 +119,7 @@ public class TicketBulkUpdateTest extends Driver {
         }
     }
 
-    @Test(priority = 6, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "openTicketBulkUpdate")
+    @Test(priority = 6, groups = {"SanityTest", "RegressionTest"}, dependsOnMethods = "openTicketBulkUpdate")
     public void maxTicketSelectTest() {
         try {
             selUtils.addTestcaseDescription("Verify that max" + constants.getValue(CommonConstants.TICKET_BULK_UPDATE_MAX_COUNT) + "Tickets to be allowed to be bulk updated in one go,Select Filter with date duration last 30 days and apply filter,Validate the max ticket message display or not.", "description");
@@ -250,7 +250,7 @@ public class TicketBulkUpdateTest extends Driver {
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
-    @Test(priority = 10, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "openTicketBulkUpdate")
+    @Test(priority = 10, groups = {"SanityTest", "RegressionTest"}, dependsOnMethods = "openTicketBulkUpdate")
     public void uploadTicketFromExcelAndTransferToQueueTest() {
         if (!StringUtils.equals(BULK_UPDATE_TRANSFER_QUEUE_STATUS, "true")) {
             commonLib.skip("Skipping because Bulk Operation not allowing while performing transfer to queue action as no two or more queue lies with in same workgroup - " + BULK_UPDATE_TRANSFER_QUEUE_STATUS);
@@ -308,7 +308,7 @@ public class TicketBulkUpdateTest extends Driver {
         }
     }
 
-    @Test(priority = 11, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "openTicketBulkUpdate")
+    @Test(priority = 11, groups = {"SanityTest", "RegressionTest"}, dependsOnMethods = "openTicketBulkUpdate")
     public void uploadTicketFromExcelAndChangeStateTest() {
         try {
             selUtils.addTestcaseDescription("Check user able to upload ticket id from excel,Validate ticket upload from excel is complete,Click on next button and choose Change state operation,Choose State from the list and confirm the info,Click on submit button and validate ticket transfer to selected state,Validate Ticket history log logged this entry as ticket update by bulk update.", "description");

@@ -6,7 +6,7 @@ import org.testng.annotations.Test;
 public class KpiDashboardOpenTicketAgeingTest extends Driver {
 
 
-    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"})
+    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void dashboardOpenTicketAgeing() {
         try {
             selUtils.addTestcaseDescription("Open Ticket Ageing", "description");
@@ -27,7 +27,7 @@ public class KpiDashboardOpenTicketAgeingTest extends Driver {
         }
     }
 
-    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"})
+    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void dashboardSlaBreachTicketAgeingIssueTypeQueue() {
         try {
             selUtils.addTestcaseDescription("Open Ticket Ageing", "description");
@@ -50,7 +50,7 @@ public class KpiDashboardOpenTicketAgeingTest extends Driver {
         }
     }
 
-    @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"})
+    @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void dashboardSlaBreachTicketAgeingNGAgent() {
         try {
             selUtils.addTestcaseDescription("Open Ticket Ageing", "description");

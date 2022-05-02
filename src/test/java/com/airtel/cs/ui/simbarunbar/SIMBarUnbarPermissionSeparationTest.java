@@ -174,7 +174,7 @@ public class SIMBarUnbarPermissionSeparationTest extends Driver {
 
     @DataProviders.User(userType = "Beta")
     @Test(priority = 8, dependsOnMethods = "testReactivationSIMOptionIsVisible", dataProvider = "loginData", dataProviderClass = DataProviders.class, groups = {"RegressionTest"})
-    public void removeBothPermissionFromUM(TestDataBean data) throws InterruptedException {
+    public void removeBothPermissionFromUM(TestDataBean data) {
         selUtils.addTestcaseDescription("Validate that if the logged in user do NOT have permission to do Reactivation Action", "description");
         /* LOGIN IN TEMPORARY BROWSER AS PER TESTCASE REQUIREMENT -
          *  - WITH UM CREDENTIALS */
@@ -195,7 +195,7 @@ public class SIMBarUnbarPermissionSeparationTest extends Driver {
         }
     }
 
-    @Test(priority = 9, dependsOnMethods = "openCustomerInteraction", groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @Test(priority = 9, dependsOnMethods = "openCustomerInteraction", groups = {"SanityTest", "RegressionTest"})
     public void suspendSIMPopupFalse() throws InterruptedException {
         selUtils.addTestcaseDescription("Validate SIM Suspend Action", "description");
         try {
@@ -235,7 +235,7 @@ public class SIMBarUnbarPermissionSeparationTest extends Driver {
         }
     }
 
-    @Test(priority = 10, dependsOnMethods = "openCustomerInteraction", groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @Test(priority = 10, dependsOnMethods = "openCustomerInteraction", groups = {"SanityTest", "RegressionTest"})
     public void reActivateSIMPopupFalse() {
         selUtils.addTestcaseDescription("Validate SIM Reactivate Action", "description");
         try {

@@ -18,7 +18,7 @@ public class AmLinkedWalletsTest extends Driver {
     int size;
     public static final String RUN_AM_LINKED_WALLET = constants.getValue(ApplicationConstants.RUN_AM_LINKED_WALLET);
 
-    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"})
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void checkExecution() {
         if (!continueExecutionFA) {
             commonLib.skip("Skipping tests because user NOT able to login Over Portal");
@@ -36,7 +36,7 @@ public class AmLinkedWalletsTest extends Driver {
     /**
      * This method is used to Open Customer Profile Page with valid MSISDN
      */
-    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"})
+    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void openCustomerInteraction() {
         try {
             selUtils.addTestcaseDescription("Open Customer Profile Page with valid MSISDN, Validate Customer Profile Page Loaded or not", "description");
@@ -71,7 +71,7 @@ public class AmLinkedWalletsTest extends Driver {
     /**
      * This method is used to Open Wallets tab
      */
-    @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"}, dependsOnMethods = {"openCustomerInteraction", "isUserHasPermission"})
+    @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"openCustomerInteraction", "isUserHasPermission"})
     public void openWalletsTab() {
         try {
             selUtils.addTestcaseDescription("Validate AM Transactions Widget visible or not ,Open detailed page of Am Transactions widget , Validate auuid at the footer and middle of widget ", "description");
@@ -94,7 +94,7 @@ public class AmLinkedWalletsTest extends Driver {
     /**
      * This method is used to test Wallets tab Layout
      */
-    @Test(priority = 4, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"}, dependsOnMethods = "openCustomerInteraction")
+    @Test(priority = 4, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "openCustomerInteraction")
     public void testWalletsLayout() {
         try {
             selUtils.addTestcaseDescription("Validate all the fields are visible or not in Wallets", "description");
@@ -126,7 +126,7 @@ public class AmLinkedWalletsTest extends Driver {
     /**
      * This method is used to check Wallets data
      */
-    @Test(priority = 5, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"}, dependsOnMethods = "openCustomerInteraction")
+    @Test(priority = 5, groups = {"SanityTest", "RegressionTest"}, dependsOnMethods = "openCustomerInteraction")
     public void testWalletsData() {
         try {
             selUtils.addTestcaseDescription("Validate data of all the fields of Wallets tab", "description");
@@ -158,7 +158,7 @@ public class AmLinkedWalletsTest extends Driver {
     /**
      * This method is used to validate widgets in profile management
      */
-    @Test(priority = 6, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"isUserHasPermission"})
+    @Test(priority = 6, groups = {"SanityTest", "RegressionTest"}, dependsOnMethods = {"isUserHasPermission"})
     public void profileManagementTest() {
         try {
             selUtils.addTestcaseDescription("Validating Am Profile Details in profile management", "description");

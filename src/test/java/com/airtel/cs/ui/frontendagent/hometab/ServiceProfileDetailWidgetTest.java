@@ -22,7 +22,7 @@ public class ServiceProfileDetailWidgetTest extends Driver {
     Integer size=0;
     String remarks=null;
 
-    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"})
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void checkExecution() {
         if (!continueExecutionFA) {
             commonLib.skip("Skipping tests because user NOT able to login via API");
@@ -30,7 +30,7 @@ public class ServiceProfileDetailWidgetTest extends Driver {
         }
     }
 
-    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"})
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void checkServiceProfileFlag() {
         if (!StringUtils.equals(RUN_HLR_SERVICE_TEST_CASE, "true")) {
             commonLib.skip("Skipping because Run service profile widget Test Case Flag Value is - " + RUN_TARIFF_TEST_CASE);
@@ -39,7 +39,7 @@ public class ServiceProfileDetailWidgetTest extends Driver {
     }
 
 
-    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"})
+    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void openCustomerInteraction() {
         try {
             selUtils.addTestcaseDescription("Open Customer Profile Page with valid MSISDN, Validate Customer Profile Page Loaded or not", "description");
@@ -116,7 +116,7 @@ public class ServiceProfileDetailWidgetTest extends Driver {
         }
     }
 
-    @Test(priority = 5, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"openCustomerInteraction","testHlrOrderHistoryWidget"})
+    @Test(priority = 5, groups = {"SanityTest", "RegressionTest"}, dependsOnMethods = {"openCustomerInteraction","testHlrOrderHistoryWidget"})
     public void checkPaginationForHLRWidget() {
         selUtils.addTestcaseDescription("Validate pagination and pagination count ,Validate User able to click on next button if rows > 10 ,After navigating to next page user should be able to navigate back using previous button ", "description");
         try {
@@ -139,7 +139,7 @@ public class ServiceProfileDetailWidgetTest extends Driver {
         }
     }
 
-    @Test(priority = 6, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"openCustomerInteraction", "testHlrOrderHistoryWidget"})
+    @Test(priority = 6, groups = {"SanityTest", "RegressionTest"}, dependsOnMethods = {"openCustomerInteraction", "testHlrOrderHistoryWidget"})
     public void testHlrOrderHistoryData() {
         try {
             selUtils.addTestcaseDescription("Validate HLR Order History Widget's data ", "description");

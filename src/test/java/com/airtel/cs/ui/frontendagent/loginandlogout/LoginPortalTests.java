@@ -11,10 +11,7 @@ import org.testng.annotations.Test;
 
 public class LoginPortalTests extends Driver {
 
-    String auth;
-    private static String password=null;
-
-    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"})
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void checkExecution() {
         if (!continueExecutionFA) {
             commonLib.skip("Skipping tests because user NOT able to login via API");
@@ -22,37 +19,16 @@ public class LoginPortalTests extends Driver {
         }
     }
 
-    @Test(priority = 1,groups = {"SmokeTest"})
-    public void getLoginUserCredForSmokeTest(){
-        try {
-            selUtils.addTestcaseDescription("Setup credentials For Logging Into Portal with Advisor Supervisor User", "description");
-            loginAUUID = constants.getValue(CommonConstants.ADVISOR_USER_ROLE_AUUID);
-            commonLib.pass(constants.getValue("cs.portal.cred.setup")+" : "+loginAUUID);
-            password = constants.getValue(CommonConstants.ADVISOR_USER_ROLE_PASSWORD);
-        }catch (Exception e){
-            commonLib.fail(constants.getValue("cs.portal.test.fail") + " - getLoginUserCredForSmokeTest " + e.fillInStackTrace(), true);
-        }
-    }
-
-    @Test(priority = 2,groups = {"SanityTest", "RegressionTest", "ProdTest"})
-    public void getLoginUserCredForAllTest(){
-        try {
-            selUtils.addTestcaseDescription("Setup credentials For Logging Into Portal with Beta User", "description");
-            loginAUUID = constants.getValue(CommonConstants.BETA_USER_ROLE_AUUID);
-            commonLib.pass(constants.getValue("cs.portal.cred.setup")+" : "+loginAUUID);
-            password = constants.getValue(CommonConstants.BETA_USER_ROLE_PASSWORD);
-        }catch (Exception e){
-            commonLib.fail(constants.getValue("cs.portal.test.fail") + " - getLoginUserCredForAllTest " + e.fillInStackTrace(), true);
-        }
-    }
-
-    @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"})
+    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void testLoginIntoPortal() {
         try {
             selUtils.addTestcaseDescription("Logging Into Portal with valid All user credentials, Validating opened url,validating login button is getting enabled,Validating dashboard page opened successfully or not?", "description");
             final String value = constants.getValue(ApplicationConstants.DOMAIN_URL);
             pages.getLoginPage().openBaseURL(value);
             assertCheck.append(actions.assertEqualStringType(driver.getCurrentUrl(), value, "Correct URL Opened", "URl isn't as expected"));
+            loginAUUID = constants.getValue(CommonConstants.BETA_USER_ROLE_AUUID);
+            commonLib.info(constants.getValue("cs.portal.cred.setup") + " : " + loginAUUID);
+            String password = constants.getValue(CommonConstants.BETA_USER_ROLE_PASSWORD);
             pages.getLoginPage().enterAUUID(loginAUUID);
             pages.getLoginPage().clickOnSubmitBtn();
             pages.getLoginPage().enterPassword(PassUtils.decodePassword(password));
@@ -62,24 +38,19 @@ public class LoginPortalTests extends Driver {
             pages.getLoginPage().clickOnLogin();
             final boolean isGrowlVisible = pages.getGrowl().checkIsGrowlVisible();
             UtilsMethods.getNewAddHeader();
-            if (isGrowlVisible)
-            {
+            if (isGrowlVisible) {
                 commonLib.fail("Growl Message:- " + pages.getGrowl().getToastContent(), true);
                 continueExecutionFA = false;
                 assertCheck.append(actions.assertEqualBoolean(continueExecutionFA, true, "User Login Successful Over Portal", "User Login Failed Over Portal"));
-            }
-            else {
+            } else {
                 final Boolean userManagementPageLoaded = pages.getUserManagementPage().isUserManagementPageLoaded();
                 assertCheck.append(actions.assertEqualBoolean(userManagementPageLoaded, true, "Customer Dashboard Page Loaded Successfully", "Customer Dashboard page NOT Loaded"));
-                if (!userManagementPageLoaded)
-                {
+                if (!userManagementPageLoaded) {
                     continueExecutionFA = false;
                     continueExecutionBU = false;
                 }
             }
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             continueExecutionFA = false;
             commonLib.fail("Exception in Method - testLoginIntoPortal" + e.fillInStackTrace(), true);
         }

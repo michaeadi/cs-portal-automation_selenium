@@ -132,7 +132,7 @@ public class PlanAndPackDetailedWidgetTest extends Driver {
      * This method is used to validate add on bundles column name
      */
     @DataProviders.Table(name = "ADD ON BUNDLE USAGE")
-    @Test(priority = 5, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dataProvider = "HeaderData", dataProviderClass = DataProviders.class, dependsOnMethods = {"isUserHasPlanAndPackWidgetPermission"})
+    @Test(priority = 5, groups = {"SanityTest", "RegressionTest"}, dataProvider = "HeaderData", dataProviderClass = DataProviders.class, dependsOnMethods = {"isUserHasPlanAndPackWidgetPermission"})
     public void addOnBundleColumnNames(HeaderDataBean data) {
         try {
             selUtils.addTestcaseDescription("Validate add on bundles widget column name", "description");
@@ -192,7 +192,7 @@ public class PlanAndPackDetailedWidgetTest extends Driver {
     /**
      * This method is used to validate widgets in profile management
      */
-    @Test(priority = 6, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"isUserHasPlanAndPackWidgetPermission"})
+    @Test(priority = 6, groups = {"SanityTest", "RegressionTest"}, dependsOnMethods = {"isUserHasPlanAndPackWidgetPermission"})
     public void planPackProfileManagement() {
         try {
             selUtils.addTestcaseDescription("Validating widgets in profile management", "description");

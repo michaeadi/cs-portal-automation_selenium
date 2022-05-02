@@ -41,7 +41,7 @@ public class DemoGraphicWidgetPrepaidMsisdnTest extends Driver {
     GsmKyc gsmKycAPI;
 
 
-    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"})
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void checkExecution() {
         if (!continueExecutionFA) {
             commonLib.skip("Skipping tests because user NOT able to login Over Portal");
@@ -49,7 +49,7 @@ public class DemoGraphicWidgetPrepaidMsisdnTest extends Driver {
         }
     }
 
-    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"})
+    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void openCustomerInteraction() {
         try {
             selUtils.addTestcaseDescription("Open Customer Profile Page with valid MSISDN, Validate Customer Profile Page Loaded or not", "description");
@@ -68,7 +68,7 @@ public class DemoGraphicWidgetPrepaidMsisdnTest extends Driver {
         }
     }
 
-    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"}, dependsOnMethods = {"openCustomerInteraction"})
+    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"openCustomerInteraction"})
     public void getConnectionType() {
         try {
             selUtils.addTestcaseDescription("Validate KYC Profile , Getting Connection Type ", "description");
@@ -83,7 +83,7 @@ public class DemoGraphicWidgetPrepaidMsisdnTest extends Driver {
         }
     }
 
-    @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"}, dependsOnMethods = {"openCustomerInteraction", "getConnectionType"})
+    @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"openCustomerInteraction", "getConnectionType"})
     public void testCustomerNameAndGsmKYCStatus() {
         try {
             selUtils.addTestcaseDescription("Validate Customer Name, Validate GSM KYC Status", "description");
@@ -103,7 +103,7 @@ public class DemoGraphicWidgetPrepaidMsisdnTest extends Driver {
         }
     }
 
-    @Test(priority = 4, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"}, dependsOnMethods = {"openCustomerInteraction", "getConnectionType"})
+    @Test(priority = 4, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"openCustomerInteraction", "getConnectionType"})
     public void testCustomerDetails() {
         try {
             selUtils.addTestcaseDescription("Validate Customer Name,Validate Customer DOB,Validate if Customer has Birthday or Anniversary with Airtel", "description");
@@ -145,7 +145,7 @@ public class DemoGraphicWidgetPrepaidMsisdnTest extends Driver {
     }
 
 
-        @Test(priority = 5, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"}, dependsOnMethods = {"openCustomerInteraction", "getConnectionType"})
+        @Test(priority = 5, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"openCustomerInteraction", "getConnectionType"})
         public void testPukDetails () {
             try {
                 selUtils.addTestcaseDescription("Verify Auuid shown in middle and at the footer of the demographic widget, Verify PUK is locked or unlocked, If Locked then verify data, else unlock PUK details, Validate PUK1 and PUK2", "description");
@@ -169,7 +169,7 @@ public class DemoGraphicWidgetPrepaidMsisdnTest extends Driver {
             }
         }
 
-        @Test(priority = 6, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"}, dependsOnMethods = {"openCustomerInteraction", "getConnectionType"})
+        @Test(priority = 6, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"openCustomerInteraction", "getConnectionType"})
         public void testGSMStatus () {
             try {
                 selUtils.addTestcaseDescription("Validate GSM Status, Validate data after hovering the GSM status", "description");
@@ -190,7 +190,7 @@ public class DemoGraphicWidgetPrepaidMsisdnTest extends Driver {
         }
 
 
-        @Test(priority = 7, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"}, dependsOnMethods = {"openCustomerInteraction", "getConnectionType"})
+        @Test(priority = 7, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"openCustomerInteraction", "getConnectionType"})
         public void testSimNumber () {
             try {
                 selUtils.addTestcaseDescription("Validate SIM Number,Validate Pin1 and Pin2 after hovering over SIM Number", "description");
@@ -209,7 +209,7 @@ public class DemoGraphicWidgetPrepaidMsisdnTest extends Driver {
             }
         }
 
-        @Test(priority = 8, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"}, dependsOnMethods = {"openCustomerInteraction", "getConnectionType"})
+        @Test(priority = 8, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"openCustomerInteraction", "getConnectionType"})
         public void testDeviceCompatible () {
             try {
                 selUtils.addTestcaseDescription("Validate Device Compatibility and SIM type", "description");
@@ -228,7 +228,7 @@ public class DemoGraphicWidgetPrepaidMsisdnTest extends Driver {
             }
         }
 
-        @Test(priority = 9, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"}, dependsOnMethods = {"openCustomerInteraction", "getConnectionType"})
+        @Test(priority = 9, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"openCustomerInteraction", "getConnectionType"})
         public void testDeviceInfo () {
             try {
                 selUtils.addTestcaseDescription("Validate Device Info on hovering over Device Info icon", "description");
@@ -247,7 +247,7 @@ public class DemoGraphicWidgetPrepaidMsisdnTest extends Driver {
             }
         }
 
-        @Test(priority = 10, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"}, dependsOnMethods = {"openCustomerInteraction", "getConnectionType"})
+        @Test(priority = 10, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"openCustomerInteraction", "getConnectionType"})
         public void testConnectionTypeAndSegment () {
             try {
                 selUtils.addTestcaseDescription("Validate Connection Type, Validate Segment , Validate Subsegment and SubCategory on hovering over Segment icon", "description");
@@ -272,7 +272,7 @@ public class DemoGraphicWidgetPrepaidMsisdnTest extends Driver {
 
         }
 
-        @Test(priority = 11, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"}, dependsOnMethods = {"openCustomerInteraction", "getConnectionType"})
+        @Test(priority = 11, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"openCustomerInteraction", "getConnectionType"})
         public void testServiceClassAndAppStatus () {
             try {
                 selUtils.addTestcaseDescription("Validate Service Class, Validate App Status", "description");
@@ -288,7 +288,7 @@ public class DemoGraphicWidgetPrepaidMsisdnTest extends Driver {
             }
         }
 
-        @Test(priority = 12, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"}, dependsOnMethods = {"openCustomerInteraction", "getConnectionType"})
+        @Test(priority = 12, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"openCustomerInteraction", "getConnectionType"})
         public void testDataManager () {
             try {
                 selUtils.addTestcaseDescription("Validate Data Manager,Validate Data Manager Status", "description");
@@ -328,7 +328,7 @@ public class DemoGraphicWidgetPrepaidMsisdnTest extends Driver {
             }
         }
 
-        @Test(priority = 14, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"}, dependsOnMethods = {"openCustomerInteraction", "getConnectionType"})
+        @Test(priority = 14, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"openCustomerInteraction", "getConnectionType"})
         public void testAirtelMoneyProfile () {
             try {
                 if (StringUtils.equalsIgnoreCase(constants.getValue(ApplicationConstants.AIRTEL_MONEY_PROFILE), "true")) {

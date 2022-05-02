@@ -16,7 +16,7 @@ public class VisibilityByCustomerSegmentTest extends Driver {
 
     private static String customerNumber = null;
 
-    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest"})
     public void checkExecution() {
         if (!continueExecutionFA) {
             commonLib.skip("Skipping tests because user NOT able to login Over Portal");
@@ -24,7 +24,7 @@ public class VisibilityByCustomerSegmentTest extends Driver {
         }
     }
 
-    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @Test(priority = 1, groups = {"SanityTest", "RegressionTest"})
     public void openCustomerInteraction() {
         try {
             selUtils.addTestcaseDescription("Open Customer Profile Page with valid MSISDN, Validate Customer Profile Page Loaded or not", "description");
@@ -42,7 +42,7 @@ public class VisibilityByCustomerSegmentTest extends Driver {
         }
     }
 
-    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @Test(priority = 2, groups = {"SanityTest", "RegressionTest"})
     public void connectionTypeValidity() {
         String connectType = pages.getDemoGraphicPage().getConnectionType().toLowerCase().trim();
         if (StringUtils.isEmpty(connectType) || "none".equals(connectType)) {

@@ -12,7 +12,7 @@ import org.testng.annotations.Test;
 public class SupervisorFilterTest extends Driver {
 
 
-    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"})
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void checkExecution() {
         if (!(continueExecutionBS && continueExecutionFA)) {
             commonLib.skip("Skipping tests because user NOT able to login Over Portal");
@@ -20,7 +20,7 @@ public class SupervisorFilterTest extends Driver {
         }
     }
 
-    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"})
+    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void openSupervisorDashboard() {
         try {
             selUtils.addTestcaseDescription("Open Supervisor Dashboard , Validate agent redirect to ticket List Page", "description");
@@ -34,7 +34,7 @@ public class SupervisorFilterTest extends Driver {
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
-    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"}, dependsOnMethods = {"openSupervisorDashboard"})
+    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"openSupervisorDashboard"})
     public void validateOpenFilterTab() {
         try {
             selUtils.addTestcaseDescription("Validate Filter Tab for Supervisor(Open State),Validate filter by created date & filter by SLA due date " +
@@ -59,7 +59,7 @@ public class SupervisorFilterTest extends Driver {
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
-    @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"}, dependsOnMethods = {"openSupervisorDashboard"})
+    @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"openSupervisorDashboard"})
     public void validateClosedFilterTab() {
         try {
             selUtils.addTestcaseDescription("Validate Filter Tab for Supervisor(Closed State),Validate filter by closure date & filter by SLA due date " +
@@ -84,7 +84,7 @@ public class SupervisorFilterTest extends Driver {
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
-    @Test(priority = 4, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"openSupervisorDashboard"})
+    @Test(priority = 4, groups = {"SanityTest", "RegressionTest"}, dependsOnMethods = {"openSupervisorDashboard"})
     public void validateResetFilterButton() {
         try {
             selUtils.addTestcaseDescription("Validate Reset filter button available after applying filter,Apply Filter by Created Date,Validate Reset Filter button displayed or not", "description");

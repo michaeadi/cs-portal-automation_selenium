@@ -90,7 +90,7 @@ public class SupervisorUpdateTicketTest extends Driver {
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
-    @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "openSupervisorDashboard")
+    @Test(priority = 3, groups = {"SanityTest", "RegressionTest"}, dependsOnMethods = "openSupervisorDashboard")
     public void openCustomerInteraction() {
         try {
             selUtils.addTestcaseDescription("Open Customer Profile Page with valid MSISDN, Validate Customer Profile Page Loaded or not", "description");
@@ -107,7 +107,7 @@ public class SupervisorUpdateTicketTest extends Driver {
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
-    @Test(priority = 4, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "openSupervisorDashboard")
+    @Test(priority = 4, groups = {"SanityTest", "RegressionTest"}, dependsOnMethods = "openSupervisorDashboard")
     public void validateReopenIcon() {
         try {
             if (ticketId != null) {

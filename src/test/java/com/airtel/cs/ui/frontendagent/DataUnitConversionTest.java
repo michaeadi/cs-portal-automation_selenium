@@ -95,7 +95,7 @@ public class DataUnitConversionTest extends Driver {
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
-    @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"openCustomerInteraction"})
+    @Test(priority = 3, groups = {"SanityTest", "RegressionTest"}, dependsOnMethods = {"openCustomerInteraction"})
     public void usageHistoryMenuWidgetTest() {
         selUtils.addTestcaseDescription("Validating Usage History Menu Widget MB to GB Conversion,CSP-63392 Verify that in Usage History Detailed Widget if the data amount is coming MB from ESB CS API then CS Portal should show the data amount after converting it to GB", "description");
         String startBalanceUnit = null;
@@ -145,7 +145,7 @@ public class DataUnitConversionTest extends Driver {
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
-    @Test(priority = 4, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"openCustomerInteraction"})
+    @Test(priority = 4, groups = {"SanityTest", "RegressionTest"}, dependsOnMethods = {"openCustomerInteraction"})
     public void rechargeHistoryUnitConversionTest() {
         selUtils.addTestcaseDescription("Validating Recharge History Widget MB to GB Conversion,CSP-63393 Verify that in Recharge History Widget if the data amount is coming MB from ESB com.airtel.cs.API then CS Portal should show the data amount after converting it to GB", "description");
         RechargeHistory rechargeHistoryAPI = api.rechargeHistoryAPITest(constants.getValue(ApplicationConstants.RECHARGE_HISTORY_MSISDN));
@@ -171,7 +171,7 @@ public class DataUnitConversionTest extends Driver {
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
-    @Test(priority = 5, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"openCustomerInteraction"})
+    @Test(priority = 5, groups = {"SanityTest", "RegressionTest"}, dependsOnMethods = {"openCustomerInteraction"})
     public void daDetailsUnitConversionTest() {
         selUtils.addTestcaseDescription("Validating DA Details History Widget MB to GB Conversion,CSP-63396 Verify that in DA Details Widget if the data amount is coming MB from ESB CS API then CS Portal should show the data amount after converting it to GB", "description");
         AccountsBalance plansAPI = api.balanceAPITest(customerNumber);
