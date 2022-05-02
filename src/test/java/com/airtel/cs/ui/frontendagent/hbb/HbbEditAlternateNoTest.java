@@ -7,7 +7,7 @@ import com.airtel.cs.commonutils.applicationutils.constants.PermissionConstants;
 import com.airtel.cs.commonutils.utils.UtilsMethods;
 import com.airtel.cs.driver.Driver;
 import com.airtel.cs.model.cs.response.actionconfig.MetaInfo;
-import com.airtel.cs.model.cs.response.actiontrail.ActionTrail;
+import com.airtel.cs.model.cs.response.actiontrail.EventLogsResponse;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
 import org.testng.SkipException;
@@ -151,7 +151,7 @@ public class HbbEditAlternateNoTest extends Driver {
             selUtils.addTestcaseDescription("Validate Action Trail column's value are visible and correct ", "description");
             pages.getCustomerProfilePage().goToViewHistory();
             pages.getViewHistory().clickOnActionTrailHistory();
-            ActionTrail actionTrailAPI = api.getEventHistory(hbbCustomerNumber, "ACTION");
+            EventLogsResponse actionTrailAPI = api.getEventHistory(hbbCustomerNumber, "ACTION");
             final int statusCode = actionTrailAPI.getStatusCode();
             assertCheck.append(actions.assertEqualIntType(statusCode, 200, "Action Trail API success and status code is :" + statusCode, "Action Trail API got failed and status code is :" + statusCode, false, true));
             if (statusCode == 200) {

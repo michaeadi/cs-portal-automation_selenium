@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @ToString
@@ -17,12 +18,15 @@ public class ActionConfigResult {
   private String id;
   private String actionKey;
   private String categoryId;
-  private List<Reason> reasons;
-  private List<MetaInfo> metaInfo;
-  private Boolean showPopup;
-  private Boolean hasPermission;
-  private List<String> roles;
+  private ArrayList<Reason> reasons;
+  private ArrayList<MetaInfo> metaInfo;
+  private boolean showPopup;
+  private boolean hasPermission;
+  private ArrayList<String> roles;
   private Boolean actionEnabled;
-  private List<Condition> conditions;
-  private Boolean raiseSRButtonEnabled;
+  private ArrayList<Condition> conditions;
+  private boolean raiseSRButtonEnabled;
+  public String defaultReason;
+  public String defaultComment;
+  public ArrayList<String> permission;
 }

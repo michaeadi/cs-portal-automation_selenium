@@ -119,6 +119,8 @@ public class ApplicationConstants {
     public static final String WALLET_TYPE = "cs.wallet.type";
     public static final String ACCOUNT_TYPE = "cs.account.type";
     public static final String OSC_VOUCHER = "cs.osc.voucher";
+    public static final String RUN_AM_LINKED_WALLET = "cs.run.linked.wallet.test.case";
+    public static final String RUN_AM_SMS_TRAILS = "cs.run.sms.trails.test.case";
 
     private ApplicationConstants() {
         throw new IllegalStateException();

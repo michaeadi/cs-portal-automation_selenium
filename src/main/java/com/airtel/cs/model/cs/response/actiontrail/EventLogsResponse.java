@@ -13,7 +13,7 @@ import java.util.List;
 @ToString
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ActionTrail {
+public class EventLogsResponse {
     private String status;
     private Integer statusCode;
     private Integer pageSize;

@@ -393,7 +393,7 @@ public class OscRecharge extends BasePage {
     }
 
     /**
-     * This method is used to perform OSC Recharge by searching voucher , entering msisdn and pin
+     * This method is used to perform OSC Recharge by searching voucher , entering msisdn and clicking Recharge Button
      */
     public void performOscRecharge(String pin , String voucher ) throws InterruptedException {
         commonLib.info("Going to  enter msisdn , pin and then clicking Recharge Button ");

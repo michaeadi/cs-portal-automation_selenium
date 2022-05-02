@@ -133,7 +133,7 @@ public class AirtelMoneyTransactionWidgetTest extends Driver {
                         Condition condition = actionConfigResult.getConditions().get(0);
                         String amountString = amTxnWidgetPage.getHeaderValue(i, 0).replaceAll("[^\\d.]", "");
                         String operator = condition.getOperator();
-                        Integer thresholdValue = condition.getThresholdValue();
+                        Integer thresholdValue = Integer.valueOf(condition.getThresholdValue());
                         int amount = StringUtils.isEmpty(amountString) ? 0 : Integer.parseInt(amountString);
                         if (hasRole && (">=".equals(operator) && amount >= thresholdValue
                                 || "<".equals(operator) && amount < thresholdValue || "=".equals(operator) && amount == thresholdValue

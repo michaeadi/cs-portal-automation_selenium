@@ -32,4 +32,11 @@ public class AuthTabPage {
     public String authTabCheckBox="//*[@class='main-container__body--left--wrapper ng-star-inserted'][";
     public String checkBox="]//mat-checkbox";
     public By submitYesBtn = By.xpath("//button[@class='yes-btn']");
+
+    public By confirmationPopUp = By.xpath("//div[@class='main-container']");
+    public By successMessage = By.xpath("//div[contains(@class,'main-container__body--message')]");
+    public By crossIcon = By.xpath("//following-sibling::mat-icon[contains(@class,'cursor-pointer')]");
+    public By selectReasonFromDropdown = By.xpath("//span[contains(text(),'Customer not')]");
+    public By selectReason = By.xpath("//div[contains(@class,'sim-suspend')] //div[@class='mat-select-value']");
+
 }

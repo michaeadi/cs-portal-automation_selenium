@@ -5,6 +5,7 @@ import com.airtel.cs.commonutils.applicationutils.constants.PermissionConstants;
 import com.airtel.cs.commonutils.utils.UtilsMethods;
 import com.airtel.cs.driver.Driver;
 import com.airtel.cs.model.cs.response.am.SmsLogsResponse;
+import org.apache.commons.lang3.StringUtils;
 import org.testng.SkipException;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -15,11 +16,22 @@ public class AmSMSTrailsTest extends Driver {
     int size;
     Boolean isPermissionEnable=false;
 
+    public static final String RUN_AM_SMS_TRAILS = constants.getValue(ApplicationConstants.RUN_AM_SMS_TRAILS);
+
     @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"})
     public void checkExecution() {
         if (!continueExecutionFA) {
             commonLib.skip("Skipping tests because user NOT able to login Over Portal");
             throw new SkipException("Skipping tests because user NOT able to login Over Portal");
+        }
+    }
+
+
+    @BeforeMethod(groups = {"ProdTest", "SmokeTest"})
+    public void checkLinkedWalletFlag() {
+        if (!StringUtils.equals(RUN_AM_SMS_TRAILS, "true")) {
+            commonLib.skip("Skipping because Run Airtel Money SMS Trails Test Case Flag Value is - " + RUN_AM_SMS_TRAILS);
+            throw new SkipException("Skipping because this functionality does not applicable for current Opco");
         }
     }
 

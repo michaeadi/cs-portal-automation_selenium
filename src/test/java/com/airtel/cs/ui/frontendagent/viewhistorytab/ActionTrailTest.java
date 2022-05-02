@@ -9,7 +9,7 @@ import com.airtel.cs.commonutils.dataproviders.dataproviders.DataProviders;
 import com.airtel.cs.commonutils.dataproviders.databeans.HeaderDataBean;
 import com.airtel.cs.driver.Driver;
 import com.airtel.cs.model.cs.response.actionconfig.MetaInfo;
-import com.airtel.cs.model.cs.response.actiontrail.ActionTrail;
+import com.airtel.cs.model.cs.response.actiontrail.EventLogsResponse;
 import com.airtel.cs.model.cs.response.actiontrail.EventResult;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
@@ -86,7 +86,7 @@ public class ActionTrailTest extends Driver {
     public void validateActionTrailValue() {
         try {
             selUtils.addTestcaseDescription("Verify View History tab opened successfully,Verify Action Trail History tab is visible,Validate column's value are visible and correct", "description");
-            ActionTrail actionTrailAPI = api.getEventHistory(customerNumber, "ACTION");
+            EventLogsResponse actionTrailAPI = api.getEventHistory(customerNumber, "ACTION");
             final int statusCode = actionTrailAPI.getStatusCode();
             assertCheck.append(actions.assertEqualIntType(statusCode, 200, "Action Trail API success and status code is :" + statusCode, "Action Trail API got failed and status code is :" + statusCode,false,true));
             if (statusCode == 200) {
@@ -120,7 +120,7 @@ public class ActionTrailTest extends Driver {
     public void validateRechargeActionTrailValue() {
         try {
             selUtils.addTestcaseDescription("validateRechargeActionTrailValue", "description");
-            ActionTrail actionTrailAPI = api.getEventHistory(customerNumber, "ACTION");
+            EventLogsResponse actionTrailAPI = api.getEventHistory(customerNumber, "ACTION");
             final int statusCode = actionTrailAPI.getStatusCode();
             assertCheck.append(actions.assertEqualIntType(statusCode, 200, "Action Trail API success and status code is :" + statusCode, "Action Trail API got failed and status code is :" + statusCode,false,true));
             if (statusCode == 200) {
