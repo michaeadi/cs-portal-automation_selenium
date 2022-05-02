@@ -23,8 +23,6 @@ public class KpiDashboardTopPanelTest extends Driver {
             assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardTopPanel().isBreachingWithin15To60MinsLabelVisible(), true, "Breaching With in 15 To 60 Mins Label is visible"));
             assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardTopPanel().isBreachingGreaterThan60MinsLabelVisible(), true, "Breaching With in 60 Mins Label is visible"));
             actions.assertAllFoundFailedAssert(assertCheck);
-
-
         } catch (Exception e) {
             commonLib.fail("Exception in method - dashboardTopPanel" + e.fillInStackTrace(), true);
 
@@ -115,8 +113,6 @@ public class KpiDashboardTopPanelTest extends Driver {
             assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardTopPanel().isSourceLabelVisible(), true, "Source Label is visible"));
             pages.getKpiDashboardTopPanel().clickOnBackIcon();
             actions.assertAllFoundFailedAssert(assertCheck);
-
-
         } catch (Exception e) {
             commonLib.fail("Exception in method - dashboardBreachingWithin15To60MinsDetails" + e.fillInStackTrace(), true);
 
@@ -138,8 +134,6 @@ public class KpiDashboardTopPanelTest extends Driver {
             assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardTopPanel().isSourceLabelVisible(), true, "Source Label is visible"));
             pages.getKpiDashboardTopPanel().clickOnBackIcon();
             actions.assertAllFoundFailedAssert(assertCheck);
-
-
         } catch (Exception e) {
             commonLib.fail("Exception in method - dashboardBreachingGreaterThan60MinsDetails" + e.fillInStackTrace(), true);
 

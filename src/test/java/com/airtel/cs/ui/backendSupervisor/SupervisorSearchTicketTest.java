@@ -89,7 +89,7 @@ public class SupervisorSearchTicketTest extends Driver {
             AssignmentQueueRuleDataBeans assignmentRule=UtilsMethods.getAssignmentRule(dataProviders.getQueueRuleBasedOnCode(data.getIssueCode()),data);
             SLARuleFileDataBeans slaRule = UtilsMethods.getSLACalculationRule(dataProviders.getSLARuleBasedOnCode(data.getIssueCode()), data);
             assert assignmentRule != null;
-            commonLib.pass("AssignMent Rule Found: "+assignmentRule.toString());
+            commonLib.pass("AssignMent Rule Found: "+ assignmentRule);
             commonLib.pass("SLA Rule Found: "+slaRule.toString());
             try {
                 pages.getSupervisorTicketList().writeTicketId(data.getTicketNumber());
