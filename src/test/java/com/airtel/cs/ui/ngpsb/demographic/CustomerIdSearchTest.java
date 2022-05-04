@@ -23,7 +23,7 @@ public class CustomerIdSearchTest extends Driver{
         }
     }
 
-    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"})
+    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void openCustomerInteraction() {
         try {
             selUtils.addTestcaseDescription("Open Customer Profile Page with valid Customer id, Validate Customer Profile Page Loaded or not", "description");

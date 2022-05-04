@@ -218,7 +218,7 @@ public class AccountInformationWidgetTest extends Driver {
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
-    @Test(priority = 8, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"isUserHasAccountInformationPermission"})
+    @Test(priority = 8, groups = {"SanityTest", "RegressionTest"}, dependsOnMethods = {"isUserHasAccountInformationPermission"})
     public void verifySecurityDeposit() {
         try {
             selUtils.addTestcaseDescription("Validate Security Deposit is visible,Validate Security Deposit Currency Color,Validate upto 2 places after decimal", "description");
@@ -232,7 +232,7 @@ public class AccountInformationWidgetTest extends Driver {
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
-    @Test(priority = 9, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"isUserHasAccountInformationPermission"})
+    @Test(priority = 9, groups = {"SanityTest", "RegressionTest"}, dependsOnMethods = {"isUserHasAccountInformationPermission"})
     public void verifyLastPaymentMode() throws IOException, ParseException {
         try {
             selUtils.addTestcaseDescription("Validate Last Payment Mode, Date and Amount are visible", "description");
@@ -252,7 +252,7 @@ public class AccountInformationWidgetTest extends Driver {
     }
 
 
-    @Test(priority = 10, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"isUserHasAccountInformationPermission"})
+    @Test(priority = 10, groups = {"SanityTest", "RegressionTest"}, dependsOnMethods = {"isUserHasAccountInformationPermission"})
     public void verifyUnbilledAmount() {
         try {
             selUtils.addTestcaseDescription("Validate Unbilled Amount For Calls, Validate Unbilled Amount For Sms, Validate Unbilled Amount For Data, Validate Unbilled Amount For Others ", "description");
@@ -271,7 +271,7 @@ public class AccountInformationWidgetTest extends Driver {
     /**
      * This method is used to validate currency on account info widget
      */
-    @Test(priority = 11, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"isUserHasAccountInformationPermission"})
+    @Test(priority = 11, groups = {"SanityTest", "RegressionTest"}, dependsOnMethods = {"isUserHasAccountInformationPermission"})
     public void verifyCurrency() {
         try {
             selUtils.addTestcaseDescription("Validating currency on account information widget", "description");
@@ -290,7 +290,7 @@ public class AccountInformationWidgetTest extends Driver {
     /**
      * This method is used to validate bold text
      */
-    @Test(priority = 12, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"isUserHasAccountInformationPermission"})
+    @Test(priority = 12, groups = {"SanityTest", "RegressionTest"}, dependsOnMethods = {"isUserHasAccountInformationPermission"})
     public void verifyBoldText() {
         try {
             selUtils.addTestcaseDescription("Validating font family on account information widget", "description");
@@ -309,7 +309,7 @@ public class AccountInformationWidgetTest extends Driver {
     /**
      * This method is used to validate account information detail icon
      */
-    @Test(priority = 13, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"isUserHasAccountInformationPermission"})
+    @Test(priority = 13, groups = {"SanityTest", "RegressionTest"}, dependsOnMethods = {"isUserHasAccountInformationPermission"})
     public void verifyAccountInfoDetailedIcon() {
 
         try {
@@ -374,7 +374,7 @@ public class AccountInformationWidgetTest extends Driver {
         }
     }
 
-    @Test(priority = 14, groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @Test(priority = 14, groups = {"SanityTest", "RegressionTest"})
     public void decimalCountOnUI() {
         try {
             selUtils.addTestcaseDescription("Validating the decimal values up to 2", "description");
@@ -389,7 +389,7 @@ public class AccountInformationWidgetTest extends Driver {
         }
     }
 
-    @Test(priority = 15, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"isUserHasAccountInformationPermission"})
+    @Test(priority = 15, groups = {"SanityTest", "RegressionTest"}, dependsOnMethods = {"isUserHasAccountInformationPermission"})
     public void validateRaiseSRButton() {
         try {
             selUtils.addTestcaseDescription("Validating Total Credit limit have SR Icon must be visible,After clicking on SR Icon Validate Issue pop modal opened,Validate Account number field displayed,validate Comment box displayed,validate submit button disabled as mandatory field does not filled,Validate Cancel button displayed", "description");
@@ -453,7 +453,7 @@ public class AccountInformationWidgetTest extends Driver {
     /**
      * This method is used to validate widgets in profile management
      */
-    @Test(priority = 17, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"isUserHasAccountInformationPermission"})
+    @Test(priority = 17, groups = {"SanityTest", "RegressionTest"}, dependsOnMethods = {"isUserHasAccountInformationPermission"})
     public void accountInfoProfileManagement() {
         try {
             selUtils.addTestcaseDescription("Validating widgets in profile management", "description");
