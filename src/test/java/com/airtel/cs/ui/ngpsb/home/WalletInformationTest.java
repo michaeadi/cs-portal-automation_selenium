@@ -20,6 +20,7 @@ public class WalletInformationTest extends Driver {
     String nubanId;
     String barringStatus;
     String className = this.getClass().getName();
+    String resendSmsVisible;
 
 
     @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"})
@@ -227,6 +228,51 @@ public class WalletInformationTest extends Driver {
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
             commonLib.fail("Exception in Method - testSMSLogsTab" + e.fillInStackTrace(), true);
+        }
+    }
+
+    @Test(priority = 8, groups = {"SanityTest", "ProdTest", "SmokeTest"}, dependsOnMethods = {"testSMSLogsTab"})
+    public void testResendSms() {
+        try {
+            selUtils.addTestcaseDescription("Validate Resend SMS", "description");
+            pages.getAmSmsTrails().clickResendSms();
+            if (resendSmsVisible.equalsIgnoreCase("NO"))
+                commonLib.info("Resend SMS is not visible");
+            else if (resendSmsVisible.equalsIgnoreCase("YES")) {
+
+                assertCheck.append(actions.assertEqualIntType(clmDetails.getStatusCode(), 200, "Resend SMS Logs Status Code Matched and is :" + clmDetails.getStatusCode(), "Sms Logs API Status Code NOT Matched and is :" + clmDetails.getStatusCode(), false));
+                assertCheck.append(actions.assertEqualStringType(pages.getAmSmsTrails().isSendSmsHeaderVisible(), "Send SMS", "Send SMS Header is visible", "Send SMS header is NOT visible"));
+                assertCheck.append(actions.assertEqualStringType(pages.getAmSmsTrails().isIssueDetailVisible(), "Issue Detail", "Issue Detail is visible", "Issue Detail is NOT visible"));
+                assertCheck.append(actions.assertEqualStringType(pages.getAmSmsTrails().isEnterCommentHeaderVisible(), "Enter Comment", "Enter Comment is visible", "Enter Comment is not Visible"));
+                assertCheck.append(actions.assertEqualStringType(pages.getAmSmsTrails().isSmsSelectReasonVisible(), "Select Reason", "Select Reason is Visible", "Select Reason is not visible"));
+                assertCheck.append(actions.assertEqualBoolean(pages.getAmSmsTrails().isSubmitBtnDisabled(), true, "Select Reason is Visible", "Select Reason is not visible"));
+                assertCheck.append(actions.assertEqualBoolean(pages.getAmSmsTrails().isCancelButtonVisible(), true, "Cancel Button is visible ", "Cancel Button is not visible"));
+                pages.getAmSmsTrails().performResendSms();
+                assertCheck.append(actions.assertEqualBoolean(pages.getAmSmsTrails().isSuccessPopUpVisible(), true, "Success Popup is visible after performing Submit action", "Success Popup is not visible after performing Submit action"));
+                String successText = "SMS has being resent on your device";
+                assertCheck.append(actions.assertEqualStringType(pages.getAmSmsTrails().getSuccessText(), successText, "Success text is displayed as expected", "Success text is not displayed as expected"));
+            }
+
+            pages.getAmSmsTrails().clickCrossIcon();
+            actions.assertAllFoundFailedAssert(assertCheck);
+        } catch (Exception e) {
+            commonLib.fail("Exception in Method - ResendSms" + e.fillInStackTrace(), true);
+        }
+    }
+
+    @Test(priority = 9, groups = {"SanityTest", "ProdTest", "SmokeTest"}, dependsOnMethods = {"testSmsLogsTabs", "testResendSms"})
+    public void checkActionTrail() {
+        try {
+            selUtils.addTestcaseDescription("Validating entry should be captured in Action Trail after performing ResendSMS action", "description");
+            pages.getAmSmsTrails().goToActionTrail();
+            assertCheck.append(actions.assertEqualStringType(pages.getAmSmsTrails().getActionType(), "SmartCash SMS Logs - Resend SMS", "Action type for Resend SMS is expected", "Action type for Resend SME is not as expected"));
+            assertCheck.append(actions.assertEqualStringType(pages.getAmSmsTrails().getReason(), "\n" +
+                    "Customer Request", "Reason for Resend SMS is as expected", "Reason for Resend SMS not as expected"));
+            assertCheck.append(actions.assertEqualStringType(pages.getAmSmsTrails().getComment(), constants.getValue(ApplicationConstants.COMMENT), "Comment for Resend SMS is expected", "Comment for Resend SMS is not as expected"));
+            actions.assertAllFoundFailedAssert(assertCheck);
+
+        } catch (Exception e) {
+            commonLib.fail("Exception in Method - checkActionTrail" + e.fillInStackTrace(), true);
         }
     }
 
