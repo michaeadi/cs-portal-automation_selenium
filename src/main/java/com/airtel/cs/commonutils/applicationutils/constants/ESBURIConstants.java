@@ -83,5 +83,4 @@ public class ESBURIConstants {
     public static final String HLR_SERVICE_BASE_URL="hlr.service.base.url";
     public static final String BUNDLE_SERVICE_BASE_URL="bundle.service.base.url";
     public static final String COLLECTIVE_BASE_URL="collective.api.base.url";
-
 }
