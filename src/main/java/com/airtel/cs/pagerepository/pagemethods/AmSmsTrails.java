@@ -498,4 +498,13 @@ public class AmSmsTrails extends BasePage {
         commonLib.info(getText(pageElements.comment));
         return getText(pageElements.comment);
     }
+
+    public Boolean isResendSmsVisible() {
+        final boolean state = isElementVisible(pageElements.reSendSmsLink);
+        commonLib.info("Is Resend SMS visible" + state);
+        return state;
+    }
+
+
+
 }
