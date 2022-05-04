@@ -218,7 +218,7 @@ public class AccountInformationWidgetTest extends Driver {
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
-    @Test(priority = 8, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"isUserHasAccountInformationPermission"})
+    @Test(priority = 8, groups = {"SanityTest", "RegressionTest"}, dependsOnMethods = {"isUserHasAccountInformationPermission"})
     public void verifySecurityDeposit() {
         try {
             selUtils.addTestcaseDescription("Validate Security Deposit is visible,Validate Security Deposit Currency Color,Validate upto 2 places after decimal", "description");
@@ -232,7 +232,7 @@ public class AccountInformationWidgetTest extends Driver {
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
-    @Test(priority = 9, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"isUserHasAccountInformationPermission"})
+    @Test(priority = 9, groups = {"SanityTest", "RegressionTest"}, dependsOnMethods = {"isUserHasAccountInformationPermission"})
     public void verifyLastPaymentMode() throws IOException, ParseException {
         try {
             selUtils.addTestcaseDescription("Validate Last Payment Mode, Date and Amount are visible", "description");
@@ -252,7 +252,7 @@ public class AccountInformationWidgetTest extends Driver {
     }
 
 
-    @Test(priority = 10, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"isUserHasAccountInformationPermission"})
+    @Test(priority = 10, groups = {"SanityTest", "RegressionTest"}, dependsOnMethods = {"isUserHasAccountInformationPermission"})
     public void verifyUnbilledAmount() {
         try {
             selUtils.addTestcaseDescription("Validate Unbilled Amount For Calls, Validate Unbilled Amount For Sms, Validate Unbilled Amount For Data, Validate Unbilled Amount For Others ", "description");
