@@ -83,7 +83,8 @@ public class WalletInformationTest extends Driver {
         try {
             selUtils.addTestcaseDescription("Validate Account Information widget data", "description");
             assertCheck.append(actions.matchUiAndAPIResponse(pages.getWalletInformation().getWalletStatus(), clmDetails.getResult().getDetails().get(0).getWallets().get(0).getStatus(), "Wallet status is same as Expected", "Wallet status  is not same as Expected"));
-            assertCheck.append(actions.matchUiAndAPIResponse(pages.getWalletInformation().getWalletCategory(), clmDetails.getResult().getDetails().get(0).getWallets().get(0).getCategory(), "Wallet status is same as Expected", "Wallet status  is not same as Expected"));
+            assertCheck.append(actions.assertEqualStringType(pages.getWalletInformation().getWalletStatusColour(), "#28a745", "Colour of Wallet Status is same as expected", "Colour of Wallet Status is NOT same as expected"));
+            assertCheck.append(actions.matchUiAndAPIResponse(pages.getWalletInformation().getWalletCategory(), clmDetails.getResult().getDetails().get(0).getWallets().get(0).getCategory(), "Wallet Category is same as Expected", "Wallet Category  is not same as Expected"));
             String createdOnDate = UtilsMethods.getDateFromEpoch(Long.parseLong(clmDetails.getResult().getDetails().get(0).getWallets().get(0).getCreatedOn()), constants.getValue(CommonConstants.NGPSB_WALLET_CREATED_DATE_PATTERN));
             assertCheck.append(actions.matchUiAndAPIResponse(pages.getWalletInformation().getWalletCreatedOn(), createdOnDate, "Wallet Created On is same as Expected", "Wallet Created On is not same as Expected"));
             pages.getWalletInformation().hoverOnWalletCreated();
@@ -94,7 +95,12 @@ public class WalletInformationTest extends Driver {
             assertCheck.append(actions.matchUiAndAPIResponse(pages.getWalletInformation().getWalletModifiedBy(), clmDetails.getResult().getDetails().get(0).getWallets().get(0).getModifiedBy(), "Wallet Modified By is same as Expected", "Wallet Modified By is not same as Expected"));
             assertCheck.append(actions.matchUiAndAPIResponse(pages.getWalletInformation().getOnboardingChannel(), pages.getDemoGraphicPage().getKeyValueAPI(clmDetails.getResult().getDetails().get(0).getWallets().get(0).getChannel()), "Onboarding Channel is same as Expected", "Onboarding Channel is not same as Expected"));
             assertCheck.append(actions.matchUiAndAPIResponse(pages.getWalletInformation().getWalletNubanId(), clmDetails.getResult().getDetails().get(0).getWallets().get(0).getId(), "Wallet Nuban id is same as Expected", "Account nuban id is not same as Expected"));
-            assertCheck.append(actions.matchUiAndAPIResponse(pages.getWalletInformation().getSecurityQuestionsSet(), clmDetails.getResult().getDetails().get(0).getWallets().get(0).getIsSecurityQuestionSet(), "Security Question Set is same as Expected", "Security Question Set is not same as Expected"));
+            String securityQuestionsSet = pages.getWalletInformation().getSecurityQuestionsSet();
+            assertCheck.append(actions.matchUiAndAPIResponse(securityQuestionsSet, clmDetails.getResult().getDetails().get(0).getWallets().get(0).getIsSecurityQuestionSet(), "Security Question Set is same as Expected", "Security Question Set is not same as Expected"));
+            if (securityQuestionsSet.equalsIgnoreCase("YES"))
+                assertCheck.append(actions.assertEqualStringType(pages.getWalletInformation().getSecurityQuestionsSetColour(), "#28a745", "Colour of Security Questions Set is same as expected", "Colour of Security Questions Set is NOT same as expected"));
+            else if (securityQuestionsSet.equalsIgnoreCase("NO"))
+                assertCheck.append(actions.assertEqualStringType(pages.getWalletInformation().getBarringStatusColour(), "#dc3545", "Colour of Security Questions Set is same as expected", "Colour of Security Questions Set is NOT same as expected"));
             final Integer securityQuestionsConfigured = clmDetails.getResult().getDetails().get(0).getWallets().get(0).getSecurityQuestionsConfigured();
             String securityQuestion = null;
             if (securityQuestionsConfigured == null)
@@ -104,6 +110,10 @@ public class WalletInformationTest extends Driver {
             assertCheck.append(actions.assertEqualStringType(pages.getWalletInformation().getSecurityQuestionsConfigured(), pages.getDemoGraphicPage().getKeyValueAPI(securityQuestion), "Security Question Configured is same as Expected", "Security Question Configured  is not same as Expected"));
             barringStatus = pages.getWalletInformation().getBarringStatus();
             assertCheck.append(actions.matchUiAndAPIResponse(barringStatus, clmDetails.getResult().getDetails().get(0).getUserBarred(), "Barring status is same as Expected", "Barring status  is not same as Expected"));
+            if (barringStatus.equalsIgnoreCase("YES"))
+                assertCheck.append(actions.assertEqualStringType(pages.getWalletInformation().getBarringStatusColour(), "#28a745", "Colour of Barring Status is same as expected", "Colour of Barring Status is NOT same as expected"));
+            else if (barringStatus.equalsIgnoreCase("NO"))
+                assertCheck.append(actions.assertEqualStringType(pages.getWalletInformation().getBarringStatusColour(), "#dc3545", "Colour of Barring Status is same as expected", "Colour of Barring Status is NOT same as expected"));
             assertCheck.append(actions.assertEqualBoolean(pages.getWalletInformation().isBarringInfoIconVisible(), true, "Barring status info icon is visible", "Barring status info icon is NOT visible"));
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
@@ -192,7 +202,12 @@ public class WalletInformationTest extends Driver {
                     assertCheck.append(actions.assertEqualStringType(pages.getAmLinkedWallets().getRowValue(row, 5), currency + " " + amProfile.getResult().getWallets().get(i).getFrozen(), "Frozen Amount is same as expected ", "Frozen Amount is NOT same as expected"));
                     assertCheck.append(actions.assertEqualStringType(pages.getAmLinkedWallets().getRowValue(row, 6), currency + " " + amProfile.getResult().getWallets().get(i).getFundsInClearance(), "FIC is same as expected ", "FIC is NOT same as expected"));
                     assertCheck.append(actions.assertEqualStringType(pages.getAmLinkedWallets().getRowValue(row, 7), amProfile.getResult().getWallets().get(i).getPrimary(), "Primary Value is same as expected ", "Primary Value is NOT same as expected"));
-                    assertCheck.append(actions.assertEqualStringType(pages.getAmLinkedWallets().getRowValue(row, 8), amProfile.getResult().getWallets().get(i).getStatus(), "Wallet Status is same as expected ", "Wallet Status is NOT same as expected"));
+                    String walletStatus = pages.getAmLinkedWallets().getRowValue(row, 8);
+                    assertCheck.append(actions.assertEqualStringType(walletStatus, amProfile.getResult().getWallets().get(i).getStatus(), "Wallet Status is same as expected ", "Wallet Status is NOT same as expected"));
+                    if (walletStatus.equalsIgnoreCase("ACTIVE"))
+                        assertCheck.append(actions.assertEqualStringType(pages.getAmLinkedWallets().getHeaderValueStyle(row, 7), "#28a745", "Colour of Wallet Status is same as expected", "Colour of Wallet Status is NOT same as expected"));
+                    else if (walletStatus.equalsIgnoreCase("INACTIVE"))
+                        assertCheck.append(actions.assertEqualStringType(pages.getAmLinkedWallets().getHeaderValueStyle(row, 7), "#dc3545", "Colour of Wallet Status is same as expected", "Colour of Wallet Status is NOT same as expected"));
                 }
             }
             actions.assertAllFoundFailedAssert(assertCheck);
@@ -228,7 +243,6 @@ public class WalletInformationTest extends Driver {
         } catch (Exception e) {
             commonLib.fail("Exception in Method - testSMSLogsTab" + e.fillInStackTrace(), true);
         }
+
     }
-
-
 }

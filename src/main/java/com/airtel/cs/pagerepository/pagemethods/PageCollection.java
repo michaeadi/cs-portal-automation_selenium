@@ -312,4 +312,8 @@ public class PageCollection {
     public KpiDashbaordQueueWiseSLAPerformance getKpiDashboardQueueWiseSLAPerformance() {
         return new KpiDashbaordQueueWiseSLAPerformance(driver);
     }
+
+    public  CustomerInteractionScreen getCustomerInteractionScreen() {
+        return new CustomerInteractionScreen(driver);
+    }
 }

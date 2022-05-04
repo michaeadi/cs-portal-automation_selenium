@@ -655,11 +655,13 @@ public class PsbDemographicWidget extends BasePage {
         int totalSize = walletsSize + accountsSize;
         if (totalSize > 1) {
             assertCheck.append(actions.assertEqualBoolean(pages.getPsbDemographicWidget().isIntermediateScreenVisible(), true, "Intermediate Screen is visible successfully", "Intermediate Screen is not visible "));
+            String message=totalSize+" "+"results found for the entered msisdn";
+            assertCheck.append(actions.assertEqualStringType(pages.getPsbDemographicWidget().getResultsFoundMessage().trim().toLowerCase(),message.trim().toLowerCase(),"Results Found message is same as expected","Results Found message is NOT same as expected"));
             assertCheck.append(actions.assertEqualBoolean(pages.getPsbDemographicWidget().isActionVisible(), true, " Action is visible ", "Action is not visible "));
             assertCheck.append(actions.assertEqualBoolean(pages.getPsbDemographicWidget().isTypeVisible(), true, " Type is visible ", "Type is not visible "));
             assertCheck.append(actions.assertEqualBoolean(pages.getPsbDemographicWidget().isNubanIdVisible(), true, "Nuban Id is visible ", "Nuban Id is not visible "));
             assertCheck.append(actions.assertEqualBoolean(pages.getPsbDemographicWidget().isMsisdnVisible(), true, "Msisdn is visible ", "Msisdn is not visible "));
-            assertCheck.append(actions.assertEqualBoolean(pages.getPsbDemographicWidget().isCreatedOnVisible(), true, " Created ON is visible ", "Created on is not visible "));
+            assertCheck.append(actions.assertEqualBoolean(pages.getPsbDemographicWidget().isCreatedOnVisible(), true, "Created On is visible ", "Created on is not visible "));
             int size = pages.getPsbDemographicWidget().getNoOfRows();
             for (int i = 1; i <= size; i++) {
                 String type = pages.getPsbDemographicWidget().getType(i);
@@ -746,6 +748,59 @@ public class PsbDemographicWidget extends BasePage {
     public void hoverOnCustomerInfoIdIcon() {
         commonLib.info("Hover on Customer Id Info icon");
         hoverOverElement(pageElements.customerIdInfoIcon);
+    }
+
+    /**
+     * This method is used get colour for Pin Reset
+     * @return
+     */
+    public String getPinResetSetColour() {
+        String colour=selUtils.getDataPointColor(pageElements.pinReset);
+        commonLib.info("Getting Colour for Pin Reset : " + colour);
+        return colour;
+    }
+
+    /**
+     * This method is used get colour for Pin Set
+     * @return
+     */
+    public String getPinSetColour() {
+        String colour=selUtils.getDataPointColor(pageElements.pinSet);
+        commonLib.info("Getting Colour for Pin Set : " + colour);
+        return colour;
+    }
+
+    /**
+     * This method is used get colour for Is User Agent
+     * @return
+     */
+    public String getIsUserAgentColour() {
+        String colour=selUtils.getDataPointColor(pageElements.isUserAgent);
+        commonLib.info("Getting Colour for Is User Agent : " + colour);
+        return colour;
+    }
+
+    /**
+     * This method is used get error message when invalid msisdn is searched
+     *
+     * @return
+     */
+    public String getErrorMessage() {
+        String text = getText(pageElements.errorMessage);
+        commonLib.info("Getting error message : + text");
+        return text;
+
+    }
+
+    /**
+     * This method is used to check Intermediate Screen visible or not
+     *
+     * @return
+     */
+    public  String getResultsFoundMessage() {
+        String text = getText(pageElements.resultsFoundMessage);
+        commonLib.info("Getting results found message : " + text);
+        return text;
     }
 }
 

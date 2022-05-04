@@ -4,7 +4,7 @@ import java.util.Base64;
 
 public class generatePassword {
     public static void main(String[] args) {
-        String encodePass = encodePassword("Abhi.ansh@04");
+        String encodePass = encodePassword("Rao@1234");
         //String decodePassword = decodePassword("QWJoaS5hbnNoQDAy");
         System.out.println(encodePass);
     }

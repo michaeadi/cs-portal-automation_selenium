@@ -30,7 +30,7 @@ public class AccountInformationTest extends Driver {
         }
     }
 
-    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"})
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void checkAccountsSize() {
         customerNumber = constants.getValue(ApplicationConstants.CUSTOMER_TIER1_MSISDN);
         clmDetails = api.getCLMDetails(customerNumber);
@@ -40,7 +40,7 @@ public class AccountInformationTest extends Driver {
         }
     }
 
-    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"})
+    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void openCustomerInteraction() {
         try {
             selUtils.addTestcaseDescription("Open Customer Profile Page with valid MSISDN, Validate Customer Profile Page Loaded or not", "description");
@@ -61,7 +61,7 @@ public class AccountInformationTest extends Driver {
         }
     }
 
-    @Test(priority = 2, groups = {"SanityTest", "ProdTest", "SmokeTest", "RegressionTest"}, dependsOnMethods = {"openCustomerInteraction"})
+    @Test(priority = 2, groups = {"SanityTest", "ProdTest",  "RegressionTest"}, dependsOnMethods = {"openCustomerInteraction"})
     public void testAccountInformationWidget() {
         try {
             selUtils.addTestcaseDescription("Validate Account Information widget", "description");
@@ -82,6 +82,7 @@ public class AccountInformationTest extends Driver {
         try {
             selUtils.addTestcaseDescription("Validate Account Information widget data", "description");
             assertCheck.append(actions.assertEqualStringType(pages.getAccountInformation().getAccountStatus().toLowerCase(), pages.getDemoGraphicPage().getKeyValueAPI(clmDetails.getResult().getDetails().get(0).getAccounts().get(0).getStatus()), "Account status is same as Expected", "Account status  is not same as Expected"));
+            assertCheck.append(actions.assertEqualStringType(pages.getAccountInformation().getAccountStatusColour(), "", "Colour of Account Status is same as expected", "Colour of Account Status is NOT same as expected"));
             assertCheck.append(actions.assertEqualStringType(pages.getAccountInformation().getAccountCategory().toLowerCase(), pages.getDemoGraphicPage().getKeyValueAPI(clmDetails.getResult().getDetails().get(0).getAccounts().get(0).getCategory()), "Account Category is same as Expected", "Account Category  is not same as Expected"));
             assertCheck.append(actions.assertEqualStringType(pages.getAccountInformation().getAccountCreatedBy().toLowerCase(), pages.getDemoGraphicPage().getKeyValueAPI(clmDetails.getResult().getDetails().get(0).getAccounts().get(0).getCreatedBy()), "Account Created By is same as Expected", "Account Created By is not same as Expected"));
             String createdOnDate = UtilsMethods.getDateFromEpoch(Long.parseLong(clmDetails.getResult().getDetails().get(0).getAccounts().get(0).getCreatedOn()), constants.getValue(CommonConstants.NGPSB_ACCOUNT_CREATED_DATE_PATTERN));
@@ -92,9 +93,19 @@ public class AccountInformationTest extends Driver {
             assertCheck.append(actions.assertEqualStringType(pages.getAccountInformation().getOnboardingChannel().toLowerCase(), pages.getDemoGraphicPage().getKeyValueAPI(clmDetails.getResult().getDetails().get(0).getAccounts().get(0).getChannel()), "Onboarding Channel is same as Expected", "Onboarding Channel is not same as Expected"));
             assertCheck.append(actions.assertEqualStringType(pages.getAccountInformation().getAccountNubanId().toLowerCase(), pages.getDemoGraphicPage().getKeyValueAPI(clmDetails.getResult().getDetails().get(0).getAccounts().get(0).getId()), "Account Nuban id is same as Expected", "Account nuban id is not same as Expected"));
             assertCheck.append(actions.assertEqualStringType(pages.getAccountInformation().getSecurityQuestionsSet().toLowerCase(), pages.getDemoGraphicPage().getKeyValueAPI(clmDetails.getResult().getDetails().get(0).getAccounts().get(0).getIsSecurityQuestionSet()), "Security Question Set is same as Expected", "Security Question Set is not same as Expected"));
-            assertCheck.append(actions.assertEqualStringType(pages.getAccountInformation().getSecurityQuestionsConfigured().toLowerCase(), pages.getDemoGraphicPage().getKeyValueAPI(String.valueOf(clmDetails.getResult().getDetails().get(0).getAccounts().get(0).getSecurityQuestionsConfigured())), "Security Question Configured is same as Expected", "Security Question Configured is not same as Expected"));
+            String securityQuestionConfigured = pages.getAccountInformation().getSecurityQuestionsConfigured();
+            assertCheck.append(actions.assertEqualStringType(securityQuestionConfigured.toLowerCase(), pages.getDemoGraphicPage().getKeyValueAPI(String.valueOf(clmDetails.getResult().getDetails().get(0).getAccounts().get(0).getSecurityQuestionsConfigured())), "Security Question Configured is same as Expected", "Security Question Configured is not same as Expected"));
+            if (securityQuestionConfigured.equalsIgnoreCase("YES"))
+                assertCheck.append(actions.assertEqualStringType(pages.getAccountInformation().getSecurityQuestionsSetColour(), "#28a745", "Colour of Security Questions Set is same as expected", "Colour of Security Questions Set is NOT same as expected"));
+            else if (securityQuestionConfigured.equalsIgnoreCase("NO"))
+                assertCheck.append(actions.assertEqualStringType(pages.getAccountInformation().getBarringStatusColour(), "#dc3545", "Colour of Security Questions Set is same as expected", "Colour of Security Questions Set is NOT same as expected"));
             barringStatus = pages.getAccountInformation().getBarringStatus();
             assertCheck.append(actions.assertEqualStringType(barringStatus.toLowerCase(), pages.getDemoGraphicPage().getKeyValueAPI(clmDetails.getResult().getDetails().get(0).getAccounts().get(0).getBarred()), "Barring status is same as Expected", "Barring status  is not same as Expected"));
+            if (barringStatus.equalsIgnoreCase("YES"))
+                assertCheck.append(actions.assertEqualStringType(pages.getAccountInformation().getBarringStatusColour(), "#28a745", "Colour of Barring Status is same as expected", "Colour of Barring Status is NOT same as expected"));
+            else if (barringStatus.equalsIgnoreCase("NO"))
+                assertCheck.append(actions.assertEqualStringType(pages.getAccountInformation().getBarringStatusColour(), "#dc3545", "Colour of Barring Status is same as expected", "Colour of Barring Status is NOT same as expected"));
+
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
             commonLib.fail("Exception in Method - testAccountInformationWidgetData" + e.fillInStackTrace(), true);
@@ -154,7 +165,7 @@ public class AccountInformationTest extends Driver {
     }
 
 
-    @Test(priority = 6, groups = {"SanityTest", "ProdTest", "SmokeTest", "RegressionTest"}, dependsOnMethods = {"openCustomerInteraction"})
+    @Test(priority = 6, groups = {"SanityTest", "ProdTest","RegressionTest"}, dependsOnMethods = {"openCustomerInteraction"})
     public void testBankAccountsTabs() {
         try {
             selUtils.addTestcaseDescription("Validate Bank Accounts tab data", "description");
@@ -176,8 +187,12 @@ public class AccountInformationTest extends Driver {
                     assertCheck.append(actions.assertEqualStringType(pages.getBankAccount().getHeaderValue(row, 4), bankDetails.getResult().get(i).getAvailableBalance(), "Available Balance is same as expected ", "Available Balance is NOT same as expected"));
                     assertCheck.append(actions.assertEqualStringType(pages.getBankAccount().getHeaderValue(row, 5), bankDetails.getResult().get(i).getFrozen(), "Frozen Balance is same as expected ", "Frozen Balance is NOT same as expected"));
                     assertCheck.append(actions.assertEqualStringType(pages.getBankAccount().getHeaderValue(row, 6), bankDetails.getResult().get(i).getCurrentBalance(), "Current Balance is same as expected ", "Current Balance is NOT same as expected"));
-                    assertCheck.append(actions.assertEqualStringType(pages.getBankAccount().getHeaderValue(row, 7), bankDetails.getResult().get(i).getStatus(), "Account status is same as expected ", "Account status is NOT same as expected"));
-
+                    String accountStatus = pages.getBankAccount().getHeaderValue(row, 7);
+                    assertCheck.append(actions.assertEqualStringType(accountStatus, bankDetails.getResult().get(i).getStatus(), "Account status is same as expected ", "Account status is NOT same as expected"));
+                    if (accountStatus.equalsIgnoreCase("ACTIVE"))
+                        assertCheck.append(actions.assertEqualStringType(pages.getBankAccount().getHeaderValueStyle(row, 7), "#28a745", "Colour of Account Status is same as expected", "Colour of Account Status is NOT same as expected"));
+                    else if (accountStatus.equalsIgnoreCase("INACTIVE"))
+                        assertCheck.append(actions.assertEqualStringType(pages.getBankAccount().getHeaderValueStyle(row, 7), "#dc3545", "Colour of Account Status is same as expected", "Colour of Account Status is NOT same as expected"));
                 }
             }
             actions.assertAllFoundFailedAssert(assertCheck);
@@ -186,7 +201,7 @@ public class AccountInformationTest extends Driver {
         }
     }
 
-    @Test(priority = 7, groups = {"SanityTest", "ProdTest", "SmokeTest", "RegressionTest"}, dependsOnMethods = {"openCustomerInteraction"})
+    @Test(priority = 7, groups = {"SanityTest", "ProdTest",  "RegressionTest"}, dependsOnMethods = {"openCustomerInteraction"})
     public void testSmsLogsTabs() {
         try {
             selUtils.addTestcaseDescription("Validate Wallets tab data", "description");

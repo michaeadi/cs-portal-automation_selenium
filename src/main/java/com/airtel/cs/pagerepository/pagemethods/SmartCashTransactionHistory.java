@@ -181,7 +181,7 @@ public class SmartCashTransactionHistory extends BasePage {
      * @return String The Value
      */
     public String getValueCorrespondingToHeader(int row, int column) {
-        String value = getText(By.xpath(pageElements.valueRowSec + row + pageElements.valueColumns + column + pageElements.columnText));
+        String value = getText(By.xpath(pageElements.valueRowSec + row + pageElements.valueRowSec + column + pageElements.columnText));
         commonLib.info("Reading Value(" + row + "): " + value);
         return value;
     }
@@ -229,4 +229,20 @@ public class SmartCashTransactionHistory extends BasePage {
         clickWithoutLoader(By.xpath(pageElements.rowMetaInfo1 + row + pageElements.rowMetaInfo2));
     }
 
+
+    /**
+     * This method is used get colour for Transaction ID and status
+     * @return
+     */
+    public String getHeaderValueStyle(int row, int column) {
+        return selUtils.getDataPointColor(By.xpath(pageElements.valueRowSec + row + pageElements.valueRowSec + column + pageElements.columnText));
+    }
+
+    /**
+     * This method is used get colour for Debit/Credit Sign
+     * @return
+     */
+    public String getHeaderValueStyle(int row) {
+        return selUtils.getDataPointColor(By.xpath(pageElements.valueRowSec + row + pageElements.posSymbol));
+    }
 }

@@ -123,6 +123,7 @@ public class ApplicationConstants {
     public static final String RUN_AM_SMS_TRAILS = "cs.run.sms.trails.test.case";
     public static final String NUBAN_ID = "cs.nuban.id";
     public static final String CUSTOMER_ID = "cs.customer.id";
+    public static final String INVALID_CUSTOMER_MSISDN = "cs.invalid.customer.msisdn";
 
     private ApplicationConstants() {
         throw new IllegalStateException();

@@ -12,6 +12,7 @@ public class PsbDemographicWidgetPage {
     public  By nunbanId= By.xpath("//span[contains(text(),'Nuban')]");
     public  By createdOn= By.xpath("//span[contains(text(),'Created')]");
     public  By type= By.xpath("//span[contains(text(),'Type')]");
+    public By resultsFoundMessage=By.xpath("//div[contains(text(),'results found')]");
 
     public String row="//tr[contains(@class,'list--list-row')]";
     public String noOfRows="//tr[contains(@class,'list--list-row')]";
@@ -87,4 +88,5 @@ Values Locators
     public  By addressZone= By.xpath("//td[contains(text(),'Zone')]//following-sibling::td//span");
     public  By addressLine2= By.xpath("//td[contains(text(),'Address Line 2')]//following-sibling::td//span");
     public  By addressLine3= By.xpath("//td[contains(text(),'Address Line 3')]//following-sibling::td//span");
+    public By errorMessage=By.xpath("//p[contains(text(),'Invalid Nuban ID')]");
 }
