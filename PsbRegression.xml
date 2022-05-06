@@ -39,7 +39,7 @@
             <class name="com.airtel.cs.ui.ngpsb.demographic.PsbDemoGraphicWidgetTest"/>
         </classes>
     </test>
-    <test name="Account Information Test " preserve-order="true">
+    <!--<test name="Account Information Test " preserve-order="true">
         <groups>
             <run>
                 <include name="RegressionTest"/>
@@ -107,6 +107,26 @@
         </groups>
         <classes>
             <class name="com.airtel.cs.ui.ngpsb.demographic.AccountBarUnBarTest"/>
+        </classes>
+    </test>-->
+    <test name="Customer Interaction Screen Test" preserve-order="true">
+        <groups>
+            <run>
+                <include name="RegressionTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.ngpsb.demographic.CustomerInteractionScreenTest"/>
+        </classes>
+    </test>
+    <test name="Create Interaction Test" preserve-order="true">
+        <groups>
+            <run>
+                <include name="RegressionTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.ngpsb.home.CreateInteractionTest"/>
         </classes>
     </test>
      <!--<test name="Validate Action Trail Tab Test">

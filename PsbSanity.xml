@@ -82,7 +82,7 @@
     <test name="Account Pin Reset Test" preserve-order="true">
         <groups>
             <run>
-                <include name="RegressionTest"/>
+                <include name="SanityTest"/>
             </run>
         </groups>
         <classes>
@@ -92,7 +92,7 @@
     <test name="Wallet Bar Unbar Test" preserve-order="true">
         <groups>
             <run>
-                <include name="RegressionTest"/>
+                <include name="SanityTest"/>
             </run>
         </groups>
         <classes>
@@ -102,11 +102,31 @@
     <test name="Account Bar Unbar Test" preserve-order="true">
         <groups>
             <run>
-                <include name="RegressionTest"/>
+                <include name="SanityTest"/>
             </run>
         </groups>
         <classes>
             <class name="com.airtel.cs.ui.ngpsb.demographic.AccountBarUnBarTest"/>
+        </classes>
+    </test>
+    <test name="Customer Interaction Screen Test" preserve-order="true">
+        <groups>
+            <run>
+                <include name="SanityTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.ngpsb.demographic.CustomerInteractionScreenTest"/>
+        </classes>
+    </test>
+    <test name="Create Interaction Test" preserve-order="true">
+        <groups>
+            <run>
+                <include name="SanityTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.ngpsb.home.CreateInteractionTest"/>
         </classes>
     </test>
    <!--<test name="Validate Action Trail Tab Test">

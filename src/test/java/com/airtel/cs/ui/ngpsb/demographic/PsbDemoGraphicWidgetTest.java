@@ -147,9 +147,9 @@ public class PsbDemoGraphicWidgetTest extends Driver {
             String isUserAnAgent = pages.getPsbDemographicWidget().getIsUserAgent();
             assertCheck.append(actions.matchUiAndAPIResponse(isUserAnAgent, clmDetails.getResult().getDetails().get(0).getIsUser(), "Is user An Agent  is same as Expected", "Is user An Agent is not same as Expected"));
             if (isUserAnAgent.equalsIgnoreCase("YES"))
-                assertCheck.append(actions.assertEqualStringType(pages.getPsbDemographicWidget().getIsUserAgentColour(), "#28a745", "Colour of Is User An Agent is same as expected", "Colour of Is User An Agent is NOT same as expected"));
+                assertCheck.append(actions.assertEqualStringType(pages.getPsbDemographicWidget().getIsUserAgentColour(), "#33a833", "Colour of Is User An Agent is same as expected", "Colour of Is User An Agent is NOT same as expected"));
             else if (isUserAnAgent.toLowerCase().equalsIgnoreCase("NO"))
-                assertCheck.append(actions.assertEqualStringType(pages.getPsbDemographicWidget().getIsUserAgentColour(), "#dc3545", "Colour of Is User An Agent is same as expected", "Colour of Is User An Agent is NOT same as expected"));
+                assertCheck.append(actions.assertEqualStringType(pages.getPsbDemographicWidget().getIsUserAgentColour(), "#e4000e", "Colour of Is User An Agent is same as expected", "Colour of Is User An Agent is NOT same as expected"));
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (NoSuchElementException | TimeoutException | NullPointerException e) {
             commonLib.fail("Exception in method - testEmailIdAndAgent " + e, true);
@@ -212,16 +212,16 @@ public class PsbDemoGraphicWidgetTest extends Driver {
             String pinReset = pages.getPsbDemographicWidget().getPinReset();
             assertCheck.append(actions.matchUiAndAPIResponse(pinReset, pages.getDemoGraphicPage().getKeyValueAPI(clmDetails.getResult().getDetails().get(0).getIsPinReset()), "Pin Reset is same as Expected", "Pin Reset is not same as Expected"));
             if (pinReset.equalsIgnoreCase("YES"))
-                assertCheck.append(actions.assertEqualStringType(pages.getPsbDemographicWidget().getPinResetSetColour(), "#28a745", "Colour of Pin Reset is same as expected", "Colour of Pin Reset is NOT same as expected"));
+                assertCheck.append(actions.assertEqualStringType(pages.getPsbDemographicWidget().getPinResetSetColour(), "#33a833", "Colour of Pin Reset is same as expected", "Colour of Pin Reset is NOT same as expected"));
             else if (pinReset.toLowerCase().equalsIgnoreCase("NO"))
-                assertCheck.append(actions.assertEqualStringType(pages.getPsbDemographicWidget().getPinResetSetColour(), "#dc3545", "Colour of Pin Reset is same as expected", "Colour of Pin Reset is NOT same as expected"));
+                assertCheck.append(actions.assertEqualStringType(pages.getPsbDemographicWidget().getPinResetSetColour(), "#e4000e", "Colour of Pin Reset is same as expected", "Colour of Pin Reset is NOT same as expected"));
             assertCheck.append(actions.assertEqualBoolean(pages.getPsbDemographicWidget().isPinSetHeaderVisible(), true, "Pin Set header is visible", "Pin Set header is NOT visible"));
             assertCheck.append(actions.matchUiAndAPIResponse(pages.getPsbDemographicWidget().getPinSet(), pages.getDemoGraphicPage().getKeyValueAPI(clmDetails.getResult().getDetails().get(0).getIsPinSet()), "Pin Set is same as Expected", "Pin Set is not same as Expected"));
             String pinSet = pages.getPsbDemographicWidget().getPinSet();
             if (pinSet.equalsIgnoreCase("YES"))
-                assertCheck.append(actions.assertEqualStringType(pages.getPsbDemographicWidget().getPinSetColour(), "#28a745", "Colour of Pin Set is same as expected", "Colour of Pin Set is NOT same as expected"));
+                assertCheck.append(actions.assertEqualStringType(pages.getPsbDemographicWidget().getPinSetColour(), "#33a833", "Colour of Pin Set is same as expected", "Colour of Pin Set is NOT same as expected"));
             else if (pinSet.equalsIgnoreCase("NO"))
-                assertCheck.append(actions.assertEqualStringType(pages.getPsbDemographicWidget().getPinSetColour(), "#dc3545", "Colour of Pin Set is same as expected", "Colour of Pin Set is NOT same as expected"));
+                assertCheck.append(actions.assertEqualStringType(pages.getPsbDemographicWidget().getPinSetColour(), "#e4000e", "Colour of Pin Set is same as expected", "Colour of Pin Set is NOT same as expected"));
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (NoSuchElementException | TimeoutException | NullPointerException e) {
             commonLib.fail("Exception in method - testPinSetAndReset " + e, true);
@@ -235,14 +235,8 @@ public class PsbDemoGraphicWidgetTest extends Driver {
             invalidCustomerNumber = constants.getValue(ApplicationConstants.INVALID_CUSTOMER_MSISDN);
             pages.getMsisdnSearchPage().enterNumberOnDashboardSearch(invalidCustomerNumber);
             pages.getDemoGraphicPage().clickOnDashboardSearch();
-            clmDetails = api.getCLMDetails(invalidCustomerNumber);
-            assertCheck.append(actions.assertEqualIntType(clmDetails.getStatusCode(), 3010, "CLM Details API Status Code Matched and is :" + clmDetails.getStatusCode(), "CLM Details API Status Code NOT Matched and is :" + clmDetails.getStatusCode(), false));
-            if (clmDetails.getStatusCode() == 3010 && clmDetails.getStatus().equalsIgnoreCase("Failure")) {
                 String errorMessage = "Invalid Nuban ID/MSISDN. Please correct Nuban ID/MSISDN to proceed forward";
                 assertCheck.append(actions.assertEqualStringType(pages.getPsbDemographicWidget().getErrorMessage(), errorMessage, "Error message is same as Expected when invalid msisdn is searched", "Error message is not same as Expected when invalid msisdn is searched"));
-            } else if (clmDetails.getStatusCode() == 200) {
-                commonLib.warning("Clm Details API is giving success on passing invalid msisdn");
-            } else commonLib.warning("Clm Details API not working");
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
             commonLib.fail("Exception in Method - invalidMsisdnTest" + e.fillInStackTrace(), true);

@@ -12,14 +12,12 @@ import org.testng.annotations.Test;
 
 
 public class CustomerInteractionScreenTest extends Driver {
-    private static String customerNumber=null;
     PsbRequestSource api = new PsbRequestSource();
     CLMDetailsResponse clmDetails;
-    String space = " ";
     String className = this.getClass().getName();
     boolean isPermissionEnable = false;
 
-    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest"})
     public void checkExecution() {
         if (!continueExecutionFA) {
             commonLib.skip("Skipping tests because user NOT able to login Over Portal");
@@ -28,25 +26,25 @@ public class CustomerInteractionScreenTest extends Driver {
     }
 
 
-    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @Test(priority = 1, groups = {"SanityTest", "RegressionTest"})
     public void openCustomerInteraction() {
         try {
             selUtils.addTestcaseDescription("Open Customer Profile Page with valid MSISDN, Validate Customer Profile Page Loaded or not", "description");
             pages.getSideMenuPage().clickOnSideMenu();
             pages.getSideMenuPage().openCustomerInteractionPage();
-            String text="Enter Mobile Number/Nuban ID/Customer ID";
-            assertCheck.append(actions.assertEqualStringType(pages.getCustomerInteractionScreen().getSearchBoxText().toLowerCase().trim(),text.toLowerCase().trim() , " is as Expected", " is not same as Expected"));
+            String watermark="Enter Mobile Number/Nuban ID/Customer ID";
+            assertCheck.append(actions.assertEqualStringType(pages.getCustomerInteractionScreen().getSearchBoxWatermark().toLowerCase().trim(),watermark.toLowerCase().trim() , "Watermark text is as Expected", "Watermark text is not same as Expected"));
             assertCheck.append(actions.assertEqualBoolean((pages.getCustomerInteractionScreen().isSuggestionsVisible()),true , "Suggestions is visible", "Suggestions is NOT visible"));
             assertCheck.append(actions.assertEqualBoolean((pages.getCustomerInteractionScreen().isMsisdnRegexVisible()),true , "Msisdn Regex is visible", "Msisdn Regex  is NOT visible"));
             assertCheck.append(actions.assertEqualBoolean((pages.getCustomerInteractionScreen().isCustomerIdRegexVisible()),true , "Customer ID Regex  is visible", "Customer ID is NOT visible"));
-            assertCheck.append(actions.assertEqualBoolean((pages.getCustomerInteractionScreen().isNubanIdRegexVisible()),true , "Nuban ID Regex  is visible", "Nuban ID is NOT visible"));
+            assertCheck.append(actions.assertEqualBoolean((pages.getCustomerInteractionScreen().isNubanIdRegexVisible()),true , "Nuban ID Regex is visible", "Nuban ID Regex is NOT visible"));
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
             commonLib.fail("Exception in Method - openCustomerInteraction" + e.fillInStackTrace(), true);
         }
     }
 
-    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @Test(priority = 2, groups = {"SanityTest", "RegressionTest"})
     public void isUserHasPermission() {
         try {
             selUtils.addTestcaseDescription("Validate whether user has AM Customer Details Permission", "description");
@@ -59,11 +57,11 @@ public class CustomerInteractionScreenTest extends Driver {
         }
     }
 
-    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"isUserHasPermission"})
+    @Test(priority = 3, groups = {"SanityTest", "RegressionTest"}, dependsOnMethods = {"isUserHasPermission"})
     public void msisdnSearchTest() {
         try {
-            selUtils.addTestcaseDescription("Open Customer Profile Page with valid MSISDN, Validate Customer Profile Page Loaded or not", "description");
-            customerNumber = constants.getValue(ApplicationConstants.CUSTOMER_TIER1_MSISDN);
+            selUtils.addTestcaseDescription("Search msisdn from customer interaction page, Msidn should get displayed on Customer Dashboard's search box", "description");
+            String customerNumber = constants.getValue(ApplicationConstants.CUSTOMER_TIER1_MSISDN);
             pages.getMsisdnSearchPage().enterNumber(customerNumber);
             pages.getMsisdnSearchPage().clickOnSearch();
             clmDetails = api.getCLMDetails(customerNumber);
@@ -75,9 +73,60 @@ public class CustomerInteractionScreenTest extends Driver {
                 } else commonLib.warning("Logged in user doesn't has permission to view customer details");
 
             } else commonLib.warning("Clm Details API is not working");
+            assertCheck.append(actions.assertEqualStringType(pages.getCustomerInteractionScreen().getCustomerDashboardSearchBoxText().trim(), customerNumber,"Msidin is displayed on Customer Dashboard's search box on searching the same from customer interaction page", " Msidin is NOT displayed on Customer Dashboard's search box on searching the same from customer interaction page"));
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
-            commonLib.fail("Exception in Method - openCustomerInteraction" + e.fillInStackTrace(), true);
+            commonLib.fail("Exception in Method - msisdnSearchTest" + e.fillInStackTrace(), true);
+        }
+    }
+
+    @Test(priority = 4, groups = {"SanityTest", "RegressionTest"}, dependsOnMethods = {"isUserHasPermission"})
+    public void nubanIdSearchTest() {
+        try {
+            selUtils.addTestcaseDescription("Search Nuban ID from customer interaction page, Nuban ID should get displayed on Customer Dashboard's search box", "description");
+            String nubanId = constants.getValue(ApplicationConstants.NUBAN_ID);
+            pages.getSideMenuPage().clickOnSideMenu();
+            pages.getSideMenuPage().openCustomerInteractionPage();
+            pages.getMsisdnSearchPage().enterNumber(nubanId);
+            pages.getMsisdnSearchPage().clickOnSearch();
+            clmDetails = api.getCLMDetails(nubanId);
+            assertCheck.append(actions.assertEqualIntType(clmDetails.getStatusCode(), 200, "CLM Details API Status Code Matched and is :" + clmDetails.getStatusCode(), "CLM Details API Status Code NOT Matched and is :" + clmDetails.getStatusCode(), false));
+            if (clmDetails.getStatusCode() == 200) {
+                if (isPermissionEnable) {
+                    boolean pageLoaded = pages.getPsbDemographicWidget().isPageLoaded(clmDetails, className);
+                    if (!pageLoaded) continueExecutionFA = false;
+                } else commonLib.warning("Logged in user doesn't has permission to view customer details");
+
+            } else commonLib.warning("Clm Details API is not working");
+            assertCheck.append(actions.assertEqualStringType(pages.getCustomerInteractionScreen().getCustomerDashboardSearchBoxText().trim(), nubanId,"Nuban ID is displayed on Customer Dashboard's search box on searching the same from customer interaction page", " Nuban ID is NOT displayed on Customer Dashboard's search box on searching the same from customer interaction page"));
+            actions.assertAllFoundFailedAssert(assertCheck);
+        } catch (Exception e) {
+            commonLib.fail("Exception in Method - nubanIdSearchTest" + e.fillInStackTrace(), true);
+        }
+    }
+
+    @Test(priority = 5, groups = {"SanityTest", "RegressionTest"}, dependsOnMethods = {"isUserHasPermission"})
+    public void customerIdSearchTest() {
+        try {
+            selUtils.addTestcaseDescription("Search Customer Id from customer interaction page, Customer Id should get displayed on Customer Dashboard's search box", "description");
+            String customerId = constants.getValue(ApplicationConstants.CUSTOMER_ID);
+            pages.getSideMenuPage().clickOnSideMenu();
+            pages.getSideMenuPage().openCustomerInteractionPage();
+            pages.getMsisdnSearchPage().enterNumber(customerId);
+            pages.getMsisdnSearchPage().clickOnSearch();
+            clmDetails = api.getCLMDetails(customerId);
+            assertCheck.append(actions.assertEqualIntType(clmDetails.getStatusCode(), 200, "CLM Details API Status Code Matched and is :" + clmDetails.getStatusCode(), "CLM Details API Status Code NOT Matched and is :" + clmDetails.getStatusCode(), false));
+            if (clmDetails.getStatusCode() == 200) {
+                if (isPermissionEnable) {
+                    boolean pageLoaded = pages.getPsbDemographicWidget().isPageLoaded(clmDetails, className);
+                    if (!pageLoaded) continueExecutionFA = false;
+                } else commonLib.warning("Logged in user doesn't has permission to view customer details");
+
+            } else commonLib.warning("Clm Details API is not working");
+            assertCheck.append(actions.assertEqualStringType(pages.getCustomerInteractionScreen().getCustomerDashboardSearchBoxText().trim(), customerId,"Customer Id is displayed on Customer Dashboard's search box on searching the same from customer interaction page", " Customer Id is NOT displayed on Customer Dashboard's search box on searching the same from customer interaction page"));
+            actions.assertAllFoundFailedAssert(assertCheck);
+        } catch (Exception e) {
+            commonLib.fail("Exception in Method - customerIdSearchTest" + e.fillInStackTrace(), true);
         }
     }
 
