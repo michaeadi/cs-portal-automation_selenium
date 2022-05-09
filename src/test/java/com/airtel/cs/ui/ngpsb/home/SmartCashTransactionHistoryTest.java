@@ -189,10 +189,10 @@ public class SmartCashTransactionHistoryTest extends Driver {
                         if (amTransactionHistoryAPI.getResult().getData().get(i).getEnableResendSms()) {
                             assertCheck.append(actions.assertEqualBoolean(pages.getSmartCashTransactionHistory().isResendSMSIconVisible(i + 1, 1), true, "SMS Notification Icon is enabled as mentioned in API Response.", "SMS Notification Icon is not enabled as mentioned in API Response."));
                             pages.getSmartCashTransactionHistory().clickSmsNotificationIcon();
-                            assertCheck.append(actions.assertEqualStringType(pages.getSmartCashTransactionHistory().isSendNotificationHeaderVisible(), "SMS Notification", "Send SMS Header is visible", "Send SMS header is NOT visible"));
-                            assertCheck.append(actions.assertEqualStringType(pages.getSmartCashTransactionHistory().isIssueDetailVisible(), "Issue Detail", "Issue Detail is visible", "Issue Detail is NOT visible"));
+                            assertCheck.append(actions.assertEqualStringType(pages.getSmartCashTransactionHistory().isSendNotificationHeaderVisible(), "Send Notification", "Send SMS Header is visible", "Send SMS header is NOT visible"));
+                            assertCheck.append(actions.assertEqualStringType(pages.getSmartCashTransactionHistory().isIssueDetailVisible(), "Issue Detail:", "Issue Detail is visible", "Issue Detail is NOT visible"));
                             assertCheck.append(actions.assertEqualStringType(pages.getSmartCashTransactionHistory().isEnterCommentHeaderVisible(), "Enter Comment", "Enter Comment is visible", "Enter Comment is not Visible"));
-                            assertCheck.append(actions.assertEqualStringType(pages.getSmartCashTransactionHistory().isSmsSelectReasonVisible(), "Select Reason", "Select Reason is Visible", "Select Reason is not visible"));
+                            assertCheck.append(actions.assertEqualStringType(pages.getSmartCashTransactionHistory().isSmsSelectReasonVisible(), "Select Reason *", "Select Reason is Visible", "Select Reason is not visible"));
                             assertCheck.append(actions.assertEqualBoolean(pages.getSmartCashTransactionHistory().isSubmitBtnDisabled(), true, "Select Reason is Visible", "Select Reason is not visible"));
                             assertCheck.append(actions.assertEqualBoolean(pages.getSmartCashTransactionHistory().isCancelButtonVisible(), true, "Cancel Button is visible ", "Cancel Button is not visible"));
                             pages.getSmartCashTransactionHistory().performSmsNotification();

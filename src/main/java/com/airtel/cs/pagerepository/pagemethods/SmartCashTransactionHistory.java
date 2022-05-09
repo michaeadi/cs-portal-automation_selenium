@@ -310,7 +310,7 @@ public class SmartCashTransactionHistory extends BasePage {
      * This method is used to  Perform SMS Notification by selecting reason and comment
      */
     public void performSmsNotification() {
-        commonLib.info("Going to perform Bar/unbar Action");
+        commonLib.info("Going to perform Send Notification Action");
         pages.getSmartCashTransactionHistory().clickOnSmsSelectReason();
         pages.getSmartCashTransactionHistory().selectRequestFromDropdown();
 //        pages.getSmartCashTransactionHistory().selectDidNotGetSmsFromDropdown();
