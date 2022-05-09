@@ -5,6 +5,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 
+import static com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants.COMMENT;
+
 public class SmartCashTransactionHistory extends BasePage {
     SmartCashTransactionHistoryPage pageElements;
 
@@ -228,5 +230,222 @@ public class SmartCashTransactionHistory extends BasePage {
         commonLib.info("Going to click on meta info drop down");
         clickWithoutLoader(By.xpath(pageElements.rowMetaInfo1 + row + pageElements.rowMetaInfo2));
     }
+
+    /**
+     * This method use to check SMS Notification icon display or not
+     *
+     * @return true/false
+     */
+    public Boolean isSmsNotificationIconVisible(int row, int column) {
+        By check = By.xpath(pageElements.valueRowSec + row + pageElements.iconColumn + column + pageElements.resendSmsIcon);
+        return isEnabled(check);
+    }
+
+    /**
+     * This method is used to click SMS Notification Icon
+     */
+
+    public void clickSmsNotificationIcon(){
+        commonLib.info("Going to click resend SMS ");
+        clickWithoutLoader(pageElements.smsNotificationIcon);
+    }
+
+    /**
+     * This method use to check Send SMS Notification Header is visible
+     *
+     * @return true/false
+     */
+
+    public String isSendNotificationHeaderVisible() {
+        final String text = getText(pageElements.smsHeader);
+        commonLib.info("Validating Send Notification Header is visible : " + text);
+        return text;
+    }
+
+
+    /**
+     * This method use to check Issue Detail text is displayed or not
+     *
+     * @return true/false
+     */
+    public String isIssueDetailVisible() {
+        final String text = getText(pageElements.smsIssueDetail);
+        commonLib.info("Validating Issue Detail is visible : " + text);
+        return text;
+    }
+
+    /**
+     * This method use to check Enter Comment is displayed or not
+     *
+     * @return true/false
+     */
+    public String isEnterCommentHeaderVisible() {
+        final String text = getText(pageElements.enterComment);
+        commonLib.info("Validating Enter Comment Header is visible : " + text);
+        return text;
+    }
+
+
+    public String isSmsSelectReasonVisible() {
+        final String text = getText(pageElements.smsSelectReason);
+        commonLib.info("Validating Select Reason Label is visible : " + text);
+        return text;
+    }
+
+    /**
+     * This method is used to check next button in pagination is enabled or not
+     */
+    public Boolean isSubmitBtnDisabled() {
+        commonLib.info("Checking Submit Btn button is disabled or not");
+        return isElementVisible((pageElements.submitSms));
+    }
+
+
+    public Boolean isCancelButtonVisible() {
+        commonLib.info("Checking Cancel Btn is enabled");
+        return isEnabled((pageElements.cancelSms));
+    }
+
+    /**
+     * This method is used to  Perform SMS Notification by selecting reason and comment
+     */
+    public void performSmsNotification() {
+        commonLib.info("Going to perform Bar/unbar Action");
+        pages.getSmartCashTransactionHistory().clickOnSmsSelectReason();
+        pages.getSmartCashTransactionHistory().selectRequestFromDropdown();
+        pages.getSmartCashTransactionHistory().selectDidNotGetSmsFromDropdown();
+        pages.getSmartCashTransactionHistory().selectDeletedTheSmsFromDropdown();
+        pages.getSmartCashTransactionHistory().enterComment(COMMENT);
+        pages.getSmartCashTransactionHistory().clickOnSubmitButton();
+    }
+
+    /**
+     * This method is used to go to Action Trail tab
+     */
+    public void goToActionTrail() {
+        commonLib.info("Going to click Action Trail tab");
+        pages.getPinReset().clickViewHistoryTab();
+        pages.getPinReset().clickActionTrailTab();
+    }
+
+    /**
+     * This method is used to click on select reason
+     */
+    public void clickOnSmsSelectReason() {
+        commonLib.info("Going to click Select Reason");
+        if (isVisible(pageElements.selectArrow)) ;
+        clickWithoutLoader((pageElements.selectArrow));
+    }
+
+    /**
+     * This method is used to click on select Customer Request
+     */
+    public void selectRequestFromDropdown() {
+        commonLib.info("Going to click Select Reason");
+        if (isVisible(pageElements.selectCustomerRequestFromDropdown)) ;
+        clickWithoutLoader((pageElements.selectCustomerRequestFromDropdown));
+    }
+
+    /**
+     * This method is used to click on select Customer did not get SMS
+     */
+    public void selectDidNotGetSmsFromDropdown() {
+        commonLib.info("Going to click Select Reason");
+        if (isVisible(pageElements.selectDidNotGetSmsFromDropdown)) ;
+        clickWithoutLoader((pageElements.selectDidNotGetSmsFromDropdown));
+    }
+
+    /**
+     * This method is used to click on select Customer deleted the SMS
+     */
+    public void selectDeletedTheSmsFromDropdown() {
+        commonLib.info("Going to click Select Reason");
+        if (isVisible(pageElements.selectDeletedTheSmsFromDropdown)) ;
+        clickWithoutLoader((pageElements.selectDeletedTheSmsFromDropdown));
+    }
+
+
+    /**
+     * This method is used to write the comment into comment box
+     *
+     * @param text The comment
+     */
+    public void enterComment(String text) {
+        commonLib.info("Writing comment into comment box: " + text);
+        enterText(pageElements.smsTextArea, text);
+    }
+
+    /**
+     * This method is used to click on Submit button
+     */
+    public void clickOnSubmitButton() {
+        commonLib.info("Going to click submit button");
+        if (isVisible(pageElements.submitSms))
+            clickWithoutLoader(pageElements.submitSms);
+
+    }
+
+    /**
+     * This method is used to check demographic widget visible after closing pop up
+     *
+     * @return true/false
+     */
+    public Boolean isSuccessPopUpVisible() {
+        final boolean state = isElementVisible(pageElements.demographics);
+        commonLib.info("Is demographic widget visible" + state);
+        return state;
+
+    }
+
+    /**
+     * This method is used to get text of success message
+     *
+     * @return text
+     */
+    public String getSuccessText() {
+        final String text = getText(pageElements.successMessage);
+        commonLib.info("Getting success pop up text :" + text);
+        return text;
+    }
+
+    /**
+     * This method is used to click on cross icon of success pop up
+     */
+    public void clickCrossIcon() {
+        commonLib.info("Going to click cross icon");
+        if (isVisible(pageElements.crossIcon));
+        clickWithoutLoader((pageElements.crossIcon));
+    }
+
+    /**
+     * This method is used to get action type form action trail
+     *
+     * @return
+     */
+    public String getActionType() {
+        commonLib.info(getText(pageElements.actionType));
+        return getText(pageElements.actionType);
+    }
+
+    /**
+     * This method is used to get reason form action trail
+     *
+     * @return
+     */
+    public String getReason() {
+        commonLib.info(getText(pageElements.reason));
+        return getText(pageElements.reason);
+    }
+
+    /**
+     * This method is used to get comment form action trail
+     *
+     * @return
+     */
+    public String getComment() {
+        commonLib.info(getText(pageElements.comment));
+        return getText(pageElements.comment);
+    }
+
 
 }

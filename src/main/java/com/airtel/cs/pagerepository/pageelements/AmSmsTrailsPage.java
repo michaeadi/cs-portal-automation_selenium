@@ -60,7 +60,7 @@ public class AmSmsTrailsPage {
     public By smsIssueDetail = By.xpath("//div[contains(text(),'Issue Detail:')]");
     public By enterComment = By.xpath("//div[@class='main-container__body--form-data--issue-comment--label']//span[normalize-space()='Enter Comment']");
     public By smsSelectReason = By.xpath("//label[contains(text(),'Select Reason *')]");
-    public By selectArrow = By.xpath("//mat-select[@id='mat-select-4']//div[contains(@class,'mat-select-arrow')]//div");
+    public By selectArrow = By.xpath("//div[@class='mat-select-arrow-wrapper']");
     public By selectCustomerRequestFromDropdown = By.xpath("//span[normalize-space()='Customer Request']");
     public By selectDidNotGetSmsFromDropdown = By.xpath("//span[normalize-space()='Customer did not get SMS']");
     public By selectDeletedTheSmsFromDropdown = By.xpath("//span[normalize-space()='Customer deleted the SMS by mistake']");
@@ -81,18 +81,6 @@ Action Trail tab
     public By reason=By.xpath("//div[@class='agent-list-container']/table/tbody/tr/td[3]");
     public By comment=By.xpath("//div[@class='agent-list-container']/table/tbody/tr/td[6]");
 
-    public By getTransactionId  = By.xpath("");
-
-
-//    /**
-//     * Header's value locators
-//     */
-//    public String dataRows = "//div[contains(@class,'table-data-wrapper')]//div[";
-//    public String dataColumns = "]//div[@data-csautomation-key='dataRows']//div[";
-//    public String dataValue = "]//span[@data-csautomation-key='columnValue']";
-//    public String actionValue="]//span";
-//    public By totalRows = By.xpath("//div[@class='card__content restricted ng-star-inserted']//div[@class='table-data-wrapper ng-star-inserted']//div[@class='ng-star-inserted']");
-//
 
 
 }

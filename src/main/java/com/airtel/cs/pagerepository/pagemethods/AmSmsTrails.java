@@ -307,10 +307,14 @@ public class AmSmsTrails extends BasePage {
         clickWithoutLoader(pageElements.resendSms);
     }
 
+    /**
+     * This method is used to check for resend sms Header
+     */
+
 
     public String isSendSmsHeaderVisible() {
         final String text = getText(pageElements.smsHeader);
-        commonLib.info("Validating Issue Detail is visible : " + text);
+        commonLib.info("Validating SMS Header is visible : " + text);
         return text;
     }
 
@@ -333,14 +337,14 @@ public class AmSmsTrails extends BasePage {
      */
     public String isEnterCommentHeaderVisible() {
         final String text = getText(pageElements.enterComment);
-        commonLib.info("Validating Issue Detail is visible : " + text);
+        commonLib.info("Validating Enter Comment Header is visible : " + text);
         return text;
     }
 
 
     public String isSmsSelectReasonVisible() {
         final String text = getText(pageElements.smsSelectReason);
-        commonLib.info("Validating Issue Detail is visible : " + text);
+        commonLib.info("Validating Select Reason Label is visible : " + text);
         return text;
     }
 
@@ -359,14 +363,14 @@ public class AmSmsTrails extends BasePage {
     }
 
     /**
-     * This method is used to  BAR/UNBAR smartcash profile by selecting reason and comment
+     * This method is used to  Perform ResendSMS by selecting reason and comment
      */
     public void performResendSms() {
-        commonLib.info("Going to perform Bar/unbar Action");
+        commonLib.info("Going to perform Resend SMSß Action");
         pages.getAmSmsTrails().clickOnSmsSelectReason();
         pages.getAmSmsTrails().selectRequestFromDropdown();
-        pages.getAmSmsTrails().selectDidNotGetSmsFromDropdown();
-        pages.getAmSmsTrails().selectDeletedTheSmsFromDropdown();
+//        pages.getAmSmsTrails().selectDidNotGetSmsFromDropdown();
+//        pages.getAmSmsTrails().selectDeletedTheSmsFromDropdown();
         pages.getAmSmsTrails().enterComment(COMMENT);
         pages.getAmSmsTrails().clickOnSubmitButton();
     }
@@ -398,23 +402,23 @@ public class AmSmsTrails extends BasePage {
         clickWithoutLoader((pageElements.selectCustomerRequestFromDropdown));
     }
 
-    /**
-     * This method is used to click on select Customer did not get SMS
-     */
-    public void selectDidNotGetSmsFromDropdown() {
-        commonLib.info("Going to click Select Reason");
-        if (isVisible(pageElements.selectDidNotGetSmsFromDropdown)) ;
-        clickWithoutLoader((pageElements.selectDidNotGetSmsFromDropdown));
-    }
-
-    /**
-     * This method is used to click on select Customer deleted the SMS
-     */
-    public void selectDeletedTheSmsFromDropdown() {
-        commonLib.info("Going to click Select Reason");
-        if (isVisible(pageElements.selectDeletedTheSmsFromDropdown)) ;
-        clickWithoutLoader((pageElements.selectDeletedTheSmsFromDropdown));
-    }
+//    /**
+//     * This method is used to click on select Customer did not get SMS
+//     */
+//    public void selectDidNotGetSmsFromDropdown() {
+//        commonLib.info("Going to click Select Reason");
+//        if (isVisible(pageElements.selectArrow)) ;
+//        clickWithoutLoader((pageElements.selectDidNotGetSmsFromDropdown));
+//    }
+//
+//    /**
+//     * This method is used to click on select Customer deleted the SMS
+//     */
+//    public void selectDeletedTheSmsFromDropdown() {
+//        commonLib.info("Going to click Select Reason");
+//        if (isVisible(pageElements.selectArrow)) ;
+//        clickWithoutLoader((pageElements.selectDeletedTheSmsFromDropdown));
+//    }
 
 
     /**
@@ -504,6 +508,7 @@ public class AmSmsTrails extends BasePage {
         commonLib.info("Is Resend SMS visible" + state);
         return state;
     }
+
 
 
 
