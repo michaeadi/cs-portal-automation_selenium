@@ -299,7 +299,6 @@ public class AmSmsTrails extends BasePage {
         commonLib.info("Clicking Previous button in pagination");
         clickWithoutLoader(pageElements.previousBtnEnable);
     }
-
     /**
      * This method is used to click resend sms
      */
@@ -373,7 +372,7 @@ public class AmSmsTrails extends BasePage {
 //        pages.getAmSmsTrails().selectDidNotGetSmsFromDropdown();
 //        pages.getAmSmsTrails().selectDeletedTheSmsFromDropdown();
         pages.getAmSmsTrails().enterComment(COMMENT);
-//        pages.getAmSmsTrails().clickOnSubmitButton();
+        pages.getAmSmsTrails().clickOnSubmitButton();
     }
 
     /**
@@ -509,6 +508,8 @@ public class AmSmsTrails extends BasePage {
         commonLib.info("Is Resend SMS visible" + state);
         return state;
     }
+
+
 
 
 }

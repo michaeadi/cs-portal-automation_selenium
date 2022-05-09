@@ -38,5 +38,4 @@ public class AmLinkedWalletsPage {
     public By totalCredit = By.xpath("//span[contains(text(),'Credit')]");
     public By totalDebit = By.xpath("//span[contains(text(),'Debit')]");
 
-    public By resendSms = By.xpath("");
 }

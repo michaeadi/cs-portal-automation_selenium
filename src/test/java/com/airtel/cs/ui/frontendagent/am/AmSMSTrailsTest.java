@@ -174,6 +174,8 @@ public class AmSMSTrailsTest extends Driver {
             commonLib.fail("Exception in Method - checkPaginationForSmsLogs" + e.fillInStackTrace(), true);
         }
     }
+
+
 }
 
 

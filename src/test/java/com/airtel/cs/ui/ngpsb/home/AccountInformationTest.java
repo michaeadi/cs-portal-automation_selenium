@@ -187,7 +187,7 @@ public class AccountInformationTest extends Driver {
         }
     }
 
-    @Test(priority = 7, groups = {"SanityTest", "ProdTest", "SmokeTest", "RegressionTest"}, dependsOnMethods = {"openCustomerInteraction"})
+    @Test(priority = 7, groups = {"SanityTest", "ProdTest", "RegressionTest"}, dependsOnMethods = {"openCustomerInteraction"})
     public void testSmsLogsTabs() {
         try {
             selUtils.addTestcaseDescription("Validate Wallets tab data", "description");
@@ -270,8 +270,4 @@ public class AccountInformationTest extends Driver {
         }
     }
 
-
-
-
 }
-

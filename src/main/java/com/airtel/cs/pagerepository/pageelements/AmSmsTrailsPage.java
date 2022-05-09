@@ -11,7 +11,6 @@ public class AmSmsTrailsPage {
     public By amProfileDetailsWidget = By.xpath("//mat-tab-group[@class='mat-tab-group mat-primary ng-star-inserted']");
     public By demographics = By.xpath("//div[@class='main-container__header success']//span");
 
-
     /**
      * SMS Logs widget locators
      */
@@ -81,5 +80,7 @@ public class AmSmsTrailsPage {
     public By actionType=By.xpath("//div[@class='agent-list-container']/table/tbody/tr/td[1]");
     public By reason=By.xpath("//div[@class='agent-list-container']/table/tbody/tr/td[3]");
     public By comment=By.xpath("//div[@class='agent-list-container']/table/tbody/tr/td[6]");
+
+
 
 }

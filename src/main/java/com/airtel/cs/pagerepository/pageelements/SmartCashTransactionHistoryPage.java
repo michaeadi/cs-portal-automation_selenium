@@ -68,7 +68,6 @@ public class SmartCashTransactionHistoryPage {
     public By smsNotificationIcon = By.xpath("(//div[@class='quick-action ng-star-inserted'])/span/span//img[contains(@src,'send-msg.svg')]");
 
 
-
     /**
      * Action Trail
      */
