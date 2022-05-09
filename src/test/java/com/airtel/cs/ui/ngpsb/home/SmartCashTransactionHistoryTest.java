@@ -209,5 +209,22 @@ public class SmartCashTransactionHistoryTest extends Driver {
         }
     }
 
+    @Test(priority = 6, groups = {"SanityTest", "ProdTest", "RegressionTest"}, dependsOnMethods = {"sendNotificationSmsTest"})
+    public void checkActionTrail() {
+        try {
+            selUtils.addTestcaseDescription("Validating entry should be captured in Action Trail after performing ResendSMS action", "description");
+            pages.getAmSmsTrails().goToActionTrail();
+            assertCheck.append(actions.assertEqualStringType(pages.getAmSmsTrails().getActionType(), "SmartCash SMS Logs - Resend SMS", "Action type for Resend SMS is expected", "Action type for Resend SME is not as expected"));
+            assertCheck.append(actions.assertEqualStringType(pages.getAmSmsTrails().getReason(), "\n" +
+                    "Customer Request", "Reason for Resend SMS is as expected", "Reason for Resend SMS not as expected"));
+            assertCheck.append(actions.assertEqualStringType(pages.getAmSmsTrails().getComment(), constants.getValue(ApplicationConstants.COMMENT), "Comment for Resend SMS is expected", "Comment for Resend SMS is not as expected"));
+            actions.assertAllFoundFailedAssert(assertCheck);
+
+        } catch (Exception e) {
+            commonLib.fail("Exception in Method - checkActionTrail" + e.fillInStackTrace(), true);
+        }
+    }
+
+
 }
 
