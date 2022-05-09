@@ -316,7 +316,7 @@ public class SmartCashTransactionHistory extends BasePage {
 //        pages.getSmartCashTransactionHistory().selectDidNotGetSmsFromDropdown();
 //        pages.getSmartCashTransactionHistory().selectDeletedTheSmsFromDropdown();
         pages.getSmartCashTransactionHistory().enterComment(COMMENT);
-        pages.getSmartCashTransactionHistory().clickOnSubmitButton();
+//        pages.getSmartCashTransactionHistory().clickOnSubmitButton();
     }
 
     /**

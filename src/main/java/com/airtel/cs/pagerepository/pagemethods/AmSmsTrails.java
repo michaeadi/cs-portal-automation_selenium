@@ -373,7 +373,7 @@ public class AmSmsTrails extends BasePage {
 //        pages.getAmSmsTrails().selectDidNotGetSmsFromDropdown();
 //        pages.getAmSmsTrails().selectDeletedTheSmsFromDropdown();
         pages.getAmSmsTrails().enterComment(COMMENT);
-        pages.getAmSmsTrails().clickOnSubmitButton();
+//        pages.getAmSmsTrails().clickOnSubmitButton();
     }
 
     /**
