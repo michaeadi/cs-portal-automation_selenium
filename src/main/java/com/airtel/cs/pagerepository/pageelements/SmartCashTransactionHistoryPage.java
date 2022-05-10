@@ -15,7 +15,6 @@ public class SmartCashTransactionHistoryPage {
 
     public String valueRowSec = "//div[@data-csautomation-key='AIRTEL_MONEY']//div[@class='table-data-wrapper ng-star-inserted']//div[@class='ng-star-inserted'][";
     public String headerRowSec = "//div[@data-csautomation-key='AIRTEL_MONEY']/div[@class='card__content restricted ng-star-inserted']/descendant::div[@class='card__card-header--card-body--table--list-heading ng-star-inserted']/div";
-    public String resendSMSSec = "//div[@data-csautomation-key='AIRTEL_MONEY']/div[@class='card__content restricted ng-star-inserted']/descendant::div[@class='card__card-header--card-body--table--data-list row-border'][1]/div[12]//img[1][@class='hide-reversal ng-star-inserted']";
     public String valueColumns = "]//div[@class='data-container ng-star-inserted'][";
     public String iconColumn = "]//div[@class='quick-action ng-star-inserted'][";
     public String columnText = "]//span";
@@ -24,7 +23,6 @@ public class SmartCashTransactionHistoryPage {
     public String negSymbol = "]//img[@class='sign-icon-before ng-star-inserted']";
     public String posSymbol = "]//img[@class='sign-icon-before ng-star-inserted']";
     public String headerRow = "//div[@data-csautomation-key='AIRTEL_MONEY']/div[@class='card__content restricted ng-star-inserted']/descendant::div[@class='card__card-header--card-body--table--list-heading ng-star-inserted']/div";
-    public String resendSMS = "//div[@data-csautomation-key='AIRTEL_MONEY']/div[@class='card__content restricted ng-star-inserted']/descendant::div[@class='card__card-header--card-body--table--data-list row-border'][1]/div[12]//img[1][@class='hide-reversal ng-star-inserted']";
 
     public By airtelMoneyNoResultFoundSec = By.xpath("//div[@data-csautomation-key='AIRTEL_MONEY']/div[@class='card__content restricted ng-star-inserted']/descendant::div[@class='no-result-found ng-star-inserted']");
     public By airtelMoneyNoResultFoundMessageSec = By.xpath("//div[@data-csautomation-key='AIRTEL_MONEY']/div[@class='card__content restricted ng-star-inserted']/descendant::div[@class='no-result-found ng-star-inserted']/span/span");
@@ -46,10 +44,6 @@ public class SmartCashTransactionHistoryPage {
     /**
      * Send Notification locators
      */
-//    public By reSendSmsLink = By.xpath("(//span[@class='send-notification-sms-trail ng-star-inserted'][normalize-space()='Resend SMS'])[1]");
-//    public By reSendSmsLink  = By.xpath("//span[contains(text(),'Resend')]");
-//    public By resendSms = By.xpath("//div[@class='quick-action ng-star-inserted']//span[contains(text(),'Resend SMS')]");
-//    public By sendSmsTab = By.xpath("//mat-dialog-container[@id='mat-dialog-1']");
     public By smsHeader = By.xpath("//div[@class='main-container__header']//span[contains(text(),'Send Notification')]");
     public By smsIssueDetail = By.xpath("//div[contains(text(),'Issue Detail:')]");
     public By enterComment = By.xpath("//div[@class='main-container__body--form-data--issue-comment--label']//span[normalize-space()='Enter Comment']");
@@ -61,7 +55,6 @@ public class SmartCashTransactionHistoryPage {
     public By smsTextArea = By.xpath("//div[contains(@class,'mat-form-field')]//textarea[@id='interactionComment']");
     public By cancelSms = By.xpath("//span[contains(@class,'buttons')]//span[contains(text(),'Cancel')]");
     public By submitSms = By.xpath("//span[contains(@class,'buttons')]//span[contains(text(),'Submit')]");
-    public By closeSms = By.xpath("//div[@class='main-container__header']//mat-icon[contains(text(),'close')]");
     public By successMessage = By.xpath("//div[contains(text(),'Sms has been resent on your device')]");
     public By crossIcon = By.xpath("//div[contains(@class,'main-container__header success')]//mat-icon[contains(text(),'close')]");
     public By demographics = By.xpath("//div[@class='main-container__header success']//span");
