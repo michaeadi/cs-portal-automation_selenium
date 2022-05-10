@@ -244,7 +244,6 @@ public class SmartCashTransactionHistory extends BasePage {
     /**
      * This method is used to click SMS Notification Icon
      */
-
     public void clickSmsNotificationIcon(){
         commonLib.info("Going to click resend SMS ");
         clickWithoutLoader(pageElements.smsNotificationIcon);
@@ -253,22 +252,20 @@ public class SmartCashTransactionHistory extends BasePage {
     /**
      * This method use to check Send SMS Notification Header is visible
      *
-     * @return true/false
+     * @return Text
      */
-
-    public String isSendNotificationHeaderVisible() {
+    public String getSendNotificationHeaderVisible() {
         final String text = getText(pageElements.smsHeader);
         commonLib.info("Validating Send Notification Header is visible : " + text);
         return text;
     }
 
-
     /**
      * This method use to check Issue Detail text is displayed or not
      *
-     * @return true/false
+     * @return Text
      */
-    public String isIssueDetailVisible() {
+    public String getIssueDetailVisible() {
         final String text = getText(pageElements.smsIssueDetail);
         commonLib.info("Validating Issue Detail is visible : " + text);
         return text;
@@ -277,16 +274,20 @@ public class SmartCashTransactionHistory extends BasePage {
     /**
      * This method use to check Enter Comment is displayed or not
      *
-     * @return true/false
+     * @return Text
      */
-    public String isEnterCommentHeaderVisible() {
+    public String getEnterCommentHeaderVisible() {
         final String text = getText(pageElements.enterComment);
         commonLib.info("Validating Enter Comment Header is visible : " + text);
         return text;
     }
 
-
-    public String isSmsSelectReasonVisible() {
+    /**
+     * This method use to check Select Reason is displayed or not
+     *
+     * @return Text
+     */
+    public String getSmsSelectReasonVisible() {
         final String text = getText(pageElements.smsSelectReason);
         commonLib.info("Validating Select Reason Label is visible : " + text);
         return text;
@@ -294,14 +295,20 @@ public class SmartCashTransactionHistory extends BasePage {
 
     /**
      * This method is used to check next button in pagination is enabled or not
+     *
+     * @return true/false
      */
-    public Boolean isSubmitBtnDisabled() {
+    public Boolean getSubmitBtnDisabled() {
         commonLib.info("Checking Submit Btn button is disabled or not");
         return isElementVisible((pageElements.submitSms));
     }
 
-
-    public Boolean isCancelButtonVisible() {
+    /**
+     * This method is used to Click on Cancel button.
+     *
+     * @return true/false
+     */
+    public Boolean getCancelButtonVisible() {
         commonLib.info("Checking Cancel Btn is enabled");
         return isEnabled((pageElements.cancelSms));
     }
@@ -316,7 +323,7 @@ public class SmartCashTransactionHistory extends BasePage {
 //        pages.getSmartCashTransactionHistory().selectDidNotGetSmsFromDropdown();
 //        pages.getSmartCashTransactionHistory().selectDeletedTheSmsFromDropdown();
         pages.getSmartCashTransactionHistory().enterComment(COMMENT);
-//        pages.getSmartCashTransactionHistory().clickOnSubmitButton();
+        pages.getSmartCashTransactionHistory().clickOnSubmitButton();
     }
 
     /**

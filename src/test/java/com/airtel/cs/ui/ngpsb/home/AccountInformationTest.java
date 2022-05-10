@@ -232,12 +232,12 @@ public class AccountInformationTest extends Driver {
                     String transactionType = smsLogs.getResult().get(i).getTransactionId();
                     if (transactionType.contains("APC")) {
                         pages.getAmSmsTrails().clickResendSms();
-                        assertCheck.append(actions.assertEqualStringType(pages.getAmSmsTrails().isSendSmsHeaderVisible(), "Send SMS", "Send SMS Header is visible", "Send SMS header is NOT visible"));
-                        assertCheck.append(actions.assertEqualStringType(pages.getAmSmsTrails().isIssueDetailVisible(), "Issue Detail:", "Issue Detail is visible", "Issue Detail is NOT visible"));
-                        assertCheck.append(actions.assertEqualStringType(pages.getAmSmsTrails().isEnterCommentHeaderVisible(), "Enter Comment", "Enter Comment is visible", "Enter Comment is not Visible"));
-                        assertCheck.append(actions.assertEqualStringType(pages.getAmSmsTrails().isSmsSelectReasonVisible(), "Select Reason *", "Select Reason is Visible", "Select Reason is not visible"));
-                        assertCheck.append(actions.assertEqualBoolean(pages.getAmSmsTrails().isSubmitBtnDisabled(), true, "Select Reason is Visible", "Select Reason is not visible"));
-                        assertCheck.append(actions.assertEqualBoolean(pages.getAmSmsTrails().isCancelButtonVisible(), true, "Cancel Button is visible ", "Cancel Button is not visible"));
+                        assertCheck.append(actions.assertEqualStringType(pages.getAmSmsTrails().getSendSmsHeaderVisible(), "Send SMS", "Send SMS Header is visible", "Send SMS header is NOT visible"));
+                        assertCheck.append(actions.assertEqualStringType(pages.getAmSmsTrails().getIssueDetailVisible(), "Issue Detail:", "Issue Detail is visible", "Issue Detail is NOT visible"));
+                        assertCheck.append(actions.assertEqualStringType(pages.getAmSmsTrails().getEnterCommentHeaderVisible(), "Enter Comment", "Enter Comment is visible", "Enter Comment is not Visible"));
+                        assertCheck.append(actions.assertEqualStringType(pages.getAmSmsTrails().getSmsSelectReasonVisible(), "Select Reason *", "Select Reason is Visible", "Select Reason is not visible"));
+                        assertCheck.append(actions.assertEqualBoolean(pages.getAmSmsTrails().getSubmitBtnDisabled(), true, "Select Reason is Visible", "Select Reason is not visible"));
+                        assertCheck.append(actions.assertEqualBoolean(pages.getAmSmsTrails().getCancelButtonVisible(), true, "Cancel Button is visible ", "Cancel Button is not visible"));
                         pages.getAmSmsTrails().performResendSms();
                         assertCheck.append(actions.assertEqualBoolean(pages.getAmSmsTrails().isSuccessPopUpVisible(), true, "Success Popup is visible after performing Submit action", "Success Popup is not visible after performing Submit action"));
                         String successText = "SMS has being resent on your device";

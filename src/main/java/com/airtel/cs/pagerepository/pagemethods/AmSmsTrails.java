@@ -200,8 +200,6 @@ public class AmSmsTrails extends BasePage {
 
     /**
      * This method is used to get no result found message
-     *
-     * @return String The String
      */
     public String getNoResultFoundMessage() {
         final String text = getText(pageElements.noResultFoundMessage);
@@ -310,9 +308,7 @@ public class AmSmsTrails extends BasePage {
     /**
      * This method is used to check for resend sms Header
      */
-
-
-    public String isSendSmsHeaderVisible() {
+    public String getSendSmsHeaderVisible() {
         final String text = getText(pageElements.smsHeader);
         commonLib.info("Validating SMS Header is visible : " + text);
         return text;
@@ -321,10 +317,8 @@ public class AmSmsTrails extends BasePage {
 
     /**
      * This method use to check Issue Detail text is displayed or not
-     *
-     * @return true/false
      */
-    public String isIssueDetailVisible() {
+    public String getIssueDetailVisible() {
         final String text = getText(pageElements.smsIssueDetail);
         commonLib.info("Validating Issue Detail is visible : " + text);
         return text;
@@ -333,16 +327,19 @@ public class AmSmsTrails extends BasePage {
     /**
      * This method use to check Enter Comment is displayed or not
      *
-     * @return true/false
+     * @return Text
      */
-    public String isEnterCommentHeaderVisible() {
+    public String getEnterCommentHeaderVisible() {
         final String text = getText(pageElements.enterComment);
         commonLib.info("Validating Enter Comment Header is visible : " + text);
         return text;
     }
-
-
-    public String isSmsSelectReasonVisible() {
+    /**
+     * This method use to check Enter Comment is displayed or not
+     *
+     * @return Text
+     */
+    public String getSmsSelectReasonVisible() {
         final String text = getText(pageElements.smsSelectReason);
         commonLib.info("Validating Select Reason Label is visible : " + text);
         return text;
@@ -351,13 +348,13 @@ public class AmSmsTrails extends BasePage {
     /**
      * This method is used to check next button in pagination is enabled or not
      */
-    public Boolean isSubmitBtnDisabled() {
+    public Boolean getSubmitBtnDisabled() {
         commonLib.info("Checking Submit Btn button is disabled or not");
         return isElementVisible((pageElements.submitSms));
     }
 
 
-    public Boolean isCancelButtonVisible() {
+    public Boolean getCancelButtonVisible() {
         commonLib.info("Checking Cancel Btn is enabled");
         return isEnabled((pageElements.cancelSms));
     }
@@ -366,7 +363,7 @@ public class AmSmsTrails extends BasePage {
      * This method is used to  Perform ResendSMS by selecting reason and comment
      */
     public void performResendSms() {
-        commonLib.info("Going to perform Resend SMSß Action");
+        commonLib.info("Going to perform Resend SMS Action");
         pages.getAmSmsTrails().clickOnSmsSelectReason();
         pages.getAmSmsTrails().selectRequestFromDropdown();
 //        pages.getAmSmsTrails().selectDidNotGetSmsFromDropdown();
@@ -485,8 +482,6 @@ public class AmSmsTrails extends BasePage {
 
     /**
      * This method is used to get reason form action trail
-     *
-     * @return
      */
     public String getReason() {
         commonLib.info(getText(pageElements.reason));
