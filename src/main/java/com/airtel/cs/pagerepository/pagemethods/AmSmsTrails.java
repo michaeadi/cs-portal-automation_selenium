@@ -308,7 +308,7 @@ public class AmSmsTrails extends BasePage {
     /**
      * This method is used to check for resend sms Header
      */
-    public String getSendSmsHeaderVisible() {
+    public String getSendSmsHeader() {
         final String text = getText(pageElements.smsHeader);
         commonLib.info("Validating SMS Header is visible : " + text);
         return text;
@@ -318,7 +318,7 @@ public class AmSmsTrails extends BasePage {
     /**
      * This method use to check Issue Detail text is displayed or not
      */
-    public String getIssueDetailVisible() {
+    public String getIssueDetail() {
         final String text = getText(pageElements.smsIssueDetail);
         commonLib.info("Validating Issue Detail is visible : " + text);
         return text;
@@ -329,7 +329,7 @@ public class AmSmsTrails extends BasePage {
      *
      * @return Text
      */
-    public String getEnterCommentHeaderVisible() {
+    public String getEnterCommentHeader() {
         final String text = getText(pageElements.enterComment);
         commonLib.info("Validating Enter Comment Header is visible : " + text);
         return text;
@@ -339,7 +339,7 @@ public class AmSmsTrails extends BasePage {
      *
      * @return Text
      */
-    public String getSmsSelectReasonVisible() {
+    public String getSmsSelectReason() {
         final String text = getText(pageElements.smsSelectReason);
         commonLib.info("Validating Select Reason Label is visible : " + text);
         return text;
@@ -348,13 +348,13 @@ public class AmSmsTrails extends BasePage {
     /**
      * This method is used to check next button in pagination is enabled or not
      */
-    public Boolean getSubmitBtnDisabled() {
+    public Boolean isSubmitBtnDisabled() {
         commonLib.info("Checking Submit Btn button is disabled or not");
         return isElementVisible((pageElements.submitSms));
     }
 
 
-    public Boolean getCancelButtonVisible() {
+    public Boolean isCancelButtonVisible() {
         commonLib.info("Checking Cancel Btn is enabled");
         return isEnabled((pageElements.cancelSms));
     }
@@ -366,8 +366,6 @@ public class AmSmsTrails extends BasePage {
         commonLib.info("Going to perform Resend SMS Action");
         pages.getAmSmsTrails().clickOnSmsSelectReason();
         pages.getAmSmsTrails().selectRequestFromDropdown();
-//        pages.getAmSmsTrails().selectDidNotGetSmsFromDropdown();
-//        pages.getAmSmsTrails().selectDeletedTheSmsFromDropdown();
         pages.getAmSmsTrails().enterComment(COMMENT);
         pages.getAmSmsTrails().clickOnSubmitButton();
     }

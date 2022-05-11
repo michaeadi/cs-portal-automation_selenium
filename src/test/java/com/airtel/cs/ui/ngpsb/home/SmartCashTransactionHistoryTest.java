@@ -205,6 +205,7 @@ public class SmartCashTransactionHistoryTest extends Driver {
             }
             actions.assertAllFoundFailedAssert(assertCheck);
         }catch(Exception e){
+            pages.getSmartCashTransactionHistory().clickCrossIcon();
             commonLib.fail("Exception in Method - txnHistoryMetadataTest" + e.fillInStackTrace(), true);
         }
     }

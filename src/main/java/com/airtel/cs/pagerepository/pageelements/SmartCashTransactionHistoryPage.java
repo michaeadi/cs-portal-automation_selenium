@@ -50,8 +50,6 @@ public class SmartCashTransactionHistoryPage {
     public By smsSelectReason = By.xpath("//label[contains(text(),'Select Reason *')]");
     public By selectArrow = By.xpath("//div[@class='mat-select-arrow-wrapper']//div");
     public By selectCustomerRequestFromDropdown = By.xpath("//span[normalize-space()='Customer Request']");
-    public By selectDidNotGetSmsFromDropdown = By.xpath("//span[normalize-space()='Customer did not get SMS']");
-    public By selectDeletedTheSmsFromDropdown = By.xpath("//span[normalize-space()='Customer deleted the SMS by mistake']");
     public By smsTextArea = By.xpath("//div[contains(@class,'mat-form-field')]//textarea[@id='interactionComment']");
     public By cancelSms = By.xpath("//span[contains(@class,'buttons')]//span[contains(text(),'Cancel')]");
     public By submitSms = By.xpath("//span[contains(@class,'buttons')]//span[contains(text(),'Submit')]");

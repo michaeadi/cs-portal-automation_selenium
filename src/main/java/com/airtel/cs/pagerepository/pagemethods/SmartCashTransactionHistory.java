@@ -320,8 +320,6 @@ public class SmartCashTransactionHistory extends BasePage {
         commonLib.info("Going to perform Send Notification Action");
         pages.getSmartCashTransactionHistory().clickOnSmsSelectReason();
         pages.getSmartCashTransactionHistory().selectRequestFromDropdown();
-//        pages.getSmartCashTransactionHistory().selectDidNotGetSmsFromDropdown();
-//        pages.getSmartCashTransactionHistory().selectDeletedTheSmsFromDropdown();
         pages.getSmartCashTransactionHistory().enterComment(COMMENT);
         pages.getSmartCashTransactionHistory().clickOnSubmitButton();
     }
@@ -352,25 +350,6 @@ public class SmartCashTransactionHistory extends BasePage {
         if (isVisible(pageElements.selectCustomerRequestFromDropdown)) ;
         clickWithoutLoader((pageElements.selectCustomerRequestFromDropdown));
     }
-
-    /**
-     * This method is used to click on select Customer did not get SMS
-     */
-    public void selectDidNotGetSmsFromDropdown() {
-        commonLib.info("Going to click Select Reason");
-        if (isVisible(pageElements.selectDidNotGetSmsFromDropdown)) ;
-        clickWithoutLoader((pageElements.selectDidNotGetSmsFromDropdown));
-    }
-
-    /**
-     * This method is used to click on select Customer deleted the SMS
-     */
-    public void selectDeletedTheSmsFromDropdown() {
-        commonLib.info("Going to click Select Reason");
-        if (isVisible(pageElements.selectDeletedTheSmsFromDropdown)) ;
-        clickWithoutLoader((pageElements.selectDeletedTheSmsFromDropdown));
-    }
-
 
     /**
      * This method is used to write the comment into comment box
