@@ -432,7 +432,7 @@ public class AmSmsTrails extends BasePage {
     public void clickOnSubmitButton() {
         commonLib.info("Going to click submit button");
         if (isVisible(pageElements.submitSms))
-            clickWithoutLoader(pageElements.submitSms);
+            clickAndWaitForLoaderToBeRemoved(pageElements.submitSms);
 
     }
 
