@@ -39,26 +39,26 @@
             <class name="com.airtel.cs.ui.ngpsb.demographic.PsbDemoGraphicWidgetTest"/>
         </classes>
     </test>
-    <test name="Account Information Test " preserve-order="true">
-        <groups>
-            <run>
-                <include name="RegressionTest"/>
-            </run>
-        </groups>
-        <classes>
-            <class name="com.airtel.cs.ui.ngpsb.home.AccountInformationTest"/>
-        </classes>
-    </test>
-    <test name="Wallet Information Test " preserve-order="true">
-        <groups>
-            <run>
-                <include name="RegressionTest"/>
-            </run>
-        </groups>
-        <classes>
-            <class name="com.airtel.cs.ui.ngpsb.home.WalletInformationTest"/>
-        </classes>
-    </test>
+<!--    <test name="Account Information Test " preserve-order="true">-->
+<!--        <groups>-->
+<!--            <run>-->
+<!--                <include name="RegressionTest"/>-->
+<!--            </run>-->
+<!--        </groups>-->
+<!--        <classes>-->
+<!--            <class name="com.airtel.cs.ui.ngpsb.home.AccountInformationTest"/>-->
+<!--        </classes>-->
+<!--    </test>-->
+<!--    <test name="Wallet Information Test " preserve-order="true">-->
+<!--        <groups>-->
+<!--            <run>-->
+<!--                <include name="RegressionTest"/>-->
+<!--            </run>-->
+<!--        </groups>-->
+<!--        <classes>-->
+<!--            <class name="com.airtel.cs.ui.ngpsb.home.WalletInformationTest"/>-->
+<!--        </classes>-->
+<!--    </test>-->
     <test name="Transaction History Test " preserve-order="true">
         <groups>
             <run>

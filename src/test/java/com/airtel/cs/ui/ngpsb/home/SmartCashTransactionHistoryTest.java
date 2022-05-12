@@ -170,4 +170,62 @@ public class SmartCashTransactionHistoryTest extends Driver {
             commonLib.fail("Exception in Method - txnHistoryMetadataTest" + e.fillInStackTrace(), true);
         }
     }
+
+    @Test(priority = 5, groups = {"ProdTest", "RegressionTest"}, dependsOnMethods = {"transactionHistoryWidgetLayoutTest", "openCustomerInteraction", "txnHistoryMetadataTest"})
+    public void sendNotificationSmsTest() {
+        try {
+            selUtils.addTestcaseDescription("Validate all the Send Notification transaction are displayed on UI as per api response", "description");
+            final int statusCode = amTransactionHistoryAPI.getStatusCode();
+            if (statusCode != 200) {
+                assertCheck.append(actions.assertEqualBoolean(pages.getMoreAMTxnTabPage().isAirtelMoneyErrorVisibleOnSecondWidget(), true, "API is Giving and Widget is showing error Message on API is " + amTransactionHistoryAPI.getMessage(), "API is Giving error But Widget is not showing error Message on API is " + amTransactionHistoryAPI.getMessage()));
+                commonLib.fail("API is Unable to Get Smart Cash Transaction History for Customer", false);
+            } else if (amTransactionHistoryAPI.getResult().getTotalCount() == null) {
+                assertCheck.append(actions.assertEqualBoolean(pages.getSmartCashTransactionHistory().isAirtelMoneyNoResultFoundVisibleOnSecondWidget(), true, "No Result Found Icon does display on UI.", "No Result Found Icon does not display on UI."));
+            } else {
+                int count = Math.min(amTransactionHistoryAPI.getResult().getTotalCount(), 1);
+                if (count > 0) {
+                    for (int i = 0; i < count; i++) {
+
+                        if (amTransactionHistoryAPI.getResult().getData().get(i).getEnableResendSms()) {
+                            assertCheck.append(actions.assertEqualBoolean(pages.getSmartCashTransactionHistory().isResendSMSIconVisible(i + 1, 1), true, "SMS Notification Icon is enabled as mentioned in API Response.", "SMS Notification Icon is not enabled as mentioned in API Response."));
+                            pages.getSmartCashTransactionHistory().clickSmsNotificationIcon();
+                            assertCheck.append(actions.assertEqualStringType(pages.getSmartCashTransactionHistory().getSendNotificationHeaderVisible(), "Send Notification", "Send SMS Header is visible", "Send SMS header is NOT visible"));
+                            assertCheck.append(actions.assertEqualStringType(pages.getSmartCashTransactionHistory().getIssueDetailVisible(), "Issue Detail:", "Issue Detail is visible", "Issue Detail is NOT visible"));
+                            assertCheck.append(actions.assertEqualStringType(pages.getSmartCashTransactionHistory().getEnterCommentHeaderVisible(), "Enter Comment", "Enter Comment is visible", "Enter Comment is not Visible"));
+                            assertCheck.append(actions.assertEqualStringType(pages.getSmartCashTransactionHistory().getEnterCommentHeaderVisible(), "Select Reason *", "Select Reason is Visible", "Select Reason is not visible"));
+                            assertCheck.append(actions.assertEqualBoolean(pages.getSmartCashTransactionHistory().getSubmitBtnDisabled(), true, "Select Reason is Visible", "Select Reason is not visible"));
+                            assertCheck.append(actions.assertEqualBoolean(pages.getSmartCashTransactionHistory().getCancelButtonVisible(), true, "Cancel Button is visible ", "Cancel Button is not visible"));
+                            pages.getSmartCashTransactionHistory().performSmsNotification();
+                            assertCheck.append(actions.assertEqualBoolean(pages.getSmartCashTransactionHistory().isSuccessPopUpVisible(), true, "Success Popup is visible after performing Submit action", "Success Popup is not visible after performing Submit action"));
+                            String successText = "SMS has being resent on your device";
+                            assertCheck.append(actions.assertEqualStringType(pages.getSmartCashTransactionHistory().getSuccessText(), successText, "Success text is displayed as expected", "Success text is not displayed as expected"));
+                        }
+                    }
+                }
+            }
+            actions.assertAllFoundFailedAssert(assertCheck);
+        }catch(Exception e){
+            pages.getSmartCashTransactionHistory().clickCrossIcon();
+            commonLib.fail("Exception in Method - txnHistoryMetadataTest" + e.fillInStackTrace(), true);
+        }
+    }
+
+    @Test(priority = 6, groups = {"SanityTest", "ProdTest", "RegressionTest"}, dependsOnMethods = {"sendNotificationSmsTest"})
+    public void checkActionTrail() {
+        try {
+            selUtils.addTestcaseDescription("Validating entry should be captured in Action Trail after performing ResendSMS action", "description");
+            pages.getAmSmsTrails().goToActionTrail();
+            assertCheck.append(actions.assertEqualStringType(pages.getAmSmsTrails().getActionType(), "SmartCash SMS Logs - Resend SMS", "Action type for Resend SMS is expected", "Action type for Resend SME is not as expected"));
+            assertCheck.append(actions.assertEqualStringType(pages.getAmSmsTrails().getReason(), "\n" +
+                    "Customer Request", "Reason for Resend SMS is as expected", "Reason for Resend SMS not as expected"));
+            assertCheck.append(actions.assertEqualStringType(pages.getAmSmsTrails().getComment(), constants.getValue(ApplicationConstants.COMMENT), "Comment for Resend SMS is expected", "Comment for Resend SMS is not as expected"));
+            actions.assertAllFoundFailedAssert(assertCheck);
+
+        } catch (Exception e) {
+            commonLib.fail("Exception in Method - checkActionTrail" + e.fillInStackTrace(), true);
+        }
+    }
+
+
 }
+
