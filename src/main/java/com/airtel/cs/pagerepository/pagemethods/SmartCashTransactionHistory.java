@@ -244,7 +244,7 @@ public class SmartCashTransactionHistory extends BasePage {
     /**
      * This method is used to click SMS Notification Icon
      */
-    public void clickSmsNotificationIcon(){
+    public void clickSmsNotificationIcon() {
         commonLib.info("Going to click resend SMS ");
         clickWithoutLoader(pageElements.smsNotificationIcon);
     }
@@ -399,8 +399,8 @@ public class SmartCashTransactionHistory extends BasePage {
      */
     public void clickCrossIcon() {
         commonLib.info("Going to click cross icon");
-        if (isVisible(pageElements.crossIcon));
-        clickWithoutLoader((pageElements.crossIcon));
+        if (isVisible(pageElements.crossIcon))
+            clickWithoutLoader((pageElements.crossIcon));
     }
 
     /**

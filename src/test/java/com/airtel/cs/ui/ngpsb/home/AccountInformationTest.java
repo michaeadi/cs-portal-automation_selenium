@@ -240,13 +240,13 @@ public class AccountInformationTest extends Driver {
                         assertCheck.append(actions.assertEqualBoolean(pages.getAmSmsTrails().isCancelButtonVisible(), true, "Cancel Button is visible ", "Cancel Button is not visible"));
                         pages.getAmSmsTrails().performResendSms();
                         assertCheck.append(actions.assertEqualBoolean(pages.getAmSmsTrails().isSuccessPopUpVisible(), true, "Success Popup is visible after performing Submit action", "Success Popup is not visible after performing Submit action"));
-                        String successText = "Sms has being resent on your device";
-                        assertCheck.append(actions.assertEqualStringType(pages.getAmSmsTrails().getSuccessText(), successText, "Success text is displayed as expected", "Success text is not displayed as expected"));
+                        assertCheck.append(actions.assertEqualStringType(pages.getAmSmsTrails().getSuccessText(), constants.getValue("ngpsb.send.sms.success"), "Success text is displayed as expected", "Success text is not displayed as expected"));
+                        pages.getAmSmsTrails().clickCrossIcon();
+                        break;
                     }
                 }
-
-                actions.assertAllFoundFailedAssert(assertCheck);
             }
+            actions.assertAllFoundFailedAssert(assertCheck);
         } catch(Exception e){
             pages.getAmSmsTrails().clickCrossIcon();
             commonLib.fail("Exception in Method - ResendSms" + e.fillInStackTrace(), true);

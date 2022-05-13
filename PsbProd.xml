@@ -19,7 +19,7 @@
             <class name="com.airtel.cs.ui.frontendagent.loginandlogout.LoginPortalTests"/>
         </classes>
     </test>
-    <test name="Test Side Menu Options">
+   <!-- <test name="Test Side Menu Options">
         <groups>
             <run>
                 <include name="ProdTest"/>
@@ -38,7 +38,7 @@
         <classes>
             <class name="com.airtel.cs.ui.ngpsb.demographic.PsbDemoGraphicWidgetTest"/>
         </classes>
-    </test>
+    </test>-->
     <test name="Account Information Test " preserve-order="true">
         <groups>
             <run>

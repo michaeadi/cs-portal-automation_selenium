@@ -54,7 +54,7 @@ public class SmartCashTransactionHistoryPage {
     public By cancelSms = By.xpath("//span[contains(@class,'buttons')]//span[contains(text(),'Cancel')]");
     public By submitSms = By.xpath("//span[contains(@class,'buttons')]//span[contains(text(),'Submit')]");
     public By successMessage = By.xpath("//div[contains(text(),'Sms has been resent on your device')]");
-    public By crossIcon = By.xpath("//div[contains(@class,'main-container__header success')]//mat-icon[contains(text(),'close')]");
+    public By crossIcon = By.xpath("//mat-icon[contains(text(),'close')]");
     public By demographics = By.xpath("//div[@class='main-container__header success']//span");
     public By smsNotificationIcon = By.xpath("(//div[@class='quick-action ng-star-inserted'])/span/span//img[contains(@src,'send-msg.svg')]");
 

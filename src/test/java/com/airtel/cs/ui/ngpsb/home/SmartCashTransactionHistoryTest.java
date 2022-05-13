@@ -192,19 +192,20 @@ public class SmartCashTransactionHistoryTest extends Driver {
                             assertCheck.append(actions.assertEqualStringType(pages.getSmartCashTransactionHistory().getSendNotificationHeaderVisible(), "Send Notification", "Send SMS Header is visible", "Send SMS header is NOT visible"));
                             assertCheck.append(actions.assertEqualStringType(pages.getSmartCashTransactionHistory().getIssueDetailVisible(), "Issue Detail:", "Issue Detail is visible", "Issue Detail is NOT visible"));
                             assertCheck.append(actions.assertEqualStringType(pages.getSmartCashTransactionHistory().getEnterCommentHeaderVisible(), "Enter Comment", "Enter Comment is visible", "Enter Comment is not Visible"));
-                            assertCheck.append(actions.assertEqualStringType(pages.getSmartCashTransactionHistory().getEnterCommentHeaderVisible(), "Select Reason *", "Select Reason is Visible", "Select Reason is not visible"));
+                            assertCheck.append(actions.assertEqualStringType(pages.getSmartCashTransactionHistory().getSmsSelectReasonVisible(), "Select Reason *", "Select Reason is Visible", "Select Reason is not visible"));
                             assertCheck.append(actions.assertEqualBoolean(pages.getSmartCashTransactionHistory().getSubmitBtnDisabled(), true, "Select Reason is Visible", "Select Reason is not visible"));
                             assertCheck.append(actions.assertEqualBoolean(pages.getSmartCashTransactionHistory().getCancelButtonVisible(), true, "Cancel Button is visible ", "Cancel Button is not visible"));
                             pages.getSmartCashTransactionHistory().performSmsNotification();
                             assertCheck.append(actions.assertEqualBoolean(pages.getSmartCashTransactionHistory().isSuccessPopUpVisible(), true, "Success Popup is visible after performing Submit action", "Success Popup is not visible after performing Submit action"));
-                            String successText = "SMS has being resent on your device";
-                            assertCheck.append(actions.assertEqualStringType(pages.getSmartCashTransactionHistory().getSuccessText(), successText, "Success text is displayed as expected", "Success text is not displayed as expected"));
+                            assertCheck.append(actions.assertEqualStringType(pages.getSmartCashTransactionHistory().getSuccessText(), constants.getValue("ngpsb.send.sms.success"), "Success text is displayed as expected", "Success text is not displayed as expected"));
+                            pages.getSmartCashTransactionHistory().clickCrossIcon();
+                            break;
                         }
                     }
                 }
             }
             actions.assertAllFoundFailedAssert(assertCheck);
-        }catch(Exception e){
+        } catch (Exception e) {
             pages.getSmartCashTransactionHistory().clickCrossIcon();
             commonLib.fail("Exception in Method - txnHistoryMetadataTest" + e.fillInStackTrace(), true);
         }
@@ -215,10 +216,10 @@ public class SmartCashTransactionHistoryTest extends Driver {
         try {
             selUtils.addTestcaseDescription("Validating entry should be captured in Action Trail after performing ResendSMS action", "description");
             pages.getAmSmsTrails().goToActionTrail();
-            assertCheck.append(actions.assertEqualStringType(pages.getAmSmsTrails().getActionType(), "SmartCash SMS Logs - Resend SMS", "Action type for Resend SMS is expected", "Action type for Resend SME is not as expected"));
-            assertCheck.append(actions.assertEqualStringType(pages.getAmSmsTrails().getReason(), "\n" +
+            assertCheck.append(actions.assertEqualStringType(pages.getAmSmsTrails().getActionType(), "SmartCash Txn History - Resend SMS", "Action type for Resend SMS is expected", "Action type for Resend SME is not as expected"));
+            assertCheck.append(actions.assertEqualStringType(pages.getAmSmsTrails().getReason(),
                     "Customer Request", "Reason for Resend SMS is as expected", "Reason for Resend SMS not as expected"));
-            assertCheck.append(actions.assertEqualStringType(pages.getAmSmsTrails().getComment(), constants.getValue(ApplicationConstants.COMMENT), "Comment for Resend SMS is expected", "Comment for Resend SMS is not as expected"));
+            assertCheck.append(actions.assertEqualStringType(pages.getAmSmsTrails().getComment(), ApplicationConstants.COMMENT, "Comment for Resend SMS is expected", "Comment for Resend SMS is not as expected"));
             actions.assertAllFoundFailedAssert(assertCheck);
 
         } catch (Exception e) {

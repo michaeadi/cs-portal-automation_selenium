@@ -90,7 +90,7 @@ public class PinReset extends BasePage {
     public void clickOnSubmitButton() {
         commonLib.info("Going to click submit button");
         if (isVisible(pageElements.submitButton))
-            clickWithoutLoader(pageElements.submitButton);
+            clickAndWaitForLoaderToBeRemoved(pageElements.submitButton);
         else
             commonLib.fail("Submit Button is not visible", true);
     }
