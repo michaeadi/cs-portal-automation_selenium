@@ -178,7 +178,7 @@ public class AccountInformationTest extends Driver {
             } else if (bankDetails.getStatusCode() == 2500 && bankDetails.getStatus().equalsIgnoreCase("status.failure")) {
                 commonLib.fail("CS API is unable to give Bank Accounts", true);
             } else {
-                int size = pages.getAmSmsTrails().getNoOfRows();
+                int size = pages.getAmSmsTrails().getRowsList();
                 for (int i = 0; i < size; i++) {
                     int row = i + 1;
                     assertCheck.append(actions.assertEqualStringType(pages.getBankAccount().getHeaderValue(row, 1), bankDetails.getResult().get(i).getAccountNumber(), "Account No. is same as expected ", "Account No.is NOT same as expected"));
@@ -213,7 +213,7 @@ public class AccountInformationTest extends Driver {
             } else if (smsLogs.getStatusCode() == 2500 && smsLogs.getStatus().equalsIgnoreCase("status.failure")) {
                 commonLib.fail("CS API is unable to give Sms Logs data ", true);
             } else {
-                int size = pages.getAmSmsTrails().getNoOfRows();
+                int size = pages.getAmSmsTrails().getRowsList();
                 for (int i = 0; i < size; i++) {
                     int row = i + 1;
                     assertCheck.append(actions.assertEqualStringType(pages.getAmSmsTrails().getRowValue(row, 1), smsLogs.getResult().get(i).getSmsDate(), "Timestamp is same as expected ", "Timestamp Id is NOT same as expected"));
@@ -250,7 +250,7 @@ public class AccountInformationTest extends Driver {
     }
 
 
-    @Test(priority = 9, groups = {"SanityTest", "ProdTest", "RegressionTest"}, dependsOnMethods = {"testSmsLogsTabs", "testResendSms"})
+    @Test(priority = 9, groups = {"SanityTest", "ProdTest", "RegressionTest"}, dependsOnMethods = {"testResendSms"})
     public void checkActionTrail() {
         try {
             selUtils.addTestcaseDescription("Validating entry should be captured in Action Trail after performing ResendSMS action", "description");
