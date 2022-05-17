@@ -15,7 +15,6 @@ public class SmartCashTransactionHistoryPage {
 
     public String valueRowSec = "//div[@data-csautomation-key='AIRTEL_MONEY']//div[@class='table-data-wrapper ng-star-inserted']//div[@class='ng-star-inserted'][";
     public String headerRowSec = "//div[@data-csautomation-key='AIRTEL_MONEY']/div[@class='card__content restricted ng-star-inserted']/descendant::div[@class='card__card-header--card-body--table--list-heading ng-star-inserted']/div";
-    public String resendSMSSec = "//div[@data-csautomation-key='AIRTEL_MONEY']/div[@class='card__content restricted ng-star-inserted']/descendant::div[@class='card__card-header--card-body--table--data-list row-border'][1]/div[12]//img[1][@class='hide-reversal ng-star-inserted']";
     public String valueColumns = "]//div[@class='data-container ng-star-inserted'][";
     public String iconColumn = "]//div[@class='quick-action ng-star-inserted'][";
     public String columnText = "]//span";
@@ -24,7 +23,6 @@ public class SmartCashTransactionHistoryPage {
     public String negSymbol = "]//img[@class='sign-icon-before ng-star-inserted']";
     public String posSymbol = "]//img[@class='sign-icon-before ng-star-inserted']";
     public String headerRow = "//div[@data-csautomation-key='AIRTEL_MONEY']/div[@class='card__content restricted ng-star-inserted']/descendant::div[@class='card__card-header--card-body--table--list-heading ng-star-inserted']/div";
-    public String resendSMS = "//div[@data-csautomation-key='AIRTEL_MONEY']/div[@class='card__content restricted ng-star-inserted']/descendant::div[@class='card__card-header--card-body--table--data-list row-border'][1]/div[12]//img[1][@class='hide-reversal ng-star-inserted']";
 
     public By airtelMoneyNoResultFoundSec = By.xpath("//div[@data-csautomation-key='AIRTEL_MONEY']/div[@class='card__content restricted ng-star-inserted']/descendant::div[@class='no-result-found ng-star-inserted']");
     public By airtelMoneyNoResultFoundMessageSec = By.xpath("//div[@data-csautomation-key='AIRTEL_MONEY']/div[@class='card__content restricted ng-star-inserted']/descendant::div[@class='no-result-found ng-star-inserted']/span/span");
@@ -41,5 +39,34 @@ public class SmartCashTransactionHistoryPage {
     public String detailsColumnText = "]/span";
     public String rowMetaInfo1 = "//*[contains(@class,'table-data-wrapper')]/div[";
     public String rowMetaInfo2 = "]//*[text()=' keyboard_arrow_down']";
+
+
+    /**
+     * Send Notification locators
+     */
+    public By smsHeader = By.xpath("//div[@class='main-container__header']//span[contains(text(),'Send Notification')]");
+    public By smsIssueDetail = By.xpath("//div[contains(text(),'Issue Detail:')]");
+    public By enterComment = By.xpath("//div[@class='main-container__body--form-data--issue-comment--label']//span[normalize-space()='Enter Comment']");
+    public By smsSelectReason = By.xpath("//label[contains(text(),'Select Reason *')]");
+    public By selectArrow = By.xpath("//div[@class='mat-select-arrow-wrapper']//div");
+    public By selectCustomerRequestFromDropdown = By.xpath("//span[normalize-space()='Customer Request']");
+    public By smsTextArea = By.xpath("//div[contains(@class,'mat-form-field')]//textarea[@id='interactionComment']");
+    public By cancelSms = By.xpath("//span[contains(@class,'buttons')]//span[contains(text(),'Cancel')]");
+    public By submitSms = By.xpath("//span[contains(@class,'buttons')]//span[contains(text(),'Submit')]");
+    public By successMessage = By.xpath("//div[contains(text(),'Sms has been resent on your device')]");
+    public By crossIcon = By.xpath("//mat-icon[contains(text(),'close')]");
+    public By demographics = By.xpath("//div[@class='main-container__header success']//span");
+    public By smsNotificationIcon = By.xpath("(//div[@class='quick-action ng-star-inserted'])/span/span//img[contains(@src,'send-msg.svg')]");
+
+
+    /**
+     * Action Trail
+     */
+    public By homePage=By.xpath("//span[contains(text(),'HOME')]");
+    public By viewHistory=By.xpath("//span[contains(text(),'VIEW HISTORY')]");
+    public By actionTrail=By.xpath("//div[contains(text(),'Action Trail')]");
+    public By actionType=By.xpath("//div[@class='agent-list-container']/table/tbody/tr/td[1]");
+    public By reason=By.xpath("//div[@class='agent-list-container']/table/tbody/tr/td[3]");
+    public By comment=By.xpath("//div[@class='agent-list-container']/table/tbody/tr/td[6]");
 
 }

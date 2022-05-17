@@ -29,7 +29,7 @@
             <class name="com.airtel.cs.ui.frontendagent.leftmenu.SideMenuTests"/>
         </classes>
     </test>
-    <!--<test name="Demo Graphic Widget Test " preserve-order="true">
+    <test name="Demo Graphic Widget Test " preserve-order="true">
         <groups>
             <run>
                 <include name="RegressionTest"/>
@@ -38,7 +38,7 @@
         <classes>
             <class name="com.airtel.cs.ui.ngpsb.demographic.PsbDemoGraphicWidgetTest"/>
         </classes>
-    </test>-->
+    </test>
     <test name="Account Information Test " preserve-order="true">
         <groups>
             <run>
@@ -49,7 +49,7 @@
             <class name="com.airtel.cs.ui.ngpsb.home.AccountInformationTest"/>
         </classes>
     </test>
-    <!--<test name="Wallet Information Test " preserve-order="true">
+    <test name="Wallet Information Test " preserve-order="true">
         <groups>
             <run>
                 <include name="RegressionTest"/>
@@ -108,7 +108,7 @@
         <classes>
             <class name="com.airtel.cs.ui.ngpsb.demographic.AccountBarUnBarTest"/>
         </classes>
-    </test>-->
+    </test>
     <test name="Customer Interaction Screen Test" preserve-order="true">
         <groups>
             <run>

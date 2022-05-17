@@ -33,7 +33,6 @@ public class AmSmsTrails extends BasePage {
 
     /**
      * This method is used to check more icon visible or not
-     *
      * @return
      */
     public boolean isMoreIconVisible() {
@@ -44,7 +43,6 @@ public class AmSmsTrails extends BasePage {
 
     /**
      * This method is used to check AM Profile Details widget  visible or not
-     *
      * @return
      */
     public boolean isAmProfileDetailsDetailWidgetVisible() {
@@ -55,7 +53,6 @@ public class AmSmsTrails extends BasePage {
 
     /**
      * This method is used to click SMS Logs tab
-     *
      * @return
      */
     public void clickSmsLogs() {
@@ -75,7 +72,6 @@ public class AmSmsTrails extends BasePage {
 
     /**
      * This method is used to click date filter
-     *
      * @return
      */
     public void clickDateFilter() {
@@ -85,7 +81,6 @@ public class AmSmsTrails extends BasePage {
 
     /**
      * This method is used to click cancel button of date filter
-     *
      * @return
      */
     public void clickCancelOfDate() {
@@ -95,7 +90,6 @@ public class AmSmsTrails extends BasePage {
 
     /**
      * This method is used to check Sms Logs tab visible or not
-     *
      * @return
      */
     public boolean isSmsLogVisible() {
@@ -106,7 +100,6 @@ public class AmSmsTrails extends BasePage {
 
     /**
      * This method is used to check Timestamp label visible or not
-     *
      * @return
      */
     public boolean isTimeStampVisible() {
@@ -117,7 +110,6 @@ public class AmSmsTrails extends BasePage {
 
     /**
      * This method is used to check sms body visible or not
-     *
      * @return
      */
     public boolean isSmsBodyVisible() {
@@ -128,7 +120,6 @@ public class AmSmsTrails extends BasePage {
 
     /**
      * This method is used to check Sms Id visible or not
-     *
      * @return
      */
     public boolean isSmsIdVisible() {
@@ -139,7 +130,6 @@ public class AmSmsTrails extends BasePage {
 
     /**
      * This method is used to check Transaction Id visible or not
-     *
      * @return
      */
     public boolean isTransactionIdVisible() {
@@ -150,7 +140,6 @@ public class AmSmsTrails extends BasePage {
 
     /**
      * This method is used to check date filter visible or not
-     *
      * @return
      */
     public boolean isDateFilterVisible() {
@@ -161,7 +150,6 @@ public class AmSmsTrails extends BasePage {
 
     /**
      * This method is used to check calendar visible or not
-     *
      * @return
      */
     public boolean isCalendarVisible() {
@@ -172,7 +160,6 @@ public class AmSmsTrails extends BasePage {
 
     /**
      * This method is used to get Footer auuid of SMS Logs Widget
-     *
      * @return
      */
     public String getFooterAuuid() {
@@ -183,7 +170,6 @@ public class AmSmsTrails extends BasePage {
 
     /**
      * This method is used to get Middle auuid of SMS Logs Widget
-     *
      * @return
      */
     public String getMiddleAuuid() {
@@ -216,6 +202,8 @@ public class AmSmsTrails extends BasePage {
 
     /**
      * This method is used to get no result found message
+     *
+     * @return String The String
      */
     public String getNoResultFoundMessage() {
         final String text = getText(pageElements.noResultFoundMessage);
@@ -239,7 +227,6 @@ public class AmSmsTrails extends BasePage {
 
     /**
      * This method is used get Action value based on passed row and column
-     *
      * @param row
      * @param column
      * @return
@@ -249,19 +236,6 @@ public class AmSmsTrails extends BasePage {
         result = getText(By.xpath(pageElements.dataRows + row + pageElements.dataColumns + column + pageElements.actionValue));
         commonLib.info("Reading Value(" + row + "): " + result);
         return result;
-    }
-
-    /**
-     * This method is used to get total no. of rows
-     */
-    public int getRowsList() {
-        if (isVisibleContinueExecution(pageElements.totalRows)) {
-            List<WebElement> list = returnListOfElement(pageElements.totalRows);
-            return list.size();
-        } else {
-            commonLib.warning("No Data is available under Sms Logs Widget");
-            return 0;
-        }
     }
 
     /**
