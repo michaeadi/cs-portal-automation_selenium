@@ -17,7 +17,8 @@ import org.testng.annotations.Test;
 public class AccountInformationTest extends Driver {
     private static String customerNumber = null;
     PsbRequestSource api = new PsbRequestSource();
-    CLMDetailsResponse clmDetails;
+    CLMDetailsResponse clmDetails ;
+    SmsLogsResponse smsLogs;
     String barringStatus;
     String className = this.getClass().getName();
 
@@ -206,7 +207,7 @@ public class AccountInformationTest extends Driver {
         try {
             selUtils.addTestcaseDescription("Validate Wallets tab data", "description");
             pages.getAmLinkedWallets().clickSmsLogsTab();
-            SmsLogsResponse smsLogs = api.getSMSLogs(customerNumber);
+             smsLogs = api.getSMSLogs(customerNumber);
             assertCheck.append(actions.assertEqualIntType(clmDetails.getStatusCode(), 200, "Sms Logs API Status Code Matched and is :" + clmDetails.getStatusCode(), "Sms Logs API Status Code NOT Matched and is :" + clmDetails.getStatusCode(), false));
             if (smsLogs.getStatusCode() == 200 && smsLogs.getResult().size() == 0) {
                 commonLib.warning("SMS Logs data is not available for the test msisdn");
@@ -229,5 +230,24 @@ public class AccountInformationTest extends Driver {
         }
     }
 
+    @Test(priority = 8, groups = {"SanityTest", "ProdTest", "RegressionTest"}, dependsOnMethods = {"testSmsLogsTabs"})
+    public void testResendSms() {
+        try {
+            selUtils.addTestcaseDescription("Validate Resend SMS", "description");
+            smsLogs = api.getSMSLogs(customerNumber);
+            assertCheck.append(actions.assertEqualIntType(smsLogs.getStatusCode(), 200, "Sms Logs API Status Code Matched and is :" + smsLogs.getStatusCode(), "Sms Logs API Status Code NOT Matched and is :" + smsLogs.getStatusCode(), false));
+            if (smsLogs.getStatusCode() != 200) {
+                commonLib.warning("SMS Logs data is not available for the test msisdn");
+            } else if (smsLogs.getStatusCode() == 2500 && smsLogs.getStatus().equalsIgnoreCase("status.failure")) {
+                commonLib.fail("CS API is unable to give Sms Logs data ", true);
+            } else {
+                assertCheck = pages.getAmSmsTrails().sendSMS(smsLogs);
+            }
+            actions.assertAllFoundFailedAssert(assertCheck);
+        } catch (Exception e) {
+            pages.getAmSmsTrails().clickCrossIcon();
+            commonLib.fail("Exception in Method - ResendSms" + e.fillInStackTrace(), true);
+        }
+    }
 }
 

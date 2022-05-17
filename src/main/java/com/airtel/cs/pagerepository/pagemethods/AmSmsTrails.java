@@ -1,6 +1,7 @@
 package com.airtel.cs.pagerepository.pagemethods;
 
 
+import com.airtel.cs.model.cs.response.am.SmsLogsResponse;
 import com.airtel.cs.pagerepository.pageelements.AmSmsTrailsPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -8,6 +9,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 
 import java.util.List;
+
+import static com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants.COMMENT;
 
 public class AmSmsTrails extends BasePage {
     AmSmsTrailsPage pageElements;
@@ -19,6 +22,7 @@ public class AmSmsTrails extends BasePage {
 
     /**
      * This method is used to check AM Transactions Widget visible or not
+     *
      * @return
      */
     public boolean isAmTransactionsWidgetVisible() {
@@ -29,6 +33,7 @@ public class AmSmsTrails extends BasePage {
 
     /**
      * This method is used to check more icon visible or not
+     *
      * @return
      */
     public boolean isMoreIconVisible() {
@@ -39,6 +44,7 @@ public class AmSmsTrails extends BasePage {
 
     /**
      * This method is used to check AM Profile Details widget  visible or not
+     *
      * @return
      */
     public boolean isAmProfileDetailsDetailWidgetVisible() {
@@ -49,11 +55,12 @@ public class AmSmsTrails extends BasePage {
 
     /**
      * This method is used to click SMS Logs tab
+     *
      * @return
      */
     public void clickSmsLogs() {
         commonLib.info("Going to click SMS Logs tab");
-        clickWithoutLoader(pageElements.smsLogs);
+        clickAndWaitForLoaderToBeRemoved(pageElements.smsLogs);
     }
 
     /**
@@ -68,6 +75,7 @@ public class AmSmsTrails extends BasePage {
 
     /**
      * This method is used to click date filter
+     *
      * @return
      */
     public void clickDateFilter() {
@@ -77,6 +85,7 @@ public class AmSmsTrails extends BasePage {
 
     /**
      * This method is used to click cancel button of date filter
+     *
      * @return
      */
     public void clickCancelOfDate() {
@@ -86,6 +95,7 @@ public class AmSmsTrails extends BasePage {
 
     /**
      * This method is used to check Sms Logs tab visible or not
+     *
      * @return
      */
     public boolean isSmsLogVisible() {
@@ -96,6 +106,7 @@ public class AmSmsTrails extends BasePage {
 
     /**
      * This method is used to check Timestamp label visible or not
+     *
      * @return
      */
     public boolean isTimeStampVisible() {
@@ -106,6 +117,7 @@ public class AmSmsTrails extends BasePage {
 
     /**
      * This method is used to check sms body visible or not
+     *
      * @return
      */
     public boolean isSmsBodyVisible() {
@@ -116,6 +128,7 @@ public class AmSmsTrails extends BasePage {
 
     /**
      * This method is used to check Sms Id visible or not
+     *
      * @return
      */
     public boolean isSmsIdVisible() {
@@ -126,6 +139,7 @@ public class AmSmsTrails extends BasePage {
 
     /**
      * This method is used to check Transaction Id visible or not
+     *
      * @return
      */
     public boolean isTransactionIdVisible() {
@@ -136,6 +150,7 @@ public class AmSmsTrails extends BasePage {
 
     /**
      * This method is used to check date filter visible or not
+     *
      * @return
      */
     public boolean isDateFilterVisible() {
@@ -146,6 +161,7 @@ public class AmSmsTrails extends BasePage {
 
     /**
      * This method is used to check calendar visible or not
+     *
      * @return
      */
     public boolean isCalendarVisible() {
@@ -156,6 +172,7 @@ public class AmSmsTrails extends BasePage {
 
     /**
      * This method is used to get Footer auuid of SMS Logs Widget
+     *
      * @return
      */
     public String getFooterAuuid() {
@@ -166,6 +183,7 @@ public class AmSmsTrails extends BasePage {
 
     /**
      * This method is used to get Middle auuid of SMS Logs Widget
+     *
      * @return
      */
     public String getMiddleAuuid() {
@@ -191,15 +209,13 @@ public class AmSmsTrails extends BasePage {
      * @return true/false
      */
     public Boolean isWidgetErrorMessageVisible() {
-        Boolean status=(isElementVisible(pageElements.widgetErrorMessage) || isElementVisible(pageElements.unableToFetchDataMessage));
+        Boolean status = (isElementVisible(pageElements.widgetErrorMessage) || isElementVisible(pageElements.unableToFetchDataMessage));
         commonLib.info("Is error message visible when there is widget error :" + status);
         return status;
     }
 
     /**
      * This method is used to get no result found message
-     *
-     * @return String The String
      */
     public String getNoResultFoundMessage() {
         final String text = getText(pageElements.noResultFoundMessage);
@@ -209,6 +225,7 @@ public class AmSmsTrails extends BasePage {
 
     /**
      * This method is used get first header value based on passed row and column
+     *
      * @param row
      * @param column
      * @return
@@ -222,6 +239,7 @@ public class AmSmsTrails extends BasePage {
 
     /**
      * This method is used get Action value based on passed row and column
+     *
      * @param row
      * @param column
      * @return
@@ -236,17 +254,98 @@ public class AmSmsTrails extends BasePage {
     /**
      * This method is used to get total no. of rows
      */
-    public int getNoOfRows()
-    {
-        if(isVisibleContinueExecution(pageElements.totalRows))
-        {
-            List<WebElement> list= returnListOfElement(pageElements.totalRows);
+    public int getRowsList() {
+        if (isVisibleContinueExecution(pageElements.totalRows)) {
+            List<WebElement> list = returnListOfElement(pageElements.totalRows);
             return list.size();
-        }else {
+        } else {
             commonLib.warning("No Data is available under Sms Logs Widget");
             return 0;
         }
     }
+
+    /**
+     * This Method will be used to get the total row size in a table
+     *
+     * @return the row count
+     */
+    public String getSMSRowCount() {
+        String rowCount;
+        rowCount = getText(pageElements.totalSMSRow);
+        rowCount = rowCount.substring(rowCount.indexOf("of") + 3);
+        rowCount = rowCount.replace("Results", "").trim();
+        return rowCount;
+    }
+
+    /**
+     * This Method will return the number of pages of records
+     *
+     * @return page size
+     */
+    public int getNumberOfPages() {
+        int pageCount = 0;
+        int rowCount = Integer.parseInt(getSMSRowCount());
+        if (rowCount % 5 == 0) {
+            pageCount = rowCount / 5;
+        }
+        if (rowCount % 5 != 0) {
+            rowCount = rowCount + (5 - rowCount % 5);
+            pageCount = rowCount / 5;
+        }
+        return pageCount;
+    }
+
+    /**
+     * This method will give the no. of rows
+     *
+     * @return
+     */
+    public int checkRowSize() {
+        final List<WebElement> rows = getElementsListFromBy(pageElements.resendSms);
+        return rows.size();
+    }
+
+    /**
+     * This method will be used to test resend SMS
+     *
+     * @param smsLogs the sms log api response
+     * @return it will return assertCheck value
+     */
+    public StringBuilder sendSMS(SmsLogsResponse smsLogs) {
+        int pageCount = getNumberOfPages();
+        boolean rowFound = false;
+        for (int x = 0; x < pageCount; x++) {
+            for (int i = 0; i < checkRowSize(); i++) {
+                final List<WebElement> rows = getElementsListFromBy(pageElements.resendSms);
+                for (WebElement webElement : rows) {
+                    String transactionType = smsLogs.getResult().get(i).getTransactionId();
+                    if (transactionType.contains("APC")) {
+                        rowFound = true;
+                        webElement.click();
+                        assertCheck.append(actions.assertEqualStringType(getSendSmsHeader(), "Send SMS", "Send SMS Header is visible", "Send SMS header is NOT visible"));
+                        assertCheck.append(actions.assertEqualStringType(getIssueDetail(), "Issue Detail:", "Issue Detail is visible", "Issue Detail is NOT visible"));
+                        assertCheck.append(actions.assertEqualStringType(getEnterCommentHeader(), "Enter Comment", "Enter Comment is visible", "Enter Comment is not Visible"));
+                        assertCheck.append(actions.assertEqualStringType(getSmsSelectReason(), "Select Reason *", "Select Reason is Visible", "Select Reason is not visible"));
+                        assertCheck.append(actions.assertEqualBoolean(isSubmitBtnDisabled(), true, "Select Reason is Visible", "Select Reason is not visible"));
+                        assertCheck.append(actions.assertEqualBoolean(isCancelButtonVisible(), true, "Cancel Button is visible ", "Cancel Button is not visible"));
+                        performResendSms();
+                        assertCheck.append(actions.assertEqualBoolean(isSuccessPopUpVisible(), true, "Success Popup is visible after performing Submit action", "Success Popup is not visible after performing Submit action"));
+                        assertCheck.append(actions.assertEqualStringType(getSuccessText(), constants.getValue("ngpsb.send.sms.success"), "Success text is displayed as expected", "Success text is not displayed as expected"));
+                        clickCrossIcon();
+                        break;
+                    } else
+                        commonLib.warning("No records found with Txn id as APC on  page no : " + (x+1));
+                }
+                if (!rowFound) {
+                    clickAndWaitForLoaderToBeRemoved(pageElements.nextPage);
+                } else {
+                    break;
+                }
+            }
+        }
+        return assertCheck;
+    }
+
 
     /**
      * This method is used to check whether pagination is displayed or not
@@ -297,4 +396,224 @@ public class AmSmsTrails extends BasePage {
         commonLib.info("Clicking Previous button in pagination");
         clickWithoutLoader(pageElements.previousBtnEnable);
     }
+
+    /**
+     * This method is used to click resend sms
+     */
+    public void clickResendSms() {
+        commonLib.info("Going to click resend SMS ");
+        clickWithoutLoader(pageElements.resendSms);
+    }
+
+    /**
+     * This method is used to check for resend sms Header
+     */
+    public String getSendSmsHeader() {
+        final String text = getText(pageElements.smsHeader);
+        commonLib.info("Validating SMS Header is visible : " + text);
+        return text;
+    }
+
+
+    /**
+     * This method use to check Issue Detail text is displayed or not
+     */
+    public String getIssueDetail() {
+        final String text = getText(pageElements.smsIssueDetail);
+        commonLib.info("Validating Issue Detail is visible : " + text);
+        return text;
+    }
+
+    /**
+     * This method use to check Enter Comment is displayed or not
+     *
+     * @return Text
+     */
+    public String getEnterCommentHeader() {
+        final String text = getText(pageElements.enterComment);
+        commonLib.info("Validating Enter Comment Header is visible : " + text);
+        return text;
+    }
+
+    /**
+     * This method use to check Enter Comment is displayed or not
+     *
+     * @return Text
+     */
+    public String getSmsSelectReason() {
+        final String text = getText(pageElements.smsSelectReason);
+        commonLib.info("Validating Select Reason Label is visible : " + text);
+        return text;
+    }
+
+    /**
+     * This method is used to check next button in pagination is enabled or not
+     */
+    public Boolean isSubmitBtnDisabled() {
+        commonLib.info("Checking Submit Btn button is disabled or not");
+        return isElementVisible((pageElements.submitSms));
+    }
+
+
+    public Boolean isCancelButtonVisible() {
+        commonLib.info("Checking Cancel Btn is enabled");
+        return isEnabled((pageElements.cancelSms));
+    }
+
+    /**
+     * This method is used to  Perform ResendSMS by selecting reason and comment
+     */
+    public void performResendSms() {
+        commonLib.info("Going to perform Resend SMS Action");
+        clickOnSmsSelectReason();
+        selectRequestFromDropdown();
+        enterComment(COMMENT);
+        //clickOnSubmitButton();
+    }
+
+    /**
+     * This method is used to go to Action Trail tab
+     */
+    public void goToActionTrail() {
+        commonLib.info("Going to click Action Trail tab");
+        pages.getPinReset().clickViewHistoryTab();
+        pages.getPinReset().clickActionTrailTab();
+    }
+
+    /**
+     * This method is used to click on select reason
+     */
+    public void clickOnSmsSelectReason() {
+        commonLib.info("Going to click Select Reason");
+        if (isVisible(pageElements.selectArrow))
+            clickWithoutLoader((pageElements.selectArrow));
+    }
+
+    /**
+     * This method is used to click on select Customer Request
+     */
+    public void selectRequestFromDropdown() {
+        commonLib.info("Going to click Select Reason");
+        if (isVisible(pageElements.selectCustomerRequestFromDropdown))
+            clickWithoutLoader((pageElements.selectCustomerRequestFromDropdown));
+    }
+
+//    /**
+//     * This method is used to click on select Customer did not get SMS
+//     */
+//    public void selectDidNotGetSmsFromDropdown() {
+//        commonLib.info("Going to click Select Reason");
+//        if (isVisible(pageElements.selectArrow)) ;
+//        clickWithoutLoader((pageElements.selectDidNotGetSmsFromDropdown));
+//    }
+//
+//    /**
+//     * This method is used to click on select Customer deleted the SMS
+//     */
+//    public void selectDeletedTheSmsFromDropdown() {
+//        commonLib.info("Going to click Select Reason");
+//        if (isVisible(pageElements.selectArrow)) ;
+//        clickWithoutLoader((pageElements.selectDeletedTheSmsFromDropdown));
+//    }
+
+
+    /**
+     * This method is used to write the comment into comment box
+     *
+     * @param text The comment
+     */
+    public void enterComment(String text) {
+        commonLib.info("Writing comment into comment box: " + text);
+        enterText(pageElements.smsTextArea, text);
+    }
+
+    /**
+     * This method is used to click on Submit button
+     */
+    public void clickOnSubmitButton() {
+        commonLib.info("Going to click submit button");
+        if (isVisible(pageElements.submitSms))
+            clickAndWaitForLoaderToBeRemoved(pageElements.submitSms);
+
+    }
+
+    /**
+     * This method is used to check demographic widget visible after closing pop up
+     *
+     * @return true/false
+     */
+    public Boolean isSuccessPopUpVisible() {
+        final boolean state = isElementVisible(pageElements.demographics);
+        commonLib.info("Is demographic widget visible" + state);
+        return state;
+
+    }
+
+    /**
+     * This method is used to get text of success message
+     *
+     * @return text
+     */
+    public String getSuccessText() {
+        final String text = getText(pageElements.successMessage);
+        commonLib.info("Getting success pop up text :" + text);
+        return text;
+    }
+
+    /**
+     * This method is used to click on cross icon of success pop up
+     */
+    public void clickCrossIcon() {
+        commonLib.info("Going to click cross icon");
+        if (isVisible(pageElements.crossIcon))
+            clickWithoutLoader(pageElements.crossIcon);
+    }
+
+    /**
+     * This method is used to get action type form action trail
+     *
+     * @return
+     */
+    public String getActionType() {
+        commonLib.info(getText(pageElements.actionType));
+        return getText(pageElements.actionType);
+    }
+
+    /**
+     * This method is used to get reason form action trail
+     */
+    public String getReason() {
+        commonLib.info(getText(pageElements.reason));
+        return getText(pageElements.reason);
+    }
+
+    /**
+     * This method is used to get comment form action trail
+     *
+     * @return
+     */
+    public String getComment() {
+        commonLib.info(getText(pageElements.comment));
+        return getText(pageElements.comment);
+    }
+
+    public Boolean isResendSmsVisible() {
+        final boolean state = isElementVisible(pageElements.reSendSmsLink);
+        commonLib.info("Is Resend SMS visible" + state);
+        return state;
+    }
+
+    /**
+     * This method is used to get total no. of rows
+     */
+    public int getNoOfRows() {
+        if (isVisibleContinueExecution(pageElements.totalRows)) {
+            List<WebElement> list = returnListOfElement(pageElements.totalRows);
+            return list.size();
+        } else {
+            commonLib.warning("No Data is available under Sms Logs Widget");
+            return 0;
+        }
+    }
+
 }

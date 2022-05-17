@@ -124,6 +124,8 @@ public class ApplicationConstants {
     public static final String NUBAN_ID = "cs.nuban.id";
     public static final String CUSTOMER_ID = "cs.customer.id";
     public static final String INVALID_CUSTOMER_MSISDN = "cs.invalid.customer.msisdn";
+    public static final String INVALID_NUBAN_ID = "cs.invalid.customer.msisdn";
+    public static final String INVALID_CUSTOMER_ID = "cs.invalid.customer.msisdn";
 
     private ApplicationConstants() {
         throw new IllegalStateException();

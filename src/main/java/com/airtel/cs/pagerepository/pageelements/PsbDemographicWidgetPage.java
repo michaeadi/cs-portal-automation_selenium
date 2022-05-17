@@ -16,7 +16,8 @@ public class PsbDemographicWidgetPage {
 
     public String row="//tr[contains(@class,'list--list-row')]";
     public String noOfRows="//tr[contains(@class,'list--list-row')]";
-    public String typeRow="]//td[3]//div";
+    public String rowFirst ="]//td[";
+    public String rowSecond="]//div";
     public String column="]//td[5]//img[contains(@src,'maximize.svg')]";
 
     public  By walletWidget= By.xpath("//span[contains(text(),'Wallet Information')]");

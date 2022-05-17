@@ -1,5 +1,7 @@
 package com.airtel.cs.pagerepository.pagemethods;
 
+import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
+import com.airtel.cs.commonutils.utils.UtilsMethods;
 import com.airtel.cs.model.cs.response.psb.cs.clmdetails.CLMDetailsResponse;
 import com.airtel.cs.pagerepository.pageelements.PsbDemographicWidgetPage;
 import org.openqa.selenium.By;
@@ -575,6 +577,17 @@ public class PsbDemographicWidget extends BasePage {
     }
 
     /**
+     * This method is used to get value of passed row and column
+     * @return
+     */
+    public String getHeaderValue(int row , int column) {
+        commonLib.info("Getting " + row + "'s value ");
+        String text =getText(By.xpath(pageElements.row + "[" + row + pageElements.rowFirst + column+ pageElements.rowSecond));
+        return text;
+
+    }
+
+    /**
      * This method is used get total no of rows
      *
      * @return
@@ -590,7 +603,7 @@ public class PsbDemographicWidget extends BasePage {
      * @return
      */
     public String getType(int row) {
-        String type = getText(By.xpath(pageElements.row + "[" + row + pageElements.typeRow));
+        String type = getText(By.xpath(pageElements.row + "[" + row + pageElements.rowFirst));
         commonLib.info("Reading Type of " + row + ":" + type);
         return type;
 
@@ -663,17 +676,23 @@ public class PsbDemographicWidget extends BasePage {
             assertCheck.append(actions.assertEqualBoolean(pages.getPsbDemographicWidget().isMsisdnVisible(), true, "Msisdn is visible ", "Msisdn is not visible "));
             assertCheck.append(actions.assertEqualBoolean(pages.getPsbDemographicWidget().isCreatedOnVisible(), true, "Created On is visible ", "Created on is not visible "));
             int size = pages.getPsbDemographicWidget().getNoOfRows();
-            for (int i = 1; i <= size; i++) {
-                String type = pages.getPsbDemographicWidget().getType(i);
+            for (int row = 1; row <= size; row++) {
+                String type = pages.getPsbDemographicWidget().getHeaderValue(row,3);
                 if (type.equalsIgnoreCase("Wallet") || className.contains("Wallet")) {
-                    pages.getPsbDemographicWidget().clickHeaderValue(i + 1);
+                    assertCheck.append(actions.assertEqualStringType(pages.getPsbDemographicWidget().getHeaderValue(row,2), pages.getBasePage().getKeyValueAPI(clmDetails.getResult().getDetails().get(0).getWallets().get(0).getId()), "Wallet Nuban id is same as Expected", "Wallet nuban id is not same as Expected"));
+                    String createdOnDate = UtilsMethods.getDateFromEpoch(Long.parseLong(clmDetails.getResult().getDetails().get(0).getWallets().get(0).getCreatedOn()), constants.getValue(CommonConstants.NGPSB_WALLET_CREATED_DATE_PATTERN));
+                    assertCheck.append(actions.assertEqualStringType(pages.getPsbDemographicWidget().getHeaderValue(row,4).toLowerCase(), pages.getBasePage().getKeyValueAPI(createdOnDate).toLowerCase(), "Wallet Created On is same as Expected", "Wallet Created On is not same as Expected"));
+                    pages.getPsbDemographicWidget().clickHeaderValue(row);
                     pageLoaded = pages.getPsbDemographicWidget().isWalletInformationWidgetVisible();
                     assertCheck.append(actions.assertEqualBoolean(pageLoaded, true, "Customer Profile Page is loaded and Wallet Information widget is also visible ", "Customer Profile Page is not loaded and Wallet Information widget is also not visible"));
                     walletFlag++;
                     break;
                 }
                 if (type.equalsIgnoreCase("Account") || className.contains("Account")) {
-                    pages.getPsbDemographicWidget().clickHeaderValue(i);
+                    assertCheck.append(actions.assertEqualStringType(pages.getPsbDemographicWidget().getHeaderValue(row,2), pages.getBasePage().getKeyValueAPI(clmDetails.getResult().getDetails().get(0).getAccounts().get(0).getId()), "Account Nuban id is same as Expected", "Account nuban id is not same as Expected"));
+                    String createdOnDate = UtilsMethods.getDateFromEpoch(Long.parseLong(clmDetails.getResult().getDetails().get(0).getAccounts().get(0).getCreatedOn()), constants.getValue(CommonConstants.NGPSB_ACCOUNT_CREATED_DATE_PATTERN));
+                    //assertCheck.append(actions.assertEqualStringType(pages.getPsbDemographicWidget().getHeaderValue(row,4).toLowerCase(), pages.getBasePage().getKeyValueAPI(createdOnDate).toLowerCase(), "Account Created On is same as Expected", "Account Created On is not same as Expected"));
+                    pages.getPsbDemographicWidget().clickHeaderValue(row);
                     pageLoaded = pages.getPsbDemographicWidget().isAccountInformationWidgetVisible();
                     assertCheck.append(actions.assertEqualBoolean(pageLoaded, true, "Customer Profile Page is loaded and Account Information widget is also visible ", "Customer Profile Page is not loaded and Account Information widget is also not visible"));
                     accountFlag++;

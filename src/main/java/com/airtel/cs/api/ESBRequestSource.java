@@ -1081,7 +1081,7 @@ public class ESBRequestSource extends RestCommonUtils {
     }
 
     /**
-     * This Method will hit the Downstream API of Psb Transaction History API
+     * This Method will hit the Downstream API of Psb Transaction History
      */
     public void callTransactionHistory(String nubanId, String type) {
         try {
@@ -1111,14 +1111,14 @@ public class ESBRequestSource extends RestCommonUtils {
     }
 
     /**
-     * This Method will hit the Downstream API of Psb Sms Summary API
+     * This Method will hit the Downstream API of Psb Sms Summary
      */
     public void callSmsSummary(String msisdn) {
         try {
             commonLib.infoColored(constants.getValue(DOWNSTREAM_API_CALLING) + constants.getValue("sms.summary"), JavaColors.GREEN, false);
             queryParam.put(NOTIFICATION_TYPE, SMS);
             queryParam.put(RECEIVER, msisdn);
-            commonGetMethodWithQueryParam(INGRESS_DOWNSTREAM_BASE_URL + ESBURIConstants.PSB_TRANSCATION_HISTORY, queryParam);
+            commonGetMethodWithQueryParam(INGRESS_DOWNSTREAM_BASE_URL + ESBURIConstants.PSB_SMS_SUMMMARY, queryParam);
             checkDownstreamAPI(response.getStatusCode(), "Downstream API of Psb Sms Summary not working with data ", "Downstream API of Psb Sms Summary working with data ");
         } catch (Exception exp) {
             commonLib.fail(constants.getValue(DOWNSTREAM_API_ERROR) + constants.getValue("sms.summary") + exp.getMessage(), false);

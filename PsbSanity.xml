@@ -119,6 +119,26 @@
             <class name="com.airtel.cs.ui.ngpsb.demographic.CustomerInteractionScreenTest"/>
         </classes>
     </test>
+    <test name="Nuban Id Search Test" preserve-order="true">
+        <groups>
+            <run>
+                <include name="SanityTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.ngpsb.demographic.NubanIdSearchTest"/>
+        </classes>
+    </test>
+    <test name="Customer Id Search Test" preserve-order="true">
+        <groups>
+            <run>
+                <include name="SanityTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.ngpsb.demographic.CustomerIdSearchTest"/>
+        </classes>
+    </test>
     <test name="Create Interaction Test" preserve-order="true">
         <groups>
             <run>
