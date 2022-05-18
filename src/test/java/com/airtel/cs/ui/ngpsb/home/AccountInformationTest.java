@@ -190,9 +190,9 @@ public class AccountInformationTest extends Driver {
                     String accountStatus = pages.getBankAccount().getHeaderValue(row, 7);
                     assertCheck.append(actions.assertEqualStringType(accountStatus, bankDetails.getResult().get(i).getStatus(), "Account status is same as expected ", "Account status is NOT same as expected"));
                     if (accountStatus.equalsIgnoreCase("ACTIVE"))
-                        assertCheck.append(actions.assertEqualStringType(pages.getBankAccount().getHeaderValueStyle(row, 7), "#33a833", "Colour of Account Status is same as expected", "Colour of Account Status is NOT same as expected"));
+                        assertCheck.append(actions.assertEqualStringType(pages.getBankAccount().getHeaderValueColor(row, 7), "#33a833", "Colour of Account Status is same as expected", "Colour of Account Status is NOT same as expected"));
                     else if (accountStatus.equalsIgnoreCase("INACTIVE"))
-                        assertCheck.append(actions.assertEqualStringType(pages.getBankAccount().getHeaderValueStyle(row, 7), "#e4000e", "Colour of Account Status is same as expected", "Colour of Account Status is NOT same as expected"));
+                        assertCheck.append(actions.assertEqualStringType(pages.getBankAccount().getHeaderValueColor(row, 7), "#e4000e", "Colour of Account Status is same as expected", "Colour of Account Status is NOT same as expected"));
                 }
             }
             actions.assertAllFoundFailedAssert(assertCheck);

@@ -26,7 +26,7 @@ public class CustomerIdSearchTest extends Driver{
     @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void searchCustomerId() {
         try {
-            selUtils.addTestcaseDescription("Open Customer Profile Page with valid nuban id", "description");
+            selUtils.addTestcaseDescription("Open Customer Profile Page with valid customer id", "description");
             customerId = constants.getValue(ApplicationConstants.CUSTOMER_ID);
             pages.getSideMenuPage().clickOnSideMenu();
             pages.getSideMenuPage().openCustomerInteractionPage();
@@ -48,8 +48,8 @@ public class CustomerIdSearchTest extends Driver{
         }
     }
 
-    @Test(priority = 2, groups = {"RegressionTest"})
-    public void invalidNubandIdTest() {
+    @Test(priority = 2, groups = {"RegressionTest"},dependsOnMethods = "searchCustomerId")
+    public void invalidCustomerIdTest() {
         try {
             selUtils.addTestcaseDescription("Search invalid Nuabn id , Validate error message", "description");
             invalidNubanId = constants.getValue(ApplicationConstants.INVALID_CUSTOMER_MSISDN);
@@ -59,7 +59,7 @@ public class CustomerIdSearchTest extends Driver{
             assertCheck.append(actions.assertEqualStringType(pages.getPsbDemographicWidget().getErrorMessage(), errorMessage, "Error message is same as Expected when invalid nuban id is searched", "Error message is not same as Expected when invalid nuban id is searched"));
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
-            commonLib.fail("Exception in Method - invalidNubandIdTest" + e.fillInStackTrace(), true);
+            commonLib.fail("Exception in Method - invalidCustomerIdTest" + e.fillInStackTrace(), true);
         }
     }
 

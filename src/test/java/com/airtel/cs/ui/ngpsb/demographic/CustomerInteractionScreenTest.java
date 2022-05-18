@@ -29,7 +29,7 @@ public class CustomerInteractionScreenTest extends Driver {
     @Test(priority = 1, groups = {"SanityTest", "RegressionTest"})
     public void openCustomerInteraction() {
         try {
-            selUtils.addTestcaseDescription("Open Customer Profile Page with valid MSISDN, Validate Customer Profile Page Loaded or not", "description");
+            selUtils.addTestcaseDescription("Open Customer Interaction Page ,", "description");
             pages.getSideMenuPage().clickOnSideMenu();
             pages.getSideMenuPage().openCustomerInteractionPage();
             String watermark = "Enter Mobile Number/Nuban ID/Customer ID";
@@ -44,7 +44,7 @@ public class CustomerInteractionScreenTest extends Driver {
         }
     }
 
-    @Test(priority = 2, groups = {"SanityTest", "RegressionTest"})
+    @Test(priority = 2, groups = {"SanityTest", "RegressionTest"} , dependsOnMethods = "openCustomerInteraction")
     public void msisdnSearchTest() {
         try {
             selUtils.addTestcaseDescription("Search msisdn from customer interaction page, Msidn should get displayed on Customer Dashboard's search box", "description");
@@ -67,7 +67,7 @@ public class CustomerInteractionScreenTest extends Driver {
         }
     }
 
-    @Test(priority = 3, groups = {"SanityTest", "RegressionTest"})
+    @Test(priority = 3, groups = {"SanityTest", "RegressionTest"},dependsOnMethods = "openCustomerInteraction")
     public void nubanIdSearchTest() {
         try {
             selUtils.addTestcaseDescription("Search Nuban ID from customer interaction page, Nuban ID should get displayed on Customer Dashboard's search box", "description");
@@ -92,7 +92,7 @@ public class CustomerInteractionScreenTest extends Driver {
         }
     }
 
-    @Test(priority = 4, groups = {"SanityTest", "RegressionTest"})
+    @Test(priority = 4, groups = {"SanityTest", "RegressionTest"},dependsOnMethods = "openCustomerInteraction")
     public void customerIdSearchTest() {
         try {
             selUtils.addTestcaseDescription("Search Customer Id from customer interaction page, Customer Id should get displayed on Customer Dashboard's search box", "description");

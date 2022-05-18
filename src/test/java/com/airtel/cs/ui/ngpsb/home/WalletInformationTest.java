@@ -9,7 +9,6 @@ import com.airtel.cs.model.cs.response.am.SmsLogsResponse;
 import com.airtel.cs.model.cs.response.amprofile.AMProfile;
 import com.airtel.cs.model.cs.response.psb.cs.clmdetails.CLMDetailsResponse;
 import com.airtel.cs.model.cs.response.psb.cs.fetchbalance.FetchBalanceResponse;
-import com.airtel.cs.pagerepository.pagemethods.AmSmsTrails;
 import org.testng.SkipException;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -206,9 +205,9 @@ public class WalletInformationTest extends Driver {
                     String walletStatus = pages.getAmLinkedWallets().getRowValue(row, 8);
                     assertCheck.append(actions.assertEqualStringType(walletStatus, amProfile.getResult().getWallets().get(i).getStatus(), "Wallet Status is same as expected ", "Wallet Status is NOT same as expected"));
                     if (walletStatus.equalsIgnoreCase("ACTIVE"))
-                        assertCheck.append(actions.assertEqualStringType(pages.getAmLinkedWallets().getHeaderValueStyle(row, 7), "#33a833", "Colour of Wallet Status is same as expected", "Colour of Wallet Status is NOT same as expected"));
+                        assertCheck.append(actions.assertEqualStringType(pages.getAmLinkedWallets().getHeaderValueColor(row, 7), "#33a833", "Colour of Wallet Status is same as expected", "Colour of Wallet Status is NOT same as expected"));
                     else if (walletStatus.equalsIgnoreCase("INACTIVE"))
-                        assertCheck.append(actions.assertEqualStringType(pages.getAmLinkedWallets().getHeaderValueStyle(row, 7), "#e4000e", "Colour of Wallet Status is same as expected", "Colour of Wallet Status is NOT same as expected"));
+                        assertCheck.append(actions.assertEqualStringType(pages.getAmLinkedWallets().getHeaderValueColor(row, 7), "#e4000e", "Colour of Wallet Status is same as expected", "Colour of Wallet Status is NOT same as expected"));
                 }
             }
             actions.assertAllFoundFailedAssert(assertCheck);

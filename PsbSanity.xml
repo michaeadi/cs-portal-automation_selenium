@@ -146,10 +146,10 @@
             </run>
         </groups>
         <classes>
-            <class name="com.airtel.cs.ui.ngpsb.home.CreateInteractionTest"/>
+            <class name="com.airtel.cs.ui.ngpsb.home.PsbCreateInteractionTest"/>
         </classes>
     </test>
-   <!--<test name="Validate Action Trail Tab Test">
+   <test name="Validate Action Trail Tab Test">
         <groups>
             <run>
                 <include name="SanityTest"/>
@@ -489,7 +489,7 @@
         <classes>
             <class name="com.airtel.cs.ui.kpidashboard.KpiDashboardTopPanelTest"/>
         </classes>
-    </test>-->
+    </test>
     <test name="Kpi Dashboard 6MonthsOverviewPageTest " preserve-order="true">
         <groups>
             <run>

@@ -48,10 +48,10 @@ public class NubanIdSearchTest extends Driver{
         }
     }
 
-    @Test(priority = 2, groups = {"RegressionTest"})
+    @Test(priority = 2, groups = {"RegressionTest"},dependsOnMethods = "searchNubanId")
     public void invalidNubanIdTest() {
         try {
-            selUtils.addTestcaseDescription("Search invalid Nuabn id , Validate error message", "description");
+            selUtils.addTestcaseDescription("Search invalid Nuban id , Validate error message", "description");
             invalidNubanId = constants.getValue(ApplicationConstants.INVALID_CUSTOMER_MSISDN);
             pages.getMsisdnSearchPage().enterNumberOnDashboardSearch(invalidNubanId);
             pages.getDemoGraphicPage().clickOnDashboardSearch();

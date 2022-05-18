@@ -457,7 +457,7 @@ public class AmSmsTrails extends BasePage {
         clickOnSmsSelectReason();
         selectRequestFromDropdown();
         enterComment(COMMENT);
-        //clickOnSubmitButton();
+        clickOnSubmitButton();
     }
 
     /**

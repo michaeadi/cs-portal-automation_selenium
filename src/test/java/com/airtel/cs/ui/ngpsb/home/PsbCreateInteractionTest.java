@@ -22,12 +22,11 @@ import org.testng.SkipException;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
     @Log4j2
-    public class CreateInteractionTest extends Driver {
+    public class PsbCreateInteractionTest extends Driver {
 
         private static String customerNumber = null;
         PsbRequestSource psbApi = new PsbRequestSource();
         CLMDetailsResponse clmDetails;
-        String space = " ";
         String className = this.getClass().getName();
         RequestSource api = new RequestSource();
 

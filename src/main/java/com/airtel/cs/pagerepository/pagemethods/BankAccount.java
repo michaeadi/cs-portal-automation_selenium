@@ -32,7 +32,7 @@ public class BankAccount extends BasePage{
      * @param column
      * @return
      */
-    public String getHeaderValueStyle(int row, int column) {
+    public String getHeaderValueColor(int row, int column) {
         return selUtils.getDataPointColor(By.xpath(pageElements.dataRows + row + pageElements.dataColumns + column + pageElements.dataValue));
     }
 

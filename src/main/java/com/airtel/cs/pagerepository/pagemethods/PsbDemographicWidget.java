@@ -691,7 +691,7 @@ public class PsbDemographicWidget extends BasePage {
                 if (type.equalsIgnoreCase("Account") || className.contains("Account")) {
                     assertCheck.append(actions.assertEqualStringType(pages.getPsbDemographicWidget().getHeaderValue(row,2), pages.getBasePage().getKeyValueAPI(clmDetails.getResult().getDetails().get(0).getAccounts().get(0).getId()), "Account Nuban id is same as Expected", "Account nuban id is not same as Expected"));
                     String createdOnDate = UtilsMethods.getDateFromEpoch(Long.parseLong(clmDetails.getResult().getDetails().get(0).getAccounts().get(0).getCreatedOn()), constants.getValue(CommonConstants.NGPSB_ACCOUNT_CREATED_DATE_PATTERN));
-                    //assertCheck.append(actions.assertEqualStringType(pages.getPsbDemographicWidget().getHeaderValue(row,4).toLowerCase(), pages.getBasePage().getKeyValueAPI(createdOnDate).toLowerCase(), "Account Created On is same as Expected", "Account Created On is not same as Expected"));
+                    assertCheck.append(actions.assertEqualStringType(pages.getPsbDemographicWidget().getHeaderValue(row,4).toLowerCase(), pages.getBasePage().getKeyValueAPI(createdOnDate).toLowerCase(), "Account Created On is same as Expected", "Account Created On is not same as Expected"));
                     pages.getPsbDemographicWidget().clickHeaderValue(row);
                     pageLoaded = pages.getPsbDemographicWidget().isAccountInformationWidgetVisible();
                     assertCheck.append(actions.assertEqualBoolean(pageLoaded, true, "Customer Profile Page is loaded and Account Information widget is also visible ", "Customer Profile Page is not loaded and Account Information widget is also not visible"));
@@ -812,7 +812,7 @@ public class PsbDemographicWidget extends BasePage {
     }
 
     /**
-     * This method is used to check Intermediate Screen visible or not
+     * This method is used to check results found message visible or not
      *
      * @return
      */
