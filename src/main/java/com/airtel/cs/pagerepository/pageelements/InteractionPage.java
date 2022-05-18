@@ -31,4 +31,5 @@ public class InteractionPage {
     public String dropDown="]//mat-label";
     public String mandatorySign="]//span";
     public String selectDropDown="]//mat-select";
+    public By resolvedFtr = By.xpath("//span[contains(text(),'Resolved FTR')]");
 }

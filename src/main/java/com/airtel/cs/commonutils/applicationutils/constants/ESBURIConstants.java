@@ -64,6 +64,7 @@ public class ESBURIConstants {
     public static final String FETCH_BALANCE1 = "/arch-in/web/api/am-esb-bank/v1/users/";
     public static final String FETCH_BALANCE2 = "/balance";
     public static final String ACCOUNT_LEVEL_INFO = "/api/enterprise-service/v1/accounts";
+    public static final String PSB_SMS_SUMMMARY="/arch-in/web/api/am-esb-bank/v1/transactions/sms-summary";
 
     /*
     Ip Port Constants

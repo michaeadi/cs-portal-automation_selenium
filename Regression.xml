@@ -294,7 +294,7 @@
             <class name="com.airtel.cs.ui.frontendagent.hometab.ActiveVasWidgetTest"/>
         </classes>
     </test>
-    <test name="Adjustment Widget Test">
+    <test name="Adjustment Tab Test">
         <groups>
             <run>
                 <include name="RegressionTest"/>
@@ -887,7 +887,7 @@
     <test name="Login Admin Test For Kpi Dashboard">
         <groups>
             <run>
-                <include name="SanityTest"/>
+                <include name="RegressionTest"/>
             </run>
         </groups>
         <classes>
@@ -897,7 +897,7 @@
     <test name="Kpi Dashboard TopPanelTest " preserve-order="true">
         <groups>
             <run>
-                <include name="ProdTest"/>
+                <include name="RegressionTest"/>
             </run>
         </groups>
         <classes>
@@ -907,7 +907,7 @@
     <test name="Kpi Dashboard 6MonthsOverviewPageTest " preserve-order="true">
         <groups>
             <run>
-                <include name="ProdTest"/>
+                <include name="RegressionTest"/>
             </run>
         </groups>
         <classes>
@@ -917,7 +917,7 @@
     <test name="Kpi Dashboard 6MonthsTicketTypeTest" preserve-order="true">
         <groups>
             <run>
-                <include name="ProdTest"/>
+                <include name="RegressionTest"/>
             </run>
         </groups>
         <classes>
@@ -927,7 +927,7 @@
     <test name="Kpi Dashboard OpenTicketAgeingTest " preserve-order="true">
         <groups>
             <run>
-                <include name="ProdTest"/>
+                <include name="RegressionTest"/>
             </run>
         </groups>
         <classes>
@@ -937,7 +937,7 @@
     <test name="Kpi Dashboard QueueWiseSLAPerformancePageTest " preserve-order="true">
         <groups>
             <run>
-                <include name="ProdTest"/>
+                <include name="RegressionTest"/>
             </run>
         </groups>
         <classes>
@@ -947,7 +947,7 @@
     <test name="Kpi Dashboard FeatureUsageOfActionsPageTest" preserve-order="true">
         <groups>
             <run>
-                <include name="ProdTest"/>
+                <include name="RegressionTest"/>
             </run>
         </groups>
         <classes>

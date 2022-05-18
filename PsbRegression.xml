@@ -39,27 +39,27 @@
             <class name="com.airtel.cs.ui.ngpsb.demographic.PsbDemoGraphicWidgetTest"/>
         </classes>
     </test>
-<!--    <test name="Account Information Test " preserve-order="true">-->
-<!--        <groups>-->
-<!--            <run>-->
-<!--                <include name="RegressionTest"/>-->
-<!--            </run>-->
-<!--        </groups>-->
-<!--        <classes>-->
-<!--            <class name="com.airtel.cs.ui.ngpsb.home.AccountInformationTest"/>-->
-<!--        </classes>-->
-<!--    </test>-->
-<!--    <test name="Wallet Information Test " preserve-order="true">-->
-<!--        <groups>-->
-<!--            <run>-->
-<!--                <include name="RegressionTest"/>-->
-<!--            </run>-->
-<!--        </groups>-->
-<!--        <classes>-->
-<!--            <class name="com.airtel.cs.ui.ngpsb.home.WalletInformationTest"/>-->
-<!--        </classes>-->
-<!--    </test>-->
-    <test name="Transaction History Test " preserve-order="true">
+   <test name="Account Information Test " preserve-order="true">
+        <groups>
+            <run>
+                <include name="RegressionTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.ngpsb.home.AccountInformationTest"/>
+        </classes>
+    </test>
+    <test name="Wallet Information Test " preserve-order="true">
+        <groups>
+            <run>
+                <include name="RegressionTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.ngpsb.home.WalletInformationTest"/>
+        </classes>
+    </test>
+    <test name="SmartCash Transaction History Test " preserve-order="true">
         <groups>
             <run>
                 <include name="RegressionTest"/>
@@ -109,7 +109,47 @@
             <class name="com.airtel.cs.ui.ngpsb.demographic.AccountBarUnBarTest"/>
         </classes>
     </test>
-     <!--<test name="Validate Action Trail Tab Test">
+    <test name="Customer Interaction Screen Test" preserve-order="true">
+        <groups>
+            <run>
+                <include name="RegressionTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.ngpsb.demographic.CustomerInteractionScreenTest"/>
+        </classes>
+    </test>
+    <test name="Nuban Id Search Test" preserve-order="true">
+        <groups>
+            <run>
+                <include name="RegressionTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.ngpsb.demographic.NubanIdSearchTest"/>
+        </classes>
+    </test>
+    <test name="Customer Id Search Test" preserve-order="true">
+        <groups>
+            <run>
+                <include name="RegressionTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.ngpsb.demographic.CustomerIdSearchTest"/>
+        </classes>
+    </test>
+    <test name="Create Interaction Test" preserve-order="true">
+        <groups>
+            <run>
+                <include name="RegressionTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.ngpsb.home.PsbCreateInteractionTest"/>
+        </classes>
+    </test>
+     <test name="Validate Action Trail Tab Test">
          <groups>
              <run>
                  <include name="RegressionTest"/>
@@ -117,16 +157,6 @@
          </groups>
          <classes>
              <class name="com.airtel.cs.ui.frontendagent.viewhistorytab.ActionTrailTest"/>
-         </classes>
-     </test>
-     <test name="Create NFTR FTR Tickets TEST">
-         <groups>
-             <run>
-                 <include name="RegressionTest"/>
-             </run>
-         </groups>
-         <classes>
-             <class name="com.airtel.cs.ui.frontendagent.CreateInteractionTest"/>
          </classes>
      </test>
      <test name="Add Interaction Ticket Comment">
@@ -439,7 +469,7 @@
         <classes>
             <class name="com.airtel.cs.ui.frontendagent.loginandlogout.LoginPortalTests"/>
         </classes>
-    </test>-->
+    </test>
     <test name="Kpi Dashboard TopPanelTest " preserve-order="true">
         <groups>
             <run>

@@ -10,4 +10,5 @@ public class CLMDetailsResponse implements Serializable{
     private String message;
     private Integer statusCode;
     private AMUserProfileApiResponse result;
+    private String status;
 }

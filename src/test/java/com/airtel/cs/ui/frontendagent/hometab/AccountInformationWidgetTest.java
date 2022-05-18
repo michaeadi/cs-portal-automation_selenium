@@ -210,7 +210,7 @@ public class AccountInformationWidgetTest extends Driver {
             postpaidAccountInformation = api.getPostpaidAccountInformation(customerNumber, customerAccountNumber, paymentRequest);
             assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getValue(postpaidAccountInformation, "customerAccountNumber", "statusCode"), "200", "Status Code for Postpaid Account Information API to get AccountNumber Matched", "Status Code for Postpaid Account Information API to get AccountNumber NOT Matched", false));
             final String accountNumber = pages.getAccountInformationWidget().getAccountNumber();
-            assertCheck.append(actions.assertEqualStringType(accountNumber, pages.getAccountInformationWidget().getValue(postpaidAccountInformation, "customerAccountNumber", "customerAccountNumber"), "Account Number displayed as expected and is :" + accountNumber, "Account Number not displayed as expected and is :" + accountNumber));
+            assertCheck.append(actions.assertEqualStringType(accountNumber.toLowerCase(), pages.getAccountInformationWidget().getValue(postpaidAccountInformation, "customerAccountNumber", "customerAccountNumber").toLowerCase(), "Account Number displayed as expected and is :" + accountNumber, "Account Number not displayed as expected and is :" + accountNumber));
             assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getAccountNumberStyle(), "Bold", "Account Number is in Bold State", "Account Number NOT in Bold state"));
         } catch (Exception e) {
             commonLib.fail("Exception in Method - verifyAccountNumber()" + e.fillInStackTrace(), true);

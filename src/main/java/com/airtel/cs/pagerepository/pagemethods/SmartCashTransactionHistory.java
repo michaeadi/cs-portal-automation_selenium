@@ -434,4 +434,20 @@ public class SmartCashTransactionHistory extends BasePage {
     }
 
 
+
+    /**
+     * This method is used get colour for Transaction ID and status
+     * @return
+     */
+    public String getTxnIdStatusColour(int row, int column) {
+        return selUtils.getDataPointColor(By.xpath(pageElements.valueRowSec + row + pageElements.valueRowSec + column + pageElements.columnText));
+    }
+
+    /**
+     * This method is used get colour for Debit/Credit Sign
+     * @return
+     */
+    public String getSignColour(int row) {
+        return selUtils.getDataPointColor(By.xpath(pageElements.valueRowSec + row + pageElements.posSymbol));
+    }
 }

@@ -376,4 +376,14 @@ public class Interactions extends BasePage {
             }
     }
 
+    /**
+     * This method use to check Resolved FTR displayed or not after creating FTR
+     *
+     * @return true/false
+     */
+    public boolean isResolvedFtrVisible() {
+        final boolean visible = isVisible(pageElements.resolvedFtr);
+        commonLib.info("Checking is Resolved FTR displayed : " + visible);
+        return visible;
+    }
 }
