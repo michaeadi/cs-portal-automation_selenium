@@ -18,8 +18,7 @@ public class WalletInformationTest extends Driver {
     private static String customerNumber = null;
     PsbRequestSource api = new PsbRequestSource();
     CLMDetailsResponse clmDetails;
-    String nubanId;
-    String barringStatus;
+    String nubanId, barringStatus;
     String className = this.getClass().getName();
     SmsLogsResponse smsLogs;
 
@@ -33,7 +32,7 @@ public class WalletInformationTest extends Driver {
     }
 
 
-    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"})
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void checkWalletsSize() {
         customerNumber = constants.getValue(ApplicationConstants.CUSTOMER_TIER1_MSISDN);
         clmDetails = api.getCLMDetails(customerNumber);
@@ -43,7 +42,7 @@ public class WalletInformationTest extends Driver {
         }
     }
 
-    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"})
+    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void openCustomerInteraction() {
         try {
             selUtils.addTestcaseDescription("Open Customer Profile Page with valid MSISDN, Validate Customer Profile Page Loaded or not", "description");
@@ -64,7 +63,7 @@ public class WalletInformationTest extends Driver {
         }
     }
 
-    @Test(priority = 2, groups = {"SanityTest", "ProdTest", "SmokeTest", "RegressionTest"}, dependsOnMethods = {"openCustomerInteraction"})
+    @Test(priority = 2, groups = {"SanityTest", "ProdTest", "RegressionTest"}, dependsOnMethods = {"openCustomerInteraction"})
     public void testWalletInformationWidget() {
         try {
             selUtils.addTestcaseDescription("Validate Wallet Information widget", "description");
@@ -80,7 +79,7 @@ public class WalletInformationTest extends Driver {
         }
     }
 
-    @Test(priority = 3, groups = {"SanityTest", "ProdTest", "SmokeTest", "RegressionTest"}, dependsOnMethods = {"openCustomerInteraction"})
+    @Test(priority = 3, groups = {"SanityTest", "ProdTest", "RegressionTest"}, dependsOnMethods = {"openCustomerInteraction"})
     public void testWalletInformationWidgetData() {
         try {
             selUtils.addTestcaseDescription("Validate Account Information widget data", "description");
@@ -180,7 +179,7 @@ public class WalletInformationTest extends Driver {
     /**
      * This method is used to check Wallets data
      */
-    @Test(priority = 6, groups = {"SanityTest", "ProdTest", "SmokeTest", "RegressionTest"}, dependsOnMethods = "openCustomerInteraction")
+    @Test(priority = 6, groups = {"SanityTest", "ProdTest", "RegressionTest"}, dependsOnMethods = "openCustomerInteraction")
     public void testWalletsTab() {
         try {
             selUtils.addTestcaseDescription("Validate data of all the fields of Wallets tab", "description");
@@ -219,7 +218,7 @@ public class WalletInformationTest extends Driver {
     }
 
 
-    @Test(priority = 7, groups = {"SanityTest", "ProdTest", "SmokeTest", "RegressionTest"}, dependsOnMethods = {"openCustomerInteraction"})
+    @Test(priority = 7, groups = {"SanityTest", "ProdTest","RegressionTest"}, dependsOnMethods = {"openCustomerInteraction"})
     public void testSMSLogsTab() {
         try {
             selUtils.addTestcaseDescription("Validate Wallets tab data", "description");
@@ -247,7 +246,7 @@ public class WalletInformationTest extends Driver {
         }
     }
 
-    @Test(priority = 8, groups = {"SanityTest", "ProdTest", "RegressionTest"}, dependsOnMethods = {"testSMSLogsTab"})
+    @Test(priority = 8, groups = {"SanityTest", "ProdTest", "RegressionTest"}, dependsOnMethods = {"testSmsLogsTabs"})
     public void testResendSms() {
         try {
             selUtils.addTestcaseDescription("Validate Resend SMS", "description");
@@ -258,24 +257,7 @@ public class WalletInformationTest extends Driver {
             } else if (smsLogs.getStatusCode() == 2500 && smsLogs.getStatus().equalsIgnoreCase("status.failure")) {
                 commonLib.fail("CS API is unable to give Sms Logs data ", true);
             } else {
-                int size = pages.getAmSmsTrails().getNoOfRows();
-                for (int i = 0; i < size; i++) {
-                    String transactionType = smsLogs.getResult().get(i).getTransactionId();
-                    if (transactionType.contains("APC")) {
-                        pages.getAmSmsTrails().clickResendSms();
-                        assertCheck.append(actions.assertEqualStringType(pages.getAmSmsTrails().getSendSmsHeader(), "Send SMS", "Send SMS Header is visible", "Send SMS header is NOT visible"));
-                        assertCheck.append(actions.assertEqualStringType(pages.getAmSmsTrails().getIssueDetail(), "Issue Detail:", "Issue Detail is visible", "Issue Detail is NOT visible"));
-                        assertCheck.append(actions.assertEqualStringType(pages.getAmSmsTrails().getEnterCommentHeader(), "Enter Comment", "Enter Comment is visible", "Enter Comment is not Visible"));
-                        assertCheck.append(actions.assertEqualStringType(pages.getAmSmsTrails().getSmsSelectReason(), "Select Reason *", "Select Reason is Visible", "Select Reason is not visible"));
-                        assertCheck.append(actions.assertEqualBoolean(pages.getAmSmsTrails().isSubmitBtnDisabled(), true, "Select Reason is Visible", "Select Reason is not visible"));
-                        assertCheck.append(actions.assertEqualBoolean(pages.getAmSmsTrails().isCancelButtonVisible(), true, "Cancel Button is visible ", "Cancel Button is not visible"));
-                        pages.getAmSmsTrails().performResendSms();
-                        assertCheck.append(actions.assertEqualBoolean(pages.getAmSmsTrails().isSuccessPopUpVisible(), true, "Success Popup is visible after performing Submit action", "Success Popup is not visible after performing Submit action"));
-                        assertCheck.append(actions.assertEqualStringType(pages.getAmSmsTrails().getSuccessText(), constants.getValue("ngpsb.send.sms.success"), "Success text is displayed as expected", "Success text is not displayed as expected"));
-                        pages.getAmSmsTrails().clickCrossIcon();
-                        break;
-                    }
-                }
+                assertCheck = pages.getAmSmsTrails().sendSMS(smsLogs);
             }
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
@@ -290,11 +272,9 @@ public class WalletInformationTest extends Driver {
             selUtils.addTestcaseDescription("Validating entry should be captured in Action Trail after performing ResendSMS action", "description");
             pages.getAmSmsTrails().goToActionTrail();
             assertCheck.append(actions.assertEqualStringType(pages.getAmSmsTrails().getActionType(), "SmartCash SMS Logs - Resend SMS", "Action type for Resend SMS is expected", "Action type for Resend SME is not as expected"));
-            assertCheck.append(actions.assertEqualStringType(pages.getAmSmsTrails().getReason(),
-                    "Customer Request", "Reason for Resend SMS is as expected", "Reason for Resend SMS not as expected"));
+            assertCheck.append(actions.assertEqualStringType(pages.getAmSmsTrails().getReason(), "Customer Request", "Reason for Resend SMS is as expected", "Reason for Resend SMS not as expected"));
             assertCheck.append(actions.assertEqualStringType(pages.getAmSmsTrails().getComment(), ApplicationConstants.COMMENT, "Comment for Resend SMS is expected", "Comment for Resend SMS is not as expected"));
             actions.assertAllFoundFailedAssert(assertCheck);
-
         } catch (Exception e) {
             commonLib.fail("Exception in Method - checkActionTrail" + e.fillInStackTrace(), true);
         }

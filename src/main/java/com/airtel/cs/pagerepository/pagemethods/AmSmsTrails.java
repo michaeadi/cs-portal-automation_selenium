@@ -33,6 +33,7 @@ public class AmSmsTrails extends BasePage {
 
     /**
      * This method is used to check more icon visible or not
+     *
      * @return
      */
     public boolean isMoreIconVisible() {
@@ -43,6 +44,7 @@ public class AmSmsTrails extends BasePage {
 
     /**
      * This method is used to check AM Profile Details widget  visible or not
+     *
      * @return
      */
     public boolean isAmProfileDetailsDetailWidgetVisible() {
@@ -53,6 +55,7 @@ public class AmSmsTrails extends BasePage {
 
     /**
      * This method is used to click SMS Logs tab
+     *
      * @return
      */
     public void clickSmsLogs() {
@@ -72,6 +75,7 @@ public class AmSmsTrails extends BasePage {
 
     /**
      * This method is used to click date filter
+     *
      * @return
      */
     public void clickDateFilter() {
@@ -81,6 +85,7 @@ public class AmSmsTrails extends BasePage {
 
     /**
      * This method is used to click cancel button of date filter
+     *
      * @return
      */
     public void clickCancelOfDate() {
@@ -90,6 +95,7 @@ public class AmSmsTrails extends BasePage {
 
     /**
      * This method is used to check Sms Logs tab visible or not
+     *
      * @return
      */
     public boolean isSmsLogVisible() {
@@ -100,6 +106,7 @@ public class AmSmsTrails extends BasePage {
 
     /**
      * This method is used to check Timestamp label visible or not
+     *
      * @return
      */
     public boolean isTimeStampVisible() {
@@ -110,6 +117,7 @@ public class AmSmsTrails extends BasePage {
 
     /**
      * This method is used to check sms body visible or not
+     *
      * @return
      */
     public boolean isSmsBodyVisible() {
@@ -120,6 +128,7 @@ public class AmSmsTrails extends BasePage {
 
     /**
      * This method is used to check Sms Id visible or not
+     *
      * @return
      */
     public boolean isSmsIdVisible() {
@@ -130,6 +139,7 @@ public class AmSmsTrails extends BasePage {
 
     /**
      * This method is used to check Transaction Id visible or not
+     *
      * @return
      */
     public boolean isTransactionIdVisible() {
@@ -140,6 +150,7 @@ public class AmSmsTrails extends BasePage {
 
     /**
      * This method is used to check date filter visible or not
+     *
      * @return
      */
     public boolean isDateFilterVisible() {
@@ -150,6 +161,7 @@ public class AmSmsTrails extends BasePage {
 
     /**
      * This method is used to check calendar visible or not
+     *
      * @return
      */
     public boolean isCalendarVisible() {
@@ -160,6 +172,7 @@ public class AmSmsTrails extends BasePage {
 
     /**
      * This method is used to get Footer auuid of SMS Logs Widget
+     *
      * @return
      */
     public String getFooterAuuid() {
@@ -170,6 +183,7 @@ public class AmSmsTrails extends BasePage {
 
     /**
      * This method is used to get Middle auuid of SMS Logs Widget
+     *
      * @return
      */
     public String getMiddleAuuid() {
@@ -227,6 +241,7 @@ public class AmSmsTrails extends BasePage {
 
     /**
      * This method is used get Action value based on passed row and column
+     *
      * @param row
      * @param column
      * @return
@@ -308,7 +323,7 @@ public class AmSmsTrails extends BasePage {
                         clickCrossIcon();
                         break;
                     } else
-                        commonLib.warning("No records found with Txn id as APC on  page no : " + (x+1));
+                        commonLib.warning("No records found with Txn id as APC on  page no : " + (x + 1));
                 }
                 if (!rowFound) {
                     clickAndWaitForLoaderToBeRemoved(pageElements.nextPage);
