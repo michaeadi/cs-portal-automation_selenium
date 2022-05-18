@@ -59,7 +59,7 @@
             <class name="com.airtel.cs.ui.ngpsb.home.WalletInformationTest"/>
         </classes>
     </test>
-    <test name="Transaction History Test " preserve-order="true">
+    <test name="SmartCash Transaction History Test " preserve-order="true">
         <groups>
             <run>
                 <include name="SanityTest"/>
@@ -157,16 +157,6 @@
         </groups>
         <classes>
             <class name="com.airtel.cs.ui.frontendagent.viewhistorytab.ActionTrailTest"/>
-        </classes>
-    </test>
-    <test name="Create NFTR FTR Tickets TEST">
-        <groups>
-            <run>
-                <include name="SanityTest"/>
-            </run>
-        </groups>
-        <classes>
-            <class name="com.airtel.cs.ui.frontendagent.CreateInteractionTest"/>
         </classes>
     </test>
     <test name="Add Interaction Ticket Comment">

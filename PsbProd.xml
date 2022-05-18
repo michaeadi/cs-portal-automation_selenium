@@ -59,7 +59,7 @@
             <class name="com.airtel.cs.ui.ngpsb.home.WalletInformationTest"/>
         </classes>
     </test>
-    <test name="Transaction History Test " preserve-order="true">
+    <test name="SmartCash Transaction History Test " preserve-order="true">
         <groups>
             <run>
                 <include name="ProdTest"/>
