@@ -218,7 +218,7 @@ public class WalletInformationTest extends Driver {
 
 
     @Test(priority = 7, groups = {"SanityTest", "ProdTest","RegressionTest"}, dependsOnMethods = {"openCustomerInteraction"})
-    public void testSMSLogsTab() {
+    public void testSmsLogsTab() {
         try {
             selUtils.addTestcaseDescription("Validate Wallets tab data", "description");
             pages.getAmLinkedWallets().clickSmsLogsTab();
@@ -241,11 +241,11 @@ public class WalletInformationTest extends Driver {
             }
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
-            commonLib.fail("Exception in Method - testSMSLogsTab" + e.fillInStackTrace(), true);
+            commonLib.fail("Exception in Method - testSmsLogsTab" + e.fillInStackTrace(), true);
         }
     }
 
-    @Test(priority = 8, groups = {"SanityTest", "ProdTest", "RegressionTest"}, dependsOnMethods = {"testSmsLogsTabs"})
+    @Test(priority = 8, groups = {"SanityTest", "ProdTest", "RegressionTest"}, dependsOnMethods = {"testSmsLogsTab"})
     public void testResendSms() {
         try {
             selUtils.addTestcaseDescription("Validate Resend SMS", "description");
@@ -265,7 +265,7 @@ public class WalletInformationTest extends Driver {
         }
     }
 
-    @Test(priority = 9, groups = {"SanityTest", "ProdTest", "RegressionTest"}, dependsOnMethods = {"testSMSLogsTab", "testResendSms"})
+    @Test(priority = 9, groups = {"SanityTest", "ProdTest", "RegressionTest"}, dependsOnMethods = {"testSmsLogsTab", "testResendSms"})
     public void checkActionTrail() {
         try {
             selUtils.addTestcaseDescription("Validating entry should be captured in Action Trail after performing ResendSMS action", "description");
