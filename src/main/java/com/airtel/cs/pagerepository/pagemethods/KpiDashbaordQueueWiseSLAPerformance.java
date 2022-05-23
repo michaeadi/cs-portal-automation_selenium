@@ -18,7 +18,7 @@ public class KpiDashbaordQueueWiseSLAPerformance extends BasePage {
      */
     public Boolean isQueueWiseSLAPerformanceLabelVisible() {
         Boolean status = isVisible(pageElements.queueWiseSLAPerformanceLabel);
-        commonLib.pass("Queue Wise SLA Performance Label is visible : " + status);
+        commonLib.info("Queue Wise SLA Performance Label is visible : " + status);
         return status;
     }
 
@@ -29,7 +29,7 @@ public class KpiDashbaordQueueWiseSLAPerformance extends BasePage {
      */
     public Boolean isTotalTicketLabelVisible() {
         Boolean status = isVisible(pageElements.totalTicketLabel);
-        commonLib.pass("Total Ticket Label is visible : " + status);
+        commonLib.info("Total Ticket Label is visible : " + status);
         return status;
     }
 
@@ -52,7 +52,7 @@ public class KpiDashbaordQueueWiseSLAPerformance extends BasePage {
      */
     public Boolean isSlaPerformanceDetailsQueueWiseLabelVisible() {
         Boolean status = isVisible(pageElements.slaPerformanceDetailsQueueWiseLabel);
-        commonLib.pass("SLA PERFORMANCE DETAILS: QUEUE WISE Label is visible : " + status);
+        commonLib.info("SLA PERFORMANCE DETAILS: QUEUE WISE Label is visible : " + status);
         return status;
     }
 
@@ -61,7 +61,7 @@ public class KpiDashbaordQueueWiseSLAPerformance extends BasePage {
      */
     public Boolean isQueueNameLabelVisible() {
         Boolean status = isVisible(pageElements.queueNameLabel);
-        commonLib.pass("Queue Name Label is visible : " + status);
+        commonLib.info("Queue Name Label is visible : " + status);
         return status;
     }
 
@@ -70,7 +70,7 @@ public class KpiDashbaordQueueWiseSLAPerformance extends BasePage {
      */
     public Boolean isTotalTicketAllocatedLabelVisible() {
         Boolean status = isVisible(pageElements.totalTicketAllocatedLabel);
-        commonLib.pass("Total Ticket Allocated Label is visible : " + status);
+        commonLib.info("Total Ticket Allocated Label is visible : " + status);
         return status;
     }
 
@@ -79,7 +79,7 @@ public class KpiDashbaordQueueWiseSLAPerformance extends BasePage {
      */
     public Boolean isTicketCancelledLabelVisible() {
         Boolean status = isVisible(pageElements.ticketCancelledLabel);
-        commonLib.pass("Ticket Cancelled  Label is visible : " + status);
+        commonLib.info("Ticket Cancelled  Label is visible : " + status);
         return status;
     }
 
@@ -88,7 +88,7 @@ public class KpiDashbaordQueueWiseSLAPerformance extends BasePage {
      */
     public Boolean isTicketClosedOutsideSLALabelVisible() {
         Boolean status = isVisible(pageElements.ticketClosedOutsideSLALabel);
-        commonLib.pass("Ticket Closed Outside SLA Label is visible : " + status);
+        commonLib.info("Ticket Closed Outside SLA Label is visible : " + status);
         return status;
     }
 
@@ -97,7 +97,7 @@ public class KpiDashbaordQueueWiseSLAPerformance extends BasePage {
      */
     public Boolean isTicketClosedWithinSLALabelVisible() {
         Boolean status = isVisible(pageElements.ticketClosedWithinSLALabel);
-        commonLib.pass("Ticket Closed Within SLA Label is visible : " + status);
+        commonLib.info("Ticket Closed Within SLA Label is visible : " + status);
         return status;
     }
 
@@ -106,7 +106,7 @@ public class KpiDashbaordQueueWiseSLAPerformance extends BasePage {
      */
     public Boolean isSLAPercentageLabelVisible() {
         Boolean status = isVisible(pageElements.slaPercentageLabel);
-        commonLib.pass(" SLA % Label is visible : " + status);
+        commonLib.info(" SLA % Label is visible : " + status);
         return status;
     }
 
@@ -115,7 +115,7 @@ public class KpiDashbaordQueueWiseSLAPerformance extends BasePage {
      */
     public Boolean isSlaPerformanceDetailsIssueTypeWiseLabelVisible() {
         Boolean status = isVisible(pageElements.slaPerformanceDetailsIssueTypeWiseLabel);
-        commonLib.pass("SLA PERFORMANCE DETAILS: ISSUE TYPE WISE Label is visible : " + status);
+        commonLib.info("SLA PERFORMANCE DETAILS: ISSUE TYPE WISE Label is visible : " + status);
         return status;
     }
 
@@ -124,7 +124,7 @@ public class KpiDashbaordQueueWiseSLAPerformance extends BasePage {
      */
     public Boolean isDayWiseLabelVisible() {
         Boolean status = isVisible(pageElements.dayWise);
-        commonLib.pass("Day wise Label  is visible : " + status);
+        commonLib.info("Day wise Label  is visible : " + status);
         return status;
     }
 
@@ -132,7 +132,7 @@ public class KpiDashbaordQueueWiseSLAPerformance extends BasePage {
      * This method is used to click On Day Wise SLA PERFORMANCE DETAILS: QUEUE WISE
      */
     public void clickOnDayWiseInSLAPerformanceDetailsQueueWiseIcon() {
-        commonLib.pass("click On Day Wise SLA PERFORMANCE DETAILS: QUEUE WISE Icon");
+        commonLib.info("click On Day Wise SLA PERFORMANCE DETAILS: QUEUE WISE Icon");
         if (isVisible(pageElements.dayWiseInSLAPerformanceDetailsQueueWiseIcon))
             clickAndWaitForLoaderToBeRemoved(pageElements.dayWiseInSLAPerformanceDetailsQueueWiseIcon);
         else {
@@ -145,7 +145,7 @@ public class KpiDashbaordQueueWiseSLAPerformance extends BasePage {
      */
     public Boolean isDayWiseInSLAPerformanceDetailsQueueWiseLabelVisible() {
         Boolean status = isVisible(pageElements.dayWiseInSLAPerformanceDetailsQueueWiseLabel);
-        commonLib.pass("Day Wise In SLAPerformance Details Queue Wise Label  is visible : " + status);
+        commonLib.info("Day Wise In SLAPerformance Details Queue Wise Label  is visible : " + status);
         return status;
     }
 
@@ -153,7 +153,7 @@ public class KpiDashbaordQueueWiseSLAPerformance extends BasePage {
      * This method is used to click On Day Wise SLA PERFORMANCE DETAILS: ISSUE TYPE WISE
      */
     public void clickOnDayWiseInSLAPerformanceDetailsIssueTypeWiseIcon() {
-        commonLib.pass("click On Day Wise SLA PERFORMANCE DETAILS: QUEUE WISE Icon");
+        commonLib.info("click On Day Wise SLA PERFORMANCE DETAILS: QUEUE WISE Icon");
         if (isVisible(pageElements.dayWiseInSLAPerformanceDetailsIssueTypeWiseIcon))
             clickAndWaitForLoaderToBeRemoved(pageElements.dayWiseInSLAPerformanceDetailsIssueTypeWiseIcon);
         else {
@@ -166,7 +166,7 @@ public class KpiDashbaordQueueWiseSLAPerformance extends BasePage {
      */
     public Boolean isDayWiseInSLAPerformanceDetailsIssueTypeWiseLabelVisible() {
         Boolean status = isVisible(pageElements.dayWiseInSLAPerformanceDetailsIssueTypeWiseLabel);
-        commonLib.pass("Day Wise In SLAPerformance Details Issue Type  Wise Label  is visible : " + status);
+        commonLib.info("Day Wise In SLAPerformance Details Issue Type  Wise Label  is visible : " + status);
         return status;
     }
 
@@ -174,7 +174,7 @@ public class KpiDashbaordQueueWiseSLAPerformance extends BasePage {
      * This method is used to click On Day Wise Agent  PERFORMANCE
      */
     public void clickOnDayWiseAgentPerformanceDetailsIcon() {
-        commonLib.pass("click On Day Wise Agent PERFORMANCE Details Icon");
+        commonLib.info("click On Day Wise Agent PERFORMANCE Details Icon");
         if (isVisible(pageElements.dayWiseAgentPerformanceDetailsIcon))
             clickAndWaitForLoaderToBeRemoved(pageElements.dayWiseAgentPerformanceDetailsIcon);
         else {
@@ -187,7 +187,7 @@ public class KpiDashbaordQueueWiseSLAPerformance extends BasePage {
      */
     public Boolean isDateLabelVisible() {
         Boolean status = isVisible(pageElements.date);
-        commonLib.pass("Date Label  is visible : " + status);
+        commonLib.info("Date Label  is visible : " + status);
         return status;
     }
 
@@ -219,7 +219,7 @@ public class KpiDashbaordQueueWiseSLAPerformance extends BasePage {
      */
     public Boolean isAgentPerformanceLabelVisible() {
         Boolean status = isVisible(pageElements.agentPerformanceLabel);
-        commonLib.pass("AGENT PERFORMANCE  is visible : " + status);
+        commonLib.info("AGENT PERFORMANCE  is visible : " + status);
         return status;
     }
 
@@ -228,7 +228,7 @@ public class KpiDashbaordQueueWiseSLAPerformance extends BasePage {
      */
     public Boolean isAgentIdLabelVisible() {
         Boolean status = isVisible(pageElements.agentIdeLabel);
-        commonLib.pass("AGENT Id  is visible : " + status);
+        commonLib.info("AGENT Id  is visible : " + status);
         return status;
     }
 
@@ -237,7 +237,7 @@ public class KpiDashbaordQueueWiseSLAPerformance extends BasePage {
      */
     public Boolean isAgentNameLabelVisible() {
         Boolean status = isVisible(pageElements.agentNameLabel);
-        commonLib.pass("AGENT Name  is visible : " + status);
+        commonLib.info("AGENT Name  is visible : " + status);
         return status;
     }
 
@@ -246,7 +246,7 @@ public class KpiDashbaordQueueWiseSLAPerformance extends BasePage {
      */
     public Boolean isIssueTypeLabelVisible() {
         Boolean status = isVisible(pageElements.issueTypeLabel);
-        commonLib.pass("Issue Type  is visible : " + status);
+        commonLib.info("Issue Type  is visible : " + status);
         return status;
     }
 
@@ -255,7 +255,7 @@ public class KpiDashbaordQueueWiseSLAPerformance extends BasePage {
      */
     public Boolean isDayWiseAgentPerformanceLabelVisible() {
         Boolean status = isVisible(pageElements.dayWiseAgentPerformanceLabel);
-        commonLib.pass(" Day Wise Agent Performance Label visible : " + status);
+        commonLib.info(" Day Wise Agent Performance Label visible : " + status);
         return status;
     }
 

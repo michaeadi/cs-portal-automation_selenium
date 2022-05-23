@@ -17,7 +17,7 @@ public class KpiDashboard6MonthsOverview extends BasePage {
      */
     public Boolean isServiceLevelTrendVisible() {
         Boolean status = isVisible(pageElements.serviceLevelTrend);
-        commonLib.pass("Service Level Trend  is visible : " + status);
+        commonLib.info("Service Level Trend is visible : " + status);
         return status;
     }
 
@@ -26,7 +26,7 @@ public class KpiDashboard6MonthsOverview extends BasePage {
      */
     public Boolean isConnectionTypeDropDownVisible() {
         Boolean status = isVisible(pageElements.connectionTypeDropDown);
-        commonLib.pass("Connection Type Drop Down  is visible : " + status);
+        commonLib.info("Connection Type Drop Down is visible : " + status);
         return status;
     }
 
@@ -35,7 +35,7 @@ public class KpiDashboard6MonthsOverview extends BasePage {
      */
     public Boolean isQueueTypeDropDownVisible() {
         Boolean status = isVisible(pageElements.queueTypeDropDown);
-        commonLib.pass("Queue Type Drop Down is visible : " + status);
+        commonLib.info("Queue Type Drop Down is visible : " + status);
         return status;
     }
 
@@ -44,7 +44,7 @@ public class KpiDashboard6MonthsOverview extends BasePage {
      */
     public Boolean isIssueTypeDropDownVisible() {
         Boolean status = isVisible(pageElements.issueTypeDropDown);
-        commonLib.pass("Issue Type Drop Down is visible : " + status);
+        commonLib.info("Issue Type Drop Down is visible : " + status);
         return status;
     }
 
@@ -53,7 +53,7 @@ public class KpiDashboard6MonthsOverview extends BasePage {
      */
     public Boolean isIssueSubTypeDropDownVisible() {
         Boolean status = isVisible(pageElements.issueSubTypeDropDown);
-        commonLib.pass("Issue sub Type Drop Down  is visible : " + status);
+        commonLib.info("Issue sub Type Drop Down is visible : " + status);
         return status;
     }
 
@@ -62,7 +62,7 @@ public class KpiDashboard6MonthsOverview extends BasePage {
      */
     public Boolean isDownloadReportIconVisible() {
         Boolean status = isVisible(pageElements.downloadReportIcon);
-        commonLib.pass("Download Report Icon  is visible : " + status);
+        commonLib.info("Download Report Icon is visible : " + status);
         return status;
     }
 
@@ -70,11 +70,11 @@ public class KpiDashboard6MonthsOverview extends BasePage {
      * This method is used to click On Service Level Trend Details Icon
      */
     public void clickOnServiceLevelTrendDetailsIcon() {
-        commonLib.pass("click On Service Level Trend Details Icon");
+        commonLib.info("click On Service Level Trend Details Icon");
         if (isVisible(pageElements.serviceLevelTrendDetailsIcon))
             clickAndWaitForLoaderToBeRemoved(pageElements.serviceLevelTrendDetailsIcon);
         else {
-            commonLib.error(" Service Level Trend Details Icon not Visible");
+            commonLib.error("Service Level Trend Details Icon not Visible");
         }
     }
 
@@ -83,7 +83,7 @@ public class KpiDashboard6MonthsOverview extends BasePage {
      */
     public Boolean isQueueNameLabelVisible() {
         Boolean status = isVisible(pageElements.queueNameLabel);
-        commonLib.pass("Queue Name Label  is visible : " + status);
+        commonLib.info("Queue Name Label is visible : " + status);
         return status;
     }
 
@@ -92,7 +92,7 @@ public class KpiDashboard6MonthsOverview extends BasePage {
      */
     public Boolean isTotalTicketAllocatedLabelVisible() {
         Boolean status = isVisible(pageElements.totalTicketAllocated);
-        commonLib.pass("Total Ticket Allocated Label  is visible : " + status);
+        commonLib.info("Total Ticket Allocated Label is visible : " + status);
         return status;
     }
 
@@ -101,7 +101,7 @@ public class KpiDashboard6MonthsOverview extends BasePage {
      */
     public Boolean isTicketCancelledLabelVisible() {
         Boolean status = isVisible(pageElements.ticketCancelled);
-        commonLib.pass("Ticket Cancelled Allocated Label  is visible : " + status);
+        commonLib.info("Ticket Cancelled Allocated Label is visible : " + status);
         return status;
     }
 
@@ -110,7 +110,7 @@ public class KpiDashboard6MonthsOverview extends BasePage {
      */
     public Boolean isTicketClosedOutsideSLALabelVisible() {
         Boolean status = isVisible(pageElements.ticketClosedOutsideSLA);
-        commonLib.pass("Ticket Closed Outside SLA Label  is visible : " + status);
+        commonLib.info("Ticket Closed Outside SLA Label is visible : " + status);
         return status;
     }
 
@@ -119,7 +119,7 @@ public class KpiDashboard6MonthsOverview extends BasePage {
      */
     public Boolean isTicketClosedWithinSLALabelVisible() {
         Boolean status = isVisible(pageElements.ticketClosedWithinSLA);
-        commonLib.pass("Ticket Closed Within SLA Label  is visible : " + status);
+        commonLib.info("Ticket Closed Within SLA Label is visible : " + status);
         return status;
     }
 
@@ -128,7 +128,7 @@ public class KpiDashboard6MonthsOverview extends BasePage {
      */
     public Boolean isSLAPercentageLabelVisible() {
         Boolean status = isVisible(pageElements.SLAPercentage);
-        commonLib.pass("SLA % Label  is visible : " + status);
+        commonLib.info("SLA % Label is visible : " + status);
         return status;
     }
 
@@ -136,8 +136,17 @@ public class KpiDashboard6MonthsOverview extends BasePage {
      * This method is used to check Day wise Label  is visible or not
      */
     public Boolean isDaywiseLabelVisible() {
-        Boolean status = isVisible(pageElements.dayWise);
-        commonLib.pass("Day wise Label  is visible : " + status);
+        Boolean status = isVisible(pageElements.dayWiseQueueWiseWidget);
+        commonLib.info("Day wise Label is visible : " + status);
+        return status;
+    }
+
+    /**
+     * This method is used to check Day wise Label  is visible or not
+     */
+    public Boolean isDaywiseLabelVisibleIssueTypeWise() {
+        Boolean status = isVisible(pageElements.dayWiseIssueTypeWiseWidget);
+        commonLib.info("Day wise Label is visible : " + status);
         return status;
     }
 
@@ -146,7 +155,7 @@ public class KpiDashboard6MonthsOverview extends BasePage {
      */
     public Boolean isMonthLabelVisible() {
         Boolean status = isVisible(pageElements.month);
-        commonLib.pass("Month Label  is visible : " + status);
+        commonLib.info("Month Label is visible : " + status);
         return status;
     }
 
@@ -155,7 +164,7 @@ public class KpiDashboard6MonthsOverview extends BasePage {
      */
     public Boolean isDateLabelVisible() {
         Boolean status = isVisible(pageElements.date);
-        commonLib.pass("Date  Label  is visible : " + status);
+        commonLib.info("Date Label is visible : " + status);
         return status;
     }
 
@@ -164,7 +173,7 @@ public class KpiDashboard6MonthsOverview extends BasePage {
      */
     public Boolean isMonthSelectionBoxVisible() {
         Boolean status = isVisible(pageElements.monthSelectionBox);
-        commonLib.pass("Month Selection Box  is visible : " + status);
+        commonLib.info("Month Selection Box is visible : " + status);
         return status;
     }
 
@@ -173,7 +182,7 @@ public class KpiDashboard6MonthsOverview extends BasePage {
      */
     public Boolean isSlaPerforrmanceDetailsQueueWiseLabelVisible() {
         Boolean status = isVisible(pageElements.slaPerformanceDetailsQueueWiseLabel);
-        commonLib.pass("Sla Performance Details Queue Wise Label  is visible : " + status);
+        commonLib.info("Sla Performance Details Queue Wise Label is visible : " + status);
         return status;
     }
 
@@ -182,7 +191,7 @@ public class KpiDashboard6MonthsOverview extends BasePage {
      */
     public Boolean isSLAPerformanceDetailsIssueTypeLabelVisible() {
         Boolean status = isVisible(pageElements.slaPerformanceDetailsIssueTypeLabel);
-        commonLib.pass("SLA PERFORMANCE DETAILS: ISSUE TYPE WISE Label  is visible : " + status);
+        commonLib.info("SLA PERFORMANCE DETAILS: ISSUE TYPE WISE Label  is visible : " + status);
         return status;
     }
 
@@ -191,7 +200,7 @@ public class KpiDashboard6MonthsOverview extends BasePage {
      */
     public Boolean isIssueTypeLabelVisible() {
         Boolean status = isVisible(pageElements.issueTypeLabel);
-        commonLib.pass("Issue Type   is visible : " + status);
+        commonLib.info("Issue Type is visible : " + status);
         return status;
     }
 
@@ -199,11 +208,11 @@ public class KpiDashboard6MonthsOverview extends BasePage {
      * This method is used to click On Day WiseIn Sla Performance Details Queue Wise Icon
      */
     public void clickOnDayWiseInSlaPerformanceDetailsQueueWiseIcon() {
-        commonLib.pass("click On Service Level Trend Details Icon");
+        commonLib.info("click On Service Level Trend Details Icon");
         if (isVisible(pageElements.dayWiseInSlaPerformanceDetailsQueueWiseIcon))
             clickAndWaitForLoaderToBeRemoved(pageElements.dayWiseInSlaPerformanceDetailsQueueWiseIcon);
         else {
-            commonLib.error(" Day WiseIn Sla Performance Details Queue Wise Icon not Visible");
+            commonLib.error("Day WiseIn Sla Performance Details Queue Wise Icon not Visible");
         }
     }
 
@@ -215,7 +224,7 @@ public class KpiDashboard6MonthsOverview extends BasePage {
         if (isVisible(pageElements.backIcon))
             clickAndWaitForLoaderToBeRemoved(pageElements.backIcon);
         else {
-            commonLib.error(" Back Icon not Visible");
+            commonLib.error("Back Icon not Visible");
         }
 
     }
@@ -224,11 +233,11 @@ public class KpiDashboard6MonthsOverview extends BasePage {
      * This method is used to click On Day WiseIn Sla Performance Details Issue Type Icon
      */
     public void clickOnDayWiseInSlaPerformanceDetailsIssueTypeIcon() {
-        commonLib.pass("click On Day WiseIn Sla Performance Details Issue Type Icon");
+        commonLib.info("click On Day WiseIn Sla Performance Details Issue Type Icon");
         if (isVisible(pageElements.dayWiseInSlaPerformanceDetailsIssueTypeIcon))
             clickAndWaitForLoaderToBeRemoved(pageElements.dayWiseInSlaPerformanceDetailsIssueTypeIcon);
         else {
-            commonLib.error("  Day WiseIn Sla Performance Details Issue Type Icon not Visible");
+            commonLib.error("Day Wise In Sla Performance Details Issue Type Icon not Visible");
         }
     }
 
@@ -236,11 +245,11 @@ public class KpiDashboard6MonthsOverview extends BasePage {
      * This method is used to click Agent Performance Details Queue Wise Icon
      */
     public void clickOnAgentPerormanceIcon() {
-        commonLib.pass("click On Agent performance Icon");
+        commonLib.info("click On Agent performance Icon");
         if (isVisible(pageElements.agentPerormanceIcon))
             clickAndWaitForLoaderToBeRemoved(pageElements.agentPerormanceIcon);
         else {
-            commonLib.error(" Agent Performance Details Queue Wise Icon not Visible");
+            commonLib.error("Agent Performance Details Queue Wise Icon not Visible");
         }
     }
 
@@ -249,16 +258,16 @@ public class KpiDashboard6MonthsOverview extends BasePage {
      */
     public Boolean isAgentIdLabelVisible() {
         Boolean status = isVisible(pageElements.agentIdLabel);
-        commonLib.pass("Agent ID   is visible : " + status);
+        commonLib.info("Agent ID  is visible : " + status);
         return status;
     }
 
     /**
-     * This method is used to check Agent Name Label  is visible or not
+     * This method is used to check Agent Name Label is visible or not
      */
     public Boolean isAgentNameLabelVisible() {
         Boolean status = isVisible(pageElements.agentNameLabel);
-        commonLib.pass("Agent Name   is visible : " + status);
+        commonLib.info("Agent Name  is visible : " + status);
         return status;
     }
 
@@ -266,13 +275,12 @@ public class KpiDashboard6MonthsOverview extends BasePage {
      * This method is used to click On Day WiseIn Agent Performance Icon
      */
     public void clickOnDayWiseInAgentPerformanceIcon() {
-        commonLib.pass("click On Day WiseIn Agent Performance Icon");
+        commonLib.info("click On Day WiseIn Agent Performance Icon");
         if (isVisible(pageElements.dayWiseInAgentPerformanceIcon))
             clickAndWaitForLoaderToBeRemoved(pageElements.dayWiseInAgentPerformanceIcon);
         else {
             commonLib.error("Day WiseIn Agent Performance Icon not Visible");
         }
     }
-
 
 }

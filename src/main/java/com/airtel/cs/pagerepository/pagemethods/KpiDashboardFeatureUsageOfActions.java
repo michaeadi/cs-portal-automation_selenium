@@ -18,7 +18,7 @@ public class KpiDashboardFeatureUsageOfActions extends BasePage {
      */
     public Boolean isFeatureUsageOfActionsLabelVisible() {
         Boolean status = isVisible(pageElements.featureUsageOfActionsLabel);
-        commonLib.pass("Feature Usage Of Actions Label is visible : " + status);
+        commonLib.info("Feature Usage Of Actions Label is visible : " + status);
         return status;
     }
 
@@ -27,7 +27,7 @@ public class KpiDashboardFeatureUsageOfActions extends BasePage {
      */
     public Boolean isConnectionLabelVisible() {
         Boolean status = isVisible(pageElements.connectionLabel);
-        commonLib.pass("Connection Label is visible : " + status);
+        commonLib.info("Connection Label is visible : " + status);
         return status;
     }
 
@@ -36,7 +36,7 @@ public class KpiDashboardFeatureUsageOfActions extends BasePage {
      */
     public Boolean isMonthSelectionLabelVisible() {
         Boolean status = isVisible(pageElements.monthSelectionLabel);
-        commonLib.pass("Month Selection Label is visible : " + status);
+        commonLib.info("Month Selection Label is visible : " + status);
         return status;
     }
 
@@ -58,7 +58,7 @@ public class KpiDashboardFeatureUsageOfActions extends BasePage {
      */
     public Boolean isAgentIdLabelVisible() {
         Boolean status = isVisible(pageElements.agentIdLabel);
-        commonLib.pass("Agent ID Label is visible : " + status);
+        commonLib.info("Agent ID Label is visible : " + status);
         return status;
     }
 
@@ -67,7 +67,7 @@ public class KpiDashboardFeatureUsageOfActions extends BasePage {
      */
     public Boolean isAgentNameLabelVisible() {
         Boolean status = isVisible(pageElements.agentNameLabel);
-        commonLib.pass("Agent Name  Label is visible : " + status);
+        commonLib.info("Agent Name  Label is visible : " + status);
         return status;
     }
 
@@ -76,7 +76,7 @@ public class KpiDashboardFeatureUsageOfActions extends BasePage {
      */
     public Boolean isMTDLabelVisible() {
         Boolean status = isVisible(pageElements.MTDLabel);
-        commonLib.pass("MTD  Label is visible : " + status);
+        commonLib.info("MTD  Label is visible : " + status);
         return status;
     }
 
