@@ -100,7 +100,7 @@ public class ESBRequestSource extends RestCommonUtils {
     public static final String GETTING_SERVICE_CLASS_FROM_ESB = "getting Service Class from ESB";
     public static final String UNABLE_TO_FETCH_SERVICE_CLASS_FROM_ESB = "unable to fetch service class from ESB";
     private static final String INGRESS_DOWNSTREAM_BASE_URL_1 = constants.getValue("ingress.downstream.base.url1");
-    public static final String INGRESS_DOWNSTREAM_BASE_URL_2 = "." + OPCO.toLowerCase().replace("4", "2") + "." + evnName.toLowerCase();
+    public static final String INGRESS_DOWNSTREAM_BASE_URL_2 = "." + OPCO.toLowerCase().substring(0, 2) + "." + evnName.toLowerCase();
     private static final String INGRESS_DOWNSTREAM_BASE_URL_3 = constants.getValue("ingress.downstream.base.url2");
     public static final String INGRESS_DOWNSTREAM_BASE_URL = INGRESS_DOWNSTREAM_BASE_URL_1 + INGRESS_DOWNSTREAM_BASE_URL_2 + INGRESS_DOWNSTREAM_BASE_URL_3;
     private static final String TO_DATE = "to_date";
