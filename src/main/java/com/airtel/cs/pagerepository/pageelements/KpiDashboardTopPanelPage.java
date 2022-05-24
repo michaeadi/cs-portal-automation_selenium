@@ -28,8 +28,8 @@ public class KpiDashboardTopPanelPage {
     public By detailsOpenTicketsUnderSLALabel = By.xpath("//*[contains(text(),'Open Tickets Under SLA ')]");
     public By detailsBreachingWithin15MinsLabel = By.xpath("//div[contains(text(),' Breaching Within 15 Mins ')]");
     public By detailsBreachingWithin15To60MinsLabel = By.xpath("//div[contains(text(),' Breaching Within 15 - 60 Mins ')]");
-    public By detailsBreachingWithin60MinsLabel = By.xpath("//div[contains(text(),' Breaching Within > 60 Mins ')]");
-    public By backIcon = By.xpath("//img[contains(@src,'assets/service-request/images/icon/back.svg')]");
+    public By breachingMoreThan60MinsLabel = By.xpath("//div[contains(text(),' Breaching beyond 60 Min')]");
+    public By backIcon = By.xpath("//img[contains(@src,'back.svg')]");
     public By kpiDashboardIcon = By.xpath("//img[contains(@src,'kpi_dashboard.svg')]");
     public By csDashboardIcon = By.xpath("//a[contains(text(),'CS Dashboard')]");
     public By ticketCountUnderSLA = By.xpath("//span[contains(text(),'Open Tickets Under SLA ')]/following-sibling::span");

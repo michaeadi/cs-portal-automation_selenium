@@ -287,8 +287,8 @@ public class KpiDashboardTopPanel extends BasePage {
     /**
      * This method is used to check Breaching Within > 60 Mins   is visible or not
      */
-    public Boolean isDetailsBreachingGreaterThan60MinsLabelVisible() {
-        Boolean status = isVisible(pageElements.detailsBreachingWithin60MinsLabel);
+    public Boolean isBreachingMoreThan60MinsLabelVisible() {
+        Boolean status = isVisible(pageElements.breachingMoreThan60MinsLabel);
         commonLib.info("Open Ticket Overview is visible : " + status);
         return status;
     }

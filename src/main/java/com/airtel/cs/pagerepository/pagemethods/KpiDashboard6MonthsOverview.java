@@ -244,7 +244,7 @@ public class KpiDashboard6MonthsOverview extends BasePage {
     /**
      * This method is used to click Agent Performance Details Queue Wise Icon
      */
-    public void clickOnAgentPerormanceIcon() {
+    public void clickOnAgentPerformanceIcon() {
         commonLib.info("click On Agent performance Icon");
         if (isVisible(pageElements.agentPerormanceIcon))
             clickAndWaitForLoaderToBeRemoved(pageElements.agentPerormanceIcon);

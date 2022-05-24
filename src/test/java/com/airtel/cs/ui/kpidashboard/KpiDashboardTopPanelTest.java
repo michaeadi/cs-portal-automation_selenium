@@ -28,8 +28,8 @@ public class KpiDashboardTopPanelTest extends Driver {
         }
     }
 
-    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest"})
-    public void dashboardTopPanelDetailsPage() {
+    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "dashboardTopPanel")
+    public void openTicketBeyondSLADetailsPage() {
         try {
             selUtils.addTestcaseDescription(" Dashboard Top Panel Details Page", "description");
             pages.getKpiDashboardTopPanel().clickOnOpenTicketsBeyondSLADetailsIcon();
@@ -45,12 +45,12 @@ public class KpiDashboardTopPanelTest extends Driver {
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
             pages.getKpiDashboardTopPanel().clickOnBackIcon();
-            commonLib.fail("Exception in method - dashboardTopPanelDetailsPage" + e.fillInStackTrace(), true);
+            commonLib.fail("Exception in method - openTicketBeyondSLADetailsPage" + e.fillInStackTrace(), true);
 
         }
     }
 
-    @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "dashboardTopPanel")
     public void dashboardOpenTicketsUnderSLADetails() {
         try {
             selUtils.addTestcaseDescription(" Open Tickets Under SLA Details", "description");
@@ -76,7 +76,7 @@ public class KpiDashboardTopPanelTest extends Driver {
         }
     }
 
-    @Test(priority = 4, groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @Test(priority = 4, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "dashboardTopPanel")
     public void breachingWithin15Min() {
         try {
             selUtils.addTestcaseDescription(" Breaching Within 15 Mins Details", "description");
@@ -102,7 +102,7 @@ public class KpiDashboardTopPanelTest extends Driver {
         }
     }
 
-    @Test(priority = 5, groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @Test(priority = 5, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "dashboardTopPanel")
     public void breachingWithin15To60Min() {
         try {
             selUtils.addTestcaseDescription(" Breaching Within 15 To 60 Mins Details", "description");
@@ -127,13 +127,13 @@ public class KpiDashboardTopPanelTest extends Driver {
         }
     }
 
-    @Test(priority = 6, groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @Test(priority = 6, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "dashboardTopPanel")
     public void breachingMoreThan60Min() {
         try {
             selUtils.addTestcaseDescription(" Breaching Greater Than 60 Mins Details", "description");
             final boolean ticketFound = pages.getKpiDashboardTopPanel().clickBreachingMoreThan60MinIcon();
             if (ticketFound) {
-                assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardTopPanel().isDetailsBreachingGreaterThan60MinsLabelVisible(), true, "Details Breaching Greater Than 60 Mins Label  is visible"));
+                assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardTopPanel().isBreachingMoreThan60MinsLabelVisible(), true, "Details Breaching Greater Than 60 Mins Label  is visible"));
                 assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardTopPanel().isTicketIdLabelVisible(), true, "Ticket ID Label  is visible"));
                 assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardTopPanel().isPriorityLabelVisible(), true, "  Priority Label is visible"));
                 assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardTopPanel().isStateLabelVisible(), true, "State Label is visible"));

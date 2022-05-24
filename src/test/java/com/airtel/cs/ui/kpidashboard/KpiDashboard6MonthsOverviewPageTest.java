@@ -25,7 +25,7 @@ public class KpiDashboard6MonthsOverviewPageTest extends Driver {
         }
     }
 
-    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "serviceLevelTrend")
     public void slaPerformanceDetailsQueueWise() {
         try {
             selUtils.addTestcaseDescription("Service Level Trend Graph Details Widget", "description");
@@ -49,7 +49,7 @@ public class KpiDashboard6MonthsOverviewPageTest extends Driver {
         }
     }
 
-    @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "serviceLevelTrend")
     public void slaPerformanceDetailsIssueTypeWise() {
         try {
             selUtils.addTestcaseDescription("Service Level Trend Graph Details Widget", "description");
@@ -68,7 +68,7 @@ public class KpiDashboard6MonthsOverviewPageTest extends Driver {
         }
     }
 
-    @Test(priority = 4, groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @Test(priority = 4, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"serviceLevelTrend", "slaPerformanceDetailsQueueWise"})
     public void dayWiseInSlaPerformanceDetailsQueueWise() {
         try {
             selUtils.addTestcaseDescription("Service Level Trend Graph Details Widget", "description");
@@ -87,7 +87,7 @@ public class KpiDashboard6MonthsOverviewPageTest extends Driver {
         }
     }
 
-    @Test(priority = 5, groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @Test(priority = 5, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"serviceLevelTrend", "slaPerformanceDetailsIssueTypeWise"})
     public void dayWiseInSlaPerformanceDetailsIssueType() {
         try {
             selUtils.addTestcaseDescription("Service Level Trend Graph Details Widget", "description");
@@ -106,11 +106,11 @@ public class KpiDashboard6MonthsOverviewPageTest extends Driver {
         }
     }
 
-    @Test(priority = 6, groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @Test(priority = 6, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "serviceLevelTrend")
     public void AgentPerformanceDetails() {
         try {
             selUtils.addTestcaseDescription("Agent Performance Details", "description");
-            pages.getKpiDashboard6MonthsOverview().clickOnAgentPerormanceIcon();
+            pages.getKpiDashboard6MonthsOverview().clickOnAgentPerformanceIcon();
             assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboard6MonthsOverview().isAgentIdLabelVisible(), true, "Agent Id Label is Visible", "Agent Id Label is NOT Visible"));
             assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboard6MonthsOverview().isAgentNameLabelVisible(), true, "Agent Name Label is Visible", "Agent Name Label is NOT Visible"));
             assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboard6MonthsOverview().isTotalTicketAllocatedLabelVisible(), true, "Total Ticket Allocated Label is Visible", "Total Ticket Allocated Label is NOT Visible"));
@@ -125,7 +125,7 @@ public class KpiDashboard6MonthsOverviewPageTest extends Driver {
         }
     }
 
-    @Test(priority = 7, groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @Test(priority = 7, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"AgentPerformanceDetails", "serviceLevelTrend"})
     public void DayWiseAgentPerformanceDetails() {
         try {
             selUtils.addTestcaseDescription("Day Wise Agent Performance Details", "description");
