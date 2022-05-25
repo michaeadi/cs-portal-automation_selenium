@@ -9,7 +9,7 @@ import org.testng.annotations.Test;
 
 
 public class CustomerIdSearchTest extends Driver{
-    private static String customerId,invalidNubanId = null;
+    private static String customerId, invalidCustomerId = null;
     PsbRequestSource api = new PsbRequestSource();
     CLMDetailsResponse clmDetails;
     String className = this.getClass().getName();
@@ -52,8 +52,8 @@ public class CustomerIdSearchTest extends Driver{
     public void invalidCustomerIdTest() {
         try {
             selUtils.addTestcaseDescription("Search invalid Nuabn id , Validate error message", "description");
-            invalidNubanId = constants.getValue(ApplicationConstants.INVALID_CUSTOMER_MSISDN);
-            pages.getMsisdnSearchPage().enterNumberOnDashboardSearch(invalidNubanId);
+            invalidCustomerId = constants.getValue(ApplicationConstants.INVALID_CUSTOMER_ID);
+            pages.getMsisdnSearchPage().enterNumberOnDashboardSearch(invalidCustomerId);
             pages.getDemoGraphicPage().clickOnDashboardSearch();
             String errorMessage = "Invalid customer ID. Please enter correct customer ID to proceed forward";
             assertCheck.append(actions.assertEqualStringType(pages.getPsbDemographicWidget().getErrorMessage(), errorMessage, "Error message is same as Expected when invalid nuban id is searched", "Error message is not same as Expected when invalid nuban id is searched"));

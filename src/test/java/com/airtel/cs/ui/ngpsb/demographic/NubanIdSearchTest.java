@@ -52,7 +52,7 @@ public class NubanIdSearchTest extends Driver{
     public void invalidNubanIdTest() {
         try {
             selUtils.addTestcaseDescription("Search invalid Nuban id , Validate error message", "description");
-            invalidNubanId = constants.getValue(ApplicationConstants.INVALID_CUSTOMER_MSISDN);
+            invalidNubanId = constants.getValue(ApplicationConstants.INVALID_NUBAN_ID);
             pages.getMsisdnSearchPage().enterNumberOnDashboardSearch(invalidNubanId);
             pages.getDemoGraphicPage().clickOnDashboardSearch();
             String errorMessage = "Invalid Nuban ID/MSISDN. Please correct Nuban ID/MSISDN to proceed forward";

@@ -67,7 +67,7 @@
     <test name="Demo Graphic Widget Test By Prepaid MSISDN" preserve-order="true">
         <groups>
             <run>
-                <include name="ProdTest"/>
+                <include name="RegressionTest"/>
             </run>
         </groups>
         <classes>
@@ -77,7 +77,7 @@
     <test name="Demo Graphic Widget Test By Postpaid MSISDN" preserve-order="true">
         <groups>
             <run>
-                <include name="ProdTest"/>
+                <include name="RegressionTest"/>
             </run>
         </groups>
         <classes>
@@ -87,7 +87,7 @@
     <test name="Demo Graphic Widget Test By Hybrid MSISDN" preserve-order="true">
         <groups>
             <run>
-                <include name="ProdTest"/>
+                <include name="RegressionTest"/>
             </run>
         </groups>
         <classes>

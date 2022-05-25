@@ -14,7 +14,7 @@ public class AMTxnWidgetPage {
     public By airtelMoneyError = By.xpath("//div[@data-csautomation-key='AIRTEL_MONEY']//div[@class='image-container']");
     public By ticketIcon = By.xpath("//div[@data-csautomation-key='AIRTEL_MONEY']//ancestor::div[1]//span/img[@class='interaction-ticket']");
     public By getTitle = By.xpath("//div[@data-csautomation-key='AIRTEL_MONEY']//span[@class='card__card-header--label']");
-    public By clickMenu = By.xpath("//div[@data-csautomation-key='AIRTEL_MONEY']//img[@class='header-action-icon ng-star-inserted']");
+    public By clickMenu = By.xpath("//div[@data-csautomation-key='AIRTEL_MONEY']//img[contains(@src,'history.svg')]");
     public By amHistoryTab = By.xpath("//button[contains(text(),'AM History')][@role='menuitem']");
     public By transactionId = By.xpath("//div[@data-csautomation-key='AIRTEL_MONEY']//input[@placeholder='Transaction ID']");
     public By transactionSearchBtn = By.xpath("//div[@data-csautomation-key='AIRTEL_MONEY']//input[@placeholder='Transaction ID']//following-sibling::button");
