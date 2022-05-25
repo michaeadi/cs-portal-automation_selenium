@@ -21,7 +21,7 @@ public class SmartCashTransactionHistoryTest extends Driver {
     String nubanId;
     String className = this.getClass().getName();
 
-    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"})
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void checkExecution() {
         if (!continueExecutionFA) {
             commonLib.skip("Skipping tests because user NOT able to login Over Portal");
@@ -29,7 +29,7 @@ public class SmartCashTransactionHistoryTest extends Driver {
         }
     }
 
-    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"})
+    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void openCustomerInteraction() {
         try {
             selUtils.addTestcaseDescription("Open Customer Profile Page with valid MSISDN, Validate Customer Profile Page Loaded or not", "description");
@@ -53,7 +53,7 @@ public class SmartCashTransactionHistoryTest extends Driver {
     }
 
     @DataProviders.Table(name = "SmartCash Transaction History")
-    @Test(priority = 2, groups = {"ProdTest", "SmokeTest", "SanityTest", "RegressionTest"}, dataProvider = "HeaderData", dataProviderClass = DataProviders.class, dependsOnMethods = {"openCustomerInteraction"})
+    @Test(priority = 2, groups = {"ProdTest", "SanityTest", "RegressionTest"}, dataProvider = "HeaderData", dataProviderClass = DataProviders.class, dependsOnMethods = {"openCustomerInteraction"})
     public void transactionHistoryWidgetLayoutTest(HeaderDataBean data) {
         try {
             selUtils.addTestcaseDescription("Validating Smart Cash Transaction History's Header Name ,Validating all the filter displayed as per config,Validate search by transaction id box displayed as per config.", "description");
@@ -184,7 +184,7 @@ public class SmartCashTransactionHistoryTest extends Driver {
         }
     }
 
-    @Test(priority = 5, groups = {"ProdTest", "RegressionTest"}, dependsOnMethods = {"transactionHistoryWidgetLayoutTest", "openCustomerInteraction", "txnHistoryMetadataTest"})
+    @Test(priority = 5, groups = {"SanityTest", "RegressionTest"}, dependsOnMethods = {"transactionHistoryWidgetLayoutTest", "openCustomerInteraction", "txnHistoryMetadataTest"})
     public void sendNotificationSmsTest() {
         try {
             selUtils.addTestcaseDescription("Validate all the Send Notification transaction are displayed on UI as per api response", "description");
@@ -224,7 +224,7 @@ public class SmartCashTransactionHistoryTest extends Driver {
         }
     }
 
-    @Test(priority = 6, groups = {"SanityTest", "ProdTest", "RegressionTest"}, dependsOnMethods = {"sendNotificationSmsTest"})
+    @Test(priority = 6, groups = {"SanityTest", "RegressionTest"}, dependsOnMethods = {"sendNotificationSmsTest"})
     public void checkActionTrail() {
         try {
             selUtils.addTestcaseDescription("Validating entry should be captured in Action Trail after performing ResendSMS action", "description");

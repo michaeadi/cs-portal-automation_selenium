@@ -25,7 +25,7 @@ public class CustomerInteractionScreenTest extends Driver {
         }
     }
 
-    @Test(priority = 1, groups = {"SanityTest", "RegressionTest"})
+    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void suggestionsCheckTest() {
         try {
             selUtils.addTestcaseDescription("Open Customer Interaction Page, Validate all the suggestions", "description");
@@ -43,7 +43,7 @@ public class CustomerInteractionScreenTest extends Driver {
         }
     }
 
-    @Test(priority = 2, groups = {"SanityTest", "RegressionTest"})
+    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void intermediateScreenHeaderTest() {
         try {
             selUtils.addTestcaseDescription("Validate all the headers of intermediate screen,", "description");
@@ -106,10 +106,10 @@ public class CustomerInteractionScreenTest extends Driver {
         }
     }
 
-    @Test(priority = 4, groups = {"SanityTest", "RegressionTest"})
+    @Test(priority = 4, groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void msisdnSearchTest() {
         try {
-            selUtils.addTestcaseDescription("Search msisdn from customer interaction page, Msidn should get displayed on Customer Dashboard's search box", "description");
+            selUtils.addTestcaseDescription("Search msisdn from customer interaction page, Msisdn should get displayed on Customer Dashboard's search box", "description");
             String msisdn = constants.getValue(ApplicationConstants.CUSTOMER_TIER1_MSISDN);
             pages.getCustomerInteractionScreen().searchMsisdn(msisdn);
             clmDetails = api.getCLMDetails(msisdn);
@@ -128,7 +128,7 @@ public class CustomerInteractionScreenTest extends Driver {
         }
     }
 
-    @Test(priority = 5, groups = {"SanityTest", "RegressionTest"})
+    @Test(priority = 5, groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void nubanIdSearchTest() {
         try {
             selUtils.addTestcaseDescription("Search Nuban ID from customer interaction page, Nuban ID should get displayed on Customer Dashboard's search box", "description");
@@ -150,7 +150,7 @@ public class CustomerInteractionScreenTest extends Driver {
         }
     }
 
-    @Test(priority = 6, groups = {"SanityTest", "RegressionTest"})
+    @Test(priority = 6, groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void customerIdSearchTest() {
         try {
             selUtils.addTestcaseDescription("Search Customer Id from customer interaction page, Customer Id should get displayed on Customer Dashboard's search box", "description");
