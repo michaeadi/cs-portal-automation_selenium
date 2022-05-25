@@ -179,7 +179,7 @@
             <class name="com.airtel.cs.ui.frontendagent.FrontendAgentTicketTest"/>
         </classes>
     </test>
-   <test name="Validate Create Configuration API">
+    <test name="Validate Create Configuration API">
         <groups>
             <run>
                 <include name="ProdTest"/>
@@ -199,7 +199,7 @@
             <class name="com.airtel.cs.ui.backendSupervisor.SupervisorTicketListingPageTest"/>
         </classes>
     </test>
-   <test name="Source App Test">
+    <test name="Source App Test">
         <groups>
             <run>
                 <include name="ProdTest"/>
