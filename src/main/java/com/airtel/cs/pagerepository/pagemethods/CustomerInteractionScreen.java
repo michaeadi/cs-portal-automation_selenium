@@ -71,4 +71,14 @@ public class CustomerInteractionScreen extends BasePage {
         commonLib.info("Getting Search box Text : " + text);
         return text;
     }
+
+    /**
+     * This method is used to search Msisdn/Nuban Id/Customer Id
+     */
+    public void searchMsisdn(String searchId){
+        pages.getSideMenuPage().clickOnSideMenu();
+        pages.getSideMenuPage().openCustomerInteractionPage();
+        pages.getMsisdnSearchPage().enterNumber(searchId);
+        pages.getMsisdnSearchPage().clickOnSearch();
+    }
 }

@@ -571,18 +571,19 @@ public class PsbDemographicWidget extends BasePage {
      * @return
      */
     public void clickHeaderValue(int row) {
-        commonLib.info("Clicking" + row + "is CTA");
+        commonLib.info("Clicking CTA of row : " + row );
         clickAndWaitForLoaderToBeRemoved(By.xpath(pageElements.row + "[" + row + pageElements.column));
 
     }
 
     /**
      * This method is used to get value of passed row and column
+     *
      * @return
      */
-    public String getHeaderValue(int row , int column) {
-        commonLib.info("Getting " + row + "'s value ");
-        String text =getText(By.xpath(pageElements.row + "[" + row + pageElements.rowFirst + column+ pageElements.rowSecond));
+    public String getHeaderValue(int row, int column) {
+        commonLib.info("Getting value for column :" + column);
+        String text = getText(By.xpath(pageElements.row + "[" + row + pageElements.rowFirst + column + pageElements.rowSecond));
         return text;
 
     }
@@ -663,25 +664,20 @@ public class PsbDemographicWidget extends BasePage {
      */
     public boolean isPageLoaded(CLMDetailsResponse clmDetails, String className) {
         boolean pageLoaded = false;
-        int walletsSize = clmDetails.getResult().getDetails().get(0).getWallets().size();
-        int accountsSize = clmDetails.getResult().getDetails().get(0).getAccounts().size();
-        int totalSize = walletsSize + accountsSize;
+        int walletSize = 0, accountSize = 0;
+        for (int i = 0; i < clmDetails.getResult().getDetails().size(); i++) {
+            walletSize = walletSize + clmDetails.getResult().getDetails().get(i).getWallets().size();
+            accountSize = accountSize + clmDetails.getResult().getDetails().get(i).getAccounts().size();
+        }
+        int totalSize = walletSize + accountSize;
         if (totalSize > 1) {
             assertCheck.append(actions.assertEqualBoolean(pages.getPsbDemographicWidget().isIntermediateScreenVisible(), true, "Intermediate Screen is visible successfully", "Intermediate Screen is not visible "));
-            String message=totalSize+" "+"results found for the entered msisdn";
-            assertCheck.append(actions.assertEqualStringType(pages.getPsbDemographicWidget().getResultsFoundMessage().trim().toLowerCase(),message.trim().toLowerCase(),"Results Found message is same as expected","Results Found message is NOT same as expected"));
-            assertCheck.append(actions.assertEqualBoolean(pages.getPsbDemographicWidget().isActionVisible(), true, " Action is visible ", "Action is not visible "));
-            assertCheck.append(actions.assertEqualBoolean(pages.getPsbDemographicWidget().isTypeVisible(), true, " Type is visible ", "Type is not visible "));
-            assertCheck.append(actions.assertEqualBoolean(pages.getPsbDemographicWidget().isNubanIdVisible(), true, "Nuban Id is visible ", "Nuban Id is not visible "));
-            assertCheck.append(actions.assertEqualBoolean(pages.getPsbDemographicWidget().isMsisdnVisible(), true, "Msisdn is visible ", "Msisdn is not visible "));
-            assertCheck.append(actions.assertEqualBoolean(pages.getPsbDemographicWidget().isCreatedOnVisible(), true, "Created On is visible ", "Created on is not visible "));
+            String message = totalSize + " " + "results found for the entered msisdn";
+            assertCheck.append(actions.assertEqualStringType(pages.getPsbDemographicWidget().getResultsFoundMessage().trim().toLowerCase(), message.trim().toLowerCase(), "Results Found message is same as expected", "Results Found message is NOT same as expected"));
             int size = pages.getPsbDemographicWidget().getNoOfRows();
             for (int row = 1; row <= size; row++) {
-                String type = pages.getPsbDemographicWidget().getHeaderValue(row,3);
+                String type = pages.getPsbDemographicWidget().getHeaderValue(row, 3);
                 if (type.equalsIgnoreCase("Wallet") || className.contains("Wallet")) {
-                    assertCheck.append(actions.assertEqualStringType(pages.getPsbDemographicWidget().getHeaderValue(row,2), pages.getBasePage().getKeyValueAPI(clmDetails.getResult().getDetails().get(0).getWallets().get(0).getId()), "Wallet Nuban id is same as Expected", "Wallet nuban id is not same as Expected"));
-                    String createdOnDate = UtilsMethods.getDateFromEpoch(Long.parseLong(clmDetails.getResult().getDetails().get(0).getWallets().get(0).getCreatedOn()), constants.getValue(CommonConstants.NGPSB_WALLET_CREATED_DATE_PATTERN));
-                    assertCheck.append(actions.assertEqualStringType(pages.getPsbDemographicWidget().getHeaderValue(row,4).toLowerCase(), pages.getBasePage().getKeyValueAPI(createdOnDate).toLowerCase(), "Wallet Created On is same as Expected", "Wallet Created On is not same as Expected"));
                     pages.getPsbDemographicWidget().clickHeaderValue(row);
                     pageLoaded = pages.getPsbDemographicWidget().isWalletInformationWidgetVisible();
                     assertCheck.append(actions.assertEqualBoolean(pageLoaded, true, "Customer Profile Page is loaded and Wallet Information widget is also visible ", "Customer Profile Page is not loaded and Wallet Information widget is also not visible"));
@@ -689,9 +685,6 @@ public class PsbDemographicWidget extends BasePage {
                     break;
                 }
                 if (type.equalsIgnoreCase("Account") || className.contains("Account")) {
-                    assertCheck.append(actions.assertEqualStringType(pages.getPsbDemographicWidget().getHeaderValue(row,2), pages.getBasePage().getKeyValueAPI(clmDetails.getResult().getDetails().get(0).getAccounts().get(0).getId()), "Account Nuban id is same as Expected", "Account nuban id is not same as Expected"));
-                    String createdOnDate = UtilsMethods.getDateFromEpoch(Long.parseLong(clmDetails.getResult().getDetails().get(0).getAccounts().get(0).getCreatedOn()), constants.getValue(CommonConstants.NGPSB_ACCOUNT_CREATED_DATE_PATTERN));
-                    assertCheck.append(actions.assertEqualStringType(pages.getPsbDemographicWidget().getHeaderValue(row,4).toLowerCase(), pages.getBasePage().getKeyValueAPI(createdOnDate).toLowerCase(), "Account Created On is same as Expected", "Account Created On is not same as Expected"));
                     pages.getPsbDemographicWidget().clickHeaderValue(row);
                     pageLoaded = pages.getPsbDemographicWidget().isAccountInformationWidgetVisible();
                     assertCheck.append(actions.assertEqualBoolean(pageLoaded, true, "Customer Profile Page is loaded and Account Information widget is also visible ", "Customer Profile Page is not loaded and Account Information widget is also not visible"));
@@ -761,6 +754,7 @@ public class PsbDemographicWidget extends BasePage {
 
     /**
      * This method is used to hover on Customer Id Info Icon
+     *
      * @return
      */
 
@@ -771,30 +765,33 @@ public class PsbDemographicWidget extends BasePage {
 
     /**
      * This method is used get colour for Pin Reset
+     *
      * @return
      */
     public String getPinResetSetColour() {
-        String colour=selUtils.getDataPointColor(pageElements.pinReset);
+        String colour = selUtils.getDataPointColor(pageElements.pinReset);
         commonLib.info("Getting Colour for Pin Reset : " + colour);
         return colour;
     }
 
     /**
      * This method is used get colour for Pin Set
+     *
      * @return
      */
     public String getPinSetColour() {
-        String colour=selUtils.getDataPointColor(pageElements.pinSet);
+        String colour = selUtils.getDataPointColor(pageElements.pinSet);
         commonLib.info("Getting Colour for Pin Set : " + colour);
         return colour;
     }
 
     /**
      * This method is used get colour for Is User Agent
+     *
      * @return
      */
     public String getIsUserAgentColour() {
-        String colour=selUtils.getDataPointColor(pageElements.isUserAgent);
+        String colour = selUtils.getDataPointColor(pageElements.isUserAgent);
         commonLib.info("Getting Colour for Is User Agent : " + colour);
         return colour;
     }
@@ -816,7 +813,7 @@ public class PsbDemographicWidget extends BasePage {
      *
      * @return
      */
-    public  String getResultsFoundMessage() {
+    public String getResultsFoundMessage() {
         String text = getText(pageElements.resultsFoundMessage);
         commonLib.info("Getting results found message : " + text);
         return text;

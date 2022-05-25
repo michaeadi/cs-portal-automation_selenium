@@ -60,6 +60,8 @@ public class AirtelMoneyMenuPrimaryWidgetTest extends Driver {
         try {
             selUtils.addTestcaseDescription("Validating Airtel Money History's Header Name  Menu of User :" + customerNumber + ",Validating all the filter display as per config,Validate search by transaction id box displayed as per config.", "description");
             pages.getAmTxnWidgetPage().clickMenuOption();
+            assertCheck.append(actions.assertEqualStringType(pages.getMoreAMTxnTabPage().getFooterAuuid(), loginAUUID, "Auuid shown at the footer of AM Transaction History widget and is correct", "Auuid NOT shown at the footer of AM Transaction History widget"));
+            assertCheck.append(actions.assertEqualStringType(pages.getMoreAMTxnTabPage().getFooterAuuid(), loginAUUID, "Auuid shown at the middle of AM Transaction History widget and is correct", "Auuid NOT shown at the middle of AM Transaction History widget"));
             assertCheck.append(actions.assertEqualBoolean(pages.getMoreAMTxnTabPage().isAMMenuHistoryTabDisplay(), true, "AM More Primary transaction widget display as expected", "AM More Primary transaction widget does not display as expected"));
             assertCheck.append(actions.assertEqualBoolean(pages.getMoreAMTxnTabPage().isTodayFilterTab(), true, "Today Filter does display on UI.", "Today Filter does not display."));
             assertCheck.append(actions.assertEqualBoolean(pages.getMoreAMTxnTabPage().isTodayFilterTab(), true, "Last Two Days Filter does display on UI.", "Last Two Days Filter does not display."));

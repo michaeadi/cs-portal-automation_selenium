@@ -543,7 +543,7 @@ public class RequestSource extends RestCommonUtils {
         } catch (Exception e) {
             commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + " - transactionHistoryAPITest " + e.getMessage(), false);
             commonLib.info(CALLING_ESB_APIS);
-            commonPostMethod(constants.getValue(AM_TRANSACTION_HISTORY_API_URL) + ESBURIConstants.TRANSACTION_HISTORY, new TransactionHistoryRequest(msisdn, 5, 1, null, null));
+            commonPostMethod(constants.getValue(ESBURIConstants.HLR_SERVICE_BASE_URL) + ESBURIConstants.TRANSACTION_HISTORY, new TransactionHistoryRequest(msisdn, 5, 1, null, null));
         }
         return result;
     }

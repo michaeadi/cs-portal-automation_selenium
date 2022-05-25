@@ -43,4 +43,6 @@ public class MoreAMTxnTabPage {
     public By airtelMoneyErrorSec = By.xpath("//div[@data-csautomation-key='AM_TRANSACTION_DETAIL_SECONDARY']//div[@class='image-container']");
     public By titleSec = By.xpath("//div[@data-csautomation-key='AM_TRANSACTION_DETAIL_SECONDARY']//span[@class='card__card-header--label']");
 
+    public By footerAuuid = By.xpath("//*[@data-csautomation-key='AM_TRANSACTION_DETAIL']//*[@class='auuid-container']");
+    public By middleAuuid = By.xpath("//*[@data-csautomation-key='AM_TRANSACTION_DETAIL']");
 }

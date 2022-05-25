@@ -33,7 +33,7 @@ public class AccountInformationTest extends Driver {
 
     @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void checkAccountsSize() {
-        customerNumber = constants.getValue(ApplicationConstants.CUSTOMER_TIER1_MSISDN);
+        customerNumber = constants.getValue(ApplicationConstants.CUSTOMER_TIER3_MSISDN);
         clmDetails = api.getCLMDetails(customerNumber);
         if (clmDetails.getResult().getDetails().get(0).getAccounts().size() == 0) {
             commonLib.skip("Skipping because there are no accounts linked with the msisdn ");

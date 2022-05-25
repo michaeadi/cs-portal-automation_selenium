@@ -33,7 +33,7 @@ public class WalletInformationTest extends Driver {
 
     @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void checkWalletsSize() {
-        customerNumber = constants.getValue(ApplicationConstants.CUSTOMER_TIER1_MSISDN);
+        customerNumber = constants.getValue(ApplicationConstants.CUSTOMER_TIER3_MSISDN);
         clmDetails = api.getCLMDetails(customerNumber);
         if (clmDetails.getResult().getDetails().get(0).getWallets().size() == 0) {
             commonLib.skip("Skipping because there are no wallets linked with the msisdn ");

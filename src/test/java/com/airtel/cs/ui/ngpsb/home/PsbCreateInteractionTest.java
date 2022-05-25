@@ -42,7 +42,7 @@ import org.testng.annotations.Test;
         public void openCustomerInteraction() {
             try {
                 selUtils.addTestcaseDescription("Open Customer Profile Page with valid MSISDN, Validate Customer Profile Page Loaded or not", "description");
-                customerNumber = constants.getValue(ApplicationConstants.CUSTOMER_TIER1_MSISDN);
+                customerNumber = constants.getValue(ApplicationConstants.CUSTOMER_TIER3_MSISDN);
                 pages.getSideMenuPage().clickOnSideMenu();
                 pages.getSideMenuPage().openCustomerInteractionPage();
                 pages.getMsisdnSearchPage().enterNumber(customerNumber);
@@ -61,7 +61,7 @@ import org.testng.annotations.Test;
             }
         }
 
-        @Test(priority = 2, dependsOnMethods = "openCustomerInteraction", groups = {"SanityTest", "RegressionTest", "ProdTest"}, dataProvider = "getTestData1", dataProviderClass = DataProviders.class)
+        @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dataProvider = "getTestData1", dataProviderClass = DataProviders.class)
         public void createInteraction(FtrDataBeans data) {
             try {
                 final String issueCode = data.getIssueCode();
@@ -102,7 +102,7 @@ import org.testng.annotations.Test;
             actions.assertAllFoundFailedAssert(assertCheck);
         }
 
-        @Test(priority = 3, dependsOnMethods = "openCustomerInteraction", groups = {"SanityTest", "RegressionTest", "ProdTest"}, dataProvider = "getTestData2", dataProviderClass = DataProviders.class)
+        @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dataProvider = "getTestData2", dataProviderClass = DataProviders.class)
         public void CreateNFTRInteraction(NftrDataBeans data) {
             String ticketNumber = null;
             try {
