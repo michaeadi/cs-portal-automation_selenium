@@ -73,7 +73,7 @@ public class CustomerInteractionScreen extends BasePage {
     }
 
     /**
-     * This method is used to search Msisdn/Nuban Id/Customer Id
+     * This method is used to search Msisdn,Nuban Id and Customer Id on Customer Interaction Page
      */
     public void searchMsisdn(String searchId){
         pages.getSideMenuPage().clickOnSideMenu();

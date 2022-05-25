@@ -365,7 +365,7 @@ public class MoreAMTxnTab extends BasePage {
     }
 
     /**
-     * This method will give footer auuid
+     * This method is used to get footer auuid
      *
      * @return
      */
@@ -376,13 +376,13 @@ public class MoreAMTxnTab extends BasePage {
     }
 
     /**
-     * This method will give middle auuid
+     * This method is used to get middle auuid
      *
      * @return
      */
     public String getMiddleAuuid() {
         String text = getAttribute(pageElements.middleAuuid, "data-auuid", false);
-        commonLib.info("Getting footer auuid : " + text );
+        commonLib.info("Getting middle auuid : " + text );
         return text;
     }
 }

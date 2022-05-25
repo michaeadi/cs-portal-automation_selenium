@@ -138,7 +138,7 @@ public class AmSMSTrailsTest extends Driver {
             } else if (smsLogs.getStatusCode() == 2500 && smsLogs.getStatus().equalsIgnoreCase("status.failure")) {
                 commonLib.fail("CS API is unable to give Sms Logs data ", true);
             } else {
-                size = pages.getAmSmsTrails().getRowsList();
+                size = pages.getAmSmsTrails().getNoOfRows();
                 for (int i = 0; i < size; i++) {
                     int row = i + 1;
                     assertCheck.append(actions.assertEqualStringType(pages.getAmSmsTrails().getRowValue(row, 1), smsLogs.getResult().get(i).getSmsDate(), "Timestamp is same as expected ", "Timestamp Id is NOT same as expected"));
