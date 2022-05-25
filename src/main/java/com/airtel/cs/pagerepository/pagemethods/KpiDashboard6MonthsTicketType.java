@@ -18,7 +18,7 @@ public class KpiDashboard6MonthsTicketType extends BasePage {
      */
     public Boolean is6MonthsTicketTypeLabelVisible() {
         Boolean status = isVisible(pageElements.sixMonthsTicketTypeLabel);
-        commonLib.pass("6 Months Ticket Type Label is visible : " + status);
+        commonLib.info("6 Months Ticket Type Label is visible : " + status);
         return status;
     }
 
@@ -27,7 +27,7 @@ public class KpiDashboard6MonthsTicketType extends BasePage {
      */
     public Boolean isFTRIconlVisible() {
         Boolean status = isVisible(pageElements.ftrIcon);
-        commonLib.pass("FTR Icon is visible : " + status);
+        commonLib.info("FTR Icon is visible : " + status);
         return status;
     }
 
@@ -36,7 +36,7 @@ public class KpiDashboard6MonthsTicketType extends BasePage {
      */
     public Boolean isNFTRIconVisible() {
         Boolean status = isVisible(pageElements.nftrIcon);
-        commonLib.pass("NFTR Icon is visible : " + status);
+        commonLib.info("NFTR Icon is visible : " + status);
         return status;
     }
 
@@ -45,7 +45,7 @@ public class KpiDashboard6MonthsTicketType extends BasePage {
      */
     public Boolean isConnectionLabelVisible() {
         Boolean status = isVisible(pageElements.connectionLabel);
-        commonLib.pass("Connection Label is visible : " + status);
+        commonLib.info("Connection Label is visible : " + status);
         return status;
     }
 
@@ -54,7 +54,7 @@ public class KpiDashboard6MonthsTicketType extends BasePage {
      */
     public Boolean isIssueTypeLabelVisible() {
         Boolean status = isVisible(pageElements.issueTypelLabel);
-        commonLib.pass("Issue Type   Label is visible : " + status);
+        commonLib.info("Issue Type   Label is visible : " + status);
         return status;
     }
 
@@ -76,7 +76,7 @@ public class KpiDashboard6MonthsTicketType extends BasePage {
      */
     public Boolean isTicketTypeDetailsLabelVisible() {
         Boolean status = isVisible(pageElements.ticketTypeDetailsLabel);
-        commonLib.pass("TICKET TYPE DETAILS  Label is visible : " + status);
+        commonLib.info("TICKET TYPE DETAILS  Label is visible : " + status);
         return status;
     }
 
@@ -85,7 +85,7 @@ public class KpiDashboard6MonthsTicketType extends BasePage {
      */
     public Boolean isMonthLabelVisible() {
         Boolean status = isVisible(pageElements.monthLabel);
-        commonLib.pass("Month Label is visible : " + status);
+        commonLib.info("Month Label is visible : " + status);
         return status;
     }
 
@@ -94,7 +94,7 @@ public class KpiDashboard6MonthsTicketType extends BasePage {
      */
     public Boolean isFTRLabelVisible() {
         Boolean status = isVisible(pageElements.ftrLabel);
-        commonLib.pass("Month Label is visible : " + status);
+        commonLib.info("Month Label is visible : " + status);
         return status;
     }
 
@@ -103,7 +103,7 @@ public class KpiDashboard6MonthsTicketType extends BasePage {
      */
     public Boolean isNFTRLabelVisible() {
         Boolean status = isVisible(pageElements.nftrLabel);
-        commonLib.pass("NFTR  Label is visible : " + status);
+        commonLib.info("NFTR  Label is visible : " + status);
         return status;
     }
 
@@ -112,7 +112,7 @@ public class KpiDashboard6MonthsTicketType extends BasePage {
      */
     public Boolean isFTRPercentageLabelVisible() {
         Boolean status = isVisible(pageElements.ftrPercentageLabel);
-        commonLib.pass("FTR % Label is visible : " + status);
+        commonLib.info("FTR % Label is visible : " + status);
         return status;
     }
 

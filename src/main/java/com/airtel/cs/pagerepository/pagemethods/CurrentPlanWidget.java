@@ -29,7 +29,7 @@ public class CurrentPlanWidget extends BasePage {
      */
     public Boolean isCurrentPlanWidgetDisplay() {
         commonLib.info("Checking that Current Plan widget is Display");
-        Boolean status = false;
+        boolean status = false;
         try {
             scrollToViewElement(pageElements.getTitle);
             status=isElementVisible(pageElements.getTitle);
@@ -98,14 +98,14 @@ public class CurrentPlanWidget extends BasePage {
     /**
      * This method will return boolean value true if found decimal value upto 2
      *
-     * @param input_string
+     * @param inputString
      * @return
      */
-    public static boolean getDecimalValue(String input_string) throws ArrayIndexOutOfBoundsException {
+    public static boolean getDecimalValue(String inputString) throws ArrayIndexOutOfBoundsException {
 
         boolean flag = false;
-        if (!input_string.equalsIgnoreCase("-")) {
-            String[] result = input_string.split("\\.");
+        if (!inputString.equalsIgnoreCase("-")) {
+            String[] result = inputString.split("\\.");
             if (result[1].length() == 2) {
                 flag = true;
             }

@@ -17,7 +17,7 @@ import org.testng.annotations.Test;
 public class AccountInformationTest extends Driver {
     private static String customerNumber = null;
     PsbRequestSource api = new PsbRequestSource();
-    CLMDetailsResponse clmDetails;
+    CLMDetailsResponse clmDetails ;
     SmsLogsResponse smsLogs;
     String barringStatus;
     String className = this.getClass().getName();
@@ -165,7 +165,7 @@ public class AccountInformationTest extends Driver {
     }
 
 
-    @Test(priority = 6, groups = {"SanityTest", "ProdTest", "RegressionTest"}, dependsOnMethods = {"openCustomerInteraction"})
+    @Test(priority = 6, groups = {"SanityTest", "ProdTest","RegressionTest"}, dependsOnMethods = {"openCustomerInteraction"})
     public void testBankAccountsTabs() {
         try {
             selUtils.addTestcaseDescription("Validate Bank Accounts tab data", "description");
@@ -178,7 +178,7 @@ public class AccountInformationTest extends Driver {
             } else if (bankDetails.getStatusCode() == 2500 && bankDetails.getStatus().equalsIgnoreCase("status.failure")) {
                 commonLib.fail("CS API is unable to give Bank Accounts", true);
             } else {
-                int size = pages.getAmSmsTrails().getNoOfRows();
+                int size = pages.getAmSmsTrails().checkRowSize();
                 for (int i = 0; i < size; i++) {
                     int row = i + 1;
                     assertCheck.append(actions.assertEqualStringType(pages.getBankAccount().getHeaderValue(row, 1), bankDetails.getResult().get(i).getAccountNumber(), "Account No. is same as expected ", "Account No.is NOT same as expected"));
@@ -201,19 +201,19 @@ public class AccountInformationTest extends Driver {
         }
     }
 
-    @Test(priority = 7, groups = {"SanityTest", "ProdTest", "RegressionTest"}, dependsOnMethods = {"openCustomerInteraction"})
+    @Test(priority = 7, groups = {"SanityTest", "ProdTest",  "RegressionTest"}, dependsOnMethods = {"openCustomerInteraction"})
     public void testSmsLogsTabs() {
         try {
             selUtils.addTestcaseDescription("Validate Wallets tab data", "description");
             pages.getAmLinkedWallets().clickSmsLogsTab();
-            smsLogs = api.getSMSLogs(customerNumber);
+             smsLogs = api.getSMSLogs(customerNumber);
             assertCheck.append(actions.assertEqualIntType(clmDetails.getStatusCode(), 200, "Sms Logs API Status Code Matched and is :" + clmDetails.getStatusCode(), "Sms Logs API Status Code NOT Matched and is :" + clmDetails.getStatusCode(), false));
             if (smsLogs.getStatusCode() == 200 && smsLogs.getResult().size() == 0) {
                 commonLib.warning("SMS Logs data is not available for the test msisdn");
             } else if (smsLogs.getStatusCode() == 2500 && smsLogs.getStatus().equalsIgnoreCase("status.failure")) {
                 commonLib.fail("CS API is unable to give Sms Logs data ", true);
             } else {
-                int size = pages.getAmSmsTrails().getNoOfRows();
+                int size = pages.getAmSmsTrails().checkRowSize();
                 for (int i = 0; i < size; i++) {
                     int row = i + 1;
                     assertCheck.append(actions.assertEqualStringType(pages.getAmSmsTrails().getRowValue(row, 1), smsLogs.getResult().get(i).getSmsDate(), "Timestamp is same as expected ", "Timestamp Id is NOT same as expected"));
@@ -250,7 +250,7 @@ public class AccountInformationTest extends Driver {
     }
 
 
-    @Test(priority = 9, groups = {"SanityTest", "ProdTest", "RegressionTest"}, dependsOnMethods = {"testResendSms", "testSmsLogsTabs"})
+    @Test(priority = 9, groups = {"SanityTest", "ProdTest", "RegressionTest"}, dependsOnMethods = {"testResendSms"})
     public void checkActionTrail() {
         try {
             selUtils.addTestcaseDescription("Validating entry should be captured in Action Trail after performing ResendSMS action", "description");
