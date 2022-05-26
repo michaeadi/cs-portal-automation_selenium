@@ -22,7 +22,7 @@ public class WalletInformationTest extends Driver {
     SmsLogsResponse smsLogs;
 
 
-    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"})
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void checkExecution() {
         if (!continueExecutionFA) {
             commonLib.skip("Skipping tests because user NOT able to login Over Portal");
@@ -245,7 +245,7 @@ public class WalletInformationTest extends Driver {
         }
     }
 
-    @Test(priority = 8, groups = {"SanityTest", "ProdTest", "RegressionTest"}, dependsOnMethods = {"testSmsLogsTab"})
+    @Test(priority = 8, groups = {"SanityTest",  "RegressionTest"}, dependsOnMethods = {"testSmsLogsTab"})
     public void testResendSms() {
         try {
             selUtils.addTestcaseDescription("Validate Resend SMS", "description");
@@ -265,7 +265,7 @@ public class WalletInformationTest extends Driver {
         }
     }
 
-    @Test(priority = 9, groups = {"SanityTest", "ProdTest", "RegressionTest"}, dependsOnMethods = {"testSmsLogsTab", "testResendSms"})
+    @Test(priority = 9, groups = {"SanityTest", "RegressionTest"}, dependsOnMethods = {"testSmsLogsTab", "testResendSms"})
     public void checkActionTrail() {
         try {
             selUtils.addTestcaseDescription("Validating entry should be captured in Action Trail after performing ResendSMS action", "description");

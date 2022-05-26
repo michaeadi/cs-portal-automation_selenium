@@ -21,45 +21,46 @@ import org.openqa.selenium.TimeoutException;
 import org.testng.SkipException;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-    @Log4j2
-    public class PsbCreateInteractionTest extends Driver {
 
-        private static String customerNumber = null;
-        PsbRequestSource psbApi = new PsbRequestSource();
-        CLMDetailsResponse clmDetails;
-        String className = this.getClass().getName();
-        RequestSource api = new RequestSource();
+@Log4j2
+public class PsbCreateInteractionTest extends Driver {
 
-        @BeforeMethod(groups = {"SanityTest", "RegressionTest"})
-        public void checkExecution() {
-            if (!continueExecutionFA) {
-                commonLib.skip("Skipping tests because user NOT able to login Over Portal");
-                throw new SkipException("Skipping tests because user NOT able to login Over Portal");
-            }
+    private static String customerNumber = null;
+    PsbRequestSource psbApi = new PsbRequestSource();
+    CLMDetailsResponse clmDetails;
+    String className = this.getClass().getName();
+    RequestSource api = new RequestSource();
+
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest"})
+    public void checkExecution() {
+        if (!continueExecutionFA) {
+            commonLib.skip("Skipping tests because user NOT able to login Over Portal");
+            throw new SkipException("Skipping tests because user NOT able to login Over Portal");
         }
+    }
 
-        @Test(priority = 1, groups = {"SanityTest", "RegressionTest"})
-        public void openCustomerInteraction() {
-            try {
-                selUtils.addTestcaseDescription("Open Customer Profile Page with valid MSISDN, Validate Customer Profile Page Loaded or not", "description");
-                customerNumber = constants.getValue(ApplicationConstants.CUSTOMER_TIER3_MSISDN);
-                pages.getSideMenuPage().clickOnSideMenu();
-                pages.getSideMenuPage().openCustomerInteractionPage();
-                pages.getMsisdnSearchPage().enterNumber(customerNumber);
-                pages.getMsisdnSearchPage().clickOnSearch();
-                clmDetails = psbApi.getCLMDetails(customerNumber);
-                assertCheck.append(actions.assertEqualIntType(clmDetails.getStatusCode(), 200, "CLM Details API Status Code Matched and is :" + clmDetails.getStatusCode(), "CLM Details API Status Code NOT Matched and is :" + clmDetails.getStatusCode(), false));
-                if (clmDetails.getStatusCode() == 200) {
-                    boolean pageLoaded = pages.getPsbDemographicWidget().isPageLoaded(clmDetails, className);
-                    if (!pageLoaded)
-                        continueExecutionFA = false;
-                } else
-                    commonLib.warning("Clm Details API is not working");
-                actions.assertAllFoundFailedAssert(assertCheck);
-            } catch (Exception e) {
-                commonLib.fail("Exception in Method - openCustomerInteraction" + e.fillInStackTrace(), true);
-            }
+    @Test(priority = 1, groups = {"SanityTest", "RegressionTest"})
+    public void openCustomerInteraction() {
+        try {
+            selUtils.addTestcaseDescription("Open Customer Profile Page with valid MSISDN, Validate Customer Profile Page Loaded or not", "description");
+            customerNumber = constants.getValue(ApplicationConstants.CUSTOMER_TIER3_MSISDN);
+            pages.getSideMenuPage().clickOnSideMenu();
+            pages.getSideMenuPage().openCustomerInteractionPage();
+            pages.getMsisdnSearchPage().enterNumber(customerNumber);
+            pages.getMsisdnSearchPage().clickOnSearch();
+            clmDetails = psbApi.getCLMDetails(customerNumber);
+            assertCheck.append(actions.assertEqualIntType(clmDetails.getStatusCode(), 200, "CLM Details API Status Code Matched and is :" + clmDetails.getStatusCode(), "CLM Details API Status Code NOT Matched and is :" + clmDetails.getStatusCode(), false));
+            if (clmDetails.getStatusCode() == 200) {
+                boolean pageLoaded = pages.getPsbDemographicWidget().isPageLoaded(clmDetails, className);
+                if (!pageLoaded)
+                    continueExecutionFA = false;
+            } else
+                commonLib.warning("Clm Details API is not working");
+            actions.assertAllFoundFailedAssert(assertCheck);
+        } catch (Exception e) {
+            commonLib.fail("Exception in Method - openCustomerInteraction" + e.fillInStackTrace(), true);
         }
+    }
 
         @Test(priority = 2, groups = {"SanityTest", "RegressionTest"},dependsOnMethods = {"openCustomerInteraction"},dataProvider = "getTestData1", dataProviderClass = DataProviders.class)
         public void createFtr(FtrDataBeans data) {

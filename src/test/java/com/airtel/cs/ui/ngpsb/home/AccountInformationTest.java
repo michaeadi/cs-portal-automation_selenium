@@ -17,7 +17,7 @@ import org.testng.annotations.Test;
 public class AccountInformationTest extends Driver {
     private static String customerNumber = null;
     PsbRequestSource api = new PsbRequestSource();
-    CLMDetailsResponse clmDetails ;
+    CLMDetailsResponse clmDetails;
     SmsLogsResponse smsLogs;
     String barringStatus;
     String className = this.getClass().getName();
@@ -165,7 +165,7 @@ public class AccountInformationTest extends Driver {
     }
 
 
-    @Test(priority = 6, groups = {"SanityTest", "ProdTest","RegressionTest"}, dependsOnMethods = {"openCustomerInteraction"})
+    @Test(priority = 6, groups = {"SanityTest", "ProdTest", "RegressionTest"}, dependsOnMethods = {"openCustomerInteraction"})
     public void testBankAccountsTabs() {
         try {
             selUtils.addTestcaseDescription("Validate Bank Accounts tab data", "description");
@@ -201,12 +201,12 @@ public class AccountInformationTest extends Driver {
         }
     }
 
-    @Test(priority = 7, groups = {"SanityTest", "ProdTest",  "RegressionTest"}, dependsOnMethods = {"openCustomerInteraction"})
+    @Test(priority = 7, groups = {"SanityTest", "ProdTest", "RegressionTest"}, dependsOnMethods = {"openCustomerInteraction"})
     public void testSmsLogsTabs() {
         try {
             selUtils.addTestcaseDescription("Validate Wallets tab data", "description");
             pages.getAmLinkedWallets().clickSmsLogsTab();
-             smsLogs = api.getSMSLogs(customerNumber);
+            smsLogs = api.getSMSLogs(customerNumber);
             assertCheck.append(actions.assertEqualIntType(clmDetails.getStatusCode(), 200, "Sms Logs API Status Code Matched and is :" + clmDetails.getStatusCode(), "Sms Logs API Status Code NOT Matched and is :" + clmDetails.getStatusCode(), false));
             if (smsLogs.getStatusCode() == 200 && smsLogs.getResult().size() == 0) {
                 commonLib.warning("SMS Logs data is not available for the test msisdn");
@@ -229,7 +229,7 @@ public class AccountInformationTest extends Driver {
         }
     }
 
-    @Test(priority = 8, groups = {"SanityTest", "ProdTest", "RegressionTest"}, dependsOnMethods = {"testSmsLogsTabs"})
+    @Test(priority = 8, groups = {"SanityTest", "RegressionTest"}, dependsOnMethods = {"testSmsLogsTabs"})
     public void testResendSms() {
         try {
             selUtils.addTestcaseDescription("Validate Resend SMS", "description");
@@ -250,7 +250,7 @@ public class AccountInformationTest extends Driver {
     }
 
 
-    @Test(priority = 9, groups = {"SanityTest", "ProdTest", "RegressionTest"}, dependsOnMethods = {"testResendSms"})
+    @Test(priority = 9, groups = {"SanityTest", "RegressionTest"}, dependsOnMethods = {"testResendSms"})
     public void checkActionTrail() {
         try {
             selUtils.addTestcaseDescription("Validating entry should be captured in Action Trail after performing ResendSMS action", "description");
