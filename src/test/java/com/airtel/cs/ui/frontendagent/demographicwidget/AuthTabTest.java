@@ -52,7 +52,7 @@ public class AuthTabTest extends Driver {
         }
     }
 
-    @Test(priority = 2, groups = {"SanityTest", "RegressionTest"}, dependsOnMethods = {"openCustomerInteraction"})
+   /* @Test(priority = 2, groups = {"SanityTest", "RegressionTest"}, dependsOnMethods = {"openCustomerInteraction"})
     public void validateAnswerQuestionConfig() {
         try {
             selUtils.addTestcaseDescription("Jira id - CSP-63443,Verify that the answers of the questions in pop up should either show data from configuration or show inline spinner", "description");
@@ -123,6 +123,7 @@ public class AuthTabTest extends Driver {
     public void validateAuthTabMinQuestion() {
         try {
             selUtils.addTestcaseDescription("Verify the Authentication tab Minimum question Configured correctly", "description");
+            pages.getDemoGraphicPage().clickPukUnlock();
             assertCheck.append(actions.assertEqualBoolean(pages.getAuthTabPage().isAuthTabLoad(), true, "Authentication tab loaded correctly", "Authentication tab does not load correctly"));
             assertCheck.append(actions.assertEqualBoolean(pages.getAuthTabPage().isAuthBtnEnable(), false, "Authenticate button in NOT enabled without choosing minimum number of question", "Authenticate button is enable without choosing minimum number of question."));
             pages.getDemoGraphicPage().selectPolicyQuestion();
@@ -133,12 +134,14 @@ public class AuthTabTest extends Driver {
             commonLib.fail("Exception in Method :- validateAuthTabMinQuestion" + e.fillInStackTrace(), true);
         }
     }
-
-    @Test(priority = 7, groups = {"SanityTest", "RegressionTest"}, dependsOnMethods = {"openCustomerInteraction", "validateAuthTabMinQuestion"})
+    */
+    @Test(priority = 7, groups = {"SanityTest", "RegressionTest"}, dependsOnMethods = {"openCustomerInteraction"})
     public void authCustomer() {
         try {
             selUtils.addTestcaseDescription("Authenticate User", "description");
             DataProviders data = new DataProviders();
+            pages.getCustomerProfilePage().clickOnAction();
+            pages.getCustomerProfilePage().openSuspendSIMTab();
             assertCheck.append(actions.assertEqualBoolean(pages.getAuthTabPage().isSIMBarPopup(), true, "SIM Bar/Unbar pop up opened", "SIM Bar/Unbar popup does not open"));
             assertCheck.append(actions.assertEqualBoolean(pages.getAuthTabPage().isIssueDetailTitleVisible(), true, "Issue details configured correctly", "Issue Detail does not configured"));
             assertCheck.append(actions.assertEqualBoolean(pages.getAuthTabPage().isSubmitBtnEnable(), false, "Submit button Not enabled without comment", "Submit button enable without adding comment"));

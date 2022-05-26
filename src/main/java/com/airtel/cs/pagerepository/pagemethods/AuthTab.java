@@ -322,7 +322,7 @@ public class AuthTab extends BasePage {
     }
 
     /**
-     * This method is used to check all the action is should display auth pop true/false status configuration is per Opco request
+     * This method is used to check all the actions should display auth pop true/false status configuration as per Opco sheet
      * @param lockedSection The DB Configuration
      * @param actionTags The Excel configuration
      */

@@ -30,7 +30,7 @@ import org.testng.annotations.Test;
         String className = this.getClass().getName();
         RequestSource api = new RequestSource();
 
-        @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
+        @BeforeMethod(groups = {"SanityTest", "RegressionTest"})
         public void checkExecution() {
             if (!continueExecutionFA) {
                 commonLib.skip("Skipping tests because user NOT able to login Over Portal");
@@ -38,7 +38,7 @@ import org.testng.annotations.Test;
             }
         }
 
-        @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest"})
+        @Test(priority = 1, groups = {"SanityTest", "RegressionTest"})
         public void openCustomerInteraction() {
             try {
                 selUtils.addTestcaseDescription("Open Customer Profile Page with valid MSISDN, Validate Customer Profile Page Loaded or not", "description");
@@ -61,11 +61,11 @@ import org.testng.annotations.Test;
             }
         }
 
-        @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest"},dependsOnMethods = {"openCustomerInteraction"},dataProvider = "getTestData1", dataProviderClass = DataProviders.class)
-        public void createInteraction(FtrDataBeans data) {
+        @Test(priority = 2, groups = {"SanityTest", "RegressionTest"},dependsOnMethods = {"openCustomerInteraction"},dataProvider = "getTestData1", dataProviderClass = DataProviders.class)
+        public void createFtr(FtrDataBeans data) {
             try {
+                selUtils.addTestcaseDescription("Create FTR from Interaction icon , Validate FTR ", "description");
                 final String issueCode = data.getIssueCode();
-                selUtils.addTestcaseDescription(" Validating FTR Ticket: " + issueCode, "description");
                 pages.getCustomerProfilePage().clickOnInteractionIcon();
                 pages.getInteractionsPage().clickOnCode();
                 try {
@@ -102,10 +102,11 @@ import org.testng.annotations.Test;
             actions.assertAllFoundFailedAssert(assertCheck);
         }
 
-        @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest"},dependsOnMethods = {"openCustomerInteraction"},dataProvider = "getTestData2", dataProviderClass = DataProviders.class)
-        public void CreateNFTRInteraction(NftrDataBeans data) {
-            String ticketNumber = null;
+        @Test(priority = 3, groups = {"SanityTest", "RegressionTest"},dependsOnMethods = {"openCustomerInteraction"},dataProvider = "getTestData2", dataProviderClass = DataProviders.class)
+        public void createNftr(NftrDataBeans data) {
             try {
+                String ticketNumber = null;
+                selUtils.addTestcaseDescription("Create NFTR from Interaction icon , Validate NFTR ", "description");
                 final String issueCode = data.getIssueCode();
                 selUtils.addTestcaseDescription(" Validating NFTR Ticket: " + issueCode, "description");
                 pages.getCustomerProfilePage().clickOnInteractionIcon();

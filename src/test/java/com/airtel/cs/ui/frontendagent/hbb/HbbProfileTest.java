@@ -44,7 +44,7 @@ public class HbbProfileTest  extends Driver {
             final boolean pukVisible = pages.getDemoGraphicPage().isPUKInfoLocked();
             assertCheck.append(actions.assertEqualBoolean(pukVisible, true, "PUK lock/unlock visible ", "Puk lock/unlock not visible"));
             if (pukVisible == true) {
-                pages.getDemoGraphicPage().clickPUKToUnlock();
+                pages.getDemoGraphicPage().clickPukUnlock();
                 pages.getDemoGraphicPage().selectPolicyQuestion();
                 pages.getDemoGraphicPage().clickPUKTAuthenticate();
             }

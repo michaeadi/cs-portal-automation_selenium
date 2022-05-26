@@ -664,12 +664,7 @@ public class PsbDemographicWidget extends BasePage {
      */
     public boolean isPageLoaded(CLMDetailsResponse clmDetails, String className) {
         boolean pageLoaded = false;
-        int walletSize = 0, accountSize = 0;
-        for (int i = 0; i < clmDetails.getResult().getDetails().size(); i++) {
-            walletSize = walletSize + clmDetails.getResult().getDetails().get(i).getWallets().size();
-            accountSize = accountSize + clmDetails.getResult().getDetails().get(i).getAccounts().size();
-        }
-        int totalSize = walletSize + accountSize;
+        int totalSize=pages.getPsbDemographicWidget().getTotalSize(clmDetails);
         if (totalSize > 1) {
             assertCheck.append(actions.assertEqualBoolean(pages.getPsbDemographicWidget().isIntermediateScreenVisible(), true, "Intermediate Screen is visible successfully", "Intermediate Screen is not visible "));
             String message = totalSize + " " + "results found for the entered msisdn";
@@ -801,8 +796,20 @@ public class PsbDemographicWidget extends BasePage {
      *
      * @return
      */
-    public String getErrorMessage() {
-        String text = getText(pageElements.errorMessage);
+    public String getCustomerIdErrorMessage() {
+        String text = getText(pageElements.customerIdErrorMessage);
+        commonLib.info("Getting error message : + text");
+        return text;
+
+    }
+
+    /**
+     * This method is used get error message when invalid customer id is searched
+     *
+     * @return
+     */
+    public String getNubanIdErrorMessage() {
+        String text = getText(pageElements.nubanIdErrorMessage);
         commonLib.info("Getting error message : + text");
         return text;
 
@@ -817,6 +824,20 @@ public class PsbDemographicWidget extends BasePage {
         String text = getText(pageElements.resultsFoundMessage);
         commonLib.info("Getting results found message : " + text);
         return text;
+    }
+
+    /**
+     * This method is used to get sum of linked wallets and accounts
+     *
+     * @return
+     */
+    public int getTotalSize( CLMDetailsResponse clmDetails) {
+        int walletSize = 0, accountSize = 0;
+        for (int i = 0; i < clmDetails.getResult().getDetails().size(); i++) {
+            walletSize = walletSize + clmDetails.getResult().getDetails().get(i).getWallets().size();
+            accountSize = accountSize + clmDetails.getResult().getDetails().get(i).getAccounts().size();
+        }
+        return (walletSize + accountSize);
     }
 }
 

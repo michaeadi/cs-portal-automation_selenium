@@ -56,7 +56,7 @@ public class CustomerIdSearchTest extends Driver{
             pages.getMsisdnSearchPage().enterNumberOnDashboardSearch(invalidCustomerId);
             pages.getDemoGraphicPage().clickOnDashboardSearch();
             String errorMessage = "Invalid customer ID. Please enter correct customer ID to proceed forward";
-            assertCheck.append(actions.assertEqualStringType(pages.getPsbDemographicWidget().getErrorMessage(), errorMessage, "Error message is same as Expected when invalid nuban id is searched", "Error message is not same as Expected when invalid nuban id is searched"));
+            assertCheck.append(actions.assertEqualStringType(pages.getPsbDemographicWidget().getCustomerIdErrorMessage(), errorMessage, "Error message is same as Expected when invalid nuban id is searched", "Error message is not same as Expected when invalid nuban id is searched"));
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
             commonLib.fail("Exception in Method - invalidCustomerIdTest" + e.fillInStackTrace(), true);

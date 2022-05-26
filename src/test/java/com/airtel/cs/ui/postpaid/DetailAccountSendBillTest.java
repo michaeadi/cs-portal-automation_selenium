@@ -32,7 +32,7 @@ public class DetailAccountSendBillTest extends Driver {
         }
     }
 
-    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest", "Smoke Test"})
+    @Test(priority = 1,groups = {"SanityTest", "RegressionTest", "ProdTest", "Smoke Test"},enabled = false)
     public void openCustomerInteraction() {
         try {
             selUtils.addTestcaseDescription("Open Customer Profile Page with valid MSISDN, Validate Customer Profile Page Loaded or not", "description");
@@ -51,7 +51,7 @@ public class DetailAccountSendBillTest extends Driver {
         }
     }
 
-    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"openCustomerInteraction"})
+    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"openCustomerInteraction"},enabled = false)
     public void isUserHasAccountInfoWidgetPermission() {
         try {
             selUtils.addTestcaseDescription("Validate whether user has Account Information Widget Permission ", "description");
@@ -64,7 +64,7 @@ public class DetailAccountSendBillTest extends Driver {
         }
     }
 
-    @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"openCustomerInteraction"})
+    @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"openCustomerInteraction"},enabled = false)
     public void accountInfoWidgetVisible() {
         try {
             selUtils.addTestcaseDescription("Validate Account Information Widget , Validate Account Information Detailed Widget", "description");
@@ -87,7 +87,7 @@ public class DetailAccountSendBillTest extends Driver {
         }
     }
 
-    @Test(priority = 4, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"openCustomerInteraction"})
+    @Test(priority = 4, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"openCustomerInteraction"},enabled = false)
     public void validateSendBill() {
         try {
             selUtils.addTestcaseDescription("Validating Send Bill permission , Performing Send Bill action", "description");
@@ -148,7 +148,7 @@ public class DetailAccountSendBillTest extends Driver {
         }
     }
 
-    @Test(priority = 5, groups = {"SanityTest", "RegressionTest"}, dependsOnMethods = {"openCustomerInteraction"})
+    @Test(priority = 5, groups = {"SanityTest", "RegressionTest"}, dependsOnMethods = {"openCustomerInteraction"},enabled = false)
     public void checkActionTrail() {
         try {
             selUtils.addTestcaseDescription("Validating entry should be captured in Action Trail after performing send bill", "description");

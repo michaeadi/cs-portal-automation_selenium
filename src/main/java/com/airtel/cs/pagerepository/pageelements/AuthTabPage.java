@@ -21,7 +21,7 @@ public class AuthTabPage {
     public By options = By.xpath("//mat-option");
     public By commentBox = By.xpath("//textarea[@id='interactionComment']");
     public By cancelBtn = By.xpath("//button[@class='no-btn']");
-    public By submitBtn = By.xpath("//button[@class='submit-btn']");
+    public By submitBtn = By.xpath("//button[contains(@class,'submit-btn')]");
     public By code = By.xpath("//mat-option[1]//span");
     public By toastModal = By.xpath("//div[contains(@class,'main-container__body--message')]");
     public By closeBtn = By.xpath("//following-sibling::mat-icon[contains(text(),'close')]");

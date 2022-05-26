@@ -154,7 +154,7 @@ public class DemoGraphicWidgetPostpaidMsisdnTest extends Driver {
             config = api.getConfiguration("customerDemographicDetailsWidgets", lineType);
             pages.getDemoGraphicPage().checkConfiguration(config, "PUK");
             if (pages.getDemoGraphicPage().isPUKInfoLocked()) {
-                pages.getDemoGraphicPage().clickPUKToUnlock();
+                pages.getDemoGraphicPage().clickPukUnlock();
                 assertCheck.append(actions.assertEqualBoolean(pages.getAuthTabPage().isAuthTabLoad(), true, "Authentication tab loaded correctly", "Authentication tab does not load correctly"));
                 pages.getDemoGraphicPage().selectPolicyQuestion();
                 assertCheck.append(actions.assertEqualBoolean(pages.getAuthTabPage().isAuthBtnEnable(), true, "Authenticate Button enabled after minimum number of question chosen", "Authenticate Button does not enable after choose minimum number of question"));

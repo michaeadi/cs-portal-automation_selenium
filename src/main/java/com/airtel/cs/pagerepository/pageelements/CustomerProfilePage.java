@@ -17,7 +17,7 @@ public class CustomerProfilePage {
     public By daDetailsTab = By.xpath("//div[contains(text(),'DA DETAILS')]");
     public By usageHistoryTab = By.xpath("//div[contains(text(),'USAGE HISTORY')]");
     public By rechargeHistoryTab = By.xpath("//div[contains(text(),'RECHARGE HISTORY')]");
-    public By homeActionBtn = By.xpath("//div[@class='sub-header__divide--control--action']");
+    public By homeActionBtn = By.xpath("//div[@class='sub-header__divide--control--action']//mat-menu");
     public By loanWidget = By.xpath("//span[contains(text(),'LOAN SERVICES')]//ancestor::div[@class='card widget ng-star-inserted']");
     public By sendSMSAction = By.xpath("//div[@class='mat-menu-content']//button[contains(text(),'Send SMS')]");
     public By simBarUnBar = By.xpath("//div[@class='mat-menu-content']//button[1]");
