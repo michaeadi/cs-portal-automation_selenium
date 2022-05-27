@@ -13,7 +13,7 @@ public class AuthTabPage {
 
     //SIM Bar/Unbar pop up
     public By simBarTitle = By.xpath("//div[@class='main-container__header']//span");
-    public By simCloseBtn = By.xpath("//div[@class='main-container__header']//mat-icon");
+    public By simCloseBtn = By.xpath("//mat-icon[contains(@class,'header--modal-close')]");
     public By issueDetails = By.xpath("//div[contains(text(),'Issue Detail:')]");
     public By listOfIssue = By.xpath("//div[@formarrayname='issueDetails']//mat-select");
     public By listOfFields=By.xpath("//div[@formarrayname='issueDetails']//input");

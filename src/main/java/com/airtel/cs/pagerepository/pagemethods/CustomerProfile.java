@@ -13,6 +13,8 @@ import org.openqa.selenium.support.PageFactory;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants.COMMENT;
+
 @Log4j2
 public class CustomerProfile extends BasePage {
 
@@ -23,6 +25,9 @@ public class CustomerProfile extends BasePage {
         super(driver);
         pageElements = PageFactory.initElements(driver, CustomerProfilePage.class);
     }
+
+    public static int suspendSim;
+    public static int reactivateSim;
 
     /**
      * This method is used to get first widget title
@@ -177,7 +182,7 @@ public class CustomerProfile extends BasePage {
     public void clickOnInteractionIcon() {
         if (isVisible(pageElements.interactionIcon)) {
             clickAndWaitForLoaderToBeRemoved(pageElements.interactionIcon);
-            commonLib.info("Clicking on Interactions Icon");
+            commonLib.info("Clicking on Interaction Icon");
         } else {
             commonLib.fail("Interaction Icon is NOT Visible", true);
         }
@@ -371,7 +376,7 @@ public class CustomerProfile extends BasePage {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            message = message + "</br>" + e.getMessage();
+            message = message  + e.getMessage();
             commonLib.fail(message, true);
         }
     }
@@ -385,6 +390,19 @@ public class CustomerProfile extends BasePage {
             result = isElementVisible(pageElements.suspendSIM);
         } catch (Exception e) {
             commonLib.error("Exception in Method -isSuspendSIMOptionVisible" + e.getMessage(), true);
+        }
+        return result;
+    }
+
+    /*
+   This Method will let us know, if Reactivate SIM Option is visible under Actions drop down
+    */
+    public Boolean isReactivateSIMOptionVisible() {
+        boolean result = false;
+        try {
+            result = isElementVisible(pageElements.reactivateSIM);
+        } catch (Exception e) {
+            commonLib.error("Exception in Method -isReactivateSIMOptionVisible" + e.getMessage(), true);
         }
         return result;
     }
@@ -414,13 +432,26 @@ public class CustomerProfile extends BasePage {
     /*
    This Method will open Suspend SIM tab from Actions drop down
     */
-    public void openSuspendSIMTab() {
+    public void openSuspendSimTab() {
         try {
             if (isVisible(pageElements.suspendSIM)) {
                 clickAndWaitForLoaderToBeRemoved(pageElements.suspendSIM);
             }
         } catch (Exception e) {
-            commonLib.fail(message + "</br>" + e.getMessage(), true);
+            commonLib.fail(message + e.getMessage(), true);
+        }
+    }
+
+    /*
+   This Method will open Reactivate SIM tab from Actions drop down
+    */
+    public void openReactivateSimTab() {
+        try {
+            if (isVisible(pageElements.reactivateSIM)) {
+                clickAndWaitForLoaderToBeRemoved(pageElements.reactivateSIM);
+            }
+        } catch (Exception e) {
+            commonLib.fail(message + e.getMessage(), true);
         }
     }
 
@@ -430,7 +461,7 @@ public class CustomerProfile extends BasePage {
     public Boolean isReactivationSIMOptionVisible() {
         boolean result = false;
         try {
-            result = isElementVisible(pageElements.reactivationSIM);
+            result = isElementVisible(pageElements.reactivateSIM);
         } catch (Exception e) {
             commonLib.error("Exception in Method -isReactivationSIMOptionVisible" + e.getMessage(), true);
         }
@@ -542,10 +573,11 @@ public class CustomerProfile extends BasePage {
         return isEnabled(pageElements.submitBtn);
     }
 
-    public void doSIMBarAction() {
-        clickIssueDetails();
-        selectReason();
-        enterCommentIssuePopUp();
+    public void performBarUnbarAction() {
+        commonLib.info("Going to perform Sim Bar/Unbar");
+        pages.getAuthTabPage().clickSelectReason();
+        pages.getCustomerProfilePage().selectReasonFromDropdown();
+        pages.getPinReset().enterComment(COMMENT);
         if (Boolean.TRUE.equals(isSubmitEnabled())) {
             clickAndWaitForLoaderToBeRemoved(pageElements.submitBtn);
         }
@@ -576,5 +608,31 @@ public class CustomerProfile extends BasePage {
     public void clickAirtelStatusToUnlock() {
         commonLib.info("Clicking Tap to unlock on Airtel Status Info");
         clickAndWaitForLoaderToBeRemoved(pageElements.airtelMoneyLock);
+    }
+
+    /**
+     * This method is used to select reason from dropdown while doing sim bar/unbar
+     */
+    public void selectReasonFromDropdown() {
+        commonLib.info("Going to select Reason from dropdown");
+        if (isVisible(pageElements.selectReasonFromDropdown)) ;
+        clickWithoutLoader((pageElements.selectReasonFromDropdown));
+    }
+
+    /**
+     * This method is used to open Sim Suspend/Reactivate option from Actions dropdown
+     */
+    public void openSimSuspendReactivateFromActions() {
+        pages.getCustomerProfilePage().clickOnAction();
+        if (isSuspendSIMOptionVisible()) {
+            clickAndWaitForLoaderToBeRemoved(pageElements.suspendSIM);
+            suspendSim++;
+        }
+        if (isReactivateSIMOptionVisible()) {
+            clickAndWaitForLoaderToBeRemoved(pageElements.reactivateSIM);
+            reactivateSim++;
+        }
+        pages.getDemoGraphicPage().selectPolicyQuestion();
+        pages.getAuthTabPage().clickAuthBtn();
     }
 }

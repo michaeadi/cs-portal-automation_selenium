@@ -43,8 +43,15 @@ public class WriteToExcel extends Driver {
      * @return String The column name
      */
     public String getColumnName(Sheet sheet, Integer columnNumber) {
-        return sheet.getRow(0).getCell(columnNumber).getRichStringCellValue().toString();
+        String s = null;
+        try {
+            s = sheet.getRow(0).getCell(columnNumber).getRichStringCellValue().toString();
+        } catch (Exception e) {
+            commonLib.error(e.getMessage());
+        }
+        return s;
     }
+
 
     /**
      * This method is use to get column number based on column name

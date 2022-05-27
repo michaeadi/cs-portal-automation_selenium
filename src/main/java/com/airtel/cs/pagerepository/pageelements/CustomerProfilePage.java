@@ -17,7 +17,7 @@ public class CustomerProfilePage {
     public By daDetailsTab = By.xpath("//div[contains(text(),'DA DETAILS')]");
     public By usageHistoryTab = By.xpath("//div[contains(text(),'USAGE HISTORY')]");
     public By rechargeHistoryTab = By.xpath("//div[contains(text(),'RECHARGE HISTORY')]");
-    public By homeActionBtn = By.xpath("//div[@class='sub-header__divide--control--action']//mat-menu");
+    public By homeActionBtn = By.xpath("//div[@class='sub-header__divide--control--action']");
     public By loanWidget = By.xpath("//span[contains(text(),'LOAN SERVICES')]//ancestor::div[@class='card widget ng-star-inserted']");
     public By sendSMSAction = By.xpath("//div[@class='mat-menu-content']//button[contains(text(),'Send SMS')]");
     public By simBarUnBar = By.xpath("//div[@class='mat-menu-content']//button[1]");
@@ -32,7 +32,7 @@ public class CustomerProfilePage {
     public By changeServiceClass_btn = By.xpath("//button[contains(text(),'Change Service Class')]");
     public By homePage = By.xpath("//*[contains(text(),'HOME')]");
     public By suspendSIM = By.xpath("//*[contains(text(),'Suspend SIM')]");
-    public By reactivationSIM = By.xpath("//*[contains(text(),' Reactivate SIM ')]");
+    public By reactivateSIM = By.xpath("//*[contains(text(),' Reactivate SIM ')]");
     public By authenticationModal = By.xpath("//*[text()=' Authentication ']");
     public By authCheckBox = By.xpath("//input[@type='checkbox']");
     public By authenticateBtn = By.xpath("//*[text()='Authenticate']/..");
@@ -53,4 +53,5 @@ public class CustomerProfilePage {
     public By reActivateSimConfirm = By.xpath("//div[contains(@class,'main-container__body')]/p[contains(text(),'Do you wish to reactivate the SIM?')]");
     public By crossIcon=By.xpath("//mat-icon[contains(text(),'close')]");
     public By airtelMoneyLock = By.xpath("//div[@id='AM_PROFILE']//div[contains(text(),'Tap to unlock')]");
+    public By selectReasonFromDropdown = By.xpath("//span[contains(text(),'Suspecting Fraud')]");
 }

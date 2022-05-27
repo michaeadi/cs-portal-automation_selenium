@@ -163,9 +163,7 @@ public class ESBRequestSource extends RestCommonUtils {
     public void callAmServiceProfileESBAPI(String msisdn) {
         try {
             commonLib.infoColored(constants.getValue(DOWNSTREAM_API_CALLING) + KYC_REQUEST, JavaColors.GREEN, false);
-            queryParam.put(MSISDN, msisdn);
-            queryParam.put("walletType", "Main");
-            commonGetMethodWithQueryParam(ESBURIConstants.GSM_KYC_REQUEST, queryParam, map, constants.getValue(ESBURIConstants.AM_PROFILE_SERVICE_PROFILE_BASE_URL));
+            commonGetMethod(ESBURIConstants.AM_PROFILE+msisdn, map, constants.getValue(ESBURIConstants.AM_PROFILE_SERVICE_PROFILE_BASE_URL));
             checkDownstreamAPI(response.getStatusCode(), "Downstream API KYC request not working with data ", "Downstream API KYC request working with data ");
         } catch (Exception exp) {
             commonLib.fail(constants.getValue(DOWNSTREAM_API_ERROR) + KYC_REQUEST + exp.getMessage(), false);

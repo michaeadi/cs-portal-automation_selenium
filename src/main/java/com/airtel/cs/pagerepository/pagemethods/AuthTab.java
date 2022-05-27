@@ -126,7 +126,7 @@ public class AuthTab extends BasePage {
      * @throws InterruptedException throw exception when scroll to element interrupt
      */
     public void clickCheckBox(int i) throws InterruptedException {
-        commonLib.info("Clicking " + i + "Ques Checkbox");
+        commonLib.info("Clicking " + i + " Question's Checkbox");
         By checkBox = By.xpath(pageElements.authTabCheckBox + i + pageElements.checkBox);
         scrollToViewElement(checkBox);
         clickWithoutLoader(checkBox);
@@ -455,4 +455,6 @@ public class AuthTab extends BasePage {
         if (isVisible(pageElements.selectReason)) ;
         clickWithoutLoader((pageElements.selectReason));
     }
+
+
 }
