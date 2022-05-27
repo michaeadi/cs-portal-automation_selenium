@@ -10,6 +10,7 @@ import com.airtel.cs.commonutils.dataproviders.dataproviders.DataProviders;
 import com.airtel.cs.commonutils.excelutils.WriteToExcel;
 import com.airtel.cs.commonutils.utils.UtilsMethods;
 import com.airtel.cs.driver.Driver;
+import com.airtel.cs.model.cs.request.ticketdetail.Comments;
 import com.airtel.cs.model.cs.response.psb.cs.clmdetails.CLMDetailsResponse;
 import com.airtel.cs.model.cs.response.smshistory.SMSHistory;
 import com.airtel.cs.model.cs.response.smshistory.SMSHistoryList;
@@ -82,7 +83,7 @@ public class PsbCreateInteractionTest extends Driver {
             assertCheck.append(actions.assertEqualStringType(pages.getInteractionsPage().getIssueSubSubType().replaceAll("[^a-zA-Z]+", "").toLowerCase().trim(), data.getIssueSubSubType().replaceAll("[^a-zA-Z]+", "").toLowerCase().trim(), "Issue sub sub type is as expected", "Issue sub sub type is not as expected "));
             assertCheck.append(actions.assertEqualStringType(pages.getInteractionsPage().getIssueType().replaceAll("[^a-zA-Z]+", "").toLowerCase().trim(), data.getIssueType().replaceAll("[^a-zA-Z]+", "").toLowerCase().trim(), "Issue type is as expected", "Issue type is not as expected"));
             assertCheck.append(actions.assertEqualStringType(pages.getInteractionsPage().getIssueSubType().replaceAll("[^a-zA-Z]+", "").toLowerCase().trim(), data.getIssueSubType().replaceAll("[^a-zA-Z]+", "").toLowerCase().trim(), "Issue sub type is as expected", "Issue sub type is not as expected "));
-            pages.getInteractionsPage().sendComment("Automation Testing");
+            pages.getInteractionsPage().sendComment(ApplicationConstants.COMMENT);
             pages.getInteractionsPage().clickOnSave();
             assertCheck.append(actions.assertEqualBoolean(pages.getInteractionsPage().isResolvedFtrVisible(), true, "Resolved FTR displayed", "Resolved FTR not displayed"));
             SMSHistory smsHistory = api.smsHistoryTest(customerNumber);
@@ -131,7 +132,7 @@ public class PsbCreateInteractionTest extends Driver {
             pages.getInteractionsPage().fillIssueFields(data.getIssueFieldLabel5(), data.getIssueFieldType5(), data.getIssueFieldMandatory5(), "5");
             pages.getInteractionsPage().fillIssueFields(data.getIssueFieldLabel6(), data.getIssueFieldType6(), data.getIssueFieldMandatory6(), "6");
             pages.getInteractionsPage().fillIssueFields(data.getIssueFieldLabel7(), data.getIssueFieldType7(), data.getIssueFieldMandatory7(), "7");
-            pages.getInteractionsPage().sendComment("Automation Testing");
+            pages.getInteractionsPage().sendComment(ApplicationConstants.COMMENT);
             assertCheck.append(actions.assertEqualBoolean(pages.getInteractionsPage().isSaveEnable(), true, "Save Button Enabled Successfully", "Save Button NOT Enabled"));
             pages.getInteractionsPage().clickOnSave();
             assertCheck.append(actions.assertEqualBoolean(pages.getInteractionsPage().isTicketIdVisible(), true, "Ticket Id Visible Successfully over Header", "Ticket Id NOT Visible over Header"));

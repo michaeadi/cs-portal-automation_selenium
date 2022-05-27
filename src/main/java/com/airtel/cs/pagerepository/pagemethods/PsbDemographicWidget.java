@@ -792,7 +792,7 @@ public class PsbDemographicWidget extends BasePage {
     }
 
     /**
-     * This method is used get error message when invalid msisdn is searched
+     * This method is used get error message when customer id is searched
      *
      * @return
      */

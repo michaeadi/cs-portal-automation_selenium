@@ -98,8 +98,8 @@ public class ServiceProfileDetailWidgetTest extends Driver {
             hlrOrderHistory = api.getHLROrderHistory(request);
             assertCheck.append(actions.assertEqualIntType(hlrOrderHistory.getStatusCode(), 200, "HLR Order History API success and status code is :" + hlrOrderHistory.getStatusCode(), "HLR Order History API got failed and status code is :" + hlrOrderHistory.getStatusCode(), false));
             if (hlrOrderHistory.getStatusCode() == 200 && hlrOrderHistory.getResult().size()==0) {
-                assertCheck.append(actions.assertEqualBoolean(pages.getServiceProfileDetailWidget().isNoResultFoundVisible(), true, "Error Message is Visible", "Error Message is not Visible"));
-                assertCheck.append(actions.assertEqualStringType(pages.getServiceProfileDetailWidget().getNoResultFoundMessage(), "No Result found", "Error Message is as expected", "Error Message is not as expected"));
+                assertCheck.append(actions.assertEqualBoolean(pages.getServiceProfileDetailWidget().isNoResultFoundVisible(), true, "Message is Visible", "Message is not Visible"));
+                assertCheck.append(actions.assertEqualStringType(pages.getServiceProfileDetailWidget().getNoResultFoundMessage(), "No Result found", "Message is as expected", "Message is not as expected"));
             } else if (hlrOrderHistory.getStatusCode() == 500 && hlrOrderHistory.getResult().size()==0) {
                 assertCheck.append(actions.assertEqualBoolean(pages.getServiceProfileDetailWidget().isWidgetErrorMessageVisible(), true, "CS API and widget both are giving error", "CS API is giving error but widget is not showing error message"));
                 commonLib.fail("CS API is unable to give Hlr Order History data ", true);
