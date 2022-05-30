@@ -113,8 +113,8 @@ public class KpiDashbaordQueueWiseSLAPerformance extends BasePage {
     /**
      * This method is used to check SLA PERFORMANCE DETAILS: ISSUE TYPE WISE Label is visible or not
      */
-    public Boolean isSlaPerformanceDetailsIssueTypeWiseLabelVisible() {
-        Boolean status = isVisible(pageElements.slaPerformanceDetailsIssueTypeWiseLabel);
+    public Boolean isSlaDetailsIssueTypeWiseLabelVisible() {
+        Boolean status = isVisible(pageElements.slaDetailsIssueTypeWiseLabel);
         commonLib.info("SLA PERFORMANCE DETAILS: ISSUE TYPE WISE Label is visible : " + status);
         return status;
     }
@@ -131,10 +131,10 @@ public class KpiDashbaordQueueWiseSLAPerformance extends BasePage {
     /**
      * This method is used to click On Day Wise SLA PERFORMANCE DETAILS: QUEUE WISE
      */
-    public void clickOnDayWiseInSLAPerformanceDetailsQueueWiseIcon() {
+    public void clickDayWiseInSLADetailsQueueWise() {
         commonLib.info("click On Day Wise SLA PERFORMANCE DETAILS: QUEUE WISE Icon");
-        if (isVisible(pageElements.dayWiseInSLAPerformanceDetailsQueueWiseIcon))
-            clickAndWaitForLoaderToBeRemoved(pageElements.dayWiseInSLAPerformanceDetailsQueueWiseIcon);
+        if (isVisible(pageElements.dayWiseInSLADetailsQueueWise))
+            clickAndWaitForLoaderToBeRemoved(pageElements.dayWiseInSLADetailsQueueWise);
         else {
             commonLib.error("Day Wise SLA PERFORMANCE DETAILS: QUEUE WISE Icon not Visible");
         }
@@ -143,8 +143,8 @@ public class KpiDashbaordQueueWiseSLAPerformance extends BasePage {
     /**
      * This method is used to check Day Wise In SLAPerformance Details Queue Wise Label  is visible or not
      */
-    public Boolean isDayWiseInSLAPerformanceDetailsQueueWiseLabelVisible() {
-        Boolean status = isVisible(pageElements.dayWiseInSLAPerformanceDetailsQueueWiseLabel);
+    public Boolean isDayWiseInSLADetailsQueueWiseLabelVisible() {
+        Boolean status = isVisible(pageElements.dayWiseInSLADetailsQueueWiseLabel);
         commonLib.info("Day Wise In SLAPerformance Details Queue Wise Label  is visible : " + status);
         return status;
     }
@@ -152,10 +152,10 @@ public class KpiDashbaordQueueWiseSLAPerformance extends BasePage {
     /**
      * This method is used to click On Day Wise SLA PERFORMANCE DETAILS: ISSUE TYPE WISE
      */
-    public void clickOnDayWiseInSLAPerformanceDetailsIssueTypeWiseIcon() {
+    public void clickDayWiseInSLADetailsIssueTypeIcon() {
         commonLib.info("click On Day Wise SLA PERFORMANCE DETAILS: QUEUE WISE Icon");
-        if (isVisible(pageElements.dayWiseInSLAPerformanceDetailsIssueTypeWiseIcon))
-            clickAndWaitForLoaderToBeRemoved(pageElements.dayWiseInSLAPerformanceDetailsIssueTypeWiseIcon);
+        if (isVisible(pageElements.dayWiseInSLADetailsIssueTypeIcon))
+            clickAndWaitForLoaderToBeRemoved(pageElements.dayWiseInSLADetailsIssueTypeIcon);
         else {
             commonLib.error("Day Wise SLA PERFORMANCE DETAILS: ISSUE TYPE WISE Icon not Visible");
         }
@@ -206,8 +206,8 @@ public class KpiDashbaordQueueWiseSLAPerformance extends BasePage {
      */
     public void clickOnAgentPerformanceIcon() {
         commonLib.info("Going to click AGENT PERFORMANCE Icon");
-        if (isVisible(pageElements.agentPerformanceIcon))
-            clickAndWaitForLoaderToBeRemoved(pageElements.agentPerformanceIcon);
+        if (isVisible(pageElements.agentPerformanceLabel))
+            clickAndWaitForLoaderToBeRemoved(pageElements.agentPerformanceLabel);
         else {
             commonLib.error(" AGENT PERFORMANCE Icon Icon not Visible");
         }
@@ -218,7 +218,7 @@ public class KpiDashbaordQueueWiseSLAPerformance extends BasePage {
      * This method is used to check AGENT PERFORMANCE Label  is visible or not
      */
     public Boolean isAgentPerformanceLabelVisible() {
-        Boolean status = isVisible(pageElements.agentPerformanceLabel);
+        Boolean status = isVisible(pageElements.agentPerformanceIcon);
         commonLib.info("AGENT PERFORMANCE  is visible : " + status);
         return status;
     }

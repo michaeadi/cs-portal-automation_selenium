@@ -4,7 +4,7 @@ import com.airtel.cs.driver.Driver;
 import org.testng.annotations.Test;
 
 
-public class KpiDashboard6MonthsOverviewPageTest extends Driver {
+public class Kpi6MonthsOverviewPageTest extends Driver {
 
 
     @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest"})
@@ -111,21 +111,25 @@ public class KpiDashboard6MonthsOverviewPageTest extends Driver {
         try {
             selUtils.addTestcaseDescription("Agent Performance Details", "description");
             pages.getKpiDashboard6MonthsOverview().clickOnAgentPerformanceIcon();
-            assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboard6MonthsOverview().isAgentIdLabelVisible(), true, "Agent Id Label is Visible", "Agent Id Label is NOT Visible"));
-            assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboard6MonthsOverview().isAgentNameLabelVisible(), true, "Agent Name Label is Visible", "Agent Name Label is NOT Visible"));
-            assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboard6MonthsOverview().isTotalTicketAllocatedLabelVisible(), true, "Total Ticket Allocated Label is Visible", "Total Ticket Allocated Label is NOT Visible"));
-            assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboard6MonthsOverview().isTicketCancelledLabelVisible(), true, "Ticket Cancelled Label is Visible", "Ticket Cancelled Label is NOT Visible"));
-            assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboard6MonthsOverview().isTicketClosedOutsideSLALabelVisible(), true, "Ticket Closed Outside SLA Label is Visible", "Ticket Closed Outside SLA Label is NOT Visible"));
-            assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboard6MonthsOverview().isTicketClosedWithinSLALabelVisible(), true, "Ticket Closed Within SLA Label is Visible", "Ticket Closed Within SLA Label is NOT Visible"));
-            assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboard6MonthsOverview().isSLAPercentageLabelVisible(), true, "SLA Percentage Label is Visible", "SLA Percentage Label is NOT Visible"));
-            assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboard6MonthsOverview().isDaywiseLabelVisible(), true, "Day wise Label is Visible", "Day wise Label is NOT Visible"));
-            actions.assertAllFoundFailedAssert(assertCheck);
+            if (!pages.getKpiDashboard6MonthsOverview().checkNoResultMsg()) {
+                assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboard6MonthsOverview().isAgentIdLabelVisible(), true, "Agent Id Label is Visible", "Agent Id Label is NOT Visible"));
+                assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboard6MonthsOverview().isAgentNameLabelVisible(), true, "Agent Name Label is Visible", "Agent Name Label is NOT Visible"));
+                assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboard6MonthsOverview().isTotalTicketAllocatedLabelVisible(), true, "Total Ticket Allocated Label is Visible", "Total Ticket Allocated Label is NOT Visible"));
+                assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboard6MonthsOverview().isTicketCancelledLabelVisible(), true, "Ticket Cancelled Label is Visible", "Ticket Cancelled Label is NOT Visible"));
+                assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboard6MonthsOverview().isTicketClosedOutsideSLALabelVisible(), true, "Ticket Closed Outside SLA Label is Visible", "Ticket Closed Outside SLA Label is NOT Visible"));
+                assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboard6MonthsOverview().isTicketClosedWithinSLALabelVisible(), true, "Ticket Closed Within SLA Label is Visible", "Ticket Closed Within SLA Label is NOT Visible"));
+                assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboard6MonthsOverview().isSLAPercentageLabelVisible(), true, "SLA Percentage Label is Visible", "SLA Percentage Label is NOT Visible"));
+                assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboard6MonthsOverview().isDaywiseLabelVisible(), true, "Day wise Label is Visible", "Day wise Label is NOT Visible"));
+            } else {
+                commonLib.warning("No Records for this widget");
+            }
         } catch (Exception e) {
             commonLib.fail("Exception in method - AgentPerformanceDetails" + e.fillInStackTrace(), true);
         }
+        actions.assertAllFoundFailedAssert(assertCheck);
     }
 
-    @Test(priority = 7, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"AgentPerformanceDetails", "serviceLevelTrend"})
+    @Test(priority = 7, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"AgentPerformanceDetails"})
     public void DayWiseAgentPerformanceDetails() {
         try {
             selUtils.addTestcaseDescription("Day Wise Agent Performance Details", "description");
@@ -140,10 +144,10 @@ public class KpiDashboard6MonthsOverviewPageTest extends Driver {
             assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboard6MonthsOverview().isSLAPercentageLabelVisible(), true, "SLA Percentage Label is Visible", "SLA Percentage Label is NOT Visible"));
             pages.getKpiDashboard6MonthsOverview().clickOnBackIcon();
             pages.getKpiDashboard6MonthsOverview().clickOnBackIcon();
-            actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
             commonLib.fail("Exception in method - DayWiseAgentPerformanceDetails" + e.fillInStackTrace(), true);
         }
+        actions.assertAllFoundFailedAssert(assertCheck);
     }
 }
 

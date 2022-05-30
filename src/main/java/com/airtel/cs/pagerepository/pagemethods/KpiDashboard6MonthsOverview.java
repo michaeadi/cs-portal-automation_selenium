@@ -283,4 +283,18 @@ public class KpiDashboard6MonthsOverview extends BasePage {
         }
     }
 
+    /*
+    THis Method is use to check for No Result Msg, visible or not?
+     */
+    public boolean checkNoResultMsg() {
+        return driver.findElement(pageElements.noResultMsg).isDisplayed();
+    }
+
+    /*
+    This method is used to get text for No Result found result
+     */
+    public String getNoResultText() {
+        return getText(pageElements.noResultMsg);
+    }
+
 }
