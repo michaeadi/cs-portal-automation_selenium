@@ -60,7 +60,7 @@ public class HbbGsmProfileTest extends Driver {
             final Integer statusCode = kycProfile.getStatusCode();
             assertCheck.append(actions.assertEqualIntType(statusCode, 200, "KYC Profile API Status Code Matched and is :" + statusCode, "KYC Profile API Status Code NOT Matched and is :" + statusCode, false));
             if (pages.getDemoGraphicPage().isPUKInfoLocked()) {
-                pages.getDemoGraphicPage().clickPUKToUnlock();
+                pages.getDemoGraphicPage().clickPukUnlock();
                 assertCheck.append(actions
                         .assertEqualBoolean(pages.getAuthTabPage().isAuthTabLoad(), true, "Authentication tab loaded correctly",
                                 "Authentication tab does not load correctly"));

@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.util.ArrayList;
 import java.util.List;
 @Getter
 @Setter
@@ -28,6 +29,6 @@ public class ResultAMProfile {
     private boolean userBarred;
     private boolean pinSet;
     private String dob;
-    private List<Wallet> wallets;
+    private ArrayList<Wallet> wallets;
 
 }

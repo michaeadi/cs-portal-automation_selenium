@@ -68,12 +68,7 @@ public class CustomerInteractionScreenTest extends Driver {
             clmDetails = api.getCLMDetails(customerNumber);
             assertCheck.append(actions.assertEqualIntType(clmDetails.getStatusCode(), 200, "CLM Details API Status Code Matched and is :" + clmDetails.getStatusCode(), "CLM Details API Status Code NOT Matched and is :" + clmDetails.getStatusCode(), false));
             if (clmDetails.getStatusCode() == 200) {
-                int walletSize = 0, accountSize = 0;
-                for (int i = 0; i < clmDetails.getResult().getDetails().size(); i++) {
-                    walletSize = walletSize + clmDetails.getResult().getDetails().get(i).getWallets().size();
-                    accountSize = accountSize + clmDetails.getResult().getDetails().get(i).getAccounts().size();
-                }
-                int totalSize = walletSize + accountSize;
+               int totalSize=pages.getPsbDemographicWidget().getTotalSize(clmDetails);
                 if (totalSize > 1) {
                     int row = 0, x = 1;
                     for (int i = 0; i < clmDetails.getResult().getDetails().size(); i++) {

@@ -126,7 +126,7 @@ public class AuthTab extends BasePage {
      * @throws InterruptedException throw exception when scroll to element interrupt
      */
     public void clickCheckBox(int i) throws InterruptedException {
-        commonLib.info("Clicking " + i + "Ques Checkbox");
+        commonLib.info("Clicking " + i + " Question's Checkbox");
         By checkBox = By.xpath(pageElements.authTabCheckBox + i + pageElements.checkBox);
         scrollToViewElement(checkBox);
         clickWithoutLoader(checkBox);
@@ -322,7 +322,7 @@ public class AuthTab extends BasePage {
     }
 
     /**
-     * This method is used to check all the action is should display auth pop true/false status configuration is per Opco request
+     * This method is used to check all the actions should display auth pop true/false status configuration as per Opco sheet
      * @param lockedSection The DB Configuration
      * @param actionTags The Excel configuration
      */
@@ -455,4 +455,6 @@ public class AuthTab extends BasePage {
         if (isVisible(pageElements.selectReason)) ;
         clickWithoutLoader((pageElements.selectReason));
     }
+
+
 }

@@ -15,7 +15,7 @@ import lombok.ToString;
 public class AMProfile {
 
     private String message;
-    private Integer statusCode;
+    private int statusCode;
     private ResultAMProfile result;
     private APIErrors apiErrors;
     private String status;

@@ -707,4 +707,15 @@ public class UtilsMethods extends Driver {
         return startDateEpoch;
     }
 
+    /**
+     * This method is used to set ticket number
+     *
+     * @param ticketNumber The ticket number
+     * @return NftrDataBeans object
+     */
+    public static NftrDataBeans setTicketId( String ticketNumber) {
+        NftrDataBeans nftrDataBeans = new NftrDataBeans();
+        nftrDataBeans.setTicketNumber(ticketNumber);
+        return nftrDataBeans;
+    }
 }

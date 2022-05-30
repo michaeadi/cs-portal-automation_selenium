@@ -10,6 +10,7 @@ import com.airtel.cs.commonutils.dataproviders.dataproviders.DataProviders;
 import com.airtel.cs.commonutils.excelutils.WriteToExcel;
 import com.airtel.cs.commonutils.utils.UtilsMethods;
 import com.airtel.cs.driver.Driver;
+import com.airtel.cs.model.cs.request.ticketdetail.Comments;
 import com.airtel.cs.model.cs.response.psb.cs.clmdetails.CLMDetailsResponse;
 import com.airtel.cs.model.cs.response.smshistory.SMSHistory;
 import com.airtel.cs.model.cs.response.smshistory.SMSHistoryList;
@@ -43,7 +44,7 @@ public class PsbCreateInteractionTest extends Driver {
     public void openCustomerInteraction() {
         try {
             selUtils.addTestcaseDescription("Open Customer Profile Page with valid MSISDN, Validate Customer Profile Page Loaded or not", "description");
-            customerNumber = constants.getValue(ApplicationConstants.CUSTOMER_TIER3_MSISDN);
+            customerNumber = constants.getValue(ApplicationConstants.CUSTOMER_TIER1_MSISDN);
             pages.getSideMenuPage().clickOnSideMenu();
             pages.getSideMenuPage().openCustomerInteractionPage();
             pages.getMsisdnSearchPage().enterNumber(customerNumber);
@@ -63,10 +64,10 @@ public class PsbCreateInteractionTest extends Driver {
     }
 
     @Test(priority = 2, groups = {"SanityTest", "RegressionTest"}, dependsOnMethods = {"openCustomerInteraction"}, dataProvider = "getTestData1", dataProviderClass = DataProviders.class)
-    public void createInteraction(FtrDataBeans data) {
+    public void createFtrTest(FtrDataBeans data) {
         try {
+            selUtils.addTestcaseDescription("Create FTR from Interaction icon , Validate FTR ", "description");
             final String issueCode = data.getIssueCode();
-            selUtils.addTestcaseDescription(" Validating FTR Ticket: " + issueCode, "description");
             pages.getCustomerProfilePage().clickOnInteractionIcon();
             pages.getInteractionsPage().clickOnCode();
             try {
@@ -82,7 +83,7 @@ public class PsbCreateInteractionTest extends Driver {
             assertCheck.append(actions.assertEqualStringType(pages.getInteractionsPage().getIssueSubSubType().replaceAll("[^a-zA-Z]+", "").toLowerCase().trim(), data.getIssueSubSubType().replaceAll("[^a-zA-Z]+", "").toLowerCase().trim(), "Issue sub sub type is as expected", "Issue sub sub type is not as expected "));
             assertCheck.append(actions.assertEqualStringType(pages.getInteractionsPage().getIssueType().replaceAll("[^a-zA-Z]+", "").toLowerCase().trim(), data.getIssueType().replaceAll("[^a-zA-Z]+", "").toLowerCase().trim(), "Issue type is as expected", "Issue type is not as expected"));
             assertCheck.append(actions.assertEqualStringType(pages.getInteractionsPage().getIssueSubType().replaceAll("[^a-zA-Z]+", "").toLowerCase().trim(), data.getIssueSubType().replaceAll("[^a-zA-Z]+", "").toLowerCase().trim(), "Issue sub type is as expected", "Issue sub type is not as expected "));
-            pages.getInteractionsPage().sendComment(constants.getValue(ApplicationConstants.COMMENT));
+            pages.getInteractionsPage().sendComment(ApplicationConstants.COMMENT);
             pages.getInteractionsPage().clickOnSave();
             assertCheck.append(actions.assertEqualBoolean(pages.getInteractionsPage().isResolvedFtrVisible(), true, "Resolved FTR displayed", "Resolved FTR not displayed"));
             SMSHistory smsHistory = api.smsHistoryTest(customerNumber);
@@ -95,20 +96,20 @@ public class PsbCreateInteractionTest extends Driver {
                 assertCheck.append(actions.assertEqualStringType(list.getTemplateName().toLowerCase().trim(), constants.getValue(CommonConstants.TICKET_CREATED_EVENT).toLowerCase().trim(), "Template event is same as defined", "Template event not same as defined"));
             }
             pages.getInteractionsPage().closeInteractions();
+            actions.assertAllFoundFailedAssert(assertCheck);
         } catch (NoSuchElementException | TimeoutException | ElementClickInterceptedException e) {
-            commonLib.fail("Exception in Method - createInteraction" + e.fillInStackTrace(), true);
-            pages.getInteractionsPage().clickOutside();
-            pages.getInteractionsPage().resetInteractionIssue();
+            commonLib.fail("Exception in Method - createFtrTest" + e.fillInStackTrace(), true);
+            pages.getInteractionsPage().closeInteractions();
         }
-        actions.assertAllFoundFailedAssert(assertCheck);
+
     }
 
     @Test(priority = 3, groups = {"SanityTest", "RegressionTest"}, dependsOnMethods = {"openCustomerInteraction"}, dataProvider = "getTestData2", dataProviderClass = DataProviders.class)
-    public void CreateNFTRInteraction(NftrDataBeans data) {
-        String ticketNumber = null;
+    public void createNftrTest(NftrDataBeans data) {
         try {
+            selUtils.addTestcaseDescription("Create NFTR from Interaction icon , Validate NFTR ", "description");
+            String ticketNumber = null;
             final String issueCode = data.getIssueCode();
-            selUtils.addTestcaseDescription(" Validating NFTR Ticket: " + issueCode, "description");
             pages.getCustomerProfilePage().clickOnInteractionIcon();
             pages.getInteractionsPage().clickOnCode();
             try {
@@ -131,7 +132,7 @@ public class PsbCreateInteractionTest extends Driver {
             pages.getInteractionsPage().fillIssueFields(data.getIssueFieldLabel5(), data.getIssueFieldType5(), data.getIssueFieldMandatory5(), "5");
             pages.getInteractionsPage().fillIssueFields(data.getIssueFieldLabel6(), data.getIssueFieldType6(), data.getIssueFieldMandatory6(), "6");
             pages.getInteractionsPage().fillIssueFields(data.getIssueFieldLabel7(), data.getIssueFieldType7(), data.getIssueFieldMandatory7(), "7");
-            pages.getInteractionsPage().sendComment(constants.getValue(ApplicationConstants.COMMENT));
+            pages.getInteractionsPage().sendComment(ApplicationConstants.COMMENT);
             assertCheck.append(actions.assertEqualBoolean(pages.getInteractionsPage().isSaveEnable(), true, "Save Button Enabled Successfully", "Save Button NOT Enabled"));
             pages.getInteractionsPage().clickOnSave();
             assertCheck.append(actions.assertEqualBoolean(pages.getInteractionsPage().isTicketIdVisible(), true, "Ticket Id Visible Successfully over Header", "Ticket Id NOT Visible over Header"));
@@ -143,12 +144,11 @@ public class PsbCreateInteractionTest extends Driver {
                 valueToWrite = new String[]{ticketNumber};
                 WriteToExcel objExcelFile = new WriteToExcel();
                 commonLib.info("Ticket Number:You " + data.getRowNum());
-                objExcelFile.writeTicketMetaInfo(excelPath, constants.getValue(nftrSheetValue), UtilsMethods.setAllCustomerAttribute(customerNumber, ticketNumber), data.getRowNum());
+                objExcelFile.writeTicketMetaInfo(excelPath, constants.getValue(nftrSheetValue), UtilsMethods.setTicketId(ticketNumber), data.getRowNum());
                 commonLib.pass("Ticket Number Written to Excel " + valueToWrite[0]);
             } else {
                 commonLib.fail("It's FTR not NFTR", true);
             }
-            pages.getInteractionsPage().closeInteractions();
             SMSHistory smsHistory = api.smsHistoryTest(customerNumber);
             SMSHistoryList list = smsHistory.getResult().get(0);
             commonLib.info("Message Sent after Ticket Creation: " + list.getMessageText());
@@ -157,11 +157,12 @@ public class PsbCreateInteractionTest extends Driver {
             assertCheck.append(actions.assertEqualStringType(list.getSmsType().toLowerCase().trim(), constants.getValue(CommonConstants.SYSTEM_SMS_TYPE).toLowerCase().trim(), "Message type is system", "Message type is not system"));
             assertCheck.append(actions.assertEqualBoolean(list.getAction(), false, "Action button is disabled", "Action button is NOT disabled"));
             assertCheck.append(actions.assertEqualStringType(list.getTemplateName().toLowerCase().trim(), constants.getValue(CommonConstants.TICKET_CREATED_EVENT).toLowerCase().trim(), "Template event is same as defined", "Template event not same as defined"));
-        } catch (Exception e) {
-            commonLib.fail("Exception in Method - CreateNFTRInteraction" + e.fillInStackTrace(), true);
             pages.getInteractionsPage().closeInteractions();
-            pages.getInteractionsPage().clickOnContinueButton();
+            actions.assertAllFoundFailedAssert(assertCheck);
+        } catch (Exception e) {
+            commonLib.fail("Exception in Method - createNftrTest" + e.fillInStackTrace(), true);
+            pages.getInteractionsPage().closeInteractions();
         }
-        actions.assertAllFoundFailedAssert(assertCheck);
+
     }
 }

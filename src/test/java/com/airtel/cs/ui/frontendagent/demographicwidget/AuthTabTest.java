@@ -4,12 +4,13 @@ import com.airtel.cs.api.RequestSource;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.commonutils.dataproviders.databeans.ActionTagDataBeans;
 import com.airtel.cs.commonutils.dataproviders.databeans.AuthTabDataBeans;
-import com.airtel.cs.commonutils.dataproviders.dataproviders.DataProviders;
 import com.airtel.cs.commonutils.dataproviders.databeans.QuestionAnswerKeyDataBeans;
+import com.airtel.cs.commonutils.dataproviders.dataproviders.DataProviders;
 import com.airtel.cs.driver.Driver;
 import com.airtel.cs.model.cs.response.authconfiguration.AuthDataConfigResult;
 import com.airtel.cs.model.cs.response.authconfiguration.Configuration;
 import com.airtel.cs.model.cs.response.authconfiguration.LockedSection;
+import com.airtel.cs.pagerepository.pagemethods.CustomerProfile;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
 import org.testng.SkipException;
@@ -55,8 +56,8 @@ public class AuthTabTest extends Driver {
     @Test(priority = 2, groups = {"SanityTest", "RegressionTest"}, dependsOnMethods = {"openCustomerInteraction"})
     public void validateAnswerQuestionConfig() {
         try {
-            selUtils.addTestcaseDescription("Jira id - CSP-63443,Verify that the answers of the questions in pop up should either show data from configuration or show inline spinner", "description");
-            Configuration config = api.getConfiguration("authorization_data",lineType);
+            selUtils.addTestcaseDescription("Verify that the answers of the questions in pop up should either show data from configuration or show inline spinner", "description");
+            Configuration config = api.getConfiguration("authorization_data", lineType);
             authTabConfig = config.getResult().getAuthDataConfig();
             final String statusCode = config.getStatusCode();
             assertCheck.append(actions.assertEqualStringType(statusCode, "200", "Config API Status Code is as Expected and is :" + statusCode, "Config API Status Code is NOT as Expected and is :" + statusCode));
@@ -73,7 +74,7 @@ public class AuthTabTest extends Driver {
             selUtils.addTestcaseDescription("Verify the question Answer as Per Config", "description");
             DataProviders dataProviders = new DataProviders();
             List<QuestionAnswerKeyDataBeans> config = dataProviders.getQuestionAnswerKey();
-            pages.getAuthTabPage().isAuthQuestionAnswerKeyAsPerConfig(config,authTabConfig);
+            pages.getAuthTabPage().isAuthQuestionAnswerKeyAsPerConfig(config, authTabConfig);
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
             commonLib.fail("Exception in Method :- validateAnswerKey" + e.fillInStackTrace(), false);
@@ -85,12 +86,12 @@ public class AuthTabTest extends Driver {
         try {
             selUtils.addTestcaseDescription("Verify that there is a authorization pop for the actions like SIM Bar Unbar, PIN reset", "description");
             DataProviders dataProviders = new DataProviders();
-            Configuration config = api.getConfiguration("locked_sections_keys",lineType);
+            Configuration config = api.getConfiguration("locked_sections_keys", lineType);
             List<LockedSection> lockedSection = config.getResult().getLockedSectionsKeysConfig();
             final String statusCode = config.getStatusCode();
             assertCheck.append(actions.assertEqualStringType(statusCode, "200", "Config API Status Code is as Expected and is :" + statusCode, "Config API Status Code is NOT as Expected and is :" + statusCode));
             List<ActionTagDataBeans> actionTags = dataProviders.getActionTag();
-            pages.getAuthTabPage().isLockedSectionCorrectlyDisplay(lockedSection,actionTags);
+            pages.getAuthTabPage().isLockedSectionCorrectlyDisplay(lockedSection, actionTags);
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
             commonLib.fail("Exception in Method :- validateLockedSectionStatus" + e.fillInStackTrace(), false);
@@ -110,7 +111,7 @@ public class AuthTabTest extends Driver {
             List<AuthTabDataBeans> list = data.getPolicy();
             List<String> questions = data.getPolicyQuestion();
             assertCheck.append(actions.assertEqualStringType(pages.getAuthTabPage().getAuthInstruction().toLowerCase().trim(), list.get(0).getPolicyMessage().toLowerCase().trim(), "Policy Message same as configured", "Policy Message not same as configured"));
-            pages.getAuthTabPage().validateAuthQuestion(questionList,questions);
+            pages.getAuthTabPage().validateAuthQuestion(questionList, questions);
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (NoSuchElementException | TimeoutException | AssertionError | NullPointerException e) {
             if (isTabOpened)
@@ -123,6 +124,7 @@ public class AuthTabTest extends Driver {
     public void validateAuthTabMinQuestion() {
         try {
             selUtils.addTestcaseDescription("Verify the Authentication tab Minimum question Configured correctly", "description");
+            pages.getDemoGraphicPage().clickPukUnlock();
             assertCheck.append(actions.assertEqualBoolean(pages.getAuthTabPage().isAuthTabLoad(), true, "Authentication tab loaded correctly", "Authentication tab does not load correctly"));
             assertCheck.append(actions.assertEqualBoolean(pages.getAuthTabPage().isAuthBtnEnable(), false, "Authenticate button in NOT enabled without choosing minimum number of question", "Authenticate button is enable without choosing minimum number of question."));
             pages.getDemoGraphicPage().selectPolicyQuestion();
@@ -134,24 +136,22 @@ public class AuthTabTest extends Driver {
         }
     }
 
-    @Test(priority = 7, groups = {"SanityTest", "RegressionTest"}, dependsOnMethods = {"openCustomerInteraction", "validateAuthTabMinQuestion"})
+
+    @Test(priority = 7, groups = {"SanityTest", "RegressionTest"}, dependsOnMethods = {"openCustomerInteraction"})
     public void authCustomer() {
         try {
             selUtils.addTestcaseDescription("Authenticate User", "description");
-            DataProviders data = new DataProviders();
+            pages.getCustomerProfilePage().openSimSuspendReactivateFromActions();
             assertCheck.append(actions.assertEqualBoolean(pages.getAuthTabPage().isSIMBarPopup(), true, "SIM Bar/Unbar pop up opened", "SIM Bar/Unbar popup does not open"));
             assertCheck.append(actions.assertEqualBoolean(pages.getAuthTabPage().isIssueDetailTitleVisible(), true, "Issue details configured correctly", "Issue Detail does not configured"));
             assertCheck.append(actions.assertEqualBoolean(pages.getAuthTabPage().isSubmitBtnEnable(), false, "Submit button Not enabled without comment", "Submit button enable without adding comment"));
-            pages.getAuthTabPage().fillAllInputField("Automation Testing");
-            pages.getAuthTabPage().clickSelectReasonDropDown();
-            List<String> reason = pages.getAuthTabPage().getReasonConfig();
-            List<String> configReason = data.issueDetailReason("SIM Bar Unbar");
-            for (String s : reason) {
-                    assertCheck.append(actions.assertEqualBoolean(configReason.remove(s),true,s + ": Must not configured on UI as not mentioned in config.", s + ": Must configured on UI as mentioned in config."));
-            }
-            pages.getAuthTabPage().chooseReason();
-            pages.getAuthTabPage().enterComment("Adding comment using Automation");
-            assertCheck.append(actions.assertEqualBoolean(pages.getAuthTabPage().isSubmitBtnEnable(), true, "Submit button does enabled after adding comment", "Submit button does NOT enabled after adding comment"));
+            pages.getCustomerProfilePage().performBarUnbarAction();
+            final String modalText = pages.getCustomerProfilePage().getModalText();
+            CustomerProfile widget = new CustomerProfile(driver);
+            if (widget.suspendSim > 0)
+                assertCheck.append(actions.assertEqualStringType(modalText, "Sim suspend is successful and issue logged.", "Success Message Matched", "Success Message NOT Matched and is -" + modalText));
+            if (widget.reactivateSim > 0)
+                assertCheck.append(actions.assertEqualStringType(modalText, "Sim reactivate is successful and issue is logged.", "Success Message Matched", "Success Message NOT Matched and is -" + modalText));
             pages.getAuthTabPage().closeSIMBarPopup();
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (NoSuchElementException | TimeoutException e) {
