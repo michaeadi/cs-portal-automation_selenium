@@ -244,7 +244,7 @@ public class SmartCashTransactionHistory extends BasePage {
     /**
      * This method is used to click SMS Notification Icon
      */
-    public void clickSmsNotificationIcon(){
+    public void clickSmsNotificationIcon() {
         commonLib.info("Going to click resend SMS ");
         clickWithoutLoader(pageElements.smsNotificationIcon);
     }
@@ -399,8 +399,8 @@ public class SmartCashTransactionHistory extends BasePage {
      */
     public void clickCrossIcon() {
         commonLib.info("Going to click cross icon");
-        if (isVisible(pageElements.crossIcon));
-        clickWithoutLoader((pageElements.crossIcon));
+        if (isVisible(pageElements.crossIcon))
+            clickWithoutLoader((pageElements.crossIcon));
     }
 
     /**
@@ -434,4 +434,20 @@ public class SmartCashTransactionHistory extends BasePage {
     }
 
 
+
+    /**
+     * This method is used get colour for Transaction ID and status
+     * @return
+     */
+    public String getTxnIdStatusColour(int row, int column) {
+        return selUtils.getDataPointColor(By.xpath(pageElements.valueRowSec + row + pageElements.valueRowSec + column + pageElements.columnText));
+    }
+
+    /**
+     * This method is used get colour for Debit/Credit Sign
+     * @return
+     */
+    public String getSignColour(int row) {
+        return selUtils.getDataPointColor(By.xpath(pageElements.valueRowSec + row + pageElements.posSymbol));
+    }
 }

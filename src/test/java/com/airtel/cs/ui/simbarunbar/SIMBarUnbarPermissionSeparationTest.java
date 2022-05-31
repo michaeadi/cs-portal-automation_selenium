@@ -126,12 +126,13 @@ public class SIMBarUnbarPermissionSeparationTest extends Driver {
     public void takeActionSIMSuspend() {
         selUtils.addTestcaseDescription("Validate SIM Suspend Action", "description");
         try {
-            pages.getCustomerProfilePage().openSuspendSIMTab();
+            pages.getCustomerProfilePage().openSuspendSimTab();
             assertCheck.append(actions.assertEqualBoolean(pages.getCustomerProfilePage().isAuthTabOpenedDoAction(), true, "Authentication Modal Opened", "Authentication Modal NOT Opened"));
             assertCheck.append(actions.assertEqualBoolean(pages.getCustomerProfilePage().isSuspendSIMModalOpened(), true, "Suspend SIM Modal Opened Successfully", "Suspend SIM Modal Not Opened"));
-            pages.getCustomerProfilePage().doSIMBarAction();
+            pages.getCustomerProfilePage().performBarUnbarAction();
             final String modalText = pages.getCustomerProfilePage().getModalText();
             assertCheck.append(actions.assertEqualStringType(modalText, "Sim suspend is successful and issue logged", "Success Message Matched", "Success Message NOT Matched and is -" + modalText));
+            pages.getAuthTabPage().closeSIMBarPopup();
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
             commonLib.fail("Exception in Testcase - takeActionSIMSuspend " + e.getMessage(), true);
@@ -202,7 +203,7 @@ public class SIMBarUnbarPermissionSeparationTest extends Driver {
             if(StringUtils.equalsIgnoreCase(simStatus, "Active")){
                 pages.getCustomerProfilePage().clickOnAction();
             if (pages.getCustomerProfilePage().isSuspendSIMOptionVisible()) {
-                pages.getCustomerProfilePage().openSuspendSIMTab();
+                pages.getCustomerProfilePage().openSuspendSimTab();
                 boolean popup = !pages.getCustomerProfilePage().isSuspendSIMConfirmMessageVisible();
                 if (!popup) {
                     pages.getAuthTabPage().clickYesBtn();
@@ -242,7 +243,7 @@ public class SIMBarUnbarPermissionSeparationTest extends Driver {
             if(StringUtils.equalsIgnoreCase(simStatus, "Suspended")){
             pages.getCustomerProfilePage().clickOnAction();
             if (pages.getCustomerProfilePage().isReactivationSIMOptionVisible()) {
-                pages.getCustomerProfilePage().openSuspendSIMTab();
+                pages.getCustomerProfilePage().openSuspendSimTab();
                 boolean popup = !pages.getCustomerProfilePage().isReactivateSIMConfirmMessageVisible();
                 if (!popup) {
                     pages.getAuthTabPage().clickYesBtn();

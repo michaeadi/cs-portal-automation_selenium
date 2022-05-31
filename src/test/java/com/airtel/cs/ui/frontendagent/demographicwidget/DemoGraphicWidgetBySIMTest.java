@@ -63,7 +63,7 @@ public class DemoGraphicWidgetBySIMTest extends Driver {
 
             try {
                 if (demographic.isPUKInfoLocked()) {
-                    demographic.clickPUKToUnlock();
+                    demographic.clickPukUnlock();
                     Thread.sleep(5000);
                     AuthTab authTab = new AuthTab(driver);
                     DataProviders data = new DataProviders();

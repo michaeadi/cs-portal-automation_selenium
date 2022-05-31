@@ -538,9 +538,7 @@ public class RequestSource extends RestCommonUtils {
             commonPostMethod(URIConstants.TRANSACTION_HISTORY, new TransactionHistoryRequest(msisdn, 5, 1, null, null));
             result = response.as(AirtelMoney.class);
             if (result.getStatusCode() != 200) {
-                commonPostMethod(constants.getValue(AM_TRANSACTION_HISTORY_API_URL) + ESBURIConstants.TRANSACTION_HISTORY, new TransactionHistoryRequest(msisdn, 5, 1, null, null));
-//                commonPostMethod(constants.getValue(AM_TRANSACTION_HISTORY_API_URL) + ESBURIConstants.AM_PROFILE_SERVICE_PROFILE_BASE_URL, new TransactionHistoryRequest(msisdn, 5, 1, null, null));
-
+                commonPostMethod(constants.getValue(ESBURIConstants.AM_PROFILE_SERVICE_PROFILE_BASE_URL) + ESBURIConstants.TRANSACTION_HISTORY, new TransactionHistoryRequest(msisdn, 5, 1, null, null));
             }
         } catch (Exception e) {
             commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + " - transactionHistoryAPITest " + e.getMessage(), false);
@@ -1337,7 +1335,7 @@ public class RequestSource extends RestCommonUtils {
         try {
             clientInfo.put(MSISDN, msisdn);
             TicketSearchRequest ticketSearchRequest = new TicketSearchRequest(new TicketSearchCriteria(clientInfo));
-            commonPostMethod(URIConstants.GET_TICKET_HISTORY_V1, map, ticketSearchRequest, srBaseUrl);
+            commonPostMethod(URIConstants.GET_TICKET_HISTORY_V1, validHeaderList, ticketSearchRequest, srBaseUrl);
             result = response.getStatusCode();
         } catch (Exception e) {
             commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + " - getTicketHistoryStatusCode " + e.getMessage(), false);

@@ -20,7 +20,7 @@ public class KpiDashboardOpenTicketAgeing extends BasePage {
      */
     public Boolean isLifetimeTillDateLabelVisible() {
         Boolean status = isVisible(pageElements.lifetimeTillDateLabel);
-        commonLib.pass("Lifetime Till Date Label  is visible : " + status);
+        commonLib.info("Lifetime Till Date Label  is visible : " + status);
         return status;
     }
 
@@ -29,7 +29,7 @@ public class KpiDashboardOpenTicketAgeing extends BasePage {
      */
     public Boolean isOpenTicketAgeingLabelVisible() {
         Boolean status = isVisible(pageElements.openTicketAgeingLabel);
-        commonLib.pass("Open Ticket Ageing Label  is visible : " + status);
+        commonLib.info("Open Ticket Ageing Label  is visible : " + status);
         return status;
     }
 
@@ -38,7 +38,7 @@ public class KpiDashboardOpenTicketAgeing extends BasePage {
      */
     public Boolean isConnectionLabelVisible() {
         Boolean status = isVisible(pageElements.connectionLabel);
-        commonLib.pass("Connection  Label  is visible : " + status);
+        commonLib.info("Connection  Label  is visible : " + status);
         return status;
     }
 
@@ -47,7 +47,7 @@ public class KpiDashboardOpenTicketAgeing extends BasePage {
      */
     public Boolean isMonthLabelVisible() {
         Boolean status = isVisible(pageElements.monthLabel);
-        commonLib.pass("Month  Label  is visible : " + status);
+        commonLib.info("Month  Label  is visible : " + status);
         return status;
     }
 
@@ -56,7 +56,7 @@ public class KpiDashboardOpenTicketAgeing extends BasePage {
      */
     public Boolean isIssueSubTypeLabelVisible() {
         Boolean status = isVisible(pageElements.issueSubTypeLabel);
-        commonLib.pass("Issue Sub Type  Label  is visible : " + status);
+        commonLib.info("Issue Sub Type  Label  is visible : " + status);
         return status;
     }
 
@@ -65,7 +65,7 @@ public class KpiDashboardOpenTicketAgeing extends BasePage {
      */
     public Boolean isDownLoadIconlVisible() {
         Boolean status = isVisible(pageElements.downloadIcon);
-        commonLib.pass("Download  Icon  is visible : " + status);
+        commonLib.info("Download  Icon  is visible : " + status);
         return status;
     }
 
@@ -79,7 +79,6 @@ public class KpiDashboardOpenTicketAgeing extends BasePage {
         else {
             commonLib.error( "Open Ticket Ageing Details Icon not Visible");
         }
-
     }
 
     /**
@@ -87,7 +86,7 @@ public class KpiDashboardOpenTicketAgeing extends BasePage {
      */
     public Boolean isIssueCodeLabellVisible() {
         Boolean status = isVisible(pageElements.issueCodeLabel);
-        commonLib.pass("Issue Code Label is visible : " + status);
+        commonLib.info("Issue Code Label is visible : " + status);
         return status;
     }
 
@@ -96,7 +95,7 @@ public class KpiDashboardOpenTicketAgeing extends BasePage {
      */
     public Boolean isQueueNameLabellVisible() {
         Boolean status = isVisible(pageElements.queueNameLabel);
-        commonLib.pass("Queue Name Label is visible : " + status);
+        commonLib.info("Queue Name Label is visible : " + status);
         return status;
     }
 
@@ -105,7 +104,7 @@ public class KpiDashboardOpenTicketAgeing extends BasePage {
      */
     public Boolean isLessThanADayLabellVisible() {
         Boolean status = isVisible(pageElements.lessThanADayLabel);
-        commonLib.pass("Less Than A Day Label is visible : " + status);
+        commonLib.info("Less Than A Day Label is visible : " + status);
         return status;
     }
 
@@ -114,7 +113,7 @@ public class KpiDashboardOpenTicketAgeing extends BasePage {
      */
     public Boolean isTwoToThreeDaysLabellVisible() {
         Boolean status = isVisible(pageElements.twoToThreeDaysLabel);
-        commonLib.pass("2 -3 Days label  is visible : " + status);
+        commonLib.info("2 -3 Days label  is visible : " + status);
         return status;
     }
 
@@ -123,7 +122,7 @@ public class KpiDashboardOpenTicketAgeing extends BasePage {
      */
     public Boolean isThreeToTenDaysLabellVisible() {
         Boolean status = isVisible(pageElements.threeToTenDaysLabel);
-        commonLib.pass("3 -10 Days label  is visible : " + status);
+        commonLib.info("3 -10 Days label  is visible : " + status);
         return status;
     }
 
@@ -132,7 +131,7 @@ public class KpiDashboardOpenTicketAgeing extends BasePage {
      */
     public Boolean isTenToThrityDaysLabellVisible() {
         Boolean status = isVisible(pageElements.tenToThirtyDaysLabel);
-        commonLib.pass("10 -30 Days label  is visible : " + status);
+        commonLib.info("10 -30 Days label  is visible : " + status);
         return status;
     }
 
@@ -140,8 +139,8 @@ public class KpiDashboardOpenTicketAgeing extends BasePage {
      * This method is used to check Beyond 30 Days label  is visible or not
      */
     public Boolean isBeyond30DaysDaysLabellVisible() {
-        Boolean status = isVisible(pageElements.beyond30DaysLabe);
-        commonLib.pass("Beyond 30 Days label is visible : " + status);
+        Boolean status = isVisible(pageElements.beyond30DaysLabel);
+        commonLib.info("Beyond 30 Days label is visible : " + status);
         return status;
     }
 
@@ -150,7 +149,7 @@ public class KpiDashboardOpenTicketAgeing extends BasePage {
      */
     public Boolean isSlabreachTicketAgeingIssueTypeAndQueueLabel() {
         Boolean status = isVisible(pageElements.slabreachTicketAgeingIssueTypeAndQueueLabel);
-        commonLib.pass("Sla breach Ticket Ageing Issue Type And Queue Label is visible : " + status);
+        commonLib.info("Sla breach Ticket Ageing Issue Type And Queue Label is visible : " + status);
         return status;
     }
 
@@ -159,7 +158,7 @@ public class KpiDashboardOpenTicketAgeing extends BasePage {
      */
     public Boolean isSlaBreachTicketAgeingAgentLabel() {
         Boolean status = isVisible(pageElements.slaBreachTicketAgeingAgentLabel);
-        commonLib.pass("Sla Breach Ticket Ageing Agent Labell is visible : " + status);
+        commonLib.info("Sla Breach Ticket Ageing Agent Labell is visible : " + status);
         return status;
     }
 
@@ -168,7 +167,7 @@ public class KpiDashboardOpenTicketAgeing extends BasePage {
      */
     public Boolean isAgentIdLabellVisible() {
         Boolean status = isVisible(pageElements.agentIdLabel);
-        commonLib.pass("Agent ID label is visible : " + status);
+        commonLib.info("Agent ID label is visible : " + status);
         return status;
     }
 
@@ -177,7 +176,7 @@ public class KpiDashboardOpenTicketAgeing extends BasePage {
      */
     public Boolean isAgentNameLabelVisible() {
         Boolean status = isVisible(pageElements.agentNameLabel);
-        commonLib.pass("Agent Name label is visible : " + status);
+        commonLib.info("Agent Name label is visible : " + status);
         return status;
     }
 

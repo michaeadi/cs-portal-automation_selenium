@@ -35,8 +35,10 @@ public class AmSmsTrailsPage {
     public String dataRows = "//div[contains(@class,'table-data-wrapper')]//div[";
     public String dataColumns = "]//div[@data-csautomation-key='dataRows']//div[";
     public String dataValue = "]//span[@data-csautomation-key='columnValue']";
-    public String actionValue="]//span";
+    public String actionValue = "]//span";
     public By totalRows = By.xpath("//div[@class='card__content restricted ng-star-inserted']//div[@class='table-data-wrapper ng-star-inserted']//div[@class='ng-star-inserted']");
+    public By totalSMSRow = By.xpath("//div[@data-csautomation-key='paginationResult']");
+    public By nextPage = By.xpath("//*[contains(@class,'pagination-next')]/a");
 
     /**
      * Pagination locators
@@ -53,7 +55,7 @@ public class AmSmsTrailsPage {
      * Resend SMS locators
      */
 
-    public By reSendSmsLink  = By.xpath("//span[contains(text(),'Resend')]");
+    public By reSendSmsLink = By.xpath("//span[contains(text(),'Resend')]");
     public By resendSms = By.xpath("//div[@class='quick-action ng-star-inserted']//span[contains(text(),'Resend SMS')]");
     public By smsHeader = By.xpath("//div[@class='main-container__header']//span[contains(text(),'Send SMS')]");
     public By smsIssueDetail = By.xpath("//div[contains(text(),'Issue Detail:')]");
@@ -69,14 +71,13 @@ public class AmSmsTrailsPage {
 
     /**
      * Action Trail tab
-    */
-    public By homePage=By.xpath("//span[contains(text(),'HOME')]");
-    public By viewHistory=By.xpath("//span[contains(text(),'VIEW HISTORY')]");
-    public By actionTrail=By.xpath("//div[contains(text(),'Action Trail')]");
-    public By actionType=By.xpath("//div[@class='agent-list-container']/table/tbody/tr/td[1]");
-    public By reason=By.xpath("//div[@class='agent-list-container']/table/tbody/tr/td[3]");
-    public By comment=By.xpath("//div[@class='agent-list-container']/table/tbody/tr/td[6]");
-
+     */
+    public By homePage = By.xpath("//span[contains(text(),'HOME')]");
+    public By viewHistory = By.xpath("//span[contains(text(),'VIEW HISTORY')]");
+    public By actionTrail = By.xpath("//div[contains(text(),'Action Trail')]");
+    public By actionType = By.xpath("//div[@class='agent-list-container']/table/tbody/tr/td[1]");
+    public By reason = By.xpath("//div[@class='agent-list-container']/table/tbody/tr/td[3]");
+    public By comment = By.xpath("//div[@class='agent-list-container']/table/tbody/tr/td[6]");
 
 
 }

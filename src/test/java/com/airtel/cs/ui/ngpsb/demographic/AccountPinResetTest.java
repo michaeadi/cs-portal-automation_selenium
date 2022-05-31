@@ -15,7 +15,7 @@ public class AccountPinResetTest extends Driver {
     String className = this.getClass().getName();
 
 
-    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"})
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void checkExecution() {
         if (!continueExecutionFA) {
             commonLib.skip("Skipping tests because user NOT able to login Over Portal");
@@ -23,7 +23,7 @@ public class AccountPinResetTest extends Driver {
         }
     }
 
-    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"})
+    @Test(priority = 1, groups = {"SanityTest", "RegressionTest"})
     public void openCustomerInteraction() {
         try {
             selUtils.addTestcaseDescription("Open Customer Profile Page with valid MSISDN, Validate Customer Profile Page Loaded or not", "description");
@@ -67,7 +67,7 @@ public class AccountPinResetTest extends Driver {
                 assertCheck.append(actions.assertEqualBoolean(pages.getPinReset().isDemographicWidgetVisible(), true, "Demographic Widget is visible after closing the Issue Detail Pop up ", "Demographic Widget is NOT visible after closing the Issue Detail Pop up"));
                 pages.getPinReset().performResetPin();
                 assertCheck.append(actions.assertEqualBoolean(pages.getPinReset().isSuccessPopUpVisible(), true, "Success Popup visible after resetting pin  ", "Success Popup NOT visible after resetting pin"));
-                String successText = "SmartCash Pin Reset is successful";
+                String successText = "SmartCash Pin Reset is successfull";
                 assertCheck.append(actions.assertEqualStringType(pages.getPinReset().getSuccessText(), successText, "Success text is displayed as expected", "Success text is not displayed as expected"));
                 pages.getPinReset().clickCrossIcon();
             } else {

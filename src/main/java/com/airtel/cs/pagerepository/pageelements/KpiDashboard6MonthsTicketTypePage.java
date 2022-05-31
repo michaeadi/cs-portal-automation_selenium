@@ -4,10 +4,10 @@ import org.openqa.selenium.By;
 
 public class KpiDashboard6MonthsTicketTypePage {
     public By sixMonthsTicketTypeLabel = By.xpath("//span[contains(text(),'6 Months Ticket Type')]");
-    public By ftrIcon = By.xpath("//span[contains(text(),' FTR ')]");
-    public By connectionLabel;
-    public By nftrIcon = By.xpath("//span[contains(text(),' NFTR ')]");
-    public By issueTypelLabel;
+    public By ftrIcon = By.xpath("//*[contains(text(),'6 Months Ticket Type')]/..//span[contains(text(),' FTR ')]");
+    public By connectionLabel = By.xpath("//*[contains(text(),'6 Months Ticket Type')]/..//*[contains(text(),'Connection')]");
+    public By nftrIcon = By.xpath("//*[contains(text(),'6 Months Ticket Type')]/..//span[contains(text(),' NFTR ')]");
+    public By issueTypelLabel = By.xpath("//*[contains(text(),'6 Months Ticket Type')]/..//*[contains(text(),'Issue Type')]");
     public By sixMonthsTicketDetailsIcon = By.xpath("//span[contains(text(),'6 Months Ticket Type')]/..//img");
     public By ticketTypeDetailsLabel = By.xpath("//span[contains(text(),'Ticket Type Details ')]");
     public By monthLabel = By.xpath("//span[contains(text(),'Month')]");

@@ -18,26 +18,29 @@ public class MoreAMTxnTab extends BasePage {
 
     /**
      * This method use to check negative sign display or not(Primary Widget)
+     *
      * @param row The row number
      * @return true/false
      */
     public Boolean isNegSignDisplay(int row) {
         By negAmount = By.xpath(pageElements.valueRow + row + pageElements.negSymbol);
-        return getAttribute(negAmount,"src",false).contains("dr.svg");
+        return getAttribute(negAmount, "src", false).contains("dr.svg");
     }
 
     /**
      * This method use to check positive sign display or not(Primary Widget)
+     *
      * @param row The row number
      * @return true/false
      */
     public Boolean isPosSignDisplay(int row) {
         By posAmount = By.xpath(pageElements.valueRow + row + pageElements.posSymbol);
-        return getAttribute(posAmount,"src",false).contains("cr.svg");
+        return getAttribute(posAmount, "src", false).contains("cr.svg");
     }
 
     /**
      * This method use to check AM menu widget display or not(Primary Widget)
+     *
      * @return true/false
      */
     public boolean isAMMenuHistoryTabDisplay() {
@@ -48,6 +51,7 @@ public class MoreAMTxnTab extends BasePage {
 
     /**
      * This method use to check filter by today date display or not(Primary Widget)
+     *
      * @return true/false
      */
     public boolean isTodayFilterTab() {
@@ -58,6 +62,7 @@ public class MoreAMTxnTab extends BasePage {
 
     /**
      * This method use to check filter by last two day display or not(Primary Widget)
+     *
      * @return true/false
      */
     public boolean isLastTwoDayFilterTab() {
@@ -68,6 +73,7 @@ public class MoreAMTxnTab extends BasePage {
 
     /**
      * This method use to check filter by last seven day display or not(Primary Widget)
+     *
      * @return true/false
      */
     public boolean isLastSevenDayFilterTab() {
@@ -78,6 +84,7 @@ public class MoreAMTxnTab extends BasePage {
 
     /**
      * This method use to check is date range filter display or not(Primary Widget)
+     *
      * @return true/false
      */
     public boolean isDateRangeFilterTab() {
@@ -88,6 +95,7 @@ public class MoreAMTxnTab extends BasePage {
 
     /**
      * This method use to check is transaction id box display or not(Primary Widget)
+     *
      * @return true/false
      */
     public boolean isSearchTxnIdBox() {
@@ -98,6 +106,7 @@ public class MoreAMTxnTab extends BasePage {
 
     /**
      * This method use to write transaction id into search box(Primary Widget)
+     *
      * @param txnId The Transaction Id
      */
     public void searchByTxnId(String txnId) {
@@ -116,6 +125,7 @@ public class MoreAMTxnTab extends BasePage {
 
     /**
      * This method use to check airtel money error visible(Primary Widget)
+     *
      * @return true/false
      */
     public boolean isAirtelMoneyErrorVisible() {
@@ -126,6 +136,7 @@ public class MoreAMTxnTab extends BasePage {
 
     /**
      * This method use to get no result found message(Primary Widget)
+     *
      * @return String The String
      */
     public String gettingAirtelMoneyNoResultFoundMessage() {
@@ -136,6 +147,7 @@ public class MoreAMTxnTab extends BasePage {
 
     /**
      * This method use to get no result found icon display or not(Primary Widget)
+     *
      * @return true/false
      */
     public boolean isAirtelMoneyNoResultFoundVisible() {
@@ -146,6 +158,7 @@ public class MoreAMTxnTab extends BasePage {
 
     /**
      * This method use to get header name based on column number(Primary Widget)
+     *
      * @param column The column number
      * @return String The Value
      */
@@ -157,7 +170,8 @@ public class MoreAMTxnTab extends BasePage {
 
     /**
      * This method use to get data value based on row and column number(Primary Widget)
-     * @param row The Row Number
+     *
+     * @param row    The Row Number
      * @param column The column number
      * @return String The Value
      */
@@ -169,6 +183,7 @@ public class MoreAMTxnTab extends BasePage {
 
     /**
      * This method use to check resend sms icon display or not(Primary Widget)
+     *
      * @return true/false
      */
     public Boolean isResendSMS() {
@@ -180,6 +195,7 @@ public class MoreAMTxnTab extends BasePage {
 
     /**
      * This method use to check negative sign display or not(Secondary Widget)
+     *
      * @param row The row number
      * @return true/false
      */
@@ -190,6 +206,7 @@ public class MoreAMTxnTab extends BasePage {
 
     /**
      * This method use to check positive sign display or not(Secondary Widget)
+     *
      * @param row The row number
      * @return true/false
      */
@@ -200,6 +217,7 @@ public class MoreAMTxnTab extends BasePage {
 
     /**
      * This method use to check AM menu widget display or not(Secondary Widget)
+     *
      * @return true/false
      */
     public boolean isAMMenuHistoryTabDisplayOnSecondWidget() {
@@ -210,6 +228,7 @@ public class MoreAMTxnTab extends BasePage {
 
     /**
      * This method use to check filter by today date display or not(Secondary Widget)
+     *
      * @return true/false
      */
     public boolean isTodayFilterTabOnSecondWidget() {
@@ -220,6 +239,7 @@ public class MoreAMTxnTab extends BasePage {
 
     /**
      * This method use to check filter by last two day display or not(Secondary Widget)
+     *
      * @return true/false
      */
     public boolean isLastTwoDayFilterTabOnSecondWidget() {
@@ -230,6 +250,7 @@ public class MoreAMTxnTab extends BasePage {
 
     /**
      * This method use to check filter by last seven day display or not(Secondary Widget)
+     *
      * @return true/false
      */
     public boolean isLastSevenDayFilterTabOnSecondWidget() {
@@ -240,6 +261,7 @@ public class MoreAMTxnTab extends BasePage {
 
     /**
      * This method use to check is date range filter display or not(Secondary Widget)
+     *
      * @return true/false
      */
     public boolean isDateRangeFilterTabOnSecondWidget() {
@@ -250,6 +272,7 @@ public class MoreAMTxnTab extends BasePage {
 
     /**
      * This method use to check is transaction id box display or not(Secondary Widget)
+     *
      * @return true/false
      */
     public boolean isSearchTxnIdBoxOnSecondWidget() {
@@ -260,6 +283,7 @@ public class MoreAMTxnTab extends BasePage {
 
     /**
      * This method use to write transaction id into search box(Secondary Widget)
+     *
      * @param txnId The Transaction Id
      */
     public void searchByTxnIdOnSecondWidget(String txnId) {
@@ -277,6 +301,7 @@ public class MoreAMTxnTab extends BasePage {
 
     /**
      * This method use to check airtel money error visible(Secondary Widget)
+     *
      * @return true/false
      */
     public boolean isAirtelMoneyErrorVisibleOnSecondWidget() {
@@ -286,6 +311,7 @@ public class MoreAMTxnTab extends BasePage {
 
     /**
      * This method use to get no result found message(Secondary Widget)
+     *
      * @return String The String
      */
     public String gettingAirtelMoneyNoResultFoundMessageOnSecondWidget() {
@@ -295,6 +321,7 @@ public class MoreAMTxnTab extends BasePage {
 
     /**
      * This method use to get no result found icon display or not(Secondary Widget)
+     *
      * @return true/false
      */
     public boolean isAirtelMoneyNoResultFoundVisibleOnSecondWidget() {
@@ -304,6 +331,7 @@ public class MoreAMTxnTab extends BasePage {
 
     /**
      * This method use to get header name based on column number(Secondary Widget)
+     *
      * @param column The column number
      * @return String The Value
      */
@@ -315,7 +343,8 @@ public class MoreAMTxnTab extends BasePage {
 
     /**
      * This method use to get data value based on row and column number(Secondary Widget)
-     * @param row The Row Number
+     *
+     * @param row    The Row Number
      * @param column The column number
      * @return String The Value
      */
@@ -327,10 +356,33 @@ public class MoreAMTxnTab extends BasePage {
 
     /**
      * This method use to check resend sms icon display or not(Secondary Widget)
+     *
      * @return true/false
      */
     public Boolean isResendSMSOnSecondWidget() {
         By check = By.xpath(pageElements.resendSMSSec);
         return isEnabled(check);
+    }
+
+    /**
+     * This method is used to get footer auuid
+     *
+     * @return
+     */
+    public String getFooterAuuid() {
+        String text = getText(pageElements.footerAuuid);
+        commonLib.info("Getting footer auuid : " + text );
+        return text;
+    }
+
+    /**
+     * This method is used to get middle auuid
+     *
+     * @return
+     */
+    public String getMiddleAuuid() {
+        String text = getAttribute(pageElements.middleAuuid, "data-auuid", false);
+        commonLib.info("Getting middle auuid : " + text );
+        return text;
     }
 }

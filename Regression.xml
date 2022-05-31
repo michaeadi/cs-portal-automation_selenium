@@ -67,7 +67,7 @@
     <test name="Demo Graphic Widget Test By Prepaid MSISDN" preserve-order="true">
         <groups>
             <run>
-                <include name="ProdTest"/>
+                <include name="RegressionTest"/>
             </run>
         </groups>
         <classes>
@@ -77,7 +77,7 @@
     <test name="Demo Graphic Widget Test By Postpaid MSISDN" preserve-order="true">
         <groups>
             <run>
-                <include name="ProdTest"/>
+                <include name="RegressionTest"/>
             </run>
         </groups>
         <classes>
@@ -87,7 +87,7 @@
     <test name="Demo Graphic Widget Test By Hybrid MSISDN" preserve-order="true">
         <groups>
             <run>
-                <include name="ProdTest"/>
+                <include name="RegressionTest"/>
             </run>
         </groups>
         <classes>
@@ -294,7 +294,7 @@
             <class name="com.airtel.cs.ui.frontendagent.hometab.ActiveVasWidgetTest"/>
         </classes>
     </test>
-    <test name="Adjustment Widget Test">
+    <test name="Adjustment Tab Test">
         <groups>
             <run>
                 <include name="RegressionTest"/>
@@ -887,7 +887,7 @@
     <test name="Login Admin Test For Kpi Dashboard">
         <groups>
             <run>
-                <include name="SanityTest"/>
+                <include name="RegressionTest"/>
             </run>
         </groups>
         <classes>
@@ -897,7 +897,7 @@
     <test name="Kpi Dashboard TopPanelTest " preserve-order="true">
         <groups>
             <run>
-                <include name="ProdTest"/>
+                <include name="RegressionTest"/>
             </run>
         </groups>
         <classes>
@@ -907,51 +907,51 @@
     <test name="Kpi Dashboard 6MonthsOverviewPageTest " preserve-order="true">
         <groups>
             <run>
-                <include name="ProdTest"/>
+                <include name="RegressionTest"/>
             </run>
         </groups>
         <classes>
-            <class name="com.airtel.cs.ui.kpidashboard.KpiDashboard6MonthsOverviewPageTest"/>
+            <class name="com.airtel.cs.ui.kpidashboard.Kpi6MonthsOverviewPageTest"/>
         </classes>
     </test>
     <test name="Kpi Dashboard 6MonthsTicketTypeTest" preserve-order="true">
         <groups>
             <run>
-                <include name="ProdTest"/>
+                <include name="RegressionTest"/>
             </run>
         </groups>
         <classes>
-            <class name="com.airtel.cs.ui.kpidashboard.KpiDashboard6MonthsTicketTypeTest"/>
+            <class name="com.airtel.cs.ui.kpidashboard.Kpi6MonthsTicketTypeTest"/>
         </classes>
     </test>
     <test name="Kpi Dashboard OpenTicketAgeingTest " preserve-order="true">
         <groups>
             <run>
-                <include name="ProdTest"/>
+                <include name="RegressionTest"/>
             </run>
         </groups>
         <classes>
-            <class name="com.airtel.cs.ui.kpidashboard.KpiDashboardOpenTicketAgeingTest"/>
+            <class name="com.airtel.cs.ui.kpidashboard.KpiOpenTicketAgeingTest"/>
         </classes>
     </test>
     <test name="Kpi Dashboard QueueWiseSLAPerformancePageTest " preserve-order="true">
         <groups>
             <run>
-                <include name="ProdTest"/>
+                <include name="RegressionTest"/>
             </run>
         </groups>
         <classes>
-            <class name="com.airtel.cs.ui.kpidashboard.KpiDashboardQueueWiseSLAPerformancePageTest"/>
+            <class name="com.airtel.cs.ui.kpidashboard.KpiQueueWiseSLATest"/>
         </classes>
     </test>
     <test name="Kpi Dashboard FeatureUsageOfActionsPageTest" preserve-order="true">
         <groups>
             <run>
-                <include name="ProdTest"/>
+                <include name="RegressionTest"/>
             </run>
         </groups>
         <classes>
-            <class name="com.airtel.cs.ui.kpidashboard.KpiDashboardFeatureUsageOfActionsPageTest"/>
+            <class name="com.airtel.cs.ui.kpidashboard.KpiFeatureUsageActionsTest"/>
         </classes>
     </test>
 </suite>

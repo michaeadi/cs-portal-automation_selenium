@@ -354,4 +354,33 @@ import org.openqa.selenium.support.PageFactory;
             return text;
         }
 
+        /**
+         * This method is used get colour for Wallet Status
+         * @return
+         */
+        public String getWalletStatusColour() {
+            String colour=selUtils.getDataPointColor(pageElements.walletStatus);
+            commonLib.info("Getting Colour for Wallet Status : " + colour);
+            return colour;
+        }
+
+        /**
+         * This method is used get colour for Barring Status
+         * @return
+         */
+        public String getBarringStatusColour() {
+            String colour=selUtils.getDataPointColor(pageElements.barringStatus);
+            commonLib.info("Getting Colour for Barring Status : " + colour);
+            return colour;
+        }
+
+        /**
+         * This method is used get colour for Security Questions Set
+         * @return
+         */
+        public String getSecurityQuestionsSetColour() {
+            String colour=selUtils.getDataPointColor(pageElements.securityQuestionsSet);
+            commonLib.info("Getting Colour for Security Questions Set : " + colour);
+            return colour;
+        }
     }

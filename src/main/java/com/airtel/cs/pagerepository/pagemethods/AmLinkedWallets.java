@@ -237,5 +237,18 @@ public class AmLinkedWallets extends BasePage {
         commonLib.info("Going to click SMS Logs tab");
         clickAndWaitForLoaderToBeRemoved(pageElements.smsLogs);
     }
+
+
+    /**
+     * This method is used get colour of header value based on passed row and column
+     * @param row
+     * @param column
+     * @return
+     */
+    public String getHeaderValueColor(int row, int column) {
+        return selUtils.getDataPointColor(By.xpath(pageElements.dataRows + row + pageElements.dataColumns + column + pageElements.dataValue));
+    }
+
+
 }
 

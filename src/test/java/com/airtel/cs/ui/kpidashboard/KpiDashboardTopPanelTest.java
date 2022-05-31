@@ -25,117 +25,130 @@ public class KpiDashboardTopPanelTest extends Driver {
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
             commonLib.fail("Exception in method - dashboardTopPanel" + e.fillInStackTrace(), true);
-
         }
     }
 
-    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest"})
-    public void dashboardTopPanelDetailsPage() {
+    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "dashboardTopPanel")
+    public void openTicketBeyondSLADetailsPage() {
         try {
             selUtils.addTestcaseDescription(" Dashboard Top Panel Details Page", "description");
-
             pages.getKpiDashboardTopPanel().clickOnOpenTicketsBeyondSLADetailsIcon();
             assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardTopPanel().isDetailsOpenTicketsBeyondSLALabelVisible(), true, "Details Open Tickets Beyond SLA Label  is visible"));
-            assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardTopPanel().isTicketIdLableVisible(), true, "Ticket ID Label  is visible"));
-            assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardTopPanel().isPriorityLableVisible(), true, "  Priority Label is visible"));
-            assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardTopPanel().isStateLableVisible(), true, "State Label is visible"));
-            assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardTopPanel().isCreationDateLableVisible(), true, "Creation date Label is visible"));
-            assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardTopPanel().isCreatedByLableVisible(), true, "Created By Label is visible"));
-            assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardTopPanel().isQueueLableVisible(), true, "Queue Label  is visible"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardTopPanel().isTicketIdLabelVisible(), true, "Ticket ID Label  is visible"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardTopPanel().isPriorityLabelVisible(), true, "  Priority Label is visible"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardTopPanel().isStateLabelVisible(), true, "State Label is visible"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardTopPanel().isCreationDateLabelVisible(), true, "Creation date Label is visible"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardTopPanel().isCreatedByLabelVisible(), true, "Created By Label is visible"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardTopPanel().isQueueLabelVisible(), true, "Queue Label  is visible"));
             assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardTopPanel().isSourceLabelVisible(), true, "Source Label is visible"));
             pages.getKpiDashboardTopPanel().clickOnBackIcon();
             actions.assertAllFoundFailedAssert(assertCheck);
-
         } catch (Exception e) {
-            commonLib.fail("Exception in method - dashboardTopPanelDetailsPage" + e.fillInStackTrace(), true);
+            pages.getKpiDashboardTopPanel().clickOnBackIcon();
+            commonLib.fail("Exception in method - openTicketBeyondSLADetailsPage" + e.fillInStackTrace(), true);
 
         }
     }
 
-    @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "dashboardTopPanel")
     public void dashboardOpenTicketsUnderSLADetails() {
         try {
             selUtils.addTestcaseDescription(" Open Tickets Under SLA Details", "description");
-
-            pages.getKpiDashboardTopPanel().clickOnOpenTicketsUnderSLALDetailsIcon();
-            assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardTopPanel().isDetailsOpenTicketsUnderSLALabelVisible(), true, "Details Open Tickets Under SLA Lable  is visible"));
-            assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardTopPanel().isTicketIdLableVisible(), true, "Ticket ID Label  is visible"));
-            assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardTopPanel().isPriorityLableVisible(), true, "  Priority Label is visible"));
-            assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardTopPanel().isStateLableVisible(), true, "State Label is visible"));
-            assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardTopPanel().isCreationDateLableVisible(), true, "Creation date Label is visible"));
-            assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardTopPanel().isCreatedByLableVisible(), true, "Created By Label is visible"));
-            assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardTopPanel().isQueueLableVisible(), true, "Queue Label  is visible"));
-            assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardTopPanel().isSourceLabelVisible(), true, "Source Label is visible"));
-            pages.getKpiDashboardTopPanel().clickOnBackIcon();
+            final boolean ticketFound = pages.getKpiDashboardTopPanel().clickOpenTicketsUnderSLAIcon();
+            if (ticketFound) {
+                assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardTopPanel().isDetailsOpenTicketsUnderSLALabelVisible(), true, "Details Open Tickets Under SLA Lable  is visible"));
+                assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardTopPanel().isTicketIdLabelVisible(), true, "Ticket ID Label  is visible"));
+                assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardTopPanel().isPriorityLabelVisible(), true, "  Priority Label is visible"));
+                assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardTopPanel().isStateLabelVisible(), true, "State Label is visible"));
+                assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardTopPanel().isCreationDateLabelVisible(), true, "Creation date Label is visible"));
+                assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardTopPanel().isCreatedByLabelVisible(), true, "Created By Label is visible"));
+                assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardTopPanel().isQueueLabelVisible(), true, "Queue Label  is visible"));
+                assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardTopPanel().isSourceLabelVisible(), true, "Source Label is visible"));
+                pages.getKpiDashboardTopPanel().clickOnBackIcon();
+            } else {
+                assertCheck.append(actions.assertEqualIntType(Integer.parseInt(pages.getKpiDashboardTopPanel().ticketCountUnderSLA()), 0, "Details Icon is not clickable as ticket count is 0 under SLA", "Detailed icon is not clickable and Ticket count is NOT 0 under SLA"));
+            }
             actions.assertAllFoundFailedAssert(assertCheck);
-
         } catch (Exception e) {
+            pages.getKpiDashboardTopPanel().clickOnBackIcon();
             commonLib.fail("Exception in method - dashboardOpenTicketsUnderSLADetails" + e.fillInStackTrace(), true);
 
         }
     }
 
-    @Test(priority = 4, groups = {"SanityTest", "RegressionTest", "ProdTest"})
-    public void dashboardBreachingWithin15MinsDetails() {
+    @Test(priority = 4, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "dashboardTopPanel")
+    public void breachingWithin15Min() {
         try {
             selUtils.addTestcaseDescription(" Breaching Within 15 Mins Details", "description");
-            pages.getKpiDashboardTopPanel().clickOnBreachingWithin15MinsDetailsIcon();
-            assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardTopPanel().isDetailsBreachingWithin15MinsLabelVisible(), true, "Details Breaching With in 15 Mins Label  is visible"));
-            assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardTopPanel().isTicketIdLableVisible(), true, "Ticket ID Label  is visible"));
-            assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardTopPanel().isPriorityLableVisible(), true, "  Priority Label is visible"));
-            assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardTopPanel().isStateLableVisible(), true, "State Label is visible"));
-            assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardTopPanel().isCreationDateLableVisible(), true, "Creation date Label is visible"));
-            assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardTopPanel().isCreatedByLableVisible(), true, "Created By Label is visible"));
-            assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardTopPanel().isQueueLableVisible(), true, "Queue Label  is visible"));
-            assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardTopPanel().isSourceLabelVisible(), true, "Source Label is visible"));
-            pages.getKpiDashboardTopPanel().clickOnBackIcon();
+            final boolean ticketFound = pages.getKpiDashboardTopPanel().clickBreachWithin15MinIcon();
+            if (ticketFound) {
+                assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardTopPanel().isDetailsBreachingWithin15MinsLabelVisible(), true, "Details Breaching With in 15 Mins Label  is visible"));
+                assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardTopPanel().isTicketIdLabelVisible(), true, "Ticket ID Label  is visible"));
+                assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardTopPanel().isPriorityLabelVisible(), true, "  Priority Label is visible"));
+                assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardTopPanel().isStateLabelVisible(), true, "State Label is visible"));
+                assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardTopPanel().isCreationDateLabelVisible(), true, "Creation date Label is visible"));
+                assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardTopPanel().isCreatedByLabelVisible(), true, "Created By Label is visible"));
+                assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardTopPanel().isQueueLabelVisible(), true, "Queue Label  is visible"));
+                assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardTopPanel().isSourceLabelVisible(), true, "Source Label is visible"));
+                pages.getKpiDashboardTopPanel().clickOnBackIcon();
+            } else {
+                assertCheck.append(actions.assertEqualIntType(Integer.parseInt(pages.getKpiDashboardTopPanel().ticketCountWithin15Min()), 0, "Details Icon is not clickable as ticket count is 0 within 15 min", "Detailed icon is not clickable and Ticket count is NOT 0 within 15 min"));
+            }
             actions.assertAllFoundFailedAssert(assertCheck);
-
         } catch (Exception e) {
-            commonLib.fail("Exception in method - dashboardBreachingWithin15MinsDetails" + e.fillInStackTrace(), true);
+            pages.getKpiDashboardTopPanel().clickOnBackIcon();
+            commonLib.fail("Exception in method - breachingWithin15Min" + e.fillInStackTrace(), true);
 
         }
     }
 
-    @Test(priority = 5, groups = {"SanityTest", "RegressionTest", "ProdTest"})
-    public void dashboardBreachingWithin15To60MinsDetails() {
+    @Test(priority = 5, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "dashboardTopPanel")
+    public void breachingWithin15To60Min() {
         try {
             selUtils.addTestcaseDescription(" Breaching Within 15 To 60 Mins Details", "description");
-
-            pages.getKpiDashboardTopPanel().clickOnBreachingWithin15To60MinsDetailsIcon();
-            assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardTopPanel().isDetailsBreachingWithin15To60MinsLabelVisible(), true, "Details Breaching Within 15 To 60 Mins Label  is visible"));
-            assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardTopPanel().isTicketIdLableVisible(), true, "Ticket ID Label  is visible"));
-            assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardTopPanel().isPriorityLableVisible(), true, "  Priority Label is visible"));
-            assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardTopPanel().isStateLableVisible(), true, "State Label is visible"));
-            assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardTopPanel().isCreationDateLableVisible(), true, "Creation date Label is visible"));
-            assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardTopPanel().isCreatedByLableVisible(), true, "Created By Label is visible"));
-            assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardTopPanel().isQueueLableVisible(), true, "Queue Label  is visible"));
-            assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardTopPanel().isSourceLabelVisible(), true, "Source Label is visible"));
-            pages.getKpiDashboardTopPanel().clickOnBackIcon();
+            final boolean ticketFound = pages.getKpiDashboardTopPanel().clickBreachWithin15To60MinIcon();
+            if (ticketFound) {
+                assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardTopPanel().isDetailsBreachingWithin15To60MinsLabelVisible(), true, "Details Breaching Within 15 To 60 Mins Label  is visible"));
+                assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardTopPanel().isTicketIdLabelVisible(), true, "Ticket ID Label  is visible"));
+                assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardTopPanel().isPriorityLabelVisible(), true, "  Priority Label is visible"));
+                assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardTopPanel().isStateLabelVisible(), true, "State Label is visible"));
+                assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardTopPanel().isCreationDateLabelVisible(), true, "Creation date Label is visible"));
+                assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardTopPanel().isCreatedByLabelVisible(), true, "Created By Label is visible"));
+                assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardTopPanel().isQueueLabelVisible(), true, "Queue Label  is visible"));
+                assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardTopPanel().isSourceLabelVisible(), true, "Source Label is visible"));
+                pages.getKpiDashboardTopPanel().clickOnBackIcon();
+            } else {
+                assertCheck.append(actions.assertEqualIntType(Integer.parseInt(pages.getKpiDashboardTopPanel().ticketCountWithin15and60Min()), 0, "Details Icon is not clickable as ticket count is 0 within 15 to 60 min", "Detailed icon is not clickable and Ticket count is NOT 0 within 15 to 60 min"));
+            }
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
-            commonLib.fail("Exception in method - dashboardBreachingWithin15To60MinsDetails" + e.fillInStackTrace(), true);
-
+            pages.getKpiDashboardTopPanel().clickOnBackIcon();
+            commonLib.fail("Exception in method - breachingWithin15To60Min" + e.fillInStackTrace(), true);
         }
     }
 
-    @Test(priority = 6, groups = {"SanityTest", "RegressionTest", "ProdTest"})
-    public void dashboardBreachingGreaterThan60MinsDetails() {
+    @Test(priority = 6, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "dashboardTopPanel")
+    public void breachingMoreThan60Min() {
         try {
             selUtils.addTestcaseDescription(" Breaching Greater Than 60 Mins Details", "description");
-            pages.getKpiDashboardTopPanel().clickOnBreachingGreaterThan60MinsDetailsIcon();
-            assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardTopPanel().isDetailsBreachingGreaterThan60MinsLabelVisible(), true, "Details Breaching Greater Than 60 Mins Label  is visible"));
-            assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardTopPanel().isTicketIdLableVisible(), true, "Ticket ID Label  is visible"));
-            assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardTopPanel().isPriorityLableVisible(), true, "  Priority Label is visible"));
-            assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardTopPanel().isStateLableVisible(), true, "State Label is visible"));
-            assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardTopPanel().isCreationDateLableVisible(), true, "Creation date Label is visible"));
-            assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardTopPanel().isCreatedByLableVisible(), true, "Created By Label is visible"));
-            assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardTopPanel().isQueueLableVisible(), true, "Queue Label  is visible"));
-            assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardTopPanel().isSourceLabelVisible(), true, "Source Label is visible"));
-            pages.getKpiDashboardTopPanel().clickOnBackIcon();
+            final boolean ticketFound = pages.getKpiDashboardTopPanel().clickBreachingMoreThan60MinIcon();
+            if (ticketFound) {
+                assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardTopPanel().isBreachingMoreThan60MinsLabelVisible(), true, "Details Breaching Greater Than 60 Mins Label  is visible"));
+                assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardTopPanel().isTicketIdLabelVisible(), true, "Ticket ID Label  is visible"));
+                assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardTopPanel().isPriorityLabelVisible(), true, "  Priority Label is visible"));
+                assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardTopPanel().isStateLabelVisible(), true, "State Label is visible"));
+                assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardTopPanel().isCreationDateLabelVisible(), true, "Creation date Label is visible"));
+                assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardTopPanel().isCreatedByLabelVisible(), true, "Created By Label is visible"));
+                assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardTopPanel().isQueueLabelVisible(), true, "Queue Label  is visible"));
+                assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardTopPanel().isSourceLabelVisible(), true, "Source Label is visible"));
+                pages.getKpiDashboardTopPanel().clickOnBackIcon();
+            } else {
+                assertCheck.append(actions.assertEqualIntType(Integer.parseInt(pages.getKpiDashboardTopPanel().ticketCountMoreThan60Min()), 0, "Details Icon is not clickable as ticket count is 0 more than 60 min", "Detailed icon is not clickable and Ticket count is NOT 0 more than 60 min"));
+            }
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
-            commonLib.fail("Exception in method - dashboardBreachingGreaterThan60MinsDetails" + e.fillInStackTrace(), true);
+            pages.getKpiDashboardTopPanel().clickOnBackIcon();
+            commonLib.fail("Exception in method - breachingMoreThan60Min" + e.fillInStackTrace(), true);
 
         }
     }

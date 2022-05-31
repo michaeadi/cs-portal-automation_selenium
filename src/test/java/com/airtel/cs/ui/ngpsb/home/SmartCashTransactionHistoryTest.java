@@ -21,7 +21,7 @@ public class SmartCashTransactionHistoryTest extends Driver {
     String nubanId;
     String className = this.getClass().getName();
 
-    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"})
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void checkExecution() {
         if (!continueExecutionFA) {
             commonLib.skip("Skipping tests because user NOT able to login Over Portal");
@@ -29,11 +29,11 @@ public class SmartCashTransactionHistoryTest extends Driver {
         }
     }
 
-    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"})
+    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void openCustomerInteraction() {
         try {
             selUtils.addTestcaseDescription("Open Customer Profile Page with valid MSISDN, Validate Customer Profile Page Loaded or not", "description");
-            customerNumber = constants.getValue(ApplicationConstants.CUSTOMER_TIER1_MSISDN);
+            customerNumber = constants.getValue(ApplicationConstants.CUSTOMER_TIER3_MSISDN);
             pages.getSideMenuPage().clickOnSideMenu();
             pages.getSideMenuPage().openCustomerInteractionPage();
             pages.getMsisdnSearchPage().enterNumber(customerNumber);
@@ -53,7 +53,7 @@ public class SmartCashTransactionHistoryTest extends Driver {
     }
 
     @DataProviders.Table(name = "SmartCash Transaction History")
-    @Test(priority = 2, groups = {"ProdTest", "SmokeTest", "SanityTest", "RegressionTest"}, dataProvider = "HeaderData", dataProviderClass = DataProviders.class, dependsOnMethods = {"openCustomerInteraction"})
+    @Test(priority = 2, groups = {"ProdTest", "SanityTest", "RegressionTest"}, dataProvider = "HeaderData", dataProviderClass = DataProviders.class, dependsOnMethods = {"openCustomerInteraction"})
     public void transactionHistoryWidgetLayoutTest(HeaderDataBean data) {
         try {
             selUtils.addTestcaseDescription("Validating Smart Cash Transaction History's Header Name ,Validating all the filter displayed as per config,Validate search by transaction id box displayed as per config.", "description");
@@ -106,22 +106,35 @@ public class SmartCashTransactionHistoryTest extends Driver {
                 int count = Math.min(amTransactionHistoryAPI.getResult().getTotalCount(), 1);
                 if (count > 0) {
                     for (int i = 0; i < count; i++) {
-                        if (amTransactionHistoryAPI.getResult().getData().get(i).getAmount().charAt(0) == '+') {
+                        if (amTransactionHistoryAPI.getResult().getData().get(i).getAmount().charAt(0) == '+')
                             assertCheck.append(actions.assertEqualBoolean(pages.getSmartCashTransactionHistory().isPosSignDisplayOnSecondWidget(i + 1), true, (i + 1) + "th Positive Sign is displayed  in case of Amount Credited.", (i + 1) + "th Positive Sign is not displayed in case of Amount Credited."));
-                        } else {
+                        else
                             assertCheck.append(actions.assertEqualBoolean(pages.getSmartCashTransactionHistory().isNegSignDisplayOnSecondWidget(i + 1), true, (i + 1) + "th Negative Sign is displayed in case of Amount Debited.", (i + 1) + "th Negative Sign is not displayed in case of Amount Debited."));
-                        }
                         assertCheck.append(actions.assertEqualStringType(pages.getSmartCashTransactionHistory().getValueCorrespondingToHeader(i + 1, 2).replaceAll("\\R", " "), UtilsMethods.getDateFromEpoch(Long.parseLong(amTransactionHistoryAPI.getResult().getData().get(i).getTransactionDate().toLowerCase()), "dd-MMM-yyy hh:mm aa").replace("am", "AM").replace("pm", "PM"), i + "th Date is matched Successfully", i + "th Date is NOT Matched"));
                         assertCheck.append(actions.assertEqualStringType(pages.getSmartCashTransactionHistory().getValueCorrespondingToHeader(i + 1, 3), amTransactionHistoryAPI.getResult().getData().get(i).getTransactionType(), (i + 1) + "th Transaction Type is same as expected in API response.", (i + 1) + "th Transaction Type is NOT Matched"));
                         assertCheck.append(actions.assertEqualBoolean(amTransactionHistoryAPI.getResult().getData().get(i).getSource().contains(pages.getSmartCashTransactionHistory().getValueCorrespondingToHeader(i + 1, 4).replaceAll("\\*", "")), true, (i + 1) + "th Sender MSISDN is matched Successfully", (i + 1) + "th Sender MSISDN is NOT Matched"));
                         assertCheck.append(actions.assertEqualBoolean(pages.getDemoGraphicPage().getKeyValueAPI(amTransactionHistoryAPI.getResult().getData().get(i).getMsisdn()).contains(pages.getSmartCashTransactionHistory().getValueCorrespondingToHeader(i + 1, 5).replaceAll("\\*", "")), true, (i + 1) + "th Receiver MSISDN is matched Successfully", (i + 1) + "th Receiver MSISDN is NOT Matched"));
                         assertCheck.append(actions.assertEqualStringType(pages.getSmartCashTransactionHistory().getValueCorrespondingToHeader(i + 1, 6).toLowerCase(), pages.getDemoGraphicPage().getKeyValueAPI(amTransactionHistoryAPI.getResult().getData().get(i).getSecondPartyName()), (i + 1) + "th Beneficiary name is matched Successfully", (i + 1) + "th Beneficiary name is NOT Matched"));
                         assertCheck.append(actions.assertEqualStringType(pages.getSmartCashTransactionHistory().getValueCorrespondingToHeader(i + 1, 7), amTransactionHistoryAPI.getResult().getData().get(i).getTransactionId(), (i + 1) + "th Transaction Id is matched Successfully", (i + 1) + "th Transaction Id is NOT Matched"));
+                        assertCheck.append(actions.assertEqualStringType(pages.getSmartCashTransactionHistory().getTxnIdStatusColour(i + 1, 7), "#7c4d9e", "Colour of Transaction Id is same as expected", "Colour of Transaction Id is NOT same as expected"));
                         assertCheck.append(actions.assertEqualStringType(pages.getSmartCashTransactionHistory().getValueCorrespondingToHeader(i + 1, 8), amTransactionHistoryAPI.getResult().getData().get(i).getTxnChannel(), (i + 1) + "th Transaction Channel is matched Successfully", (i + 1) + "th Transaction Channel is NOT Matched"));
                         assertCheck.append(actions.assertEqualStringType(pages.getSmartCashTransactionHistory().getValueCorrespondingToHeader(i + 1, 9), amTransactionHistoryAPI.getResult().getData().get(i).getServiceCharge(), (i + 1) + "th Service Charge is matched Successfully", (i + 1) + "th Service Charge is NOT Matched"));
                         assertCheck.append(actions.assertEqualStringType(pages.getSmartCashTransactionHistory().getValueCorrespondingToHeader(i + 1, 10), pages.getDemoGraphicPage().getKeyValueAPI(amTransactionHistoryAPI.getResult().getData().get(i).getBalanceBefore()), (i + 1) + "th Pre-balance is matched Successfully", (i + 1) + "th Pre-balance is NOT Matched"));
                         assertCheck.append(actions.assertEqualStringType(pages.getSmartCashTransactionHistory().getValueCorrespondingToHeader(i + 1, 11), pages.getDemoGraphicPage().getKeyValueAPI(amTransactionHistoryAPI.getResult().getData().get(i).getBalanceAfter()), (i + 1) + "th Post-balance is matched Successfully", (i + 1) + "th Post-balance is NOT Matched"));
-                        assertCheck.append(actions.assertEqualStringType(pages.getSmartCashTransactionHistory().getValueCorrespondingToHeader(i + 1, 12), amTransactionHistoryAPI.getResult().getData().get(i).getStatus(), (i + 1) + "th Status is matched Successfully", (i + 1) + "th Status is NOT Matched"));
+                        String txnStatus = pages.getSmartCashTransactionHistory().getValueCorrespondingToHeader(i + 1, 12);
+                        assertCheck.append(actions.assertEqualStringType(txnStatus, amTransactionHistoryAPI.getResult().getData().get(i).getStatus(), (i + 1) + "th Status is matched Successfully", (i + 1) + "th Status is NOT Matched"));
+                        /*
+                        Checking colour of Txn Status
+                         */
+                        if (txnStatus.equalsIgnoreCase("PROCESSED"))
+                            assertCheck.append(actions.assertEqualStringType(pages.getSmartCashTransactionHistory().getTxnIdStatusColour(i + 1, 12), "#008000", "Colour of Transaction Status is same as expected", "Colour of Transaction Id is NOT same as expected"));
+                        else if (txnStatus.equalsIgnoreCase("FAILED"))
+                            assertCheck.append(actions.assertEqualStringType(pages.getSmartCashTransactionHistory().getTxnIdStatusColour(i + 1, 12), "#ff0000", "Colour of Transaction Status is same as expected", "Colour of Transaction Id is NOT same as expected"));
+                        else if (txnStatus.equalsIgnoreCase("AMBIGOUS"))
+                            assertCheck.append(actions.assertEqualStringType(pages.getSmartCashTransactionHistory().getTxnIdStatusColour(i + 1, 12), "#fd7e14", "Colour of Transaction Status is same as expected", "Colour of Transaction Id is NOT same as expected"));
+                        /*/
+                        Checking Resend SMS and Reversal icon visibility
+                         */
                         if (amTransactionHistoryAPI.getResult().getData().get(i).getEnableResendSms()) {
                             assertCheck.append(actions.assertEqualBoolean(pages.getSmartCashTransactionHistory().isResendSMSIconVisible(i + 1, 1), true, "Resend SMS Icon is enabled as mentioned in API Response.", "Resend SMS Icon is not enabled as mentioned in API Response."));
                         }
@@ -171,7 +184,7 @@ public class SmartCashTransactionHistoryTest extends Driver {
         }
     }
 
-    @Test(priority = 5, groups = {"ProdTest", "RegressionTest"}, dependsOnMethods = {"transactionHistoryWidgetLayoutTest", "openCustomerInteraction", "txnHistoryMetadataTest"})
+    @Test(priority = 5, groups = {"SanityTest", "RegressionTest"}, dependsOnMethods = {"transactionHistoryWidgetLayoutTest", "openCustomerInteraction", "txnHistoryMetadataTest"})
     public void sendNotificationSmsTest() {
         try {
             selUtils.addTestcaseDescription("Validate all the Send Notification transaction are displayed on UI as per api response", "description");
@@ -192,33 +205,34 @@ public class SmartCashTransactionHistoryTest extends Driver {
                             assertCheck.append(actions.assertEqualStringType(pages.getSmartCashTransactionHistory().getSendNotificationHeaderVisible(), "Send Notification", "Send SMS Header is visible", "Send SMS header is NOT visible"));
                             assertCheck.append(actions.assertEqualStringType(pages.getSmartCashTransactionHistory().getIssueDetailVisible(), "Issue Detail:", "Issue Detail is visible", "Issue Detail is NOT visible"));
                             assertCheck.append(actions.assertEqualStringType(pages.getSmartCashTransactionHistory().getEnterCommentHeaderVisible(), "Enter Comment", "Enter Comment is visible", "Enter Comment is not Visible"));
-                            assertCheck.append(actions.assertEqualStringType(pages.getSmartCashTransactionHistory().getEnterCommentHeaderVisible(), "Select Reason *", "Select Reason is Visible", "Select Reason is not visible"));
+                            assertCheck.append(actions.assertEqualStringType(pages.getSmartCashTransactionHistory().getSmsSelectReasonVisible(), "Select Reason *", "Select Reason is Visible", "Select Reason is not visible"));
                             assertCheck.append(actions.assertEqualBoolean(pages.getSmartCashTransactionHistory().getSubmitBtnDisabled(), true, "Select Reason is Visible", "Select Reason is not visible"));
                             assertCheck.append(actions.assertEqualBoolean(pages.getSmartCashTransactionHistory().getCancelButtonVisible(), true, "Cancel Button is visible ", "Cancel Button is not visible"));
                             pages.getSmartCashTransactionHistory().performSmsNotification();
                             assertCheck.append(actions.assertEqualBoolean(pages.getSmartCashTransactionHistory().isSuccessPopUpVisible(), true, "Success Popup is visible after performing Submit action", "Success Popup is not visible after performing Submit action"));
-                            String successText = "SMS has being resent on your device";
-                            assertCheck.append(actions.assertEqualStringType(pages.getSmartCashTransactionHistory().getSuccessText(), successText, "Success text is displayed as expected", "Success text is not displayed as expected"));
+                            assertCheck.append(actions.assertEqualStringType(pages.getSmartCashTransactionHistory().getSuccessText(), constants.getValue("ngpsb.send.sms.success"), "Success text is displayed as expected", "Success text is not displayed as expected"));
+                            pages.getSmartCashTransactionHistory().clickCrossIcon();
+                            break;
                         }
                     }
                 }
             }
             actions.assertAllFoundFailedAssert(assertCheck);
-        }catch(Exception e){
+        } catch (Exception e) {
             pages.getSmartCashTransactionHistory().clickCrossIcon();
             commonLib.fail("Exception in Method - txnHistoryMetadataTest" + e.fillInStackTrace(), true);
         }
     }
 
-    @Test(priority = 6, groups = {"SanityTest", "ProdTest", "RegressionTest"}, dependsOnMethods = {"sendNotificationSmsTest"})
+    @Test(priority = 6, groups = {"SanityTest", "RegressionTest"}, dependsOnMethods = {"sendNotificationSmsTest"})
     public void checkActionTrail() {
         try {
             selUtils.addTestcaseDescription("Validating entry should be captured in Action Trail after performing ResendSMS action", "description");
             pages.getAmSmsTrails().goToActionTrail();
-            assertCheck.append(actions.assertEqualStringType(pages.getAmSmsTrails().getActionType(), "SmartCash SMS Logs - Resend SMS", "Action type for Resend SMS is expected", "Action type for Resend SME is not as expected"));
-            assertCheck.append(actions.assertEqualStringType(pages.getAmSmsTrails().getReason(), "\n" +
+            assertCheck.append(actions.assertEqualStringType(pages.getAmSmsTrails().getActionType(), "SmartCash Txn History - Resend SMS", "Action type for Resend SMS is expected", "Action type for Resend SME is not as expected"));
+            assertCheck.append(actions.assertEqualStringType(pages.getAmSmsTrails().getReason(),
                     "Customer Request", "Reason for Resend SMS is as expected", "Reason for Resend SMS not as expected"));
-            assertCheck.append(actions.assertEqualStringType(pages.getAmSmsTrails().getComment(), constants.getValue(ApplicationConstants.COMMENT), "Comment for Resend SMS is expected", "Comment for Resend SMS is not as expected"));
+            assertCheck.append(actions.assertEqualStringType(pages.getAmSmsTrails().getComment(), ApplicationConstants.COMMENT, "Comment for Resend SMS is expected", "Comment for Resend SMS is not as expected"));
             actions.assertAllFoundFailedAssert(assertCheck);
 
         } catch (Exception e) {

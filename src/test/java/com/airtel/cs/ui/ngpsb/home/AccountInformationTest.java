@@ -18,12 +18,12 @@ public class AccountInformationTest extends Driver {
     private static String customerNumber = null;
     PsbRequestSource api = new PsbRequestSource();
     CLMDetailsResponse clmDetails;
+    SmsLogsResponse smsLogs;
     String barringStatus;
     String className = this.getClass().getName();
-    SmsLogsResponse smsLogs;
 
 
-    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"})
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void checkExecution() {
         if (!continueExecutionFA) {
             commonLib.skip("Skipping tests because user NOT able to login Over Portal");
@@ -31,9 +31,9 @@ public class AccountInformationTest extends Driver {
         }
     }
 
-    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"})
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void checkAccountsSize() {
-        customerNumber = constants.getValue(ApplicationConstants.CUSTOMER_TIER1_MSISDN);
+        customerNumber = constants.getValue(ApplicationConstants.CUSTOMER_TIER3_MSISDN);
         clmDetails = api.getCLMDetails(customerNumber);
         if (clmDetails.getResult().getDetails().get(0).getAccounts().size() == 0) {
             commonLib.skip("Skipping because there are no accounts linked with the msisdn ");
@@ -41,7 +41,7 @@ public class AccountInformationTest extends Driver {
         }
     }
 
-    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"})
+    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void openCustomerInteraction() {
         try {
             selUtils.addTestcaseDescription("Open Customer Profile Page with valid MSISDN, Validate Customer Profile Page Loaded or not", "description");
@@ -62,7 +62,7 @@ public class AccountInformationTest extends Driver {
         }
     }
 
-    @Test(priority = 2, groups = {"SanityTest", "ProdTest", "SmokeTest", "RegressionTest"}, dependsOnMethods = {"openCustomerInteraction"})
+    @Test(priority = 2, groups = {"SanityTest", "ProdTest", "RegressionTest"}, dependsOnMethods = {"openCustomerInteraction"})
     public void testAccountInformationWidget() {
         try {
             selUtils.addTestcaseDescription("Validate Account Information widget", "description");
@@ -93,9 +93,19 @@ public class AccountInformationTest extends Driver {
             assertCheck.append(actions.assertEqualStringType(pages.getAccountInformation().getOnboardingChannel().toLowerCase(), pages.getDemoGraphicPage().getKeyValueAPI(clmDetails.getResult().getDetails().get(0).getAccounts().get(0).getChannel()), "Onboarding Channel is same as Expected", "Onboarding Channel is not same as Expected"));
             assertCheck.append(actions.assertEqualStringType(pages.getAccountInformation().getAccountNubanId().toLowerCase(), pages.getDemoGraphicPage().getKeyValueAPI(clmDetails.getResult().getDetails().get(0).getAccounts().get(0).getId()), "Account Nuban id is same as Expected", "Account nuban id is not same as Expected"));
             assertCheck.append(actions.assertEqualStringType(pages.getAccountInformation().getSecurityQuestionsSet().toLowerCase(), pages.getDemoGraphicPage().getKeyValueAPI(clmDetails.getResult().getDetails().get(0).getAccounts().get(0).getIsSecurityQuestionSet()), "Security Question Set is same as Expected", "Security Question Set is not same as Expected"));
-            assertCheck.append(actions.assertEqualStringType(pages.getAccountInformation().getSecurityQuestionsConfigured().toLowerCase(), pages.getDemoGraphicPage().getKeyValueAPI(String.valueOf(clmDetails.getResult().getDetails().get(0).getAccounts().get(0).getSecurityQuestionsConfigured())), "Security Question Configured is same as Expected", "Security Question Configured is not same as Expected"));
+            String securityQuestionConfigured = pages.getAccountInformation().getSecurityQuestionsConfigured();
+            assertCheck.append(actions.assertEqualStringType(securityQuestionConfigured.toLowerCase(), pages.getDemoGraphicPage().getKeyValueAPI(String.valueOf(clmDetails.getResult().getDetails().get(0).getAccounts().get(0).getSecurityQuestionsConfigured())), "Security Question Configured is same as Expected", "Security Question Configured is not same as Expected"));
+            if (securityQuestionConfigured.equalsIgnoreCase("YES"))
+                assertCheck.append(actions.assertEqualStringType(pages.getAccountInformation().getSecurityQuestionsSetColour(), "#33a833", "Colour of Security Questions Set is same as expected", "Colour of Security Questions Set is NOT same as expected"));
+            else if (securityQuestionConfigured.equalsIgnoreCase("NO"))
+                assertCheck.append(actions.assertEqualStringType(pages.getAccountInformation().getBarringStatusColour(), "#e4000e", "Colour of Security Questions Set is same as expected", "Colour of Security Questions Set is NOT same as expected"));
             barringStatus = pages.getAccountInformation().getBarringStatus();
             assertCheck.append(actions.assertEqualStringType(barringStatus.toLowerCase(), pages.getDemoGraphicPage().getKeyValueAPI(clmDetails.getResult().getDetails().get(0).getAccounts().get(0).getBarred()), "Barring status is same as Expected", "Barring status  is not same as Expected"));
+            if (barringStatus.equalsIgnoreCase("YES"))
+                assertCheck.append(actions.assertEqualStringType(pages.getAccountInformation().getBarringStatusColour(), "#33a833", "Colour of Barring Status is same as expected", "Colour of Barring Status is NOT same as expected"));
+            else if (barringStatus.equalsIgnoreCase("NO"))
+                assertCheck.append(actions.assertEqualStringType(pages.getAccountInformation().getBarringStatusColour(), "#e4000e", "Colour of Barring Status is same as expected", "Colour of Barring Status is NOT same as expected"));
+
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
             commonLib.fail("Exception in Method - testAccountInformationWidgetData" + e.fillInStackTrace(), true);
@@ -155,7 +165,7 @@ public class AccountInformationTest extends Driver {
     }
 
 
-    @Test(priority = 6, groups = {"SanityTest", "ProdTest", "SmokeTest", "RegressionTest"}, dependsOnMethods = {"openCustomerInteraction"})
+    @Test(priority = 6, groups = {"SanityTest", "ProdTest", "RegressionTest"}, dependsOnMethods = {"openCustomerInteraction"})
     public void testBankAccountsTabs() {
         try {
             selUtils.addTestcaseDescription("Validate Bank Accounts tab data", "description");
@@ -168,7 +178,7 @@ public class AccountInformationTest extends Driver {
             } else if (bankDetails.getStatusCode() == 2500 && bankDetails.getStatus().equalsIgnoreCase("status.failure")) {
                 commonLib.fail("CS API is unable to give Bank Accounts", true);
             } else {
-                int size = pages.getAmSmsTrails().getNoOfRows();
+                int size = pages.getAmSmsTrails().checkRowSize();
                 for (int i = 0; i < size; i++) {
                     int row = i + 1;
                     assertCheck.append(actions.assertEqualStringType(pages.getBankAccount().getHeaderValue(row, 1), bankDetails.getResult().get(i).getAccountNumber(), "Account No. is same as expected ", "Account No.is NOT same as expected"));
@@ -177,8 +187,12 @@ public class AccountInformationTest extends Driver {
                     assertCheck.append(actions.assertEqualStringType(pages.getBankAccount().getHeaderValue(row, 4), bankDetails.getResult().get(i).getAvailableBalance(), "Available Balance is same as expected ", "Available Balance is NOT same as expected"));
                     assertCheck.append(actions.assertEqualStringType(pages.getBankAccount().getHeaderValue(row, 5), bankDetails.getResult().get(i).getFrozen(), "Frozen Balance is same as expected ", "Frozen Balance is NOT same as expected"));
                     assertCheck.append(actions.assertEqualStringType(pages.getBankAccount().getHeaderValue(row, 6), bankDetails.getResult().get(i).getCurrentBalance(), "Current Balance is same as expected ", "Current Balance is NOT same as expected"));
-                    assertCheck.append(actions.assertEqualStringType(pages.getBankAccount().getHeaderValue(row, 7), bankDetails.getResult().get(i).getStatus(), "Account status is same as expected ", "Account status is NOT same as expected"));
-
+                    String accountStatus = pages.getBankAccount().getHeaderValue(row, 7);
+                    assertCheck.append(actions.assertEqualStringType(accountStatus, bankDetails.getResult().get(i).getStatus(), "Account status is same as expected ", "Account status is NOT same as expected"));
+                    if (accountStatus.equalsIgnoreCase("ACTIVE"))
+                        assertCheck.append(actions.assertEqualStringType(pages.getBankAccount().getHeaderValueColor(row, 7), "#33a833", "Colour of Account Status is same as expected", "Colour of Account Status is NOT same as expected"));
+                    else if (accountStatus.equalsIgnoreCase("INACTIVE"))
+                        assertCheck.append(actions.assertEqualStringType(pages.getBankAccount().getHeaderValueColor(row, 7), "#e4000e", "Colour of Account Status is same as expected", "Colour of Account Status is NOT same as expected"));
                 }
             }
             actions.assertAllFoundFailedAssert(assertCheck);
@@ -192,14 +206,14 @@ public class AccountInformationTest extends Driver {
         try {
             selUtils.addTestcaseDescription("Validate Wallets tab data", "description");
             pages.getAmLinkedWallets().clickSmsLogsTab();
-            SmsLogsResponse smsLogs = api.getSMSLogs(customerNumber);
+            smsLogs = api.getSMSLogs(customerNumber);
             assertCheck.append(actions.assertEqualIntType(clmDetails.getStatusCode(), 200, "Sms Logs API Status Code Matched and is :" + clmDetails.getStatusCode(), "Sms Logs API Status Code NOT Matched and is :" + clmDetails.getStatusCode(), false));
             if (smsLogs.getStatusCode() == 200 && smsLogs.getResult().size() == 0) {
                 commonLib.warning("SMS Logs data is not available for the test msisdn");
             } else if (smsLogs.getStatusCode() == 2500 && smsLogs.getStatus().equalsIgnoreCase("status.failure")) {
                 commonLib.fail("CS API is unable to give Sms Logs data ", true);
             } else {
-                int size = pages.getAmSmsTrails().getNoOfRows();
+                int size = pages.getAmSmsTrails().checkRowSize();
                 for (int i = 0; i < size; i++) {
                     int row = i + 1;
                     assertCheck.append(actions.assertEqualStringType(pages.getAmSmsTrails().getRowValue(row, 1), smsLogs.getResult().get(i).getSmsDate(), "Timestamp is same as expected ", "Timestamp Id is NOT same as expected"));
@@ -215,8 +229,7 @@ public class AccountInformationTest extends Driver {
         }
     }
 
-
-    @Test(priority = 8, groups = {"SanityTest", "ProdTest", "RegressionTest"}, dependsOnMethods = {"testSmsLogsTabs"})
+    @Test(priority = 8, groups = {"SanityTest", "RegressionTest"}, dependsOnMethods = {"testSmsLogsTabs"})
     public void testResendSms() {
         try {
             selUtils.addTestcaseDescription("Validate Resend SMS", "description");
@@ -227,42 +240,24 @@ public class AccountInformationTest extends Driver {
             } else if (smsLogs.getStatusCode() == 2500 && smsLogs.getStatus().equalsIgnoreCase("status.failure")) {
                 commonLib.fail("CS API is unable to give Sms Logs data ", true);
             } else {
-                int size = pages.getAmSmsTrails().getNoOfRows();
-                for (int i = 0; i < size; i++) {
-                    String transactionType = smsLogs.getResult().get(i).getTransactionId();
-                    if (transactionType.contains("APC")) {
-                        pages.getAmSmsTrails().clickResendSms();
-                        assertCheck.append(actions.assertEqualStringType(pages.getAmSmsTrails().getSendSmsHeader(), "Send SMS", "Send SMS Header is visible", "Send SMS header is NOT visible"));
-                        assertCheck.append(actions.assertEqualStringType(pages.getAmSmsTrails().getIssueDetail(), "Issue Detail:", "Issue Detail is visible", "Issue Detail is NOT visible"));
-                        assertCheck.append(actions.assertEqualStringType(pages.getAmSmsTrails().getEnterCommentHeader(), "Enter Comment", "Enter Comment is visible", "Enter Comment is not Visible"));
-                        assertCheck.append(actions.assertEqualStringType(pages.getAmSmsTrails().getSmsSelectReason(), "Select Reason *", "Select Reason is Visible", "Select Reason is not visible"));
-                        assertCheck.append(actions.assertEqualBoolean(pages.getAmSmsTrails().isSubmitBtnDisabled(), true, "Select Reason is Visible", "Select Reason is not visible"));
-                        assertCheck.append(actions.assertEqualBoolean(pages.getAmSmsTrails().isCancelButtonVisible(), true, "Cancel Button is visible ", "Cancel Button is not visible"));
-                        pages.getAmSmsTrails().performResendSms();
-                        assertCheck.append(actions.assertEqualBoolean(pages.getAmSmsTrails().isSuccessPopUpVisible(), true, "Success Popup is visible after performing Submit action", "Success Popup is not visible after performing Submit action"));
-                        String successText = "SMS has being resent on your device";
-                        assertCheck.append(actions.assertEqualStringType(pages.getAmSmsTrails().getSuccessText(), successText, "Success text is displayed as expected", "Success text is not displayed as expected"));
-                    }
-                }
-
-                actions.assertAllFoundFailedAssert(assertCheck);
+                assertCheck = pages.getAmSmsTrails().sendSMS(smsLogs);
             }
-        } catch(Exception e){
+            actions.assertAllFoundFailedAssert(assertCheck);
+        } catch (Exception e) {
             pages.getAmSmsTrails().clickCrossIcon();
             commonLib.fail("Exception in Method - ResendSms" + e.fillInStackTrace(), true);
         }
     }
 
 
-    @Test(priority = 9, groups = {"SanityTest", "ProdTest", "RegressionTest"}, dependsOnMethods = {"testSmsLogsTabs", "testResendSms"})
+    @Test(priority = 9, groups = {"SanityTest", "RegressionTest"}, dependsOnMethods = {"testResendSms"})
     public void checkActionTrail() {
         try {
             selUtils.addTestcaseDescription("Validating entry should be captured in Action Trail after performing ResendSMS action", "description");
             pages.getAmSmsTrails().goToActionTrail();
             assertCheck.append(actions.assertEqualStringType(pages.getAmSmsTrails().getActionType(), "SmartCash SMS Logs - Resend SMS", "Action type for Resend SMS is expected", "Action type for Resend SME is not as expected"));
-            assertCheck.append(actions.assertEqualStringType(pages.getAmSmsTrails().getReason(), "\n" +
-                    "Customer Request", "Reason for Resend SMS is as expected", "Reason for Resend SMS not as expected"));
-            assertCheck.append(actions.assertEqualStringType(pages.getAmSmsTrails().getComment(), constants.getValue(ApplicationConstants.COMMENT), "Comment for Resend SMS is expected", "Comment for Resend SMS is not as expected"));
+            assertCheck.append(actions.assertEqualStringType(pages.getAmSmsTrails().getReason(), "Customer Request", "Reason for Resend SMS is as expected", "Reason for Resend SMS not as expected"));
+            assertCheck.append(actions.assertEqualStringType(pages.getAmSmsTrails().getComment(), ApplicationConstants.COMMENT, "Comment for Resend SMS is expected", "Comment for Resend SMS is not as expected"));
             actions.assertAllFoundFailedAssert(assertCheck);
 
         } catch (Exception e) {

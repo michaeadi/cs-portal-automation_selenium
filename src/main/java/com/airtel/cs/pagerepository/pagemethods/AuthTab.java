@@ -117,8 +117,8 @@ public class AuthTab extends BasePage {
         List<WebElement> list = returnListOfElement(pageElements.listOfQuestions);
         Map<String, String> questionList = new HashMap<>();
         for (int i = 1; i <= list.size(); i++) {
-            By question = By.xpath(pageElements.authTabQuestion + i + pageElements.question);
-            By answer = By.xpath(pageElements.authTabQuestion + i + pageElements.answer);
+            By question = By.xpath( pageElements.authTabQuestion+ i + pageElements.question);
+            By answer = By.xpath(pageElements.authTabQuestion+ i + pageElements.answer );
             commonLib.info("Question: " + getText(question) + " :" + getText(answer));
             questionList.put(getText(question).replaceAll("[^a-zA-Z]+", "").toLowerCase().trim(), getText(answer).trim());
         }
@@ -132,7 +132,7 @@ public class AuthTab extends BasePage {
      * @throws InterruptedException throw exception when scroll to element interrupt
      */
     public void clickCheckBox(int i) throws InterruptedException {
-        commonLib.info("Clicking " + i + "Ques Checkbox");
+        commonLib.info("Clicking " + i + " Question's Checkbox");
         By checkBox = By.xpath(pageElements.authTabCheckBox + i + pageElements.checkBox);
         scrollToViewElement(checkBox);
         clickWithoutLoader(checkBox);
@@ -336,8 +336,7 @@ public class AuthTab extends BasePage {
     }
 
     /**
-     * This method is used to check all the action is should display auth pop true/false status configuration is per Opco request
-     *
+     * This method is used to check all the actions should display auth pop true/false status configuration as per Opco sheet
      * @param lockedSection The DB Configuration
      * @param actionTags    The Excel configuration
      */

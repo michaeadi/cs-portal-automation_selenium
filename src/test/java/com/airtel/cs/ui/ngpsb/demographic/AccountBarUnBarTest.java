@@ -16,7 +16,7 @@ public class AccountBarUnBarTest extends Driver {
     String className = this.getClass().getName();
 
 
-    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"})
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest"})
     public void checkExecution() {
         if (!continueExecutionFA) {
             commonLib.skip("Skipping tests because user NOT able to login Over Portal");
@@ -24,7 +24,7 @@ public class AccountBarUnBarTest extends Driver {
         }
     }
 
-    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"})
+    @Test(priority = 1, groups = {"SanityTest", "RegressionTest"})
     public void openCustomerInteraction() {
         try {
             selUtils.addTestcaseDescription("Open Customer Profile Page with valid MSISDN, Validate Customer Profile Page Loaded or not", "description");

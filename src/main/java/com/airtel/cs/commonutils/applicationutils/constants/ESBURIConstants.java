@@ -11,6 +11,7 @@ public class ESBURIConstants {
     public static final String RECHARGE_HISTORY = "/api/subscriber-profile/v1/customer/service/recharge-history";
     public static final String CUSTOMER_PROFILLE = "/api/subscriber-profile/v2/customer-profile";
     public static final String TOKEN = "/api/authorization/token";
+    public static final String AM_PROFILE = "/api/am-profile/v1/users/";
     public static final String GSM_KYC_REQUEST = "/api/am-profile/v1/kycrequest";
     public static final String SELF_CARE_USER_DETAILS = "/selfcare/user-mngmnt/v1/get-selfcare-user-details";
     public static final String DEVICE_INFO = "/api/subscriber-profile/v1/deviceInfo";
@@ -64,23 +65,24 @@ public class ESBURIConstants {
     public static final String FETCH_BALANCE1 = "/arch-in/web/api/am-esb-bank/v1/users/";
     public static final String FETCH_BALANCE2 = "/balance";
     public static final String ACCOUNT_LEVEL_INFO = "/api/enterprise-service/v1/accounts";
+    public static final String PSB_SMS_SUMMMARY = "/arch-in/web/api/am-esb-bank/v1/transactions/sms-summary";
 
     /*
     Ip Port Constants
      */
-    public static final String SUBSCRIBER_PROFILE_BASE_URL ="subscriber.profile.base.url";
-    public static final String SUBSCRIBER_TRANSACTIONS_BASE_URL="subscriber.transaction.base.url";
-    public static final String VAS_SERVICE_LOAN_BASE_URL="vas.service.loan.base.url";
-    public static final String SUBSCRIBER_PRODUCT_BASE_URL="subscriber.product.base.url";
-    public static final String VOUCHER_SERVICE_BASE_URL="voucher.service.base.url";
-    public static final String AM_PROFILE_SERVICE_PROFILE_BASE_URL="am.profile.service.base.url";
-    public static final String PRODUCT_CATALOG_SERVICE_BASE_URL="product.catalog.service.base.url";
-    public static final String ENTERPRISE_SERVICE_BASE_URL="enterprise.service.base.url";
-    public static final String HBB_LINKED_ACCOUNT_ORCHESTRATOR_BASE_URL="hbb.linked.account.orchestrator.base.url";
-    public static final String GSM_SELFCARE_USER_DETAILS_URL="gsm.self.care.user.details.api.url";
-    public static final String KYC_AUTH_TOKEN_URL="api.kyc.auth.token.url";
-    public static final String VAS_SERVICE_TUNE_BASE_URL="vas.service.tune.base.url";
-    public static final String HLR_SERVICE_BASE_URL="hlr.service.base.url";
-    public static final String BUNDLE_SERVICE_BASE_URL="bundle.service.base.url";
-    public static final String COLLECTIVE_BASE_URL="collective.api.base.url";
+    public static final String SUBSCRIBER_PROFILE_BASE_URL = "subscriber.profile.base.url";
+    public static final String SUBSCRIBER_TRANSACTIONS_BASE_URL = "subscriber.transaction.base.url";
+    public static final String VAS_SERVICE_LOAN_BASE_URL = "vas.service.loan.base.url";
+    public static final String SUBSCRIBER_PRODUCT_BASE_URL = "subscriber.product.base.url";
+    public static final String VOUCHER_SERVICE_BASE_URL = "voucher.service.base.url";
+    public static final String AM_PROFILE_SERVICE_PROFILE_BASE_URL = "am.profile.service.base.url";
+    public static final String PRODUCT_CATALOG_SERVICE_BASE_URL = "product.catalog.service.base.url";
+    public static final String ENTERPRISE_SERVICE_BASE_URL = "enterprise.service.base.url";
+    public static final String HBB_LINKED_ACCOUNT_ORCHESTRATOR_BASE_URL = "hbb.linked.account.orchestrator.base.url";
+    public static final String GSM_SELFCARE_USER_DETAILS_URL = "gsm.self.care.user.details.api.url";
+    public static final String KYC_AUTH_TOKEN_URL = "api.kyc.auth.token.url";
+    public static final String VAS_SERVICE_TUNE_BASE_URL = "vas.service.tune.base.url";
+    public static final String HLR_SERVICE_BASE_URL = "hlr.service.base.url";
+    public static final String BUNDLE_SERVICE_BASE_URL = "bundle.service.base.url";
+    public static final String COLLECTIVE_BASE_URL = "collective.api.base.url";
 }

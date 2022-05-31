@@ -41,7 +41,7 @@
             </run>
         </groups>
         <classes>
-            <class name="com.airtel.cs.ui.kpidashboard.KpiDashboard6MonthsOverviewPageTest"/>
+            <class name="com.airtel.cs.ui.kpidashboard.Kpi6MonthsOverviewPageTest"/>
         </classes>
     </test>
     <test name="Kpi Dashboard 6MonthsTicketTypeTest" preserve-order="true">
@@ -51,7 +51,7 @@
             </run>
         </groups>
         <classes>
-            <class name="com.airtel.cs.ui.kpidashboard.KpiDashboard6MonthsTicketTypeTest"/>
+            <class name="com.airtel.cs.ui.kpidashboard.Kpi6MonthsTicketTypeTest"/>
         </classes>
     </test>
     <test name="Kpi Dashboard OpenTicketAgeingTest " preserve-order="true">
@@ -61,7 +61,7 @@
             </run>
         </groups>
         <classes>
-            <class name="com.airtel.cs.ui.kpidashboard.KpiDashboardOpenTicketAgeingTest"/>
+            <class name="com.airtel.cs.ui.kpidashboard.KpiOpenTicketAgeingTest"/>
         </classes>
     </test>
     <test name="Kpi Dashboard QueueWiseSLAPerformancePageTest " preserve-order="true">
@@ -71,7 +71,7 @@
             </run>
         </groups>
         <classes>
-            <class name="com.airtel.cs.ui.kpidashboard.KpiDashboardQueueWiseSLAPerformancePageTest"/>
+            <class name="com.airtel.cs.ui.kpidashboard.KpiQueueWiseSLATest"/>
         </classes>
     </test>
     <test name="Kpi Dashboard FeatureUsageOfActionsPageTest" preserve-order="true">
@@ -81,7 +81,7 @@
             </run>
         </groups>
         <classes>
-            <class name="com.airtel.cs.ui.kpidashboard.KpiDashboardFeatureUsageOfActionsPageTest"/>
+            <class name="com.airtel.cs.ui.kpidashboard.KpiFeatureUsageActionsTest"/>
         </classes>
     </test>
 </suite>

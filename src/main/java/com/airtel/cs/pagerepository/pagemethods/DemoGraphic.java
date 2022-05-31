@@ -297,7 +297,7 @@ public class DemoGraphic extends BasePage {
     /**
      * This method is use to click PUK info locked section
      */
-    public void clickPUKToUnlock() {
+    public void clickPukUnlock() {
         commonLib.info("Clicking Tap to unlock on PUK Info");
         clickAndWaitForLoaderToBeRemoved(pageElements.pukLock);
     }

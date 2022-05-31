@@ -220,4 +220,35 @@ public class AccountInformation extends BasePage{
         commonLib.info("Hover on Balance Info icon");
         hoverOverElement(pageElements.balanceHoverIcon);
     }
+
+    /**
+     * This method is used get colour for Account Status
+     * @return
+     */
+    public String getAccountStatusColour() {
+        String colour=selUtils.getDataPointColor(pageElements.accountStatus);
+        commonLib.info("Getting Colour for Account Status : " + colour);
+        return colour;
+    }
+
+    /**
+     * This method is used get colour for Barring Status
+     * @return
+     */
+    public String getBarringStatusColour() {
+        String colour=selUtils.getDataPointColor(pageElements.barringStatus);
+        commonLib.info("Getting Colour for Barring Status : " + colour);
+        return colour;
+    }
+
+    /**
+     * This method is used get colour for Security Questions Set
+     * @return
+     */
+    public String getSecurityQuestionsSetColour() {
+        String colour=selUtils.getDataPointColor(pageElements.securityQuestionsSet);
+        commonLib.info("Getting Colour for Security Questions Set : " + colour);
+        return colour;
+    }
 }
+

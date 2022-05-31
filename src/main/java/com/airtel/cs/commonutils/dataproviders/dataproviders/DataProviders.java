@@ -108,12 +108,27 @@ public class DataProviders extends Driver {
     @DataProvider
     public Object[][] getTestData1() {
         FtrDataExcelToBeanDao dataExcelToBeanDao = new FtrDataExcelToBeanDao();
-        List<FtrDataBeans> list =
-                dataExcelToBeanDao.getData(excelPath, constants.getValue(ftrSheetValue));
-
+        List<FtrDataBeans> list = dataExcelToBeanDao.getData(excelPath, constants.getValue(ftrSheetValue));
         Object[][] hashMapObj = new Object[list.size()][1];
         for (int i = 0; i < list.size(); i++) {
             hashMapObj[i][0] = list.get(i);
+        }
+        return hashMapObj;
+    }
+
+    @DataProvider
+    public Object[][] getTestData2() {
+        NftrDataExcelToBeanDao credsExcelToBeanDao = new NftrDataExcelToBeanDao();
+        nftrDataBeansList = credsExcelToBeanDao.getData(excelPath, constants.getValue(nftrSheetValue));
+        List<NftrDataBeans> finalList = new ArrayList<>();
+        for (NftrDataBeans l : nftrDataBeansList) {
+            if (l.getIssue() != null && (!l.getIssue().isEmpty())) {
+                finalList.add(l);
+            }
+        }
+        Object[][] hashMapObj = new Object[finalList.size()][1];
+        for (int i = 0; i < finalList.size(); i++) {
+            hashMapObj[i][0] = finalList.get(i);
         }
         return hashMapObj;
     }
@@ -857,8 +872,7 @@ public class DataProviders extends Driver {
     public Object[][] getFTRIssue() {
         FtrDataExcelToBeanDao credsExcelToBeanDao = new FtrDataExcelToBeanDao();
         File excel = new File(excelPath);
-        ftrDataBeans =
-                credsExcelToBeanDao.getData(excel.getAbsolutePath(), constants.getValue(ftrSheetValue));
+        ftrDataBeans = credsExcelToBeanDao.getData(excel.getAbsolutePath(), constants.getValue(ftrSheetValue));
         Object[][] hashMapObj = new Object[ftrDataBeans.size()][1];
         for (int i = 0; i < ftrDataBeans.size(); i++) {
             hashMapObj[i][0] = ftrDataBeans.get(i);
@@ -885,22 +899,5 @@ public class DataProviders extends Driver {
         return hashMapObj;
     }
 
-    @DataProvider(name = "NFTRIssue")
-    public Object[][] getTestData2() {
-        NftrDataExcelToBeanDao credsExcelToBeanDao = new NftrDataExcelToBeanDao();
-        File excel = new File(excelPath);
-        nftrDataBeansList = credsExcelToBeanDao.getData(excel.getAbsolutePath(), constants.getValue(nftrSheetValue));
 
-        List<NftrDataBeans> finalList = new ArrayList<>();
-        for (NftrDataBeans l : nftrDataBeansList) {
-            if (l.getIssue() != null && (!l.getIssue().isEmpty())) {
-                finalList.add(l);
-            }
-        }
-        Object[][] hashMapObj = new Object[finalList.size()][1];
-        for (int i = 0; i < finalList.size(); i++) {
-            hashMapObj[i][0] = finalList.get(i);
-        }
-        return hashMapObj;
-    }
 }

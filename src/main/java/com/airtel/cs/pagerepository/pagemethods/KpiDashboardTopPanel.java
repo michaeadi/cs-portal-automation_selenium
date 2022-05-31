@@ -1,6 +1,7 @@
 package com.airtel.cs.pagerepository.pagemethods;
 
 import com.airtel.cs.pagerepository.pageelements.KpiDashboardTopPanelPage;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 
@@ -19,7 +20,7 @@ public class KpiDashboardTopPanel extends BasePage {
      */
     public Boolean isKpiDashboardIconVisible() {
         Boolean status = isVisible(pageElements.kpiDashboardIcon);
-        commonLib.pass("Dashboard Icon  is visible : " + status);
+        commonLib.info("Dashboard Icon  is visible : " + status);
         return status;
     }
 
@@ -41,7 +42,7 @@ public class KpiDashboardTopPanel extends BasePage {
      */
     public Boolean isLastRefreshTimeVisible() {
         Boolean status = isVisible(pageElements.lastRefreshTime);
-        commonLib.pass(" Last Refresh Time  is visible : " + status);
+        commonLib.info(" Last Refresh Time  is visible : " + status);
         return status;
     }
 
@@ -50,7 +51,7 @@ public class KpiDashboardTopPanel extends BasePage {
      */
     public Boolean isDashboardVisible() {
         Boolean status = isVisible(pageElements.dashboard);
-        commonLib.pass("Dashboard   is visible : " + status);
+        commonLib.info("Dashboard   is visible : " + status);
         return status;
     }
 
@@ -59,7 +60,7 @@ public class KpiDashboardTopPanel extends BasePage {
      */
     public Boolean isRefreshIconVisible() {
         Boolean status = isVisible(pageElements.refreshIcon);
-        commonLib.pass("Refresh Icon  is visible : " + status);
+        commonLib.info("Refresh Icon  is visible : " + status);
         return status;
     }
 
@@ -68,7 +69,7 @@ public class KpiDashboardTopPanel extends BasePage {
      */
     public Boolean isOpenTicketOverviewLabelVisible() {
         Boolean status = isVisible(pageElements.openTicketOverviewLabel);
-        commonLib.pass("Open Ticket Overview is visible : " + status);
+        commonLib.info("Open Ticket Overview is visible : " + status);
         return status;
     }
 
@@ -77,7 +78,7 @@ public class KpiDashboardTopPanel extends BasePage {
      */
     public Boolean isOpenTicketsBeyondSLALabelVisible() {
         Boolean status = isVisible(pageElements.openTicketsBeyondSLALabel);
-        commonLib.pass(" Open Tickets Beyond SLA  is visible : " + status);
+        commonLib.info(" Open Tickets Beyond SLA  is visible : " + status);
         return status;
     }
 
@@ -86,7 +87,7 @@ public class KpiDashboardTopPanel extends BasePage {
      */
     public Boolean isOpenTicketsUnderSLALabelVisible() {
         Boolean status = isVisible(pageElements.openTicketsUnderSLALabel);
-        commonLib.pass("Open Tickets Under SLA is visible : " + status);
+        commonLib.info("Open Tickets Under SLA is visible : " + status);
         return status;
     }
 
@@ -95,7 +96,7 @@ public class KpiDashboardTopPanel extends BasePage {
      */
     public Boolean isBreachingWithin15MinsLabelVisible() {
         Boolean status = isVisible(pageElements.breachingWithin15MinsLabel);
-        commonLib.pass("Breaching Within 15 Mins is visible : " + status);
+        commonLib.info("Breaching Within 15 Mins is visible : " + status);
         return status;
     }
 
@@ -104,7 +105,7 @@ public class KpiDashboardTopPanel extends BasePage {
      */
     public Boolean isBreachingWithin15To60MinsLabelVisible() {
         Boolean status = isVisible(pageElements.breachingWithin15To60MinsLabel);
-        commonLib.pass("Breaching Within 15 - 60 Mins is visible : " + status);
+        commonLib.info("Breaching Within 15 - 60 Mins is visible : " + status);
         return status;
     }
 
@@ -113,7 +114,7 @@ public class KpiDashboardTopPanel extends BasePage {
      */
     public Boolean isBreachingGreaterThan60MinsLabelVisible() {
         Boolean status = isVisible(pageElements.breachingWithin60MinsLabel);
-        commonLib.pass("Breaching Within > 60 Mins visible : " + status);
+        commonLib.info("Breaching Within > 60 Mins visible : " + status);
         return status;
     }
 
@@ -121,7 +122,7 @@ public class KpiDashboardTopPanel extends BasePage {
      * This method is used to click On Open Tickets Beyond SLA Details Icon
      */
     public void clickOnOpenTicketsBeyondSLADetailsIcon() {
-        commonLib.pass("Click On Open Tickets Beyond SLA Details Icon");
+        commonLib.info("Click On Open Tickets Beyond SLA Details Icon");
         if (isVisible(pageElements.openTicketsBeyondSLADetailsIcon))
             clickAndWaitForLoaderToBeRemoved(pageElements.openTicketsBeyondSLADetailsIcon);
         else {
@@ -130,104 +131,109 @@ public class KpiDashboardTopPanel extends BasePage {
     }
 
     /**
+     * This Method is used to click on detailed icon over top panel if ticket count is more than 0
+     *
+     * @param element    the element
+     * @param infoMsg    the info msg
+     * @param warningMsg the warning msg
+     * @param errorMsg   the error msg
+     * @return ticket found or not?
+     */
+    public boolean clickDetailIconIfTicketFound(By element, String infoMsg, String warningMsg, String errorMsg) {
+        boolean isTicketFound = false;
+        commonLib.info(infoMsg);
+        if (isVisible(element)) {
+            if (!getAttribute(element, "class", false).contains("disabled")) {
+                clickAndWaitForLoaderToBeRemoved(element);
+                isTicketFound = true;
+            } else {
+                commonLib.warning(warningMsg);
+            }
+        } else {
+            commonLib.error(errorMsg);
+        }
+        return isTicketFound;
+    }
+
+    /**
      * This method is used to click On Open Tickets Under SLA Details Icon
      */
-    public void clickOnOpenTicketsUnderSLALDetailsIcon() {
-        commonLib.pass("Click On Tickets Under SLA Details Icon");
-        if (isVisible(pageElements.openTicketsUnderSLALDetailsIcon))
-            clickAndWaitForLoaderToBeRemoved(pageElements.openTicketsUnderSLALDetailsIcon);
-        else {
-            commonLib.error(" Open Tickets Under SLA Details Icon not Visible");
-        }
+    public boolean clickOpenTicketsUnderSLAIcon() {
+        return clickDetailIconIfTicketFound(pageElements.openTicketsUnderSLALDetailsIcon, "Click On Tickets Under SLA Details Icon", "Open Tickets Under SLA Details Icon not Clickable as ticket Count is 0", "Open Tickets Under SLA Details Icon not Visible");
     }
 
     /**
-     * This method is used to click On Breaching Within 15 Mins Details Icon
+     * This method is used to click On Breaching Within 15 Min Details Icon
      */
-    public void clickOnBreachingWithin15MinsDetailsIcon() {
-        commonLib.pass("Click On  Breaching Within 15 Mins Details Icon");
-        if (isVisible(pageElements.breachingWithin15MinsDetailsIcon))
-            clickAndWaitForLoaderToBeRemoved(pageElements.breachingWithin15MinsDetailsIcon);
-        else {
-            commonLib.error("  Breaching Within 15 Mins Details Icon not Visible");
-        }
+    public boolean clickBreachWithin15MinIcon() {
+        return clickDetailIconIfTicketFound(pageElements.breachingWithin15MinsDetailsIcon, "Click On  Breaching Within 15 Mins Details Icon", "Breaching Within 15 Mins Details Icon not Clickable as ticket Count is 0", "Breaching Within 15 Mins Details Icon not Visible");
     }
 
     /**
-     * This method is used to click On Breaching Within 15 To 60 Mins Details Icon
+     * This method is used to click On Breaching Within 15 To 60 Min Details Icon
      */
-    public void clickOnBreachingWithin15To60MinsDetailsIcon() {
-        commonLib.pass("Click On Breaching Within 15 To 60 Mins Details Icon");
-        if (isVisible(pageElements.breachingWithin15To60MinsDetailsIcon))
-            clickAndWaitForLoaderToBeRemoved(pageElements.breachingWithin15To60MinsDetailsIcon);
-        else {
-            commonLib.error(" Breaching Within 15 To 60 Mins Details Icon not Visible");
-        }
+    public boolean clickBreachWithin15To60MinIcon() {
+        return clickDetailIconIfTicketFound(pageElements.breachingWithin15To60MinsDetailsIcon, "Click On Breaching Within 15 To 60 Mins Details Icon", "Breaching Within 15 To 60 Min Details Icon not Clickable as ticket Count is 0", "Breaching Within 15 To 60 Min Details Icon not Visible");
     }
 
     /**
-     * This method is used to click On Breaching With in 60 Mins Details Icon
+     * This method is used to click On Breaching With in 60 Min Details Icon
      */
-    public void clickOnBreachingGreaterThan60MinsDetailsIcon() {
-        commonLib.pass("Click On Breaching With in 60 Mins Details Icon");
-        if (isVisible(pageElements.breachingGreaterThan60MinsDetailsIcon))
-            clickAndWaitForLoaderToBeRemoved(pageElements.breachingGreaterThan60MinsDetailsIcon);
-        else {
-            commonLib.error("Breaching With in 60 Mins Details Icon not Visible");
-        }
+    public boolean clickBreachingMoreThan60MinIcon() {
+        return clickDetailIconIfTicketFound(pageElements.breachingGreaterThan60MinsDetailsIcon, "Click On Breaching more than 60 Mins Details Icon", "Breaching more than 60 Min Details Icon not Clickable as ticket Count is 0", "Breaching With in 60 Mins Details Icon not Visible");
     }
 
     /**
      * This method is used to check Ticket ID   is visible or not
      */
-    public Boolean isTicketIdLableVisible() {
+    public Boolean isTicketIdLabelVisible() {
         Boolean status = isVisible(pageElements.ticketIdLabel);
-        commonLib.pass("Ticket ID Lable is visible : " + status);
+        commonLib.info("Ticket ID Lable is visible : " + status);
         return status;
     }
 
     /**
      * This method is used to check Priority   is visible or not
      */
-    public Boolean isPriorityLableVisible() {
+    public Boolean isPriorityLabelVisible() {
         Boolean status = isVisible(pageElements.priorityLabel);
-        commonLib.pass("Priority Label is visible : " + status);
+        commonLib.info("Priority Label is visible : " + status);
         return status;
     }
 
     /**
      * This method is used to check State   is visible or not
      */
-    public Boolean isStateLableVisible() {
+    public Boolean isStateLabelVisible() {
         Boolean status = isVisible(pageElements.stateLabel);
-        commonLib.pass("State Label is visible : " + status);
+        commonLib.info("State Label is visible : " + status);
         return status;
     }
 
     /**
      * This method is used to check Creation date   is visible or not
      */
-    public Boolean isCreationDateLableVisible() {
+    public Boolean isCreationDateLabelVisible() {
         Boolean status = isVisible(pageElements.creationDateLabel);
-        commonLib.pass("Creation Date Label is visible : " + status);
+        commonLib.info("Creation Date Label is visible : " + status);
         return status;
     }
 
     /**
      * This method is used to check Created By  is visible or not
      */
-    public Boolean isCreatedByLableVisible() {
+    public Boolean isCreatedByLabelVisible() {
         Boolean status = isVisible(pageElements.createdByLabel);
-        commonLib.pass("Created By Label is visible : " + status);
+        commonLib.info("Created By Label is visible : " + status);
         return status;
     }
 
     /**
      * This method is used to check Queue   is visible or not
      */
-    public Boolean isQueueLableVisible() {
+    public Boolean isQueueLabelVisible() {
         Boolean status = isVisible(pageElements.queueLabel);
-        commonLib.pass("Queue Label is visible : " + status);
+        commonLib.info("Queue Label is visible : " + status);
         return status;
     }
 
@@ -236,7 +242,7 @@ public class KpiDashboardTopPanel extends BasePage {
      */
     public Boolean isSourceLabelVisible() {
         Boolean status = isVisible(pageElements.sourceLabel);
-        commonLib.pass("Source Label is visible : " + status);
+        commonLib.info("Source Label is visible : " + status);
         return status;
     }
 
@@ -245,7 +251,7 @@ public class KpiDashboardTopPanel extends BasePage {
      */
     public Boolean isDetailsOpenTicketsBeyondSLALabelVisible() {
         Boolean status = isVisible(pageElements.detailsOpenTicketsBeyondSLALabel);
-        commonLib.pass("Open Ticket Overview is visible : " + status);
+        commonLib.info("Open Ticket Overview is visible : " + status);
         return status;
     }
 
@@ -255,7 +261,7 @@ public class KpiDashboardTopPanel extends BasePage {
     public Boolean isDetailsOpenTicketsUnderSLALabelVisible() {
         Boolean status = isVisible(pageElements.detailsOpenTicketsUnderSLALabel);
         boolean clickable = isClickable(pageElements.detailsOpenTicketsUnderSLALabel);
-        commonLib.pass("Open Ticket Overview is visible : " + status);
+        commonLib.info("Open Ticket Overview is visible : " + status);
         commonLib.info("Open Ticket Overview is clickable" + clickable);
         return status;
     }
@@ -265,7 +271,7 @@ public class KpiDashboardTopPanel extends BasePage {
      */
     public Boolean isDetailsBreachingWithin15MinsLabelVisible() {
         Boolean status = isVisible(pageElements.detailsBreachingWithin15MinsLabel);
-        commonLib.pass("Open Ticket Overview is visible : " + status);
+        commonLib.info("Open Ticket Overview is visible : " + status);
         return status;
     }
 
@@ -274,16 +280,16 @@ public class KpiDashboardTopPanel extends BasePage {
      */
     public Boolean isDetailsBreachingWithin15To60MinsLabelVisible() {
         Boolean status = isVisible(pageElements.detailsBreachingWithin15To60MinsLabel);
-        commonLib.pass("Open Ticket Overview is visible : " + status);
+        commonLib.info("Open Ticket Overview is visible : " + status);
         return status;
     }
 
     /**
      * This method is used to check Breaching Within > 60 Mins   is visible or not
      */
-    public Boolean isDetailsBreachingGreaterThan60MinsLabelVisible() {
-        Boolean status = isVisible(pageElements.detailsBreachingWithin60MinsLabel);
-        commonLib.pass("Open Ticket Overview is visible : " + status);
+    public Boolean isBreachingMoreThan60MinsLabelVisible() {
+        Boolean status = isVisible(pageElements.breachingMoreThan60MinsLabel);
+        commonLib.info("Open Ticket Overview is visible : " + status);
         return status;
     }
 
@@ -306,5 +312,45 @@ public class KpiDashboardTopPanel extends BasePage {
     public void hoverOnKpiDashboardIcon() {
         commonLib.info("Hover KPI dashboard icon");
         hoverOverElement(pageElements.kpiDashboardIcon);
+    }
+
+    /**
+     * This Method is used to get the ticket count under SLA
+     *
+     * @return ticket count
+     */
+    public String ticketCountUnderSLA() {
+        commonLib.info("Getting Ticket Count under SLA");
+        return getText(pageElements.ticketCountUnderSLA);
+    }
+
+    /**
+     * This Method is used to get the ticket count within 15 min SLA
+     *
+     * @return ticket count
+     */
+    public String ticketCountWithin15Min() {
+        commonLib.info("Getting Ticket Count within 15 min SLA");
+        return getText(pageElements.ticketCountWithin15Min);
+    }
+
+    /**
+     * This Method is used to get the ticket count within 15 and 60 min SLA
+     *
+     * @return ticket count
+     */
+    public String ticketCountWithin15and60Min() {
+        commonLib.info("Getting Ticket Count within 15 and 60 min SLA");
+        return getText(pageElements.ticketCountWithin15n60Min);
+    }
+
+    /**
+     * This Method is used to get the ticket count within 15 and 60 min SLA
+     *
+     * @return ticket count
+     */
+    public String ticketCountMoreThan60Min() {
+        commonLib.info("Getting Ticket Count more than 60 min SLA");
+        return getText(pageElements.ticketCountMoreThan60Min);
     }
 }

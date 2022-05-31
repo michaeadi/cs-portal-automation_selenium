@@ -39,6 +39,7 @@ public class PermissionConstants {
     public static final String AM_PROFILE_DETAILS_PERMISSION = "am.profile.details";
     public static final String OSC_RECHARGE_PERMISSION="osc.recharge";
     public static final String PIN_NON_MANDATORY_PERMISSION="voucher.pin.non.mandatory";
+    public static final String AM_CUSTOMER_DETAILS_PERMISSION = "am.profile.details";
 
     private PermissionConstants() {
         throw new IllegalStateException();
