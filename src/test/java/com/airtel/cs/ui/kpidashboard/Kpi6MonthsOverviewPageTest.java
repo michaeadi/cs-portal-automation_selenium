@@ -11,7 +11,7 @@ public class Kpi6MonthsOverviewPageTest extends Driver {
     public void serviceLevelTrend() {
         try {
             selUtils.addTestcaseDescription("Service Level Trend Graph", "description");
-            assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardTopPanel().isKpiDashboardIconVisible(), true, "Dashboard Icon is Visible"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardTopPanel().isKpiDashboardIconVisible(), true, "Dashboard Icon is Visible","Dashboard Icon is NOT Visible"));
             pages.getKpiDashboardTopPanel().hoverOnKpiDashboardIcon();
             pages.getKpiDashboardTopPanel().clickOnCsDashboardIcon();
             assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboard6MonthsOverview().isServiceLevelTrendVisible(), true, "Service Level Trend Graph is Visible", "Service Level Trend Graph is NOT Visible"));
