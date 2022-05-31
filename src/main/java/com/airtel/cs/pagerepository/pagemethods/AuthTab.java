@@ -34,6 +34,7 @@ public class AuthTab extends BasePage {
 
     /**
      * This method is use to check auth tab display or not
+     *
      * @return true/false
      */
     public boolean isAuthTabLoad() {
@@ -51,6 +52,7 @@ public class AuthTab extends BasePage {
 
     /**
      * This method is use to get auth tab policy message
+     *
      * @return true/false
      */
     public String getAuthInstruction() {
@@ -88,6 +90,7 @@ public class AuthTab extends BasePage {
 
     /**
      * This method is use to check non-authenticate button enable or not
+     *
      * @return true/false
      */
     public boolean isNonAuthBtnEnable() {
@@ -97,6 +100,7 @@ public class AuthTab extends BasePage {
 
     /**
      * This method is use to check authenticate button enable or not
+     *
      * @return true/false
      */
     public boolean isAuthBtnEnable() {
@@ -106,14 +110,15 @@ public class AuthTab extends BasePage {
 
     /**
      * This method is use to get policy question and answer
+     *
      * @return MAP The Question & Answer pair
      */
     public Map<String, String> getQuestionAnswer() {
         List<WebElement> list = returnListOfElement(pageElements.listOfQuestions);
         Map<String, String> questionList = new HashMap<>();
         for (int i = 1; i <= list.size(); i++) {
-            By question = By.xpath( pageElements.authTabQuestion+ i + pageElements.question);
-            By answer = By.xpath(pageElements.authTabQuestion+ i + pageElements.answer );
+            By question = By.xpath(pageElements.authTabQuestion + i + pageElements.question);
+            By answer = By.xpath(pageElements.authTabQuestion + i + pageElements.answer);
             commonLib.info("Question: " + getText(question) + " :" + getText(answer));
             questionList.put(getText(question).replaceAll("[^a-zA-Z]+", "").toLowerCase().trim(), getText(answer).trim());
         }
@@ -122,6 +127,7 @@ public class AuthTab extends BasePage {
 
     /**
      * This method is use to check checkbox of policy question based on row number
+     *
      * @param i The row number
      * @throws InterruptedException throw exception when scroll to element interrupt
      */
@@ -134,6 +140,7 @@ public class AuthTab extends BasePage {
 
     /**
      * This method use to check sim bar pop up open or not
+     *
      * @return true/false
      */
     public boolean isSIMBarPopup() {
@@ -152,6 +159,7 @@ public class AuthTab extends BasePage {
 
     /**
      * This method use to check issue detail configure or not
+     *
      * @return true/false
      */
     public boolean isIssueDetailTitleVisible() {
@@ -180,11 +188,11 @@ public class AuthTab extends BasePage {
     /**
      * This method use to get total number of input issue fields configured while performing sim bar/unbar action
      */
-    public Integer getNumberOfInputFieldDisplay(){
+    public Integer getNumberOfInputFieldDisplay() {
         return returnListOfElement(pageElements.listOfFields).size();
     }
 
-    public void fillAllInputField(String text){
+    public void fillAllInputField(String text) {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM/dd/yyyy");
         LocalDateTime now = LocalDateTime.now();
         try {
@@ -193,12 +201,12 @@ public class AuthTab extends BasePage {
                 try {
                     By inputField = By.xpath(pageElements.questionField + i + "']");
                     enterText(inputField, text);
-                }catch (NoSuchElementException | TimeoutException e){
+                } catch (NoSuchElementException | TimeoutException e) {
                     pages.getInteractionsPage().setDateFieldAvailable(dtf.format(now));
                 }
             }
-        }catch (NoSuchElementException | TimeoutException e){
-            commonLib.infoColored("No Issue Field found with input type"+e.getMessage(), JavaColors.BLUE,true);
+        } catch (NoSuchElementException | TimeoutException e) {
+            commonLib.infoColored("No Issue Field found with input type" + e.getMessage(), JavaColors.BLUE, true);
         }
     }
 
@@ -226,6 +234,7 @@ public class AuthTab extends BasePage {
 
     /**
      * This method is use to get first reason from dropdown
+     *
      * @return String The Value
      */
     public String getReason() {
@@ -236,6 +245,7 @@ public class AuthTab extends BasePage {
 
     /**
      * This method is use to write comment into comment box
+     *
      * @param text The comment
      */
     public void enterComment(String text) {
@@ -245,6 +255,7 @@ public class AuthTab extends BasePage {
 
     /**
      * This method use to check cancel button enable or not
+     *
      * @return true/false
      */
     public boolean isCancelBtnEnable() {
@@ -254,6 +265,7 @@ public class AuthTab extends BasePage {
 
     /**
      * This method use to check submit button enable or not
+     *
      * @return true/false
      */
     public boolean isSubmitBtnEnable() {
@@ -296,6 +308,7 @@ public class AuthTab extends BasePage {
 
     /**
      * This method use to get toast message
+     *
      * @return String The Value
      */
     public String getToastText() {
@@ -313,28 +326,30 @@ public class AuthTab extends BasePage {
 
     /**
      * This method use to get error message
+     *
      * @return String The String
      */
-    public String getErrorMessage(){
-        String text=getText(pageElements.errorMessage);
-        commonLib.info("Reading Error Message Display over Pop up: "+text);
+    public String getErrorMessage() {
+        String text = getText(pageElements.errorMessage);
+        commonLib.info("Reading Error Message Display over Pop up: " + text);
         return text;
     }
 
     /**
      * This method is used to check all the action is should display auth pop true/false status configuration is per Opco request
+     *
      * @param lockedSection The DB Configuration
-     * @param actionTags The Excel configuration
+     * @param actionTags    The Excel configuration
      */
-    public void isLockedSectionCorrectlyDisplay(List<LockedSection> lockedSection,List<ActionTagDataBeans> actionTags){
+    public void isLockedSectionCorrectlyDisplay(List<LockedSection> lockedSection, List<ActionTagDataBeans> actionTags) {
         for (LockedSection ls : lockedSection) {
             final String key = ls.getKey();
             final boolean isAuthenticated = ls.getIsAuthenticated();
             commonLib.info(key + " : " + isAuthenticated);
             for (ActionTagDataBeans at : actionTags) {
                 if (at.getActionTagName().equalsIgnoreCase(ls.getKey()))
-                    if (isAuthenticated == Boolean.parseBoolean(at.getIsAuth()) && ls.getIsAuthenticated() == Boolean.parseBoolean(at.getIsAuth()) ) {
-                            commonLib.pass("Action Verified " + at.getActionTagName());
+                    if (isAuthenticated == Boolean.parseBoolean(at.getIsAuth()) && ls.getIsAuthenticated() == Boolean.parseBoolean(at.getIsAuth())) {
+                        commonLib.pass("Action Verified " + at.getActionTagName());
                     } else {
                         commonLib.fail(ls.getKey() + "Action does not locked but as per config Action must be locked.", true);
                         break;
@@ -345,10 +360,11 @@ public class AuthTab extends BasePage {
 
     /**
      * This method is use to check all the questions answer key in auth tab as per configuration
-     * @param config The expected config
+     *
+     * @param config        The expected config
      * @param authTabConfig The Actual Config
      */
-    public void isAuthQuestionAnswerKeyAsPerConfig(List<QuestionAnswerKeyDataBeans> config,Map<String, AuthDataConfigResult> authTabConfig){
+    public void isAuthQuestionAnswerKeyAsPerConfig(List<QuestionAnswerKeyDataBeans> config, Map<String, AuthDataConfigResult> authTabConfig) {
         for (QuestionAnswerKeyDataBeans questionAnswer : config) {
             final String questionKey = questionAnswer.getQuestionKey();
             commonLib.info("Question Key: '" + questionKey + "' ; Answer Found in API: '" + authTabConfig.get(questionKey));
@@ -362,9 +378,10 @@ public class AuthTab extends BasePage {
 
     /**
      * This method is use to check all the questions key in auth tab answer value can not be null
+     *
      * @param authTabConfig The Actual Config
      */
-    public void isAuthQuestionAsPerConfig(Map<String, AuthDataConfigResult> authTabConfig){
+    public void isAuthQuestionAsPerConfig(Map<String, AuthDataConfigResult> authTabConfig) {
         for (Map.Entry mapElement : authTabConfig.entrySet()) {
             String key = (String) mapElement.getKey();
             String value = mapElement.getValue().toString();
@@ -375,10 +392,11 @@ public class AuthTab extends BasePage {
 
     /**
      * This method is use to check GSM Policy Questions configured correctly as per config
+     *
      * @param questionList The expected questions
-     * @param questions The Actual Questions
+     * @param questions    The Actual Questions
      */
-    public void validateAuthQuestion(Map<String, String> questionList,List<String> questions){
+    public void validateAuthQuestion(Map<String, String> questionList, List<String> questions) {
         for (String s : questions) {
             String trim = s.replaceAll("[^a-zA-Z]+", "").toLowerCase().trim();
             if (!questionList.containsKey(trim)) {
@@ -410,8 +428,8 @@ public class AuthTab extends BasePage {
      */
     public void selectReasonFromDropdown() {
         commonLib.info("Going to select Reason from dropdown");
-        if (isVisible(pageElements.selectReasonFromDropdown)) ;
-        clickWithoutLoader((pageElements.selectReasonFromDropdown));
+        if (isVisible(pageElements.selectReasonFromDropdown))
+            clickWithoutLoader((pageElements.selectReasonFromDropdown));
     }
 
     /**
@@ -443,8 +461,9 @@ public class AuthTab extends BasePage {
      */
     public void clickCrossIcon() {
         commonLib.info("Going to click cross icon");
-        if (isVisible(pageElements.crossIcon)) ;
-        clickWithoutLoader((pageElements.crossIcon));
+        if (isVisible(pageElements.crossIcon)) {
+            clickWithoutLoader((pageElements.crossIcon));
+        }
     }
 
     /**
@@ -452,7 +471,7 @@ public class AuthTab extends BasePage {
      */
     public void clickSelectReason() {
         commonLib.info("Going to click Select Reason");
-        if (isVisible(pageElements.selectReason)) ;
-        clickWithoutLoader((pageElements.selectReason));
+        if (isVisible(pageElements.selectReason))
+            clickWithoutLoader((pageElements.selectReason));
     }
 }

@@ -100,10 +100,12 @@ public class SendInternetSettingsTest extends Driver {
             String successText = "Internet Settings has been sent on Customer`s Device.";
             assertCheck.append(actions.assertEqualStringType(pages.getAuthTabPage().getSuccessText(), successText, "Success text is displayed as expected", "Success text is not displayed as expected"));
             pages.getAuthTabPage().clickCrossIcon();
+
         } catch (Exception e) {
             commonLib.fail("Exception in Method - validateSendInternetSetting" + e.fillInStackTrace(), true);
             pages.getAuthTabPage().clickCrossIcon();
         }
+        actions.assertAllFoundFailedAssert(assertCheck);
     }
 
     @Test(priority = 4, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "validateSendInternetSetting")

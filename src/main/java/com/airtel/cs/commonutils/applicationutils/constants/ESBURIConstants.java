@@ -11,10 +11,10 @@ public class ESBURIConstants {
     public static final String RECHARGE_HISTORY = "/api/subscriber-profile/v1/customer/service/recharge-history";
     public static final String CUSTOMER_PROFILLE = "/api/subscriber-profile/v2/customer-profile";
     public static final String TOKEN = "/api/authorization/token";
-    public static final String GSM_KYC_REQUEST = "/kong/api/am-profile/v1/kycrequest";
+    public static final String GSM_KYC_REQUEST = "/api/am-profile/v1/kycrequest";
     public static final String SELF_CARE_USER_DETAILS = "/selfcare/user-mngmnt/v1/get-selfcare-user-details";
     public static final String DEVICE_INFO = "/api/subscriber-profile/v1/deviceInfo";
-    public static final String TRANSACTION_HISTORY = "/kong/api/am-send-money/v1/transaction-history-details";
+    public static final String TRANSACTION_HISTORY = "/api/am-send-money/v1/transaction-history-details";
     public static final String QUERY_BALANCE = "/api/subscriber-profile/v2/query-balance";
     public static final String VOUCHER_DETAIL = "/api/vs/v1/voucher-detail";
     public static final String OSC_REFILL = "/api/vs/v1/osc-refill";
