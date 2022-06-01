@@ -132,10 +132,9 @@ public class DashboardWidgetDropdown extends BasePage {
         return text;
     }
 
-    //div[contains(@class,'account-section')]//tr[1]//td[1]//span
 
     /**
-     * This method will give the no. of rows
+     * This method will give the no. of rows for linked Accounts
      *
      * @return
      */
@@ -145,7 +144,7 @@ public class DashboardWidgetDropdown extends BasePage {
     }
 
     /**
-     * This method will give the no. of rows
+     * This method will give the no. of rows linked Wallets
      *
      * @return
      */
@@ -171,7 +170,7 @@ public class DashboardWidgetDropdown extends BasePage {
     }
 
     /**
-     * This method is used to get hover message
+     * This method is used to get hover message for currently selected Wallet/Account
      */
     public String getHoverMessage() {
         commonLib.info("Getting message on hovering currently selected Wallet/Account");
@@ -189,7 +188,7 @@ public class DashboardWidgetDropdown extends BasePage {
             commonLib.info("Clicking Select of Account for row : " + row);
             clickAndWaitForLoaderToBeRemoved(By.xpath(pageElements.accountRow + openingBracket + row + pageElements.selectRow));
         } else
-            commonLib.error("CTA for Account is not visible");
+            commonLib.fail("CTA for Account is not visible", true);
     }
 
     /**
@@ -202,6 +201,6 @@ public class DashboardWidgetDropdown extends BasePage {
             commonLib.info("Clicking Select of Wallet for row : " + row);
             clickAndWaitForLoaderToBeRemoved(By.xpath(pageElements.walletRow + openingBracket + row + pageElements.selectRow));
         } else
-            commonLib.error("CTA for Wallet is not visible");
+            commonLib.fail("CTA for Wallet is not visible", true);
     }
 }
