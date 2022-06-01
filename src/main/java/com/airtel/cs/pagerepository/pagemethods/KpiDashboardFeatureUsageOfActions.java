@@ -44,7 +44,7 @@ public class KpiDashboardFeatureUsageOfActions extends BasePage {
      * This method is used to click on Feature Usage Of Actions Details  Icon
      */
     public void clickOnFeatureUsageOfActionsDetailsIcon() {
-        commonLib.info("Going to click6 Months Ticket Details  Icon");
+        commonLib.info("Going to click Feature Usage Details Icon");
         if (isVisible(pageElements.featureUsageOfActionsDetailsIcon))
             clickAndWaitForLoaderToBeRemoved(pageElements.featureUsageOfActionsDetailsIcon);
         else {
@@ -75,7 +75,7 @@ public class KpiDashboardFeatureUsageOfActions extends BasePage {
      * This method is used to check MTD   Label is visible or not
      */
     public Boolean isMTDLabelVisible() {
-        Boolean status = isVisible(pageElements.MTDLabel);
+        Boolean status = isVisible(pageElements.mtdLabel);
         commonLib.info("MTD  Label is visible : " + status);
         return status;
     }
@@ -89,6 +89,12 @@ public class KpiDashboardFeatureUsageOfActions extends BasePage {
         else {
             commonLib.error("Back Icon not Visible");
         }
+    }
 
+    /*
+    This method is used to get the Text for Feature usage detailed widget header
+     */
+    public boolean featureUsageDetailsWidgetHeader() {
+        return isVisible(pageElements.featureUsageDetailedWidget);
     }
 }

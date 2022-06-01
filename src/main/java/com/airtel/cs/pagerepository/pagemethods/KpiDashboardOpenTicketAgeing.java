@@ -79,7 +79,6 @@ public class KpiDashboardOpenTicketAgeing extends BasePage {
         else {
             commonLib.error( "Open Ticket Ageing Details Icon not Visible");
         }
-
     }
 
     /**
@@ -140,7 +139,7 @@ public class KpiDashboardOpenTicketAgeing extends BasePage {
      * This method is used to check Beyond 30 Days label  is visible or not
      */
     public Boolean isBeyond30DaysDaysLabellVisible() {
-        Boolean status = isVisible(pageElements.beyond30DaysLabe);
+        Boolean status = isVisible(pageElements.beyond30DaysLabel);
         commonLib.info("Beyond 30 Days label is visible : " + status);
         return status;
     }

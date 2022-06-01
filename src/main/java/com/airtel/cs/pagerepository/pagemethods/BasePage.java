@@ -523,7 +523,7 @@ public class BasePage extends Driver {
     /**
      * This Method will let us know, if element is visible or not
      *
-     * @param webelementBy element lcoator
+     * @param webelementBy element locator
      * @param time         time in seconds
      * @return true/false
      */
@@ -690,7 +690,7 @@ public class BasePage extends Driver {
         } catch (Exception e) {
             e.printStackTrace();
             if (requireToReportFailForException) {
-                message = message + "</br>" + e.getMessage();
+                message = message + BREAK_LINE + e.getMessage();
                 commonLib.fail(message, true);
             }
         }
@@ -738,7 +738,7 @@ public class BasePage extends Driver {
      * This method use to clear console log
      */
     public void clearConsoleErrors() {
-        JavascriptExecutor js = (JavascriptExecutor) getDriver();
+        js = (JavascriptExecutor) getDriver();
         String script = "console.clear();";
         js.executeScript(script);
         getDriver().manage().logs().get(LogType.PERFORMANCE).getAll();
@@ -747,8 +747,8 @@ public class BasePage extends Driver {
     /**
      * This Method will get the API key value
      *
-     * @param apiKeyValue
-     * @return
+     * @param apiKeyValue the api key
+     * @return the value
      */
     public String getKeyValueAPI(String apiKeyValue) {
         return "null".equals(apiKeyValue) || ("").equalsIgnoreCase(apiKeyValue) || apiKeyValue == null || ("0.00").equalsIgnoreCase(apiKeyValue) ? "-" : apiKeyValue.toLowerCase().trim();

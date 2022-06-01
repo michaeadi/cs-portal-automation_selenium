@@ -32,4 +32,5 @@ public class KpiDashboard6MonthsOverviewPage {
     public By agentIdLabel = By.xpath("//span[contains(text(),'Agent Id')]");
     public By agentNameLabel = By.xpath("//span[contains(text(),'Agent Name')]");
     public By dayWiseInAgentPerformanceIcon = By.xpath("//img[contains(@src,'assets/kpi-dashboard/day_wise.svg')]");
+    public By noResultMsg = By.xpath("//*[@data-csautomation-key='noResultFoundMsg']");
 }
