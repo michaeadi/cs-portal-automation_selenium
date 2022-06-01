@@ -259,7 +259,6 @@ public class AccountInformationTest extends Driver {
             assertCheck.append(actions.assertEqualStringType(pages.getAmSmsTrails().getReason(), "Customer Request", "Reason for Resend SMS is as expected", "Reason for Resend SMS not as expected"));
             assertCheck.append(actions.assertEqualStringType(pages.getAmSmsTrails().getComment(), ApplicationConstants.COMMENT, "Comment for Resend SMS is expected", "Comment for Resend SMS is not as expected"));
             actions.assertAllFoundFailedAssert(assertCheck);
-
         } catch (Exception e) {
             commonLib.fail("Exception in Method - checkActionTrail" + e.fillInStackTrace(), true);
         }
