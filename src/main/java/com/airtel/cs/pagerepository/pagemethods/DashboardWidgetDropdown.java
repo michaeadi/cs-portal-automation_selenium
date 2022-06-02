@@ -183,7 +183,7 @@ public class DashboardWidgetDropdown extends BasePage {
      *
      * @return
      */
-    public void clickCTAOfAccount(int row) {
+    public void clickCtaOfAccount(int row) {
         if (isVisible(By.xpath(pageElements.accountRow + openingBracket + row + pageElements.selectRow))) {
             commonLib.info("Clicking Select of Account for row : " + row);
             clickAndWaitForLoaderToBeRemoved(By.xpath(pageElements.accountRow + openingBracket + row + pageElements.selectRow));
@@ -196,7 +196,7 @@ public class DashboardWidgetDropdown extends BasePage {
      *
      * @return
      */
-    public void clickCTAOfWallet(int row) {
+    public void clickCtaOfWallet(int row) {
         if (isVisible(By.xpath(pageElements.walletRow + openingBracket + row + pageElements.selectRow))) {
             commonLib.info("Clicking Select of Wallet for row : " + row);
             clickAndWaitForLoaderToBeRemoved(By.xpath(pageElements.walletRow + openingBracket + row + pageElements.selectRow));

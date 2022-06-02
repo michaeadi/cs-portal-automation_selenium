@@ -62,7 +62,7 @@ public class DashboardWidgetDropdownTest extends Driver {
         }
     }
 
-    @Test(priority = 3, groups = {"SanityTest", "RegressionTest"}, dependsOnMethods = {"openCustomerInteraction", "dropdownHeadersTest"})
+    @Test(priority = 3, groups = {"SanityTest", "RegressionTest"}, dependsOnMethods = {"dropdownHeadersTest"})
     public void dropdownDataTest() {
         try {
             selUtils.addTestcaseDescription("Validate dropdown data for linked Account and Wallet", "description");
@@ -96,14 +96,14 @@ public class DashboardWidgetDropdownTest extends Driver {
     }
 
 
-    @Test(priority = 4, groups = {"SanityTest", "RegressionTest"}, dependsOnMethods = {"openCustomerInteraction","dropdownHeadersTest"})
-    public void CTAClickTest() {
+    @Test(priority = 4, groups = {"SanityTest", "RegressionTest"}, dependsOnMethods = {"dropdownHeadersTest"})
+    public void clickCTATest() {
         try {
             selUtils.addTestcaseDescription("Validate that Wallet and Account Information widget should be visible after clicking their respective CTA's", "description");
             int flag = 0;
             for (int account = 0; account < clmDetails.getResult().getDetails().get(0).getAccounts().size(); account++) {
                 int x = 1;
-                pages.getDashboardWidgetDropdown().clickCTAOfAccount(account + 1);
+                pages.getDashboardWidgetDropdown().clickCtaOfAccount(account + 1);
                 assertCheck.append(actions.assertEqualBoolean(pages.getAccountInformation().isAccountInformationWidgetVisible(), true, "Account Information widget is visible after clicking CTA of Account for row : " + (account + x), "Account Information widget is NOT visible after clicking CTA of Account for row : " + (account + x)));
                 flag++;
                 break;
@@ -112,13 +112,13 @@ public class DashboardWidgetDropdownTest extends Driver {
                 int x = 1;
                 if (flag > 0)
                     pages.getDashboardWidgetDropdown().clickDropdownArrow();
-                pages.getDashboardWidgetDropdown().clickCTAOfWallet(wallet + 1);
+                pages.getDashboardWidgetDropdown().clickCtaOfWallet(wallet + 1);
                 assertCheck.append(actions.assertEqualBoolean(pages.getWalletInformation().isWalletInformationWidgetVisible(), true, "Wallet Information widget is visible after clicking CTA of Wallet for row : " + (wallet + x), "Wallet Information widget is NOT visible after clicking CTA of Wallet for row : " + (wallet + x)));
                 break;
             }
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
-            commonLib.fail("Exception in Method - CTAClickTest" + e.fillInStackTrace(), true);
+            commonLib.fail("Exception in Method - clickCTATest" + e.fillInStackTrace(), true);
         }
     }
 
