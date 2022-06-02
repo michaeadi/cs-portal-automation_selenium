@@ -6,7 +6,7 @@ public class AMTxnWidgetPage {
     public By airtelMoneyTransactionHeader = By.xpath("//div[@data-csautomation-key='AIRTEL_MONEY']//span[contains(@class,'widget_header_label')]");
     public By airtelMoneyBalance = By.xpath("//*[@data-csautomation-key='AIRTEL_MONEY']//span[@class='currency-amount']");
     public By airtelMoneyBalance2 = By.xpath("//div[@class='card__content--money-balance ng-star-inserted']//span[@class='currency ng-star-inserted'][2]//span[@class='currency-amount']");
-    public By airtelMoneyCurrency = By.xpath("//*[@data-csautomation-key='AIRTEL_MONEY']//span[contains(@class,'currency ')]");
+    public By airtelMoneyCurrency = By.xpath("//*[@data-csautomation-key='AIRTEL_MONEY']//span[contains(@class,'currency')]");
     public By airtelMoneyDatePicker = By.xpath("//div[@data-csautomation-key='AIRTEL_MONEY']//input[@name='dateRange']");
     public By airtelMoneyBalanceUnableToFetch = By.xpath("//div[@data-csautomation-key='AIRTEL_MONEY']//span[@class='api-failed-error ng-star-inserted']");
     public By airtelMoneyNoResultFound = By.xpath("//div[@data-csautomation-key='AIRTEL_MONEY']//*[contains(@class,'no-result-found')]/img");
