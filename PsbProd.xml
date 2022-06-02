@@ -116,7 +116,7 @@
             </run>
         </groups>
         <classes>
-            <class name="com.airtel.cs.ui.ngpsb.demographic.CustomerInteractionScreenTest"/>
+            <class name="com.airtel.cs.ui.ngpsb.demographic.IntermediateScreenTest"/>
         </classes>
     </test>
     <test name="Customer Id Search Test" preserve-order="true">
@@ -137,6 +137,16 @@
         </groups>
         <classes>
             <class name="com.airtel.cs.ui.ngpsb.demographic.NubanIdSearchTest"/>
+        </classes>
+    </test>
+    <test name="Dashboard widget dropdown Test" preserve-order="true">
+        <groups>
+            <run>
+                <include name="ProdTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.ngpsb.home.DashboardWidgetDropdownTest"/>
         </classes>
     </test>
     <test name="Logout Test from Backend Agent">

@@ -313,7 +313,11 @@ public class PageCollection {
         return new KpiDashbaordQueueWiseSLAPerformance(driver);
     }
 
-    public  CustomerInteractionScreen getCustomerInteractionScreen() {
-        return new CustomerInteractionScreen(driver);
+    public IntermediateScreen getCustomerInteractionScreen() {
+        return new IntermediateScreen(driver);
+    }
+
+    public DashboardWidgetDropdown getDashboardWidgetDropdown() {
+        return new DashboardWidgetDropdown(driver);
     }
 }

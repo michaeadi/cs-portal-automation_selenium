@@ -116,7 +116,7 @@
             </run>
         </groups>
         <classes>
-            <class name="com.airtel.cs.ui.ngpsb.demographic.CustomerInteractionScreenTest"/>
+            <class name="com.airtel.cs.ui.ngpsb.demographic.IntermediateScreenTest"/>
         </classes>
     </test>
     <test name="Nuban Id Search Test" preserve-order="true">
@@ -147,6 +147,16 @@
         </groups>
         <classes>
             <class name="com.airtel.cs.ui.ngpsb.home.PsbCreateInteractionTest"/>
+        </classes>
+    </test>
+    <test name="Dashboard widget dropdown Test" preserve-order="true">
+        <groups>
+            <run>
+                <include name="SanityTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.ngpsb.home.DashboardWidgetDropdownTest"/>
         </classes>
     </test>
    <test name="Validate Action Trail Tab Test">

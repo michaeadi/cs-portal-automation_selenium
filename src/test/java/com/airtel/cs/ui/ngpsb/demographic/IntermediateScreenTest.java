@@ -11,7 +11,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 
-public class CustomerInteractionScreenTest extends Driver {
+public class IntermediateScreenTest extends Driver {
     PsbRequestSource api = new PsbRequestSource();
     CLMDetailsResponse clmDetails;
     String className = this.getClass().getName();

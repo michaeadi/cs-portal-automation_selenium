@@ -1,15 +1,15 @@
 package com.airtel.cs.pagerepository.pagemethods;
 
-import com.airtel.cs.pagerepository.pageelements.CustomerInteractionScreenPage;
+import com.airtel.cs.pagerepository.pageelements.IntermediateScreenPage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 
-public class CustomerInteractionScreen extends BasePage {
-    CustomerInteractionScreenPage pageElements;
+public class IntermediateScreen extends BasePage {
+    IntermediateScreenPage pageElements;
 
-    public CustomerInteractionScreen(WebDriver driver) {
+    public IntermediateScreen(WebDriver driver) {
         super(driver);
-        pageElements = PageFactory.initElements(driver, CustomerInteractionScreenPage.class);
+        pageElements = PageFactory.initElements(driver, IntermediateScreenPage.class);
     }
 
     /**

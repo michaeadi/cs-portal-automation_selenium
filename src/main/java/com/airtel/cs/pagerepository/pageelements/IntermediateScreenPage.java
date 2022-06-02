@@ -2,7 +2,7 @@ package com.airtel.cs.pagerepository.pageelements;
 
 import org.openqa.selenium.By;
 
-public class CustomerInteractionScreenPage {
+public class IntermediateScreenPage {
 
     public By searchBox = By.xpath("//input[@data-csautomation-key='msisdnSearchBox']");
     public By suggestions=By.xpath("//div[contains(text(),'Suggestions')]");
