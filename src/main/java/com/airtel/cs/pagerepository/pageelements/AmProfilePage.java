@@ -28,5 +28,5 @@ public class AmProfilePage {
     public By serviceStatus =By.xpath("//span[contains(text(),'Service Status')]/../span//span");
     public By walletType =By.xpath("//span[contains(text(),'Wallet')]//following-sibling::span//span");
     public By grade =By.xpath("//span[contains(text(),'Grade)]//following-sibling::span//span");
-public By messageIcon=By.xpath("//span[contains(text(),'Service Status')]//following-sibling::span//img");
+    public By messageIcon=By.xpath("//span[contains(text(),'Service Status')]//following-sibling::span//img");
 }
