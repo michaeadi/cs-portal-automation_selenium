@@ -605,4 +605,34 @@ public class AmSmsTrails extends BasePage {
         }
     }
 
+    /**
+     * This method is used to get Customer Msisdn from action trail drop down
+     *
+     * @return
+     */
+    public String getCustomerMsisdn() {
+        commonLib.info(getText(pageElements.customerMsisdn));
+        return getText(pageElements.customerMsisdn);
+    }
+
+    /**
+     * This method is used to get SMS Date and Time from action trail drop down
+     *
+     * @return
+     */
+    public String getSmsDateTime() {
+        commonLib.info(getText(pageElements.smsDateTime));
+        return getText(pageElements.smsDateTime);
+    }
+
+    /**
+     * This method is used to get Txn Id from action trail drop down
+     *
+     * @return
+     */
+    public String getTxnId() {
+        commonLib.info(getText(pageElements.txnId));
+        return getText(pageElements.txnId);
+    }
+
 }

@@ -2,21 +2,19 @@ package com.airtel.cs.pagerepository.pagemethods;
 
 import com.airtel.cs.commonutils.dataproviders.databeans.AuthTabDataBeans;
 import com.airtel.cs.commonutils.dataproviders.dataproviders.DataProviders;
-import com.airtel.cs.pagerepository.pageelements.AirtelMoneyProfileBarPage;
+import com.airtel.cs.pagerepository.pageelements.AmProfilePage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 
 import java.util.List;
 
-import static com.airtel.cs.api.RequestSource.COMMENT;
-
-public class AirtelMoneyProfileBar extends BasePage {
-    AirtelMoneyProfileBarPage pageElements;
+public class AmProfile extends BasePage {
+    AmProfilePage pageElements;
 
 
-    public AirtelMoneyProfileBar(WebDriver driver) {
+    public AmProfile(WebDriver driver) {
         super(driver);
-        pageElements = PageFactory.initElements(driver, AirtelMoneyProfileBarPage.class);
+        pageElements = PageFactory.initElements(driver, AmProfilePage.class);
     }
 
     /**
@@ -41,30 +39,23 @@ public class AirtelMoneyProfileBar extends BasePage {
             commonLib.fail("Exception in Method - selectPolicyQuestion" + e, true);
         }
     }
-    /**
-     * This method use Click On Authenticate
-     */
-    public void clickOnAuthenticate() {
-        commonLib.info("Click On Authenticate ");
-        clickWithoutLoader(pageElements.authenticate);
-    }
 
     /**
      * This method is used to check Barred Reason Param visible or not
      * @return
      */
     public boolean isBarredReasonLabelVisible() {
-        boolean status = isVisible(pageElements.barredReason);
+        boolean status = isVisible(pageElements.barredReasonLabel);
         commonLib.pass("Barred Reason Param visible : " + status);
         return status;
     }
 
     /**
-     * This method is used to check Barred Reason Value visible or not
+     * This method is used to get Barred Reason
      */
-    public String isBarredReasonTextVisible() {
-        String status = getText(pageElements.barredReasonText);
-        commonLib.pass("Barred Reason Value visible : " + status);
+    public String getBarredReason() {
+        String status = getText(pageElements.barredReason);
+        commonLib.pass("Getting Barred Reason  : " + status);
         return status;
     }
 
@@ -72,17 +63,17 @@ public class AirtelMoneyProfileBar extends BasePage {
      * This method is used to check Barred On Param visible or not
      */
     public boolean isBarredOnLabelVisible() {
-        boolean status = isVisible(pageElements.barredOn);
+        boolean status = isVisible(pageElements.barredOnLabel);
         commonLib.pass("Barred On Param visible : " + status);
         return status;
     }
 
     /**
-     * This method is used to check Barred On Value visible or not
+     * This method is used to get Barred On
      */
-    public String isBarredOnTextVisible() {
-        String status = getText(pageElements.barredOnText);
-        commonLib.pass("Barred On Value visible : " + status);
+    public String getBarredOn() {
+        String status = getText(pageElements.barredOn);
+        commonLib.pass("Getting Barred On: " + status);
         return status;
     }
 
@@ -135,23 +126,6 @@ public class AirtelMoneyProfileBar extends BasePage {
         return status;
     }
 
-    /**
-     * This method is used to select reason
-     */
-    public void selectReason() {
-        commonLib.info("Going to select reason : Lost sim card");
-        if (isVisible(pageElements.selectReasonFromDropdown))
-            clickWithoutLoader((pageElements.selectReasonFromDropdown));
-    }
-
-    /**
-     * This method is used to select Bar Type
-     */
-    public void selectBarType() {
-        commonLib.info("Going to select Bar Type : Sender");
-        if (isVisible(pageElements.selectBarTypeFromDropdown))
-            clickWithoutLoader((pageElements.selectBarTypeFromDropdown));
-    }
 
     /**
      * This method is used to check Select Bar Type visible or not
@@ -167,7 +141,7 @@ public class AirtelMoneyProfileBar extends BasePage {
      */
     public boolean isSubmitButtonDisabled() {
         boolean status = isVisible(pageElements.submitButton);
-        commonLib.info("Is Submit Button disabled \" + status");
+        commonLib.info("Is Submit Button disabled :" + status);
         return status;
     }
 
@@ -190,17 +164,89 @@ public class AirtelMoneyProfileBar extends BasePage {
         commonLib.info("Writing comment into comment box: " + text);
         enterText(pageElements.commentBox, text);
     }
-    /**
-     * This method is used to perform Bar action by selecting reason , bar type and comment
-     *
-     */
-    public void performAirtelMoneyProfileBar() {
-        commonLib.info("Going to perform Airtel Money Profile Bar Action");
-        pages.getAirtelMoneyProfileBar().clickOnBar();
-        pages.getAirtelMoneyProfileBar().selectReason();
-        pages.getAirtelMoneyProfileBar().selectBarType();
-        pages.getAirtelMoneyProfileBar().enterComment(COMMENT);
-        pages.getAirtelMoneyProfileBar().clickOnSubmitButton();
 
+    /**
+     * This method is used to check Service status visible or not
+     */
+    public boolean isServiceStatusLabelVisible() {
+        boolean status = isVisible(pageElements.barredOnLabel);
+        commonLib.pass("Service status is visible : " + status);
+        return status;
+    }
+
+    /**
+     * This method is used to check Barred By visible or not
+     */
+    public boolean isBarredByLabelVisible() {
+        boolean status = isVisible(pageElements.barredByLabel);
+        commonLib.pass("Barred By is visible : " + status);
+        return status;
+    }
+
+    /**
+     * This method is used to check Remarks visible or not
+     */
+    public boolean isRemarksLabelVisible() {
+        boolean status = isVisible(pageElements.remarksLabel);
+        commonLib.pass("Remarks is visible : " + status);
+        return status;
+    }
+
+    /**
+     * This method is used to get Barred By
+     */
+    public String getBarredBy() {
+        String status = getText(pageElements.barredBy);
+        commonLib.pass("Getting Barred By  : " + status);
+        return status;
+    }
+
+    /**
+     * This method is used to get Remarks
+     */
+    public String getRemarks() {
+        String status = getText(pageElements.remarks);
+        commonLib.pass("Getting Remarks : " + status);
+        return status;
+    }
+
+    /**
+     * This method is used to get Wallet Type
+     */
+    public String getWalletType() {
+        String status = getText(pageElements.walletType);
+        commonLib.pass("Getting Wallet Type  : " + status);
+        return status;
+    }
+
+    /**
+     * This method is used to get Grade
+     */
+    public String getGrade() {
+        String status = getText(pageElements.grade);
+        commonLib.pass("Getting Grade : " + status);
+        return status;
+    }
+
+    /**
+     * This method is used to Authenticate Airtel Money Profile
+     */
+    public StringBuilder amAuthenticate(){
+        pages.getDemoGraphicPage().clickAirtelStatusToUnlock();
+        assertCheck.append(actions.assertEqualBoolean(pages.getAuthTabPage().isAuthTabLoad(), true, "Authentication tab loaded correctly", "Authentication tab does not load correctly"));
+        pages.getDemoGraphicPage().selectPolicyQuestion();
+        assertCheck.append(actions.assertEqualBoolean(pages.getAuthTabPage().isAuthBtnEnable(), true, "Authenticate Button enabled after minimum number of question chosen", "Authenticate Button does not enable after choose minimum number of question"));
+        pages.getAuthTabPage().clickAuthBtn();
+        assertCheck.append(actions.assertEqualStringType(pages.getAuthTabPage().getWidgetUnlockMessage(), "Unlocking the widget", "Unlock Widget, Successfully", "Unlock Widget, Un-Successful"));
+        assertCheck.append(actions.assertEqualStringType(pages.getAuthTabPage().getToastMessage(), "Customer response saved successfully", "Toast Message Shown Successfully", "Toast Message NOT Successful"));
+        return assertCheck;
+    }
+
+    /**
+     * This method is used to hover on Address info icon
+     */
+    public void hoverServiceStatusMessageIcon() {
+        commonLib.info("Hover over Service Status message icon");
+        hoverOverElement(pageElements.messageIcon);
     }
 }

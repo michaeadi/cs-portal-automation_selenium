@@ -1324,18 +1324,18 @@ public class RequestSource extends RestCommonUtils {
     }
 
     /**
-     * This Method will hit the API "/sr/api/sr-service/v1/tickets" and return the response
+     * This Method will hit the API "/sr/api/sr-service/v3/tickets" and return the response
      *
      * @param msisdn The MSISDN
      * @return The Response
      */
     public Integer getTicketHistoryStatusCode(String msisdn) {
-        commonLib.infoColored(constants.getValue(CALLING_CS_API) + constants.getValue("v1.tickets"), JavaColors.GREEN, false);
+        commonLib.infoColored(constants.getValue(CALLING_CS_API) + constants.getValue("v3.tickets"), JavaColors.GREEN, false);
         Integer result = null;
         try {
             clientInfo.put(MSISDN, msisdn);
             TicketSearchRequest ticketSearchRequest = new TicketSearchRequest(new TicketSearchCriteria(clientInfo));
-            commonPostMethod(URIConstants.GET_TICKET_HISTORY_V1, validHeaderList, ticketSearchRequest, srBaseUrl);
+            commonPostMethod(URIConstants.GET_TICKET_HISTORY_V3, ticketSearchRequest);
             result = response.getStatusCode();
         } catch (Exception e) {
             commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + " - getTicketHistoryStatusCode " + e.getMessage(), false);
@@ -2103,18 +2103,18 @@ public class RequestSource extends RestCommonUtils {
     }
 
     /**
-     * This Method will hit the API "/sr/api/sr-service/v1/tickets" in case of Enterprise and return the response
+     * This Method will hit the API "/sr/api/sr-service/v3/tickets" in case of Enterprise and return the response
      *
      * @param accountNo the account number
      * @return The Response
      */
     public Integer getEnterpriseTicketHistory(String accountNo) {
-        commonLib.infoColored(constants.getValue(CALLING_CS_API) + constants.getValue("v1.tickets"), JavaColors.GREEN, false);
+        commonLib.infoColored(constants.getValue(CALLING_CS_API) + constants.getValue("v3.tickets"), JavaColors.GREEN, false);
         try {
             clientInfo.put(ACCOUNT_ID, accountNo);
             TicketSearchRequest ticketSearchRequest = new TicketSearchRequest(new TicketSearchCriteria(clientInfo));
             UtilsMethods.replaceHeader(SR_CLIENT_ID, constants.getValue(ApplicationConstants.ENTERPRISE_SR_CLIENT_ID));
-            commonPostMethod(URIConstants.GET_TICKET_HISTORY_V1, ticketSearchRequest);
+            commonPostMethod(URIConstants.GET_TICKET_HISTORY_V3, ticketSearchRequest);
             statusCode = response.getStatusCode();
         } catch (Exception e) {
             commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + " - getEnterpriseTicketHistory " + e.getMessage(), false);

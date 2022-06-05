@@ -245,12 +245,10 @@ public class PageCollection {
     }
 
 
-    public AirtelMoneyProfileBar getAirtelMoneyProfilePage() {
-        return new AirtelMoneyProfileBar(driver);
+    public AmProfile getAmProfile() {
+        return new AmProfile(driver);
     }
 
-    public AirtelMoneyProfileBar getAirtelMoneyProfileBar() { return new AirtelMoneyProfileBar(driver);
-    }
 
     public ServiceProfileDetailWidget getServiceProfileDetailWidget() { return new ServiceProfileDetailWidget (driver);
     }
@@ -319,5 +317,13 @@ public class PageCollection {
 
     public DashboardWidgetDropdown getDashboardWidgetDropdown() {
         return new DashboardWidgetDropdown(driver);
+    }
+
+    public AmBarUnbar getAmBarUnbar() {
+        return new AmBarUnbar(driver);
+    }
+
+    public AmReversal getAmReversal() {
+        return new AmReversal(driver);
     }
 }

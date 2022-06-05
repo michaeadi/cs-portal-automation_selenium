@@ -138,6 +138,6 @@ public class AirtelMoneyMenuPrimaryWidgetTest extends Driver {
         } catch (Exception e) {
             commonLib.fail("Exception in Method - airtelMoneyHistoryMenuTest" + e.fillInStackTrace(), true);
         }
-        actions.assertAllFoundFailedAssert(assertCheck);
+        actions.assertAllFoundFailedAssert(assertCheck); //img[contains(@src,'reversal.svg')]
     }
 }
