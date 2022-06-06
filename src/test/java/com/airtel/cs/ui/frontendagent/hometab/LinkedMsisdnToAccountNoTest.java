@@ -116,22 +116,24 @@ public class LinkedMsisdnToAccountNoTest extends Driver {
         try {
             selUtils.addTestcaseDescription("Validate is Detail Account Information Visible?,Validate footer and middle auuid,Validate Header Text", "description");
             assertCheck.append(actions.assertEqualBoolean(pages.getLinkedMsisdnToAccountNoWidget().isActionIconVisibleOnAccountInfo(), true, "Detailed account information icon visible", "Detailed account information icon not visible"));
-            pages.getLinkedMsisdnToAccountNoWidget().openAccountInformationDetailPage();
-            assertCheck.append(actions.assertEqualStringType(pages.getLinkedMsisdnToAccountNoWidget().getFooterAuuid(), loginAUUID, "Auuid shown at the footer of the linked msisdn widget and is correct", "Auuid NOT shown at the footer of Your linked msisdn widget"));
-            assertCheck.append(actions.assertEqualStringType(pages.getLinkedMsisdnToAccountNoWidget().getMiddleAuuid(), loginAUUID, "Auuid shown at the middle of the linked msisdn widget and is correct", "Auuid NOT shown at the middle of Your linked msisdn widget"));
-            assertCheck.append(actions.assertEqualStringType(pages.getLinkedMsisdnToAccountNoWidget().getAccountInfoTab().toUpperCase(), "ACCOUNT INFO", "Account Info tab display as expected in detailed account info", "Account Info tab not display as expected in detailed account info"));
-            assertCheck.append(actions.assertEqualStringType(pages.getLinkedMsisdnToAccountNoWidget().getAccountInfoDetailWidget().toUpperCase(), "LINKED MSISDN", "Linked MSISDN display as expected in detailed account info", "Linked MSISDN not display as expected in detailed account info"));
-            for(int i=0;i<data.getHeaderName().size();i++){
-                assertCheck.append(actions.matchUiAndAPIResponse(pages.getLinkedMsisdnToAccountNoWidget().getPackHeaders(i+1), data.getHeaderName().get(i), "Header Name for Row "+(i+1)+" is as expected", "Header Name for Row "+(i+1)+" is not as expected"));
-            }
-            assertCheck.append(actions.assertEqualBoolean(pages.getLinkedMsisdnToAccountNoWidget().getSearchMsisdnChkBox(), true, "Searched msisdn checkbox in Linked Msisdn Table is visible", "Searched msisdn checkbox in Linked Msisdn Table is not visible"));
-            assertCheck.append(actions.assertEqualBoolean(pages.getLinkedMsisdnToAccountNoWidget().getCheckboxAccountInfo(), true, "Checkbox for account information details visible", "Checkbox for account information details not visible"));
-            assertCheck.append(actions.assertEqualBoolean(pages.getLinkedMsisdnToAccountNoWidget().getCheckboxLinkedMsisdn(), true, "Checkbox for linked msisdn is visible", "Checkbox for linked msisdn is not visible"));
-            assertCheck.append(actions.assertEqualBoolean(pages.getLinkedMsisdnToAccountNoWidget().getPagination(), true, "Pagination in linked msisdn is as expected", "pagination in linked msisdn is not as expected"));
-            int row = pages.getLinkedMsisdnToAccountNoWidget().getNumbersOfRows();
-            assertCheck.append(actions.assertEqualIntType(row, 5, "No. of entries in linked msisdn is 5", "No. of entries in linked msisdn is not 5"));
+            if(pages.getLinkedMsisdnToAccountNoWidget().isActionIconVisibleOnAccountInfo()) {
+                pages.getLinkedMsisdnToAccountNoWidget().openAccountInformationDetailPage();
+                assertCheck.append(actions.assertEqualStringType(pages.getLinkedMsisdnToAccountNoWidget().getFooterAuuid(), loginAUUID, "Auuid shown at the footer of the linked msisdn widget and is correct", "Auuid NOT shown at the footer of Your linked msisdn widget"));
+                assertCheck.append(actions.assertEqualStringType(pages.getLinkedMsisdnToAccountNoWidget().getMiddleAuuid(), loginAUUID, "Auuid shown at the middle of the linked msisdn widget and is correct", "Auuid NOT shown at the middle of Your linked msisdn widget"));
+                assertCheck.append(actions.assertEqualStringType(pages.getLinkedMsisdnToAccountNoWidget().getAccountInfoTab().toUpperCase(), "ACCOUNT INFO", "Account Info tab display as expected in detailed account info", "Account Info tab not display as expected in detailed account info"));
+                assertCheck.append(actions.assertEqualStringType(pages.getLinkedMsisdnToAccountNoWidget().getAccountInfoDetailWidget().toUpperCase(), "LINKED MSISDN", "Linked MSISDN display as expected in detailed account info", "Linked MSISDN not display as expected in detailed account info"));
+                for (int i = 0; i < data.getHeaderName().size(); i++) {
+                    assertCheck.append(actions.matchUiAndAPIResponse(pages.getLinkedMsisdnToAccountNoWidget().getPackHeaders(i + 1), data.getHeaderName().get(i), "Header Name for Row "+(i+1)+" is as expected", "Header Name for Row " + (i + 1) + " is not as expected"));
+                }
+                assertCheck.append(actions.assertEqualBoolean(pages.getLinkedMsisdnToAccountNoWidget().getSearchMsisdnChkBox(), true, "Searched msisdn checkbox in Linked Msisdn Table is visible", "Searched msisdn checkbox in Linked Msisdn Table is not visible"));
+                assertCheck.append(actions.assertEqualBoolean(pages.getLinkedMsisdnToAccountNoWidget().getCheckboxAccountInfo(), true, "Checkbox for account information details visible", "Checkbox for account information details not visible"));
+                assertCheck.append(actions.assertEqualBoolean(pages.getLinkedMsisdnToAccountNoWidget().getCheckboxLinkedMsisdn(), true, "Checkbox for linked msisdn is visible", "Checkbox for linked msisdn is not visible"));
+                assertCheck.append(actions.assertEqualBoolean(pages.getLinkedMsisdnToAccountNoWidget().getPagination(), true, "Pagination in linked msisdn is as expected", "pagination in linked msisdn is not as expected"));
+                int row = pages.getLinkedMsisdnToAccountNoWidget().getNumbersOfRows();
+                assertCheck.append(actions.assertEqualIntType(row, 5, "No. of entries in linked msisdn is 5", "No. of entries in linked msisdn is not 5"));
 
-            actions.assertAllFoundFailedAssert(assertCheck);
+                actions.assertAllFoundFailedAssert(assertCheck);
+            }
         } catch (Exception e) {
             commonLib.fail("Exception in Method - accountInformationWatermarkTest" + e.fillInStackTrace(), true);
         }
@@ -212,7 +214,7 @@ public class LinkedMsisdnToAccountNoTest extends Driver {
             int size = pages.getLinkedMsisdnToAccountNoWidget().getTotalWidgetsInPM();
             if (size > 0) {
                 for (int i = 1; i <= size; i++) {
-                    if (pages.getLinkedMsisdnToAccountNoWidget().getHeaders(i).equalsIgnoreCase("ACCOUNT INFO")) {
+                    if (pages.getLinkedMsisdnToAccountNoWidget().getHeaders(0).equalsIgnoreCase("ACCOUNT INFO")) {
                         assertCheck.append(actions.assertEqualStringType(pages.getLinkedMsisdnToAccountNoWidget().getHeaders(i), "ACCOUNT INFO", "ACCOUNT INFO is visible in profile management", "ACCOUNT INFO is not visible in profile management"));
                         assertCheck.append(actions.assertEqualBoolean(pages.getProfileManagement().isAccountInfoButtonEnable(), true, "ACCOUNT INFO tab button is enable", "ACCOUNT INFO tab is not enable"));
                         pages.getProfileManagement().openAccountInfoTab();
