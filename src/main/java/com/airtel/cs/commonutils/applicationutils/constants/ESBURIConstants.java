@@ -1,7 +1,5 @@
 package com.airtel.cs.commonutils.applicationutils.constants;
 
-import com.airtel.cs.model.cs.response.kycprofile.PUK;
-
 public class ESBURIConstants {
     /*
     EndPoint Constants

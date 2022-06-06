@@ -7,11 +7,10 @@ public class LinkedMsisdnToAccountNoPage {
     public By footerAuuid=By.xpath("//div[@data-csautomation-key='POSTPAID_LINKED_MSISDN']//*[@class='auuid-container']");
     public By middleAuuid=By.xpath("//div[@data-csautomation-key='POSTPAID_LINKED_MSISDN']");
     public By getDetailAccInfoWidget=By.xpath("//div[@data-csautomation-key='POSTPAID_ACCOUNT_INFO_DETAIL']//span[@class='card__card-header--label']");
-    //public By accountInfoIcon = By.xpath("//div[@data-csautomation-key='POSTPAID_ACCOUNT_INFORMATION']//img[@class='header-action-icon ng-star-inserted']");
     public By accountInfoIcon = By.xpath("//div[@data-csautomation-key='POSTPAID_ACCOUNT_INFORMATION']//img[contains(@class,'header-action-icon')]");
     public By accountInfo = By.xpath("//div[@class='tabs-container']//div[@class='mat-tab-labels']/div[3]/div[1]//span");
     public By accountInfoTab = By.xpath("//div[@class='mat-tab-label-content']//span[contains(text(),'Account Info')]");
-    public By accountInfoTabOnProfilePage = By.xpath("//div[contains(@class,'mat-tab-label-content')]/../div[contains(text(),'Account Info')]");
+    public By accountInfoTabOnProfileManagement = By.xpath("//div[contains(@class,'mat-tab-label-content')]/../div[contains(text(),'Account Info')]");
     public By linkedMsisdnWidget = By.xpath("//div[@data-csautomation-key='POSTPAID_LINKED_MSISDN']//span[@class='card__card-header--label']");
 
     public By msisdnCol = By.xpath("//div[@data-csautomation-key='POSTPAID_LINKED_MSISDN']/div[2]/div[2]/div[1]/div[1]/div[1]//span");
