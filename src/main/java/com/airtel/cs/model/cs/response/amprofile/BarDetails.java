@@ -20,9 +20,10 @@ public class BarDetails implements Serializable {
      */
     private static final long serialVersionUID = -2617541611656576041L;
 
-    private String barReason;
+    private String bar_reason;
     private String remarks;
-    private String barredBy;
-    private String barredOn;
-    private String barType;
+    private String barred_by;
+    private String barred_on;
+    private String bar_type;
 }
+

@@ -54,10 +54,15 @@ public class AmReversal extends BasePage {
      */
     public void performReversal() {
         commonLib.info("Going to perform ReversalAction");
-        pages.getBarUnbar().clickOnSelectReason();
-        selectReasonFromDropdown();
-        pages.getBarUnbar().enterComment(COMMENT);
-        pages.getBarUnbar().clickOnSubmitButton();
+        try {
+            pages.getBarUnbar().clickOnSelectReason();
+            selectReasonFromDropdown();
+            pages.getBarUnbar().enterComment(COMMENT);
+            pages.getBarUnbar().clickOnSubmitButton();
+        } catch (Exception e) {
+            pages.getBarUnbar().clickCrossIcon();
+            commonLib.fail("Exception in Method - performReversal" + e.fillInStackTrace(), true);
+        }
     }
 
     /**
@@ -114,7 +119,7 @@ public class AmReversal extends BasePage {
         boolean rowFound = false;
         for (int x = 0; x < pageCount; x++) {
             for (int i = 0; i < pages.getAmReversal().getRowSize(); i++) {
-                if (amTransactionHistoryAPI.getResult().getData().get(i).getIsReversed().equals("false")) {
+                if (amTransactionHistoryAPI.getResult().getData().get(i).getIsReversed().equals(false)) {
                     rowFound = true;
                     pages.getAmReversal().clickReversalIcon(i + 1);
                     pages.getDemoGraphicPage().selectPolicyQuestion();
@@ -126,9 +131,12 @@ public class AmReversal extends BasePage {
                     pages.getAmReversal().clickCrossIcon();
                     break;
                 } else
-                    commonLib.warning("No txn id found for reversal on page no : " + (x + 1));
+                    commonLib.info("No txn id found for reversal for row no : " + (i + 1), true);
+
             }
+
             if (!rowFound) {
+                commonLib.warning("No txn id found for reversal on page no : " + (x + 1), true);
                 pages.getAmReversal().goToNextPage();
             } else {
                 break;

@@ -621,8 +621,7 @@ public class ESBRequestSource extends RestCommonUtils {
             checkDownstreamAPI(response.getStatusCode(), "Downstream API account statement with data", "Downstream API account statement with data ");
 
         } catch (Exception exp) {
-            commonLib
-                    .fail(constants.getValue(DOWNSTREAM_API_ERROR) + ACCOUNT_STATEMENT + SLASH + exp.getMessage(),
+            commonLib.fail(constants.getValue(DOWNSTREAM_API_ERROR) + ACCOUNT_STATEMENT + SLASH + exp.getMessage(),
                             false);
         }
     }

@@ -55,7 +55,7 @@ public class AmProfile extends BasePage {
      */
     public String getBarredReason() {
         String status = getText(pageElements.barredReason);
-        commonLib.pass("Getting Barred Reason  : " + status);
+        commonLib.info("Getting Barred Reason  : " + status);
         return status;
     }
 
@@ -73,7 +73,7 @@ public class AmProfile extends BasePage {
      */
     public String getBarredOn() {
         String status = getText(pageElements.barredOn);
-        commonLib.pass("Getting Barred On: " + status);
+        commonLib.info("Getting Barred On: " + status);
         return status;
     }
 
@@ -197,7 +197,7 @@ public class AmProfile extends BasePage {
      */
     public String getBarredBy() {
         String status = getText(pageElements.barredBy);
-        commonLib.pass("Getting Barred By  : " + status);
+        commonLib.info("Getting Barred By  : " + status);
         return status;
     }
 
@@ -206,7 +206,7 @@ public class AmProfile extends BasePage {
      */
     public String getRemarks() {
         String status = getText(pageElements.remarks);
-        commonLib.pass("Getting Remarks : " + status);
+        commonLib.info("Getting Remarks : " + status);
         return status;
     }
 
@@ -215,7 +215,7 @@ public class AmProfile extends BasePage {
      */
     public String getWalletType() {
         String status = getText(pageElements.walletType);
-        commonLib.pass("Getting Wallet Type  : " + status);
+        commonLib.info("Getting Wallet Type  : " + status);
         return status;
     }
 
@@ -224,7 +224,7 @@ public class AmProfile extends BasePage {
      */
     public String getGrade() {
         String status = getText(pageElements.grade);
-        commonLib.pass("Getting Grade : " + status);
+        commonLib.info("Getting Grade : " + status);
         return status;
     }
 

@@ -76,7 +76,7 @@ public class DemoGraphicPage {
     public By serviceStatus = By.xpath("//span[contains(text(),'Service Status')]//following-sibling::span");
     public By walletBalance = By.xpath("//span[contains(text(),'Wallet Balance')]//following-sibling::span/span/div[1]");
     public By walletBalance2 = By.xpath("//span[contains(text(),'Wallet Balance')]//following-sibling::span/span/div[2]");
-    public By registrationStatus = By.xpath("//span[contains(text(),'Registration Status')]//following-sibling::span");
+    public By registrationStatus = By.xpath("//span[contains(text(),'Reg. Status')]//following-sibling::span");
 
     /*
      * SIM Status Reason

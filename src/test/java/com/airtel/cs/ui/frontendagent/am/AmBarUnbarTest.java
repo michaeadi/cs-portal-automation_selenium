@@ -2,6 +2,8 @@ package com.airtel.cs.ui.frontendagent.am;
 
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.driver.Driver;
+import com.airtel.cs.model.cs.response.actiontrail.EventLogsResponse;
+import com.airtel.cs.model.cs.response.actiontrail.EventResult;
 import org.testng.SkipException;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -65,12 +67,16 @@ public class AmBarUnbarTest extends Driver {
         try {
             selUtils.addTestcaseDescription("Validating entry should be captured in Action Trail after performing bar/unbar action", "description");
             pages.getBarUnbar().goToActionTrail();
-            if (barIconVisible)
-                assertCheck.append(actions.assertEqualStringType(pages.getBarUnbar().getActionType(), "AM BARRED", "Action type for Bar is expected", "Action type for bar is not as expected"));
-            if (unbarIconVisible)
-                assertCheck.append(actions.assertEqualStringType(pages.getBarUnbar().getActionType(), "AM UNBARRED", "Action type for UnBar is expected", "Action type for unbar is not as expected"));
-            assertCheck.append(actions.assertEqualStringType(pages.getBarUnbar().getReason(), "Lost Sim", "Reason for bar/unbar is expected", "Reason for bar/unbar is not as expected"));
-            assertCheck.append(actions.assertEqualStringType(pages.getBarUnbar().getComment(), ApplicationConstants.COMMENT, "Comment for bar/unbar is expected", "Comment for bar/unbar is not as expected"));
+            EventLogsResponse eventLogs = api.getEventHistory(customerNumber, "ACTION");
+            int statusCode = eventLogs.getStatusCode();
+            assertCheck.append(actions.assertEqualIntType(statusCode, 200, "Event Logs API success and status code is :" + statusCode, "Event Logs API got failed and status code is :" + statusCode, false, true));
+            EventResult eventResult = eventLogs.getResult().get(0);
+            if (statusCode == 200) {
+                assertCheck.append(actions.assertEqualStringType(pages.getBarUnbar().getActionType().toLowerCase(), eventResult.getActionType().toLowerCase(), "Action type for UnBar is expected", "Action type for unbar is not as expected"));
+                assertCheck.append(actions.assertEqualStringType(pages.getBarUnbar().getReason().toLowerCase(), eventResult.getReason().toLowerCase(), "Reason for bar/unbar is expected", "Reason for bar/unbar is not as expected"));
+                assertCheck.append(actions.assertEqualStringType(pages.getBarUnbar().getComment().toLowerCase(), eventResult.getComments().toLowerCase(), "Comment for bar/unbar is expected", "Comment for bar/unbar is not as expected"));
+            } else
+                commonLib.fail("Not able to fetch action trail as event log API's status code is :", true);
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
             commonLib.fail("Exception in Method - checkActionTrail" + e.fillInStackTrace(), true);

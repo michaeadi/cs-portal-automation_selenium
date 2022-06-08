@@ -323,9 +323,11 @@ public class AmSmsTrails extends BasePage {
                         clickCrossIcon();
                         break;
                     } else
-                        commonLib.warning("No records found with Txn id as APC on  page no : " + (x + 1));
+                        commonLib.info("No records found with Txn id as APC for row no : " + (i + 1));
+
                 }
                 if (!rowFound) {
+                    commonLib.warning("No records found with Txn id as APC on page no : " + (x + 1));
                     clickAndWaitForLoaderToBeRemoved(pageElements.nextPage);
                 } else {
                     break;

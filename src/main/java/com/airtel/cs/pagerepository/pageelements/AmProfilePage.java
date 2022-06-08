@@ -24,9 +24,9 @@ public class AmProfilePage {
     public By selectBarTypeFromDropdown=By.xpath("//span[contains(text(),'Sender')]");
     public By commentBoxLabel=By.xpath("//span[contains(text(),'Enter Comment')]");
     public By remarks =By.xpath("//td[contains(text(),'Remarks')]/../td//span");
-    public By barredBy =By.xpath("///td[contains(text(),'Barred By')]/../td//span");
+    public By barredBy =By.xpath("//td[contains(text(),'Barred By')]/../td//span");
     public By serviceStatus =By.xpath("//span[contains(text(),'Service Status')]/../span//span");
     public By walletType =By.xpath("//span[contains(text(),'Wallet')]//following-sibling::span//span");
-    public By grade =By.xpath("//span[contains(text(),'Grade)]//following-sibling::span//span");
+    public By grade =By.xpath("//span[contains(text(),'Grade')]//following-sibling::span//span");
     public By messageIcon=By.xpath("//span[contains(text(),'Service Status')]//following-sibling::span//img");
 }

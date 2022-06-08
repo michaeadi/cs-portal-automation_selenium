@@ -36,11 +36,11 @@ public class AmReversalTest extends Driver {
     }
 
 
-    @Test(priority = 1, groups = {"SanityTest", "RegressionTest"})
+    @Test(priority = 1, groups = {"SanityTest", "RegressionTest"}, enabled = false)
     public void openCustomerInteraction() {
         try {
             selUtils.addTestcaseDescription("Open Customer Profile Page with valid MSISDN, Validate Customer Profile Page Loaded or not", "description");
-            final String customerNumber = constants.getValue(ApplicationConstants.AM_CUSTOMER_MSISDN);
+            customerNumber = constants.getValue(ApplicationConstants.AM_CUSTOMER_MSISDN);
             pages.getSideMenuPage().clickOnSideMenu();
             pages.getSideMenuPage().clickOnUserName();
             pages.getSideMenuPage().openCustomerInteractionPage();
@@ -55,13 +55,13 @@ public class AmReversalTest extends Driver {
         }
     }
 
-    @Test(priority = 2, groups = {"SanityTest", "RegressionTest"}, dependsOnMethods = {"openCustomerInteraction"})
+    @Test(priority = 2, groups = {"SanityTest", "RegressionTest"}, dependsOnMethods = {"openCustomerInteraction"}, enabled = false)
     public void testAmReversal() {
         try {
             selUtils.addTestcaseDescription("Verify Airtel Money Txn Reversal", "description");
-            amTransactionHistoryAPI = api.moreTransactionHistoryAPITest(customerNumber, null);
+            amTransactionHistoryAPI = api.transactionHistoryAPITest(customerNumber);
             final int statusCode = amTransactionHistoryAPI.getStatusCode();
-            assertCheck.append(actions.assertEqualIntType(statusCode, 200, "Airtel Widget API success and status code is :" + statusCode, "Airtel Widget API got failed and status code is :" + statusCode));
+            assertCheck.append(actions.assertEqualIntType(statusCode, 200, "AM Txn History API success and status code is :" + statusCode, "AM Txn History got failed and status code is :" + statusCode));
             if (statusCode != 200) {
                 assertCheck.append(actions.assertEqualBoolean(pages.getMoreAMTxnTabPage().isAirtelMoneyErrorVisible(), true, "API is Giving error and Widget is showing error Message on API is " + amTransactionHistoryAPI.getMessage(), "API is Giving error But Widget is not showing error Message on API is " + amTransactionHistoryAPI.getMessage()));
                 commonLib.fail("API is Unable to Get AM Transaction History for Customer", true);
@@ -75,7 +75,7 @@ public class AmReversalTest extends Driver {
         }
     }
 
-    @Test(priority = 3, groups = {"SanityTest", "RegressionTest"}, dependsOnMethods = {"testAmReversal"})
+    @Test(priority = 3, groups = {"SanityTest", "RegressionTest"}, dependsOnMethods = {"testAmReversal"}, enabled = false)
     public void checkActionTrail() {
         try {
             selUtils.addTestcaseDescription("Validating entry should be captured in Action Trail after performing Am Reversal action", "description");
@@ -89,7 +89,7 @@ public class AmReversalTest extends Driver {
                 assertCheck.append(actions.assertEqualStringType(pages.getAmSmsTrails().getReason(), eventResult.getReason(), "Reason for Reversal is as expected", "Reason for Reversal not as expected"));
                 assertCheck.append(actions.assertEqualStringType(pages.getAmSmsTrails().getComment(), eventResult.getComments(), "Comment for Reversal is expected", "Comment for Reversal is not as expected"));
             } else
-                commonLib.fail("Not able to fetch action trail event log using API as its status code is :" + statusCode, true);
+                commonLib.fail("Not able to fetch action trail as event log API's status code is :" + statusCode, true);
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
             commonLib.fail("Exception in Method - checkActionTrail" + e.fillInStackTrace(), true);
