@@ -922,13 +922,13 @@ public class ESBRequestSource extends RestCommonUtils {
     /**
      * This method is used to call downstream api for hbb linked account details
      *
-     * @param channel the channel for ex. PORTAL
+     * @param type the channel for ex. PORTAL
      * @param msisdn  the msisdn
      */
-    public void hbbLinkedAccount(String channel, String msisdn) {
+    public void hbbLinkedAccount(String type, String msisdn) {
         try {
             commonLib.infoColored(constants.getValue(DOWNSTREAM_API_CALLING) + constants.getValue("linked.account.orchestrator"), JavaColors.GREEN, false);
-            queryParam.put("channel", channel);
+            queryParam.put("type", type);
             queryParam.put(MSISDN, msisdn);
             commonGetMethodWithQueryParam(ESBURIConstants.HBB_LINKED_ACCOUNT_DETAILS, queryParam, map, constants.getValue(ESBURIConstants.HBB_LINKED_ACCOUNT_ORCHESTRATOR_BASE_URL));
             checkDownstreamAPI(response.getStatusCode(), "Downstream API for hbb linked accounts orchestrator working fine with data", "Downstream API for hbb linked accounts orchestrator working fine with data");
@@ -1140,4 +1140,5 @@ public class ESBRequestSource extends RestCommonUtils {
         }
         return result;
     }
+
 }

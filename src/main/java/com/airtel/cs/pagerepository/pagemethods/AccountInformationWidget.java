@@ -1,7 +1,6 @@
 package com.airtel.cs.pagerepository.pagemethods;
 
 import com.airtel.cs.pagerepository.pageelements.AccountInformationWidgetPage;
-import com.google.gson.JsonObject;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.StringUtils;
 import org.json.simple.JSONObject;
@@ -9,7 +8,6 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.json.Json;
 import org.openqa.selenium.support.PageFactory;
 
 import java.text.DateFormat;
@@ -49,6 +47,7 @@ public class AccountInformationWidget extends BasePage {
         try {
             scrollToViewElement(pageElements.getTitle);
             status = isElementVisible(pageElements.getTitle);
+            commonLib.info("is Account Information Widget Displayed? " + status);
         } catch (InterruptedException e) {
             e.printStackTrace();
             commonLib.fail(scrollToWidgetMessage, true);
@@ -502,7 +501,7 @@ public class AccountInformationWidget extends BasePage {
         String result = "";
         if (isElementVisible(pageElements.totalCreditLimit) && !getText(pageElements.totalCreditLimit).equalsIgnoreCase("-")) {
             result = selUtils.getDataPointFontWeight(pageElements.totalCreditLimit);
-        }else
+        } else
             commonLib.warning("Total credit limit value is not available, so can not verify BOLD characteristics");
         return result;
     }
@@ -514,7 +513,7 @@ public class AccountInformationWidget extends BasePage {
         String result = "";
         if (isElementVisible(pageElements.availableCreditLimit) && !getText(pageElements.availableCreditLimit).equalsIgnoreCase("-")) {
             result = selUtils.getDataPointFontWeight(pageElements.availableCreditLimit);
-        }else
+        } else
             commonLib.warning("Available credit limit value is not available, so can not verify BOLD characteristics");
         return result;
     }
@@ -526,7 +525,7 @@ public class AccountInformationWidget extends BasePage {
         String result = "";
         if (isElementVisible(pageElements.totalOutstanding) && !getText(pageElements.totalOutstanding).equalsIgnoreCase("-")) {
             result = selUtils.getDataPointFontWeight(pageElements.totalOutstanding);
-        }else
+        } else
             commonLib.warning("Total outstanding value is not available, so can not verify BOLD characteristics");
         return result;
     }
@@ -550,7 +549,7 @@ public class AccountInformationWidget extends BasePage {
         String result = "";
         if (isElementVisible(pageElements.currentCycle) && !getText(pageElements.currentCycle).equalsIgnoreCase("-")) {
             result = selUtils.getDataPointFontWeight(pageElements.currentCycle);
-        }else
+        } else
             commonLib.warning("Current Cycle value is not available, so can not verify BOLD characteristics");
         return result;
     }
@@ -626,35 +625,38 @@ public class AccountInformationWidget extends BasePage {
 
     /**
      * This method is use to check raise SR icon display or not
+     *
      * @return true/false
      */
-    public Boolean isSRIconDisplay(){
-        commonLib.info("Checking SR Icon Display or not");
-        return isVisible(pageElements.raiseSRIcon);
+    public Boolean isSRIconDisplay() {
+        commonLib.info("Checking Temp Credit SR Btn Display or not");
+        return isVisible(pageElements.tempCreditRaiseSRBtn);
     }
 
     /**
      * This method is use to click raise sr icon
      */
-    public void clickSRRaiseIcon(){
+    public void clickTempCreditSRRaiseBtn() {
         commonLib.info("clicking raise SR icon");
-        clickAndWaitForLoaderToBeRemoved(pageElements.raiseSRIcon);
+        clickAndWaitForLoaderToBeRemoved(pageElements.tempCreditRaiseSRBtn);
     }
 
     /**
      * This method is use to check raise SR Issue detail pop up display or not
+     *
      * @return true/false
      */
-    public Boolean isIssueDetailPopUpDisplay(){
+    public Boolean isIssueDetailPopUpDisplay() {
         commonLib.info("Checking Issue Pop up Display or not");
         return isVisibleContinueExecution(pageElements.popupTitle);
     }
 
     /**
      * This method is use to read success pop up message
+     *
      * @return String The Value
      */
-    public String getSuccessMessage(){
+    public String getSuccessMessage() {
         commonLib.info("Reading success message");
         return getText(By.xpath(pageElements.successMessage));
     }
@@ -662,67 +664,74 @@ public class AccountInformationWidget extends BasePage {
     /**
      * This method is use to click close icon button of open popup
      */
-    public void clickClosePopup(){
+    public void clickClosePopup() {
         commonLib.info("Closing Open Modal");
         clickWithoutLoader(pageElements.closePopup);
     }
 
     /**
      * This method use to get account number from issue field pop up
+     *
      * @return String The value
      */
-    public String getAccountNumberFromIssuePopup(){
+    public String getAccountNumberFromIssuePopup() {
         commonLib.info("Reading Account Number from issue pop up");
-        return getAttribute(pageElements.accountNumberInput,"value",false);
+        return getAttribute(pageElements.accountNumberInput, "value", false);
     }
 
     /**
      * This method is use to enter account number
+     *
      * @param accountNumber The Account Number
      */
-    public void enterAccountNumberInPopUp(String accountNumber){
+    public void enterAccountNumberInPopUp(String accountNumber) {
         commonLib.info("Entering Account Number as account number not fetched from UI or API");
-        enterText(pageElements.accountNumberInput,accountNumber);
+        enterText(pageElements.accountNumberInput, accountNumber);
     }
 
     /**
      * This method use to get Ticket number from issue field pop up
+     *
      * @return String The value
      */
-    public String getTicketId(){
+    public String getTicketId() {
         commonLib.info("Reading Ticket Id from issue pop up");
         return getText(pageElements.ticketId);
     }
 
     /**
      * This method use to get Expected Closure Date from issue field pop up
+     *
      * @return String The value
      */
-    public String getExpectedClosureDate(){
+    public String getExpectedClosureDate() {
         commonLib.info("Reading Expected Closure Date from issue pop up");
         return getText(pageElements.expectedClosureDate);
     }
 
     /**
      * This method is use to check enter amount field display or not
+     *
      * @return true/false
      */
-    public Boolean isEnterAmount(){
+    public Boolean isEnterAmount() {
         commonLib.info("Checking Amount field display or not");
         return isVisible(pageElements.amountField);
     }
 
     /**
      * This method is use to enter amount into amount field
+     *
      * @param amount The Amount
      */
-    public void writeAmount(String amount){
+    public void writeAmount(String amount) {
         commonLib.info("Entering Amount");
-        enterText(pageElements.amountField,amount);
+        enterText(pageElements.amountField, amount);
     }
 
     /**
      * This method will give us LastPayment Amount
+     *
      * @return
      */
     public String getLastPaymentAmount() {
@@ -738,6 +747,7 @@ public class AccountInformationWidget extends BasePage {
 
     /**
      * This method will give us LastPayment Date
+     *
      * @return
      */
     public String getLastPaymentDate() {
@@ -753,6 +763,7 @@ public class AccountInformationWidget extends BasePage {
 
     /**
      * This Method will tell that last payment amount is bold or not
+     *
      * @return
      */
     public String getLastPaymentAmountStyle() {
@@ -778,6 +789,7 @@ public class AccountInformationWidget extends BasePage {
         }
         return result;
     }
+
     /*
           This Method will give us Current Month Un-bill Amount For SMS
            */

@@ -32,7 +32,7 @@ public class AccountInformationWidgetPage {
     public By tempCreditLimitInfoIcon = By.xpath("//div[text()='Temp Credit Limit ']/following-sibling::div/span[3]");
     public By validTillDate = By.xpath("//div[contains(@class, 'mat-tooltip') and contains(text(),'Valid Till')]");
     public By currentCycleEndDate = By.xpath("//div[text()='Current Cycle ']/following-sibling::div/span[1]");
-    public By raiseSRIcon=By.xpath("//div[contains(text(),'Temp Credit Limit')]//img");
+    public By tempCreditRaiseSRBtn = By.xpath("//div[contains(text(),'Temp Credit Limit')]//img");
     public By lastPaymentDate = By.xpath("//div[contains(text(),'Last Payment & Mode')]/following-sibling::div/span[3]/span");
     public By lastPaymentAmount = By.xpath("//span[@id='lastPaymentAmount']");
     public By currentMonthUnbillAmountForCalls = By.xpath("//div[contains(@class,'unbilled-amount-category')]//span[contains(text(),'Calls')]/../span[2]");
@@ -43,13 +43,13 @@ public class AccountInformationWidgetPage {
     /**
      * Issue Detail Pop up
      */
-    public By popupTitle=By.xpath("//span[contains(text(),'Set Temporary Limit')]");
-    public String successMessage="//div[@class='main-container__body--message ng-star-inserted']";
-    public By closePopup=By.xpath("//mat-icon[contains(text(),'close')]");
-    public By ticketId=By.xpath(successMessage+"/b[1]");
-    public By expectedClosureDate=By.xpath(successMessage+"/b[2]");
-    public By accountNumberInput=By.xpath("//label[contains(text(),'Account No')]//following-sibling::input");
-    public By amountField=By.xpath("//label[contains(text(),'Amount')]//following-sibling::input");
+    public By popupTitle = By.xpath("//span[contains(text(),'Set Temporary Limit')]");
+    public String successMessage = "//div[@class='main-container__body--message ng-star-inserted']";
+    public By closePopup = By.xpath("//mat-icon[contains(text(),'close')]");
+    public By ticketId = By.xpath(successMessage + "/b[1]");
+    public By expectedClosureDate = By.xpath(successMessage + "/b[2]");
+    public By accountNumberInput = By.xpath("//label[contains(text(),'Account No')]//following-sibling::input");
+    public By amountField = By.xpath("//label[contains(text(),'Amount')]//following-sibling::input");
 
 
     public By totalCreditLimitCurrency = By.xpath("//div[contains(text(),'Total Credit Limit')]/following-sibling::div/span[1]");

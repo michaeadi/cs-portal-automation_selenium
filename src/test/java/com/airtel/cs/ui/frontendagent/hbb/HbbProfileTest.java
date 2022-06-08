@@ -7,10 +7,10 @@ import com.airtel.cs.driver.Driver;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-public class HbbProfileTest  extends Driver {
+public class HbbProfileTest extends Driver {
     private static String hbbCustomerNumber = null;
 
-    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"})
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void checkExecution() {
         if (!continueExecutionFA) {
             commonLib.skip("Skipping tests because user NOT able to login Over Portal");
@@ -19,7 +19,7 @@ public class HbbProfileTest  extends Driver {
     }
 
 
-    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "SmokeTest","ProdTest"})
+    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void openCustomerInteraction() {
         try {
             selUtils.addTestcaseDescription("Open Customer Profile Page with valid MSISDN, Validate Customer Profile Page Loaded or not", "description");
@@ -37,13 +37,13 @@ public class HbbProfileTest  extends Driver {
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
-    @Test(priority = 2, groups = {"SanityTest", "ProdTest", "SmokeTest"}, dependsOnMethods = "openCustomerInteraction")
+    @Test(priority = 2, groups = {"SanityTest", "ProdTest"}, dependsOnMethods = "openCustomerInteraction")
     public void validateLockUnlockOption() {
         try {
             selUtils.addTestcaseDescription("Validating Customer Authentication functionality (Lock/Unlock)", "description");
             final boolean pukVisible = pages.getDemoGraphicPage().isPUKInfoLocked();
             assertCheck.append(actions.assertEqualBoolean(pukVisible, true, "PUK lock/unlock visible ", "Puk lock/unlock not visible"));
-            if (pukVisible == true) {
+            if (pukVisible) {
                 pages.getDemoGraphicPage().clickPukUnlock();
                 pages.getDemoGraphicPage().selectPolicyQuestion();
                 pages.getDemoGraphicPage().clickPUKTAuthenticate();
@@ -58,7 +58,7 @@ public class HbbProfileTest  extends Driver {
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
-    @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"}, dependsOnMethods = "openCustomerInteraction")
+    @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "openCustomerInteraction")
     public void testHbbDetails() {
         try {
             selUtils.addTestcaseDescription("Validating Hbb Number on Dashboard Search box and Others Tab", "description");
@@ -71,12 +71,12 @@ public class HbbProfileTest  extends Driver {
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
-    @Test(priority = 4, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"}, dependsOnMethods = {"openCustomerInteraction"})
+    @Test(priority = 4, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"openCustomerInteraction"})
     public void testHbbProfileInfo() {
         try {
             selUtils.addTestcaseDescription(
                     "Validate User Name,Alternate Number,Email id and Device Type", "description");
-            HbbUserDetailsResponse hbbUser = api.hbbUserDetailsTest(hbbCustomerNumber);
+            HbbUserDetailsResponse hbbUser = api.hbbUserDetailsTest(hbbCustomerNumber, "PRIMARY");
             final int statusCode = hbbUser.getStatusCode();
             assertCheck.append(actions.assertEqualIntType(statusCode, 200, "Hbb User Details Status Code Matched and is :" + statusCode, "Hbb User Details Code NOT Matched and is :" + statusCode, false));
             final String userName = pages.getHbbProfilePage().getUserName();
@@ -100,7 +100,7 @@ public class HbbProfileTest  extends Driver {
         try {
             selUtils.addTestcaseDescription(
                     "Validating Sim Bar/Unbar status according to GSM status ", "description");
-            HbbUserDetailsResponse hbbUser = api.hbbUserDetailsTest(hbbCustomerNumber);
+            HbbUserDetailsResponse hbbUser = api.hbbUserDetailsTest(hbbCustomerNumber,"PRIMARY");
             String status = pages.getDemoGraphicPage().getGSMStatus();
             if (status.equals("Active"))
                 assertCheck.append(actions.assertEqualBoolean(pages.getHbbProfilePage().isSuspendSIMVisible(), true, "When GSM status is Active , Suspend SIM option is visible  ", "When GSM status is Active , Suspend SIM option is not visible"));

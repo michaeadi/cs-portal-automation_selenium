@@ -12,9 +12,9 @@ import org.testng.annotations.Test;
 
 public class HbbSendSMSTest extends Driver {
 
-    String templateName ,messageContent ,hbbCustomerNumber = null;
+    String templateName, messageContent, hbbCustomerNumber = null;
 
-    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"})
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"})
     public void checkExecution() {
         if (!continueExecutionFA) {
             commonLib.skip("Skipping tests because user NOT able to login Over Portal");
@@ -23,7 +23,7 @@ public class HbbSendSMSTest extends Driver {
     }
 
     @DataProviders.User(userType = "NFTR")
-    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"})
+    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"})
     public void openCustomerInteraction() {
         try {
             selUtils.addTestcaseDescription("Open Customer Profile Page with valid MSISDN, Validate Customer Profile Page Loaded or not", "description");
@@ -42,12 +42,12 @@ public class HbbSendSMSTest extends Driver {
         }
     }
 
-    @Test(priority = 2, groups = {"SanityTest", "RegressionTest","SmokeTest"}, dependsOnMethods = "openCustomerInteraction")
+    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "SmokeTest"}, dependsOnMethods = "openCustomerInteraction")
     public void sendSMS() {
         try {
             selUtils.addTestcaseDescription("Validating the Send SMS Tab ", "description");
             assertCheck.append(actions.assertEqualBoolean(pages.getSendSMS().isPageLoaded(), true, "Send SMS tab opened correctly", "Send SMS tab does not open correctly"));
-            HbbUserDetailsResponse hbbUser = api.hbbUserDetailsTest(hbbCustomerNumber);
+            HbbUserDetailsResponse hbbUser = api.hbbUserDetailsTest(hbbCustomerNumber, "PRIMARY");
             Assert.assertEquals(pages.getSendSMS().getCustomerNumberHbb(), String.valueOf(hbbUser.getResult().getAlternateMsisdnList()), "Alternate number is pre-filled in place of the MSISDN");
             pages.getSendSMS().selectCategory();
             templateName = pages.getSendSMS().selectTemplateName();
@@ -66,7 +66,7 @@ public class HbbSendSMSTest extends Driver {
     /**
      * This method is used to Check Sent SMS display in message history
      */
-    @Test(priority = 3, groups = {"SanityTest", "ProdTest","RegressionTest"}, dependsOnMethods = "openCustomerInteraction")
+    @Test(priority = 3, groups = {"SanityTest", "ProdTest", "RegressionTest"}, dependsOnMethods = "openCustomerInteraction")
     public void checkSendMessageLog() {
         try {
             selUtils.addTestcaseDescription("Check Sent SMS display in message history ", "description");

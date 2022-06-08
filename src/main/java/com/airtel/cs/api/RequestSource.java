@@ -403,18 +403,18 @@ public class RequestSource extends RestCommonUtils {
      * @param msisdn The msisdn
      * @return The Response
      */
-    public HbbUserDetailsResponse hbbUserDetailsTest(String msisdn) {
+    public HbbUserDetailsResponse hbbUserDetailsTest(String msisdn, String type) {
         commonLib.infoColored(constants.getValue(CALLING_CS_API) + constants.getValue("hbb.user.details"), JavaColors.GREEN, false);
         HbbUserDetailsResponse result = null;
         try {
             commonPostMethod(HBB_USER, new GenericRequest(msisdn));
             result = response.as(HbbUserDetailsResponse.class);
             if (result.getStatusCode() != 200) {
-                esbRequestSource.callGsmKycESBAPI(msisdn);
+                esbRequestSource.hbbLinkedAccount(msisdn, type);
             }
         } catch (Exception e) {
             commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + " - gsmKYCAPITest " + e.getMessage(), false);
-            esbRequestSource.callGsmKycESBAPI(msisdn);
+            esbRequestSource.hbbLinkedAccount(msisdn, type);
         }
         return result;
     }
@@ -1936,17 +1936,18 @@ public class RequestSource extends RestCommonUtils {
      * This method is used to get hbb linked accounts response from CS API
      *
      * @param msisdn The msisdn
+     * @param type   The Type
      * @return The response
      */
 
-    public HbbLinkedAccountsResponse getLinkedHbbNumber(String msisdn) {
+    public HbbLinkedAccountsResponse getLinkedAccountAndUserDetails(String msisdn, String type) {
         commonLib.infoColored(constants.getValue(CALLING_CS_API) + constants.getValue("hbb.linked.accounts"), JavaColors.GREEN, false);
         HbbLinkedAccountsResponse result = null;
         try {
             commonPostMethod(URIConstants.GET_HBB_LINKED_ACCOUNTS_API, new HbbLinkedAccountsRequest(msisdn, false));
             result = response.as(HbbLinkedAccountsResponse.class);
             if (result.getStatusCode() != 200) {
-                esbRequestSource.hbbLinkedAccount(CHANNEL, msisdn);
+                esbRequestSource.hbbLinkedAccount(msisdn, type);
             }
         } catch (Exception e) {
             commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + LINKED_ACCOUNT_ORCHESTRATOR + e.getMessage(), false);
