@@ -19,7 +19,7 @@ public class AmReversalTest extends Driver {
     private AirtelMoney amTransactionHistoryAPI;
     public static final String RUN_AIRTEL_MONEY_WIDGET_TEST_CASE = constants.getValue(ApplicationConstants.RUN_AIRTEL_MONEY_WIDGET_TESTCASE);
 
-    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest"})
     public void checkExecution() {
         if (!continueExecutionFA) {
             commonLib.skip("Skipping tests because user NOT able to login Over Portal");

@@ -50,7 +50,7 @@ public class AmReversal extends BasePage {
     }
 
     /**
-     * This method is used to  BAR/UNBAR smartcash profile by selecting reason and comment
+     * This method is used to perform reversal action by selecting reason and comment
      */
     public void performReversal() {
         commonLib.info("Going to perform ReversalAction");
@@ -72,7 +72,7 @@ public class AmReversal extends BasePage {
      */
     public int getNumberOfPages() {
         int pageCount = 0;
-        int rowCount = Integer.parseInt(getSMSRowCount());
+        int rowCount = Integer.parseInt(getRowCount());
         if (rowCount % 5 == 0) {
             pageCount = rowCount / 5;
         }
@@ -88,9 +88,9 @@ public class AmReversal extends BasePage {
      *
      * @return the row count
      */
-    public String getSMSRowCount() {
+    public String getRowCount() {
         String rowCount;
-        rowCount = getText(pageElements.totalSMSRow);
+        rowCount = getText(pageElements.totalRows);
         rowCount = rowCount.substring(rowCount.indexOf("of") + 3);
         rowCount = rowCount.replace("Results", "").trim();
         return rowCount;
@@ -114,6 +114,9 @@ public class AmReversal extends BasePage {
             clickAndWaitForLoaderToBeRemoved(pageElements.nextPage);
     }
 
+    /*
+    This method is used to perform txn reversal by clicking the enabled reversal icon of a particular txn id
+     */
     public StringBuilder reversal(AirtelMoney amTransactionHistoryAPI) {
         int pageCount = pages.getAmReversal().getNumberOfPages();
         boolean rowFound = false;
@@ -132,7 +135,6 @@ public class AmReversal extends BasePage {
                     break;
                 } else
                     commonLib.info("No txn id found for reversal for row no : " + (i + 1), true);
-
             }
 
             if (!rowFound) {

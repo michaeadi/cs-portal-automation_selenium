@@ -243,7 +243,7 @@ public class AmProfile extends BasePage {
     }
 
     /**
-     * This method is used to hover on Address info icon
+     * This method is used to hover over Service Status message icon
      */
     public void hoverServiceStatusMessageIcon() {
         commonLib.info("Hover over Service Status message icon");
