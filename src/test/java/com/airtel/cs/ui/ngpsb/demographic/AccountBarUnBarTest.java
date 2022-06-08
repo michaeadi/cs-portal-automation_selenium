@@ -8,7 +8,6 @@ import org.testng.SkipException;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import javax.swing.*;
 
 public class AccountBarUnBarTest extends Driver {
     private static String customerNumber = null;
