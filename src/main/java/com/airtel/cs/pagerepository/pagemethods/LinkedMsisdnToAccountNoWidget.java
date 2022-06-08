@@ -424,7 +424,7 @@ public class LinkedMsisdnToAccountNoWidget extends BasePage{
      * @return String The header name
      * */
     public String getHeaders(int column) {
-        String header = readTextOnRows(pageElements.accountInfoTab, column);
+        String header = readTextOnRows(pageElements.accountInfoTabOnProfileManagement, column);
         commonLib.info("Getting header Number " + column + " : " + header);
         return header;
     }

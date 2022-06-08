@@ -7,10 +7,9 @@ public class AmLinkedWalletsPage {
      * Am widget locators
      */
     public By amTransactionsWidget = By.xpath("//div[@data-csautomation-key='AIRTEL_MONEY']");
-    public By moreIcon = By.xpath("//img[contains(@src,'more.svg')]");
+    public By moreIcon = By.xpath("//div[@data-csautomation-key='AIRTEL_MONEY']//img[contains(@src,'more.svg')]");
     public By amProfileDetailsWidget = By.xpath("//mat-tab-group[@class='mat-tab-group mat-primary ng-star-inserted']");
-
-    /**
+     /**
      * Header's value locators
      */
     public String dataRows = "//div[contains(@class,'table-data-wrapper')]//div[";

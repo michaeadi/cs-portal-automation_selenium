@@ -27,7 +27,7 @@ public class AmTcpLimitsTest extends Driver {
     public static final String TCP_LIMIT_STK_BEARER = constants.getValue(ApplicationConstants.TCP_LIMIT_STK_BEARER);
 
 
-    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"}, enabled = false)
     public void checkExecution() {
         if (!continueExecutionFA) {
             commonLib.skip("Skipping tests because user NOT able to login Over Portal");
@@ -35,7 +35,7 @@ public class AmTcpLimitsTest extends Driver {
         }
     }
 
-    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"}, enabled = false)
     public void checkTcpLimitWidgetFlag() {
         if (!StringUtils.equals(RUN_TCP_LIMIT_TESTCASE, "true")) {
             commonLib.skip("Skipping because Run Tcp Limit Test Case Flag Value is - " + RUN_TCP_LIMIT_TESTCASE);
@@ -46,7 +46,7 @@ public class AmTcpLimitsTest extends Driver {
     /**
      * This method is used to Open Customer Profile Page with valid MSISDN
      */
-    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest"}, enabled = false)
     public void openCustomerInteraction() {
         try {
             selUtils.addTestcaseDescription("Open Customer Profile Page with valid MSISDN, Validate Customer Profile Page Loaded or not", "description");
@@ -65,7 +65,7 @@ public class AmTcpLimitsTest extends Driver {
         }
     }
 
-    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"openCustomerInteraction"})
+    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"openCustomerInteraction"}, enabled = false)
     public void isUserHasPermission() {
         try {
             selUtils.addTestcaseDescription("Validate whether user has AM Profile Details Permission ", "description");
@@ -81,7 +81,7 @@ public class AmTcpLimitsTest extends Driver {
     /**
      * This method is used to Open Tcp Limits
      */
-    @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "openCustomerInteraction")
+    @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "openCustomerInteraction", enabled = false)
     public void openTcpLimits() {
         try {
             selUtils.addTestcaseDescription("Validate all AM Transactions Widget visible ot not ,Open detailed page of Am Transactions widget , Open TCP Limits", "description");
@@ -106,7 +106,7 @@ public class AmTcpLimitsTest extends Driver {
     /**
      * This method is used to Open Tcp Limits Layout
      */
-    @Test(priority = 4, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "openCustomerInteraction")
+    @Test(priority = 4, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "openCustomerInteraction", enabled = false)
     public void testTcpLimitsLayout() {
         try {
             selUtils.addTestcaseDescription("Validate all the fields are visible or not in TCP Limits ", "description");
@@ -148,7 +148,7 @@ public class AmTcpLimitsTest extends Driver {
     /**
      * This method is used to check Tcp Limits Data
      */
-    @Test(priority = 5, groups = {"SanityTest", "RegressionTest"}, dependsOnMethods = "openCustomerInteraction")
+    @Test(priority = 5, groups = {"SanityTest", "RegressionTest"}, dependsOnMethods = "openCustomerInteraction", enabled = false)
     public void testTcpLimitsData() {
         try {
             selUtils.addTestcaseDescription("Validate all the fields are visible or not in TCP Limits ", "description");
