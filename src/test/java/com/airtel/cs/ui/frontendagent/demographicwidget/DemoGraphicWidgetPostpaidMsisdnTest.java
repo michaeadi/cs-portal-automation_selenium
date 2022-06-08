@@ -331,7 +331,7 @@ public class DemoGraphicWidgetPostpaidMsisdnTest extends Driver {
     }
 
 
-    @Test(priority = 15, groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @Test(priority = 14, groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void testServiceClassRatePlanAPI() {
         try {
             selUtils.addTestcaseDescription("Validate Service Class and Rate Plan", "description");

@@ -327,7 +327,7 @@ public class DemoGraphicWidgetHybridMsisdnTest extends Driver {
         }
     }
 
-    @Test(priority = 15, groups = {"SanityTest", "RegressionTest"})
+    @Test(priority = 14, groups = {"SanityTest", "RegressionTest"})
     public void testServiceClassRatePlanAPI() {
         try {
             selUtils.addTestcaseDescription("Validate Service Class and Rate Plan", "description");
@@ -340,7 +340,7 @@ public class DemoGraphicWidgetHybridMsisdnTest extends Driver {
         }
     }
 
-    @Test(priority = 16, groups = {"RegressionTest"}, dependsOnMethods = {"openCustomerInteraction"})
+    @Test(priority = 15, groups = {"RegressionTest"}, dependsOnMethods = {"openCustomerInteraction"})
     public void invalidMSISDNTest() {
         try {
             selUtils.addTestcaseDescription("Validating the Demographic Information of User with invalid MSISDN : 123456789", "description");
