@@ -64,7 +64,7 @@ public class CurrentBalanceWidget extends BasePage {
      */
     public boolean isCurrentBalanceWidgetMenuVisible() {
         try {
-            commonLib.info("Checking is Your Current Balance Widget'Menu Visible");
+            commonLib.info("Checking is Your Current Balance Widget's Menu Visible");
             isVisible(pageElements.menu);
             return isElementVisible(pageElements.menu);
         } catch (Exception e) {

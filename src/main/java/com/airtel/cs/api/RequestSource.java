@@ -190,6 +190,8 @@ public class RequestSource extends RestCommonUtils {
     public static final String INGRESS_OPEN_API_BASE_URL_2 = "." + OPCO.toLowerCase() + "." + evnName.toLowerCase();
     private static final String INGRESS_OPEN_API_BASE_URL_3 = constants.getValue("ingress.open.api.base.url2");
     public static final String INGRESS_OPEN_API_BASE_URL = INGRESS_OPEN_API_BASE_URL_1 + INGRESS_OPEN_API_BASE_URL_2 + INGRESS_OPEN_API_BASE_URL_3;
+    public static final String BUNDLE_TYPE = "bundleType";
+    public static final String SERVICE_TYPE = "serviceType";
 
 
     /*
@@ -577,7 +579,7 @@ public class RequestSource extends RestCommonUtils {
         commonLib.infoColored(constants.getValue(CALLING_CS_API) + constants.getValue("accounts.balance"), JavaColors.GREEN, false);
         AccountsBalance result = null;
         try {
-            commonPostMethod(URIConstants.ACCOUNT_BALANCE, new AccountBalanceRequest(msisdn, 10, 1));
+            commonPostMethod(URIConstants.ACCOUNT_BALANCE, new AccountBalanceRequest(msisdn, 10, 1, false));
             result = response.as(AccountsBalance.class);
             if (result.getStatusCode() != 200) {
                 commonPostMethod(constants.getValue(AM_TRANSACTION_HISTORY_API_URL) + ESBURIConstants.TRANSACTION_HISTORY, new TransactionHistoryRequest(msisdn, 5, 1, null, null));
@@ -2289,4 +2291,33 @@ public class RequestSource extends RestCommonUtils {
         return result;
     }
 
+    /**
+     * This Method is used to get the query balance (DA details) for HBB number
+     *
+     * @param msisdn the HBB number
+     * @return the query balance api result
+     */
+    public AccountsBalance getHBBQueryBalance(String msisdn) {
+        commonLib.infoColored(constants.getValue(CALLING_CS_API) + constants.getValue("accounts.balance"), JavaColors.GREEN, false);
+        AccountsBalance result = null;
+        try {
+            commonPostMethod(URIConstants.ACCOUNT_BALANCE, new AccountBalanceRequest(msisdn, 10, 1, false));
+            result = response.as(AccountsBalance.class);
+
+            if (result.getStatusCode() != 200) {
+                commonLib.info(CALLING_ESB_APIS);
+                queryParam.put(BUNDLE_TYPE, "%20");
+                queryParam.put(MSISDN, msisdn);
+                queryParam.put(SERVICE_TYPE, "%20");
+                commonGetMethodWithQueryParam(constants.getValue("subscriber.profile.base.url") + ESBURIConstants.HBB_QUERY_BALANCE, queryParam);
+            }
+        } catch (Exception e) {
+            commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + " - getHBBQueryBalance " + e.getMessage(), false);
+            commonLib.info(CALLING_ESB_APIS);
+            queryParam.put(MSISDN, msisdn);
+            commonGetMethodWithQueryParam(constants.getValue("subscriber.profile.base.url") + ESBURIConstants.HBB_QUERY_BALANCE, queryParam);
+        }
+        return result;
+
+    }
 }

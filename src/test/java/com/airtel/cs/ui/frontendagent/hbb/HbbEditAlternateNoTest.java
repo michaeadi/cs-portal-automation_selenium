@@ -18,10 +18,11 @@ import org.testng.annotations.Test;
 public class HbbEditAlternateNoTest extends Driver {
 
     private static String hbbCustomerNumber, responseMessage,msisdn = null;
+    Boolean profileVisibility;
 
     ESBRequestSource apiEsb = new ESBRequestSource();
 
-    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"})
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void checkExecution() {
         if (!continueExecutionFA) {
             commonLib.skip("Skipping tests because user NOT able to login Over Portal");
@@ -30,7 +31,7 @@ public class HbbEditAlternateNoTest extends Driver {
     }
 
 
-    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "SmokeTest", "ProdTest"})
+    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void openCustomerInteraction() {
         try {
             selUtils.addTestcaseDescription("Open Customer Profile Page with valid MSISDN, Validate Customer Profile Page Loaded or not", "description");
@@ -51,7 +52,7 @@ public class HbbEditAlternateNoTest extends Driver {
     /**
      * This method is used to check whether user has permission to edit alternate number
      */
-    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTestTec"}, dependsOnMethods = {"openCustomerInteraction"})
+    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"openCustomerInteraction"})
     public void isUserHasEditAlternateMsisdnPermission() {
         try {
             selUtils.addTestcaseDescription("Verify that alternate no. edit icon should be visible to the logged in agent if permission is enabled in UM, Check User has permission to edit alternate no", "description");
@@ -63,7 +64,31 @@ public class HbbEditAlternateNoTest extends Driver {
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
-    @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"openCustomerInteraction"})
+    @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"isUserHasEditAlternateMsisdnPermission"})
+    public void testEditAlternateIcon() {
+        try {
+            selUtils.addTestcaseDescription("Validate Edit icon is visible after Alternate number,Validate Edit icon is visible after Email", "description");
+            String alternateMsisdn = constants.getValue(ApplicationConstants.HBB_ALTERNATE_MSISDN);
+            profileVisibility = pages.getHbbProfilePage().isHBBProfileVisible();
+            if (profileVisibility) {
+                assertCheck.append(actions.assertEqualBoolean(pages.getHbbProfilePage().isCallToActionVisible(), true, "Call to Action icon visible", "Call to Action icon not visible"));
+                assertCheck.append(actions.assertEqualBoolean(pages.getHbbProfilePage().isAlternateNoEditIconVisible(), true, "Edit icon visible", "Edit icon not visible"));
+                pages.getHbbProfilePage().clickOnEditAlternateNo();
+                assertCheck.append(actions.assertEqualBoolean(pages.getHbbProfilePage().isEditAlternatePopUpVisible(), true, "Edit Alternate Number Popup visible", "Edit Alternate Number Popup not visible"));
+                pages.getHbbProfilePage().enterMsisdnAlternateNo(alternateMsisdn);
+                pages.getHbbProfilePage().enterComment("Automation Testing");
+                assertCheck.append(actions.assertEqualBoolean(pages.getHbbProfilePage().isSubmitBtnDisabled(), true, "Submit button is disabled", "Submit button is not disabled"));
+            } else
+                commonLib.fail("Hbb Profile is not visible", true);
+        } catch (
+                Exception e) {
+            commonLib.fail("Exception in Method - testEditAlternateIcon" + e.fillInStackTrace(), true);
+        }
+        actions.assertAllFoundFailedAssert(assertCheck);
+    }
+
+
+    @Test(priority = 4, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"openCustomerInteraction"})
     public void validateActionIcon() {
         try {
             selUtils.addTestcaseDescription("Validating call to Action options", "description");
@@ -95,8 +120,8 @@ public class HbbEditAlternateNoTest extends Driver {
             selUtils.addTestcaseDescription("Validating edit option fields ", "description");
             String validNumber = constants.getValue(ApplicationConstants.CUSTOMER_MSISDN);
             Boolean profileVisibility = pages.getHbbProfilePage().isHBBProfileVisible();
-            if (profileVisibility == true) {
-                pages.getHbbProfilePage().clickOnEditIconAlternateNo();
+            if (profileVisibility) {
+                pages.getHbbProfilePage().clickOnEditAlternateNo();
                 assertCheck.append(actions.assertEqualBoolean(pages.getHbbProfilePage().isEditAlternatePopUpVisible(), true, "Edit Alternate Number Popup visible", "Edit Alternate Number Popup not visible"));
                 assertCheck.append(actions.assertEqualBoolean(pages.getHbbProfilePage().isEnterAlternateNoVisible(), true, "Enter Alternate no. is visible", "Enter Alternate no is  not visible"));
                 pages.getHbbProfilePage().enterMsisdnAlternateNo(validNumber);
@@ -130,7 +155,7 @@ public class HbbEditAlternateNoTest extends Driver {
             String successText = "Request for Alternate Number Updating has been successfully submitted. Link has been sent to customer's email id for validation.";
             Boolean profileVisibility = pages.getHbbProfilePage().isHBBProfileVisible();
             if (profileVisibility) {
-                pages.getHbbProfilePage().clickOnEditIconAlternateNo();
+                pages.getHbbProfilePage().clickOnEditAlternateNo();
                 pages.getHbbProfilePage().enterMsisdnAlternateNo(validNumber);
                 pages.getHbbProfilePage().enterComment("Automation Testing");
                 pages.getHbbProfilePage().clickOnSubmit();
@@ -145,7 +170,7 @@ public class HbbEditAlternateNoTest extends Driver {
         }
     }
 
-    @Test(priority = 6, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"openCustomerInteraction"})
+   /* @Test(priority = 6, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"openCustomerInteraction"})
     public void validateEntryInActionTrail() {
         try {
             selUtils.addTestcaseDescription("Validate Action Trail column's value are visible and correct ", "description");
@@ -159,7 +184,7 @@ public class HbbEditAlternateNoTest extends Driver {
                 for (int i = 0; i < size; i++) {
                     commonLib.info("Printing Info for Row Number " + i + 1);
                     assertCheck.append(actions.matchUiAndAPIResponse(pages.getActionTrailPage().getValue(i + 1, 1), actionTrailAPI.getResult().get(i).getActionType(), "Action Type Column value displayed Correctly", "Action Type Column Value does not displayed Correctly"));
-                    assertCheck.append(actions.matchUiAndAPIResponse(pages.getActionTrailPage().getValue(i + 1, 2), UtilsMethods.getDateFromEpoch(Long.valueOf(actionTrailAPI.getResult().get(i).getCreatedOn()), constants.getValue(CommonConstants.APPLICATION_UI_TIME_FORMAT)), "Date & Time Column displayed Correctly", "Date & Time Column does not displayed Correctly"));
+                    assertCheck.append(actions.matchUiAndAPIResponse(pages.getActionTrailPage().getValue(i + 1, 2), UtilsMethods.getDateFromEpoch(Long.parseLong(actionTrailAPI.getResult().get(i).getCreatedOn()), constants.getValue(CommonConstants.APPLICATION_UI_TIME_FORMAT)), "Date & Time Column displayed Correctly", "Date & Time Column does not displayed Correctly"));
                     assertCheck.append(actions.matchUiAndAPIResponse(pages.getActionTrailPage().getValue(i + 1, 3), actionTrailAPI.getResult().get(i).getReason(), "Reason Column displayed Correctly", "Reason Column does not displayed Correctly"));
                     assertCheck.append(actions.assertEqualStringType(pages.getActionTrailPage().getValue(i + 1, 4), actionTrailAPI.getResult().get(i).getAgentId(), "Agent Id Column displayed Correctly", "Agent Id Column does not displayed Correctly"));
                     assertCheck.append(actions.matchUiAndAPIResponse(pages.getActionTrailPage().getValue(i + 1, 5), actionTrailAPI.getResult().get(i).getAgentName(), "Agent name Column displayed Correctly", "Agent name Column does not displayed in Correctly"));
@@ -179,6 +204,6 @@ public class HbbEditAlternateNoTest extends Driver {
             commonLib.fail("Exception in Method - validateActionTrailValue" + e.fillInStackTrace(), true);
         }
         actions.assertAllFoundFailedAssert(assertCheck);
-    }
+    }*/
 }
 

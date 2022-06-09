@@ -93,6 +93,7 @@ public class HbbProfile extends BasePage {
      * @return true/false
      */
     public Boolean isHBBTabVisible() {
+        waitTillLoaderGetsRemoved();
         final boolean state = isElementVisible(pageElements.hbbTab);
         commonLib.info("Is Hbb Tab displayed: " + state);
         return state;
@@ -257,9 +258,12 @@ public class HbbProfile extends BasePage {
      * This method is used to click on Hbb Tab
      */
     public void clickOnHbbTab() {
-        if (isVisible(pageElements.hbbTab))
+        if (isVisible(pageElements.hbbTab)) {
             commonLib.info("Clicking on Hbb Tab");
-        clickWithoutLoader(pageElements.hbbTab);
+            clickWithoutLoader(pageElements.hbbTab);
+        } else {
+            commonLib.fail("HBB tab is not visible", true);
+        }
     }
 
     /**
@@ -349,6 +353,12 @@ public class HbbProfile extends BasePage {
         return text;
     }
 
+    public String getDeviceType() {
+        final String text = getText(pageElements.deviceInfo);
+        commonLib.info("Getting Device Info " + text);
+        return text;
+    }
+
     /**
      * This method is use to enter msisdn in search box of non airtel msisdn page
      *
@@ -359,6 +369,7 @@ public class HbbProfile extends BasePage {
             commonLib.info("Writing MSISDN in Search Box: " + text);
             enterText(pageElements.searchNonAirtel, text);
             driver.findElement(pageElements.searchNonAirtel).sendKeys(Keys.ENTER);
+            waitTillLoaderGetsRemoved();
         } else {
             commonLib.error("Search box is NOT visible");
         }
@@ -495,12 +506,12 @@ public class HbbProfile extends BasePage {
     /**
      * This method is use to click on edit icon for alternate number
      */
-    public void clickOnEditIconAlternateNo() {
-        if (isVisible(pageElements.editIconNumber) && isClickable(pageElements.editIconNumber)) {
+    public void clickOnEditAlternateNo() {
+        if (isVisible(pageElements.editAlternateNumber) && isClickable(pageElements.editAlternateNumber)) {
             commonLib.info("Clicking on Edit Icon");
-            clickAndWaitForLoaderToBeRemoved(pageElements.editIconNumber);
+            clickAndWaitForLoaderToBeRemoved(pageElements.editAlternateNumber);
         } else {
-            commonLib.fail("Exception in method - clickOnEditIconAlternateNo ", true);
+            commonLib.fail("Exception in method - clickOnEditAlternateNo ", true);
         }
     }
 
@@ -533,7 +544,7 @@ public class HbbProfile extends BasePage {
      * @return true/false
      */
     public Boolean isEmailEditIconVisible() {
-        final boolean state = isElementVisible(pageElements.callToActionIcon);
+        final boolean state = isElementVisible(pageElements.editEmailIcon);
         commonLib.info("Is Edit Icon Visible : " + state);
         return state;
     }
@@ -544,7 +555,7 @@ public class HbbProfile extends BasePage {
      * @return true/false
      */
     public Boolean isAlternateNoEditIconVisible() {
-        final boolean state = isElementVisible(pageElements.callToActionIcon);
+        final boolean state = isElementVisible(pageElements.editAlternateNumber);
         commonLib.info("Is edit Icon Visible : " + state);
         return state;
     }
