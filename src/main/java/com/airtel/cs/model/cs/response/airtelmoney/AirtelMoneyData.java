@@ -36,5 +36,6 @@ public class AirtelMoneyData {
     private String gradeCode;
     private String externalTransactionId;
     private String instrumentTransactionId;
+    private Boolean isReversed;
 
 }

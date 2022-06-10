@@ -1,11 +1,15 @@
 package com.airtel.cs.ui.ngpsb.home;
 
 import com.airtel.cs.api.PsbRequestSource;
+import com.airtel.cs.api.RequestSource;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.commonutils.dataproviders.databeans.HeaderDataBean;
 import com.airtel.cs.commonutils.dataproviders.dataproviders.DataProviders;
 import com.airtel.cs.commonutils.utils.UtilsMethods;
 import com.airtel.cs.driver.Driver;
+import com.airtel.cs.model.cs.response.actionconfig.MetaInfo;
+import com.airtel.cs.model.cs.response.actiontrail.EventLogsResponse;
+import com.airtel.cs.model.cs.response.actiontrail.EventResult;
 import com.airtel.cs.model.cs.response.airtelmoney.AirtelMoney;
 import com.airtel.cs.model.cs.response.psb.cs.clmdetails.CLMDetailsResponse;
 import com.airtel.cs.pagerepository.pagemethods.PsbDemographicWidget;
@@ -13,9 +17,12 @@ import org.testng.SkipException;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import java.util.List;
+
 public class SmartCashTransactionHistoryTest extends Driver {
     private static String customerNumber = null;
-    PsbRequestSource api = new PsbRequestSource();
+    PsbRequestSource psbApi = new PsbRequestSource();
+    RequestSource api = new RequestSource();
     CLMDetailsResponse clmDetails;
     AirtelMoney amTransactionHistoryAPI;
     String nubanId;
@@ -38,7 +45,7 @@ public class SmartCashTransactionHistoryTest extends Driver {
             pages.getSideMenuPage().openCustomerInteractionPage();
             pages.getMsisdnSearchPage().enterNumber(customerNumber);
             pages.getMsisdnSearchPage().clickOnSearch();
-            clmDetails = api.getCLMDetails(customerNumber);
+            clmDetails = psbApi.getCLMDetails(customerNumber);
             assertCheck.append(actions.assertEqualIntType(clmDetails.getStatusCode(), 200, "CLM Details API Status Code Matched and is :" + clmDetails.getStatusCode(), "CLM Details API Status Code NOT Matched and is :" + clmDetails.getStatusCode(), false));
             if (clmDetails.getStatusCode() == 200) {
                 boolean pageLoaded = pages.getPsbDemographicWidget().isPageLoaded(clmDetails, className);
@@ -68,7 +75,7 @@ public class SmartCashTransactionHistoryTest extends Driver {
                 nubanId = clmDetails.getResult().getDetails().get(0).getWallets().get(0).getId();
             if (widget.accountFlag > 0)
                 nubanId = clmDetails.getResult().getDetails().get(0).getAccounts().get(0).getId();
-            amTransactionHistoryAPI = api.getTransactionHistory(customerNumber, nubanId);
+            amTransactionHistoryAPI = psbApi.getTransactionHistory(customerNumber, nubanId);
             final int statusCode = amTransactionHistoryAPI.getStatusCode();
             assertCheck.append(actions.assertEqualIntType(statusCode, 200, "Transaction History  API success and status code is :" + statusCode, "Transaction History API got failed and status code is :" + statusCode, false));
             if (statusCode != 200) {
@@ -198,7 +205,6 @@ public class SmartCashTransactionHistoryTest extends Driver {
                 int count = Math.min(amTransactionHistoryAPI.getResult().getTotalCount(), 1);
                 if (count > 0) {
                     for (int i = 0; i < count; i++) {
-
                         if (amTransactionHistoryAPI.getResult().getData().get(i).getEnableResendSms()) {
                             assertCheck.append(actions.assertEqualBoolean(pages.getSmartCashTransactionHistory().isResendSMSIconVisible(i + 1, 1), true, "SMS Notification Icon is enabled as mentioned in API Response.", "SMS Notification Icon is not enabled as mentioned in API Response."));
                             pages.getSmartCashTransactionHistory().clickSmsNotificationIcon();
@@ -224,17 +230,27 @@ public class SmartCashTransactionHistoryTest extends Driver {
         }
     }
 
-    @Test(priority = 6, groups = {"SanityTest", "RegressionTest"}, dependsOnMethods = {"sendNotificationSmsTest"})
+    @Test(priority = 9, groups = {"SanityTest", "RegressionTest"}, dependsOnMethods = {"sendNotificationSmsTest"})
     public void checkActionTrail() {
         try {
             selUtils.addTestcaseDescription("Validating entry should be captured in Action Trail after performing ResendSMS action", "description");
             pages.getAmSmsTrails().goToActionTrail();
-            assertCheck.append(actions.assertEqualStringType(pages.getAmSmsTrails().getActionType(), "SmartCash Txn History - Resend SMS", "Action type for Resend SMS is expected", "Action type for Resend SME is not as expected"));
-            assertCheck.append(actions.assertEqualStringType(pages.getAmSmsTrails().getReason(),
-                    "Customer Request", "Reason for Resend SMS is as expected", "Reason for Resend SMS not as expected"));
-            assertCheck.append(actions.assertEqualStringType(pages.getAmSmsTrails().getComment(), ApplicationConstants.COMMENT, "Comment for Resend SMS is expected", "Comment for Resend SMS is not as expected"));
+            EventLogsResponse eventLogs = api.getEventHistory(customerNumber, "ACTION");
+            int statusCode = eventLogs.getStatusCode();
+            assertCheck.append(actions.assertEqualIntType(statusCode, 200, "Event Logs API success and status code is :" + statusCode, "Event Logs API got failed and status code is :" + statusCode, false, true));
+            EventResult eventResult = eventLogs.getResult().get(0);
+            if (statusCode == 200) {
+                assertCheck.append(actions.assertEqualStringType(pages.getAmSmsTrails().getActionType(), eventResult.getActionType(), "Action type for Resend SMS is expected", "Action type for Resend SME is not as expected"));
+                assertCheck.append(actions.assertEqualStringType(pages.getAmSmsTrails().getReason(),eventResult.getReason() , "Reason for Resend SMS is as expected", "Reason for Resend SMS not as expected"));
+                assertCheck.append(actions.assertEqualStringType(pages.getAmSmsTrails().getComment(), eventResult.getComments(), "Comment for Resend SMS is expected", "Comment for Resend SMS is not as expected"));
+                pages.getOscRecharge().clickingOnDropDown();
+                List<MetaInfo> metaInfo = eventResult.getMetaInfo();
+                assertCheck.append(actions.assertEqualStringType(pages.getAmSmsTrails().getCustomerMsisdn().trim(), pages.getDemoGraphicPage().getKeyValueAPI(metaInfo.get(0).getValue()), "Customer Msisdn rendered as expected in action trail's meta info", "Customer Msisdn rendered as expected in action trail's meta info's meta info"));
+                assertCheck.append(actions.assertEqualStringType(pages.getAmSmsTrails().getSmsDateTime().trim(), pages.getDemoGraphicPage().getKeyValueAPI(metaInfo.get(1).getValue()), "Sms Date and Time rendered as expected in action trail's meta info", "Sms Date and Time rendered as expected in action trail's meta info"));
+                assertCheck.append(actions.assertEqualStringType(pages.getAmSmsTrails().getTxnId().trim(), pages.getDemoGraphicPage().getKeyValueAPI(metaInfo.get(2).getValue()), "SmartCash Txn Id rendered as expected in action trail's meta info", "SmartCash Txn Id rendered as expected in action trail's meta info"));
+            } else
+                commonLib.fail("Not able to fetch action trail event log using API as its status code is :" + statusCode, true);
             actions.assertAllFoundFailedAssert(assertCheck);
-
         } catch (Exception e) {
             commonLib.fail("Exception in Method - checkActionTrail" + e.fillInStackTrace(), true);
         }

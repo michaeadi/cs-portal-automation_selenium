@@ -142,14 +142,6 @@ public class BarUnbar extends BasePage {
         clickWithoutLoader((pageElements.selectReason));
     }
 
-    /**
-     * This method is used to select reason from dropdown
-     */
-    public void selectReasonFromDropdown() {
-        commonLib.info("Going to Select Reason from dropdown");
-        if (isVisible(pageElements.selectReasonFromDropdown)) ;
-        clickWithoutLoader((pageElements.selectReasonFromDropdown));
-    }
 
     /**
      * This method is used to click on select BAR Type
@@ -160,14 +152,7 @@ public class BarUnbar extends BasePage {
         clickWithoutLoader((pageElements.selectBarTpe));
     }
 
-    /**
-     * This method is used to select Bar Type
-     */
-    public void selectBarTypeFromDropdown() {
-        commonLib.info("Going to select BAR Type from dropdown");
-        if (isVisible(pageElements.selectBarTypeFromDropdown)) ;
-        clickWithoutLoader((pageElements.selectBarTypeFromDropdown));
-    }
+
 
     /**
      * This method is used to write the comment into comment box
@@ -221,12 +206,12 @@ public class BarUnbar extends BasePage {
     /**
      * This method is used to  BAR/UNBAR smartcash profile by selecting reason and comment
      */
-    public void performBarUnBar() {
+    public void performBarUnBar(String header) {
         commonLib.info("Going to perform Bar/unbar Action");
         pages.getBarUnbar().clickOnSelectReason();
-        pages.getBarUnbar().selectReasonFromDropdown();
+        pages.getMsisdnSearchPage().selectReasonOrBarTypeFromDropdown(header);
         pages.getBarUnbar().clickOnBarType();
-        pages.getBarUnbar().selectBarTypeFromDropdown();
+        pages.getMsisdnSearchPage().selectReasonOrBarTypeFromDropdown(header);
         pages.getBarUnbar().enterComment(COMMENT);
         pages.getBarUnbar().clickOnSubmitButton();
     }

@@ -1,10 +1,14 @@
 package com.airtel.cs.ui.ngpsb.home;
 
 import com.airtel.cs.api.PsbRequestSource;
+import com.airtel.cs.api.RequestSource;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
 import com.airtel.cs.commonutils.utils.UtilsMethods;
 import com.airtel.cs.driver.Driver;
+import com.airtel.cs.model.cs.response.actionconfig.MetaInfo;
+import com.airtel.cs.model.cs.response.actiontrail.EventLogsResponse;
+import com.airtel.cs.model.cs.response.actiontrail.EventResult;
 import com.airtel.cs.model.cs.response.am.SmsLogsResponse;
 import com.airtel.cs.model.cs.response.psb.cs.bankdetails.BankDetailsResponse;
 import com.airtel.cs.model.cs.response.psb.cs.clmdetails.CLMDetailsResponse;
@@ -13,10 +17,13 @@ import org.testng.SkipException;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import java.util.List;
+
 
 public class AccountInformationTest extends Driver {
     private static String customerNumber = null;
-    PsbRequestSource api = new PsbRequestSource();
+    PsbRequestSource psbApi = new PsbRequestSource();
+    RequestSource api = new RequestSource();
     CLMDetailsResponse clmDetails;
     SmsLogsResponse smsLogs;
     String barringStatus;
@@ -34,7 +41,7 @@ public class AccountInformationTest extends Driver {
     @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void checkAccountsSize() {
         customerNumber = constants.getValue(ApplicationConstants.CUSTOMER_TIER3_MSISDN);
-        clmDetails = api.getCLMDetails(customerNumber);
+        clmDetails = psbApi.getCLMDetails(customerNumber);
         if (clmDetails.getResult().getDetails().get(0).getAccounts().size() == 0) {
             commonLib.skip("Skipping because there are no accounts linked with the msisdn ");
             throw new SkipException("Skipping because this feature is not applicable when there are no accounts linked with the msisdn");
@@ -61,6 +68,7 @@ public class AccountInformationTest extends Driver {
             commonLib.fail("Exception in Method - openCustomerInteraction" + e.fillInStackTrace(), true);
         }
     }
+
 
     @Test(priority = 2, groups = {"SanityTest", "ProdTest", "RegressionTest"}, dependsOnMethods = {"openCustomerInteraction"})
     public void testAccountInformationWidget() {
@@ -149,7 +157,7 @@ public class AccountInformationTest extends Driver {
             selUtils.addTestcaseDescription("Validate Accounts balance", "description");
             String nubanId = clmDetails.getResult().getDetails().get(0).getAccounts().get(0).getId();
             String type = constants.getValue(ApplicationConstants.ACCOUNT_TYPE);
-            FetchBalanceResponse balance = api.getFetchBalance(customerNumber, nubanId, type);
+            FetchBalanceResponse balance = psbApi.getFetchBalance(customerNumber, nubanId, type);
             String currency = balance.getResult().currency;
             assertCheck.append(actions.assertEqualStringType(pages.getAccountInformation().getBalance().toLowerCase(), pages.getDemoGraphicPage().getKeyValueAPI(currency + " " + balance.getResult().getBalance()), "Balance is same as Expected", "Balance is not same as Expected"));
             if (pages.getAccountInformation().getBalance().trim().equalsIgnoreCase("- -"))
@@ -171,7 +179,7 @@ public class AccountInformationTest extends Driver {
             selUtils.addTestcaseDescription("Validate Bank Accounts tab data", "description");
             pages.getAmLinkedWallets().clickMoreIcon();
             String nubanId = clmDetails.getResult().getDetails().get(0).getAccounts().get(0).getId();
-            BankDetailsResponse bankDetails = api.getAmBankDetails(customerNumber, nubanId);
+            BankDetailsResponse bankDetails = psbApi.getAmBankDetails(customerNumber, nubanId);
             assertCheck.append(actions.assertEqualIntType(bankDetails.getStatusCode(), 200, "Bank Details API Status Code Matched and is :" + bankDetails.getStatusCode(), "Bank Details API Status Code NOT Matched and is :" + bankDetails.getStatusCode(), false));
             if (bankDetails.getStatusCode() == 200 && bankDetails.getResult().size() == 0) {
                 commonLib.warning("Bank Accounts data is not available for the test msisdn");
@@ -201,12 +209,13 @@ public class AccountInformationTest extends Driver {
         }
     }
 
+
     @Test(priority = 7, groups = {"SanityTest", "ProdTest", "RegressionTest"}, dependsOnMethods = {"openCustomerInteraction"})
     public void testSmsLogsTabs() {
         try {
             selUtils.addTestcaseDescription("Validate Wallets tab data", "description");
             pages.getAmLinkedWallets().clickSmsLogsTab();
-            smsLogs = api.getSMSLogs(customerNumber);
+            smsLogs = psbApi.getSMSLogs(customerNumber);
             assertCheck.append(actions.assertEqualIntType(clmDetails.getStatusCode(), 200, "Sms Logs API Status Code Matched and is :" + clmDetails.getStatusCode(), "Sms Logs API Status Code NOT Matched and is :" + clmDetails.getStatusCode(), false));
             if (smsLogs.getStatusCode() == 200 && smsLogs.getResult().size() == 0) {
                 commonLib.warning("SMS Logs data is not available for the test msisdn");
@@ -233,7 +242,7 @@ public class AccountInformationTest extends Driver {
     public void testResendSms() {
         try {
             selUtils.addTestcaseDescription("Validate Resend SMS", "description");
-            smsLogs = api.getSMSLogs(customerNumber);
+            smsLogs = psbApi.getSMSLogs(customerNumber);
             assertCheck.append(actions.assertEqualIntType(smsLogs.getStatusCode(), 200, "Sms Logs API Status Code Matched and is :" + smsLogs.getStatusCode(), "Sms Logs API Status Code NOT Matched and is :" + smsLogs.getStatusCode(), false));
             if (smsLogs.getStatusCode() != 200) {
                 commonLib.warning("SMS Logs data is not available for the test msisdn");
@@ -255,9 +264,21 @@ public class AccountInformationTest extends Driver {
         try {
             selUtils.addTestcaseDescription("Validating entry should be captured in Action Trail after performing ResendSMS action", "description");
             pages.getAmSmsTrails().goToActionTrail();
-            assertCheck.append(actions.assertEqualStringType(pages.getAmSmsTrails().getActionType(), "SmartCash SMS Logs - Resend SMS", "Action type for Resend SMS is expected", "Action type for Resend SME is not as expected"));
-            assertCheck.append(actions.assertEqualStringType(pages.getAmSmsTrails().getReason(), "Customer Request", "Reason for Resend SMS is as expected", "Reason for Resend SMS not as expected"));
-            assertCheck.append(actions.assertEqualStringType(pages.getAmSmsTrails().getComment(), ApplicationConstants.COMMENT, "Comment for Resend SMS is expected", "Comment for Resend SMS is not as expected"));
+            EventLogsResponse eventLogs = api.getEventHistory(customerNumber, "ACTION");
+            int statusCode = eventLogs.getStatusCode();
+            assertCheck.append(actions.assertEqualIntType(statusCode, 200, "Event Logs API success and status code is :" + statusCode, "Event Logs API got failed and status code is :" + statusCode, false, true));
+            EventResult eventResult = eventLogs.getResult().get(0);
+            if (statusCode == 200) {
+                assertCheck.append(actions.assertEqualStringType(pages.getAmSmsTrails().getActionType(), eventResult.getActionType(), "Action type for Resend SMS is expected", "Action type for Resend SME is not as expected"));
+                assertCheck.append(actions.assertEqualStringType(pages.getAmSmsTrails().getReason(), eventResult.getReason(), "Reason for Resend SMS is as expected", "Reason for Resend SMS not as expected"));
+                assertCheck.append(actions.assertEqualStringType(pages.getAmSmsTrails().getComment(), eventResult.getComments(), "Comment for Resend SMS is expected", "Comment for Resend SMS is not as expected"));
+                pages.getOscRecharge().clickingOnDropDown();
+                List<MetaInfo> metaInfo = eventResult.getMetaInfo();
+                assertCheck.append(actions.assertEqualStringType(pages.getAmSmsTrails().getCustomerMsisdn().trim(), pages.getDemoGraphicPage().getKeyValueAPI(metaInfo.get(0).getValue()), "Customer Msisdn rendered as expected in action trail's meta info", "Customer Msisdn rendered as expected in action trail's meta info's meta info"));
+                assertCheck.append(actions.assertEqualStringType(pages.getAmSmsTrails().getSmsDateTime().trim(), pages.getDemoGraphicPage().getKeyValueAPI(metaInfo.get(1).getValue()), "Sms Date and Time rendered as expected in action trail's meta info", "Sms Date and Time rendered as expected in action trail's meta info"));
+                assertCheck.append(actions.assertEqualStringType(pages.getAmSmsTrails().getTxnId().trim(), pages.getDemoGraphicPage().getKeyValueAPI(metaInfo.get(2).getValue()), "SmartCash Txn Id rendered as expected in action trail's meta info", "SmartCash Txn Id rendered as expected in action trail's meta info"));
+            } else
+                commonLib.fail("Not able to fetch action trail event log using API as its status code is :" + statusCode, true);
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
             commonLib.fail("Exception in Method - checkActionTrail" + e.fillInStackTrace(), true);

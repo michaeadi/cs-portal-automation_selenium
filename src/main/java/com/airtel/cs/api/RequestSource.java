@@ -25,8 +25,10 @@ import com.airtel.cs.model.cs.request.interactionissue.InteractionIssueRequest;
 import com.airtel.cs.model.cs.request.issue.CreateIssueRequest;
 import com.airtel.cs.model.cs.request.issuehistory.IssueHistoryRequest;
 import com.airtel.cs.model.cs.request.layout.AutofillConfigsResponse;
+import com.airtel.cs.model.cs.request.psb.cs.BankDetailsRequest;
 import com.airtel.cs.model.cs.request.ticketstats.TicketStatsTicketSearchCriteria;
 import com.airtel.cs.model.cs.response.am.SmsLogsResponse;
+import com.airtel.cs.model.cs.response.psb.cs.bankdetails.BankDetailsResponse;
 import com.airtel.cs.model.sr.request.layout.LayoutConfigRequest;
 import com.airtel.cs.model.sr.request.ticketsearch.IssueFields;
 import com.airtel.cs.model.sr.request.ticketsearch.TicketSearchRequest;
@@ -579,7 +581,7 @@ public class RequestSource extends RestCommonUtils {
         commonLib.infoColored(constants.getValue(CALLING_CS_API) + constants.getValue("accounts.balance"), JavaColors.GREEN, false);
         AccountsBalance result = null;
         try {
-            commonPostMethod(URIConstants.ACCOUNT_BALANCE, new AccountBalanceRequest(msisdn, 10, 1, false));
+            commonPostMethod(URIConstants.ACCOUNT_BALANCE, new AccountBalanceRequest(msisdn, 10, 1,false));
             result = response.as(AccountsBalance.class);
             if (result.getStatusCode() != 200) {
                 commonPostMethod(constants.getValue(AM_TRANSACTION_HISTORY_API_URL) + ESBURIConstants.TRANSACTION_HISTORY, new TransactionHistoryRequest(msisdn, 5, 1, null, null));
@@ -1326,18 +1328,18 @@ public class RequestSource extends RestCommonUtils {
     }
 
     /**
-     * This Method will hit the API "/sr/api/sr-service/v1/tickets" and return the response
+     * This Method will hit the API "/sr/api/sr-service/v3/tickets" and return the response
      *
      * @param msisdn The MSISDN
      * @return The Response
      */
     public Integer getTicketHistoryStatusCode(String msisdn) {
-        commonLib.infoColored(constants.getValue(CALLING_CS_API) + constants.getValue("v1.tickets"), JavaColors.GREEN, false);
+        commonLib.infoColored(constants.getValue(CALLING_CS_API) + constants.getValue("v3.tickets"), JavaColors.GREEN, false);
         Integer result = null;
         try {
             clientInfo.put(MSISDN, msisdn);
             TicketSearchRequest ticketSearchRequest = new TicketSearchRequest(new TicketSearchCriteria(clientInfo));
-            commonPostMethod(URIConstants.GET_TICKET_HISTORY_V1, validHeaderList, ticketSearchRequest, srBaseUrl);
+            commonPostMethod(URIConstants.GET_TICKET_HISTORY_V3, ticketSearchRequest);
             result = response.getStatusCode();
         } catch (Exception e) {
             commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + " - getTicketHistoryStatusCode " + e.getMessage(), false);
@@ -2106,18 +2108,18 @@ public class RequestSource extends RestCommonUtils {
     }
 
     /**
-     * This Method will hit the API "/sr/api/sr-service/v1/tickets" in case of Enterprise and return the response
+     * This Method will hit the API "/sr/api/sr-service/v3/tickets" in case of Enterprise and return the response
      *
      * @param accountNo the account number
      * @return The Response
      */
     public Integer getEnterpriseTicketHistory(String accountNo) {
-        commonLib.infoColored(constants.getValue(CALLING_CS_API) + constants.getValue("v1.tickets"), JavaColors.GREEN, false);
+        commonLib.infoColored(constants.getValue(CALLING_CS_API) + constants.getValue("v3.tickets"), JavaColors.GREEN, false);
         try {
             clientInfo.put(ACCOUNT_ID, accountNo);
             TicketSearchRequest ticketSearchRequest = new TicketSearchRequest(new TicketSearchCriteria(clientInfo));
             UtilsMethods.replaceHeader(SR_CLIENT_ID, constants.getValue(ApplicationConstants.ENTERPRISE_SR_CLIENT_ID));
-            commonPostMethod(URIConstants.GET_TICKET_HISTORY_V1, ticketSearchRequest);
+            commonPostMethod(URIConstants.GET_TICKET_HISTORY_V3, ticketSearchRequest);
             statusCode = response.getStatusCode();
         } catch (Exception e) {
             commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + " - getEnterpriseTicketHistory " + e.getMessage(), false);
@@ -2320,4 +2322,30 @@ public class RequestSource extends RestCommonUtils {
         return result;
 
     }
+
+    /**
+     * This Method will hit the API "/cs-am-service/v1/bank/details" and return the response
+     *
+     * @param msisdn The msisdn
+     * @return The Response
+     */
+    public BankDetailsResponse getAmBankDetails(String msisdn) {
+        commonLib.infoColored(constants.getValue(CALLING_CS_API) + constants.getValue("bank.details"), JavaColors.GREEN, false);
+        BankDetailsResponse result = null;
+        String type = constants.getValue(ApplicationConstants.ACCOUNT_TYPE);
+        try {
+            commonPostMethod(URIConstants.BANK_DETAILS, new GenericRequest(msisdn));
+            result = response.as(BankDetailsResponse.class);
+            if (result.getStatusCode() != 200) {
+                esbRequestSource.callBankDetailsAPI(msisdn, type);
+            }
+        } catch (Exception e) {
+            commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + " - getAmBankDetails " + e.getMessage(), false);
+            esbRequestSource.callBankDetailsAPI(msisdn, type);
+        }
+        return result;
+    }
+
+
+
 }

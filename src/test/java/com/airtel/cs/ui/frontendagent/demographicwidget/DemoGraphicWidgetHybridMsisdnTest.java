@@ -327,79 +327,7 @@ public class DemoGraphicWidgetHybridMsisdnTest extends Driver {
         }
     }
 
-    @Test(priority = 14, groups = {"SanityTest", "RegressionTest"}, dependsOnMethods = {"openCustomerInteraction", "getConnectionType"})
-    public void testAirtelMoneyProfile() {
-        try {
-            if (StringUtils.equalsIgnoreCase(constants.getValue(ApplicationConstants.AIRTEL_MONEY_PROFILE), "true")) {
-                selUtils.addTestcaseDescription("Verify Airtel Money Profile is locked or unlocked, if locked then verify data, else unlock Airtel Money Profile", "description");
-                assertCheck.append(actions.assertEqualStringType(pages.getDemoGraphicPage().getMiddleAuuidAMP(), loginAUUID, "Auuid is visible at the middle of the Airtel Money Profile widget and is correct", "Auuid is NOT visible at the middle of the Airtel Money Profile widget"));
-                assertCheck.append(actions.assertEqualStringType(pages.getDemoGraphicPage().getFooterAuuidAMP(), loginAUUID, "Auuid is visible at the footer of the Airtel Money Profile widget and is correct", "Auuid is NOT visible at the footer of the Airtel Money Profile widget"));
-                Profile profileAPI = api.profileAPITest(customerNumber);
-                final int statusCode = profileAPI.getStatusCode();
-                assertCheck.append(actions.assertEqualIntType(statusCode, 200, "Profile API Status Code Matched and is :" + statusCode, "Profile API Status Code NOT Matched and is :" + statusCode, false));
-                AMProfile amProfileAPI = api.amServiceProfileAPITest(customerNumber);
-                final int amProfileAPIStatusCode = amProfileAPI.getStatusCode();
-                assertCheck.append(actions.assertEqualIntType(amProfileAPIStatusCode, 200, "AM Profile API Status Code Matched and is :" + amProfileAPIStatusCode, "AM Profile API Status Code NOT Matched and is :" + amProfileAPIStatusCode, false));
-                if (pages.getDemoGraphicPage().isAirtelMoneyProfileLocked()) {
-                    try {
-                        pages.getDemoGraphicPage().clickAirtelStatusToUnlock();
-                        assertCheck.append(actions.assertEqualBoolean(pages.getAuthTabPage().isAuthTabLoad(), true, "Authentication tab loaded correctly", "Authentication tab does not load correctly"));
-                        pages.getDemoGraphicPage().selectPolicyQuestion();
-                        assertCheck.append(actions.assertEqualBoolean(pages.getAuthTabPage().isAuthBtnEnable(), true, "Authenticate Button enabled after minimum number of question chosen", "Authenticate Button does not enable after choose minimum number of question"));
-                        pages.getAuthTabPage().clickAuthBtn();
-                        assertCheck.append(actions.assertEqualStringType(pages.getAuthTabPage().getWidgetUnlockMessage(), "Unlocking the widget", "Unlock Widget, Successfully", "Unlock Widget, Un-Successful"));
-                        assertCheck.append(actions.assertEqualStringType(pages.getAuthTabPage().getToastMessage(), "Customer response saved successfully", "Toast Message Shown Successfully", "Toast Message NOT Successful"));
-                    } catch (Exception e) {
-                        pages.getAuthTabPage().clickCloseBtn();
-                        commonLib.fail("Not able to unlock Airtel Money Profile", true);
-                    }
-                }
-                assertCheck.append(actions.assertEqualStringType(pages.getDemoGraphicPage().getAccountStatus().toLowerCase().trim(), pages.getDemoGraphicPage().getKeyValueAPI(profileAPI.getResult().getAirtelMoneyStatus()), "Customer's Airtel Money Status is as Expected", "Customer's Airtel Money Status is not as Expected"));
-                assertCheck.append(actions.assertEqualStringType(pages.getDemoGraphicPage().getServiceStatus().toLowerCase().trim(), pages.getDemoGraphicPage().getKeyValueAPI(profileAPI.getResult().getServiceStatus()), "Customer's Airtel Money Service Status is as Expected", "Customer's Airtel Money Service Status is not as Expected"));
-                assertCheck.append(actions.assertEqualStringType(pages.getDemoGraphicPage().getRegistrationStatus().toLowerCase().trim(), pages.getDemoGraphicPage().getKeyValueAPI(amProfileAPI.getResult().getRegStatus()), "Customer's Airtel Money Registration Status as Expected", "Customer's Airtel Money Registration Status not same not as Expected"));
-                if (StringUtils.equalsIgnoreCase(constants.getValue(ApplicationConstants.MULTI_WALLET_BALANCE), "true")) {
-                    assertCheck.append(actions.assertEqualStringType(pages.getDemoGraphicPage().getWalletBalance2().toLowerCase().trim(), pages.getDemoGraphicPage().getKeyValueAPI(amProfileAPI.getResult().getWallets().get(1).getCurrency().toUpperCase()) + " " + pages.getDemoGraphicPage().getKeyValueAPI(amProfileAPI.getResult().getWallets().get(1).getBalance()), "Customer's Airtel Wallet Balance & Currency code as Expected", "Customer's Airtel Wallet Balance & Currency code not same not as Expected"));
-                }
-                String airtelMoneyString = pages.getDemoGraphicPage().getWalletBalance().replaceAll("[^0-9]", "").trim();
-                int airtelMoney = StringUtils.isEmpty(airtelMoneyString) ? 0 : Integer.parseInt(airtelMoneyString);
-                ActionConfigResult actionConfigResult = api.getActionConfig("resetPin");
-                List<String> actionConfigRoles = actionConfigResult.getRoles();
-                List<RoleDetails> agentRoles = UtilsMethods.getAgentDetail().getUserDetails().getUserDetails().getRole();
-                boolean hasRole = ObjectUtils.isNotEmpty(actionConfigRoles) && agentRoles.stream().anyMatch(roleName -> actionConfigRoles.contains(roleName.getRoleName()));
-                String operator;
-                if (ObjectUtils.isNotEmpty(actionConfigResult.getConditions())) {
-                    Condition condition = actionConfigResult.getConditions().get(0);
-                    operator = condition.getOperator();
-                    Integer thresholdValue = Integer.valueOf(condition.getThresholdValue());
-                    if (hasRole && (">=".equals(operator) && airtelMoney >= thresholdValue
-                            || "<".equals(operator) && airtelMoney < thresholdValue || "=".equals(operator) && airtelMoney == thresholdValue
-                            || "<=".equals(operator) && airtelMoney <= thresholdValue || ">".equals(operator) && airtelMoney > thresholdValue)) {
-                        assertCheck.append(actions.assertEqualBoolean(pages.getDemoGraphicPage().isResetPinIconDisable(), true, "Reset PIN Icon is disable as mentioned in CS API Response", "Reset PIN Icon is not disable as mentioned in CS API Response"));
-                    }
-                } else
-                    assertCheck.append(actions.assertEqualBoolean(pages.getDemoGraphicPage().isResetPinIconDisable(), false, "Reset PIN Icon is enable as mentioned in CS API Response", "Reset PIN Icon is not enable as mentioned in CS API Response"));
-                FieldMaskConfigs amBalanceFieldMaskConfigs = api.getFieldMaskConfigs("amBalance");
-                operator = amBalanceFieldMaskConfigs.getOperator();
-                int amThresholdValue = StringUtils.isEmpty(amBalanceFieldMaskConfigs.getThresholdValue()) ? 0 : Integer.parseInt(amBalanceFieldMaskConfigs.getThresholdValue());
-                hasRole = ObjectUtils.isNotEmpty(amBalanceFieldMaskConfigs.getRoles()) && agentRoles.stream().anyMatch(roleName -> amBalanceFieldMaskConfigs.getRoles().contains(roleName.getRoleName()));
-                if (hasRole && ((">=".equals(operator) && airtelMoney >= amThresholdValue) || ("<".equals(operator)
-                        && airtelMoney < amThresholdValue) || ("=".equals(operator) && airtelMoney == amThresholdValue) || ("<=".equals(operator)
-                        && airtelMoney <= amThresholdValue) || (">".equals(operator) && airtelMoney > amThresholdValue))) {
-                    assertCheck.append(actions.assertEqualBoolean(airtelMoneyString.length() == amBalanceFieldMaskConfigs.getDigitsVisible(), true, "Airtel Money masking is correct as per user role", "Airtel Money masking is not correct as per user role"));
-                } else {
-                    assertCheck.append(actions.assertEqualBoolean(airtelMoneyString.contains("*"), false, "Airtel Money is not masked as per user role", "Airtel Money should not be masked as per user role"));
-                    assertCheck.append(actions.assertEqualStringType(pages.getDemoGraphicPage().getWalletBalance(), amProfileAPI.getResult().getWallets().get(0).getCurrency().toUpperCase() + " " + amProfileAPI.getResult().getWallets().get(0).getBalance(), "Customer's Airtel Wallet Balance & Currency code as Expected", "Customer's Airtel Wallet Balance & Currency code not same not as Expected"));
-                }
-                actions.assertAllFoundFailedAssert(assertCheck);
-            } else {
-                commonLib.skip("Airtel Money Profile is Not configured for Opco=" + OPCO);
-            }
-        } catch (NoSuchElementException | TimeoutException | NullPointerException e) {
-            commonLib.fail("Exception in method - testAirtelMoneyProfile " + e, true);
-        }
-    }
-
-    @Test(priority = 15, groups = {"SanityTest", "RegressionTest"})
+    @Test(priority = 14, groups = {"SanityTest", "RegressionTest"})
     public void testServiceClassRatePlanAPI() {
         try {
             selUtils.addTestcaseDescription("Validate Service Class and Rate Plan", "description");
@@ -412,7 +340,7 @@ public class DemoGraphicWidgetHybridMsisdnTest extends Driver {
         }
     }
 
-    @Test(priority = 16, groups = {"RegressionTest"}, dependsOnMethods = {"openCustomerInteraction"})
+    @Test(priority = 15, groups = {"RegressionTest"}, dependsOnMethods = {"openCustomerInteraction"})
     public void invalidMSISDNTest() {
         try {
             selUtils.addTestcaseDescription("Validating the Demographic Information of User with invalid MSISDN : 123456789", "description");

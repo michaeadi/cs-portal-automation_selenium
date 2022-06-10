@@ -78,6 +78,7 @@ public class AmSmsTrailsPage {
     public By actionType = By.xpath("//div[@class='agent-list-container']/table/tbody/tr/td[1]");
     public By reason = By.xpath("//div[@class='agent-list-container']/table/tbody/tr/td[3]");
     public By comment = By.xpath("//div[@class='agent-list-container']/table/tbody/tr/td[6]");
-
-
+    public By customerMsisdn =By.xpath("//label[contains(text(),'Customer Msisdn')]/..//following-sibling::li//p[1]");
+    public By smsDateTime =By.xpath("//label[contains(text(),'SMS Date')]/..//following-sibling::li//p[2]");
+    public By txnId=By.xpath("//label[contains(text(),'Transaction ID')]/..//following-sibling::li//p[3]");
 }

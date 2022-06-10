@@ -254,37 +254,6 @@ public class AmSmsTrails extends BasePage {
     }
 
     /**
-     * This Method will be used to get the total row size in a table
-     *
-     * @return the row count
-     */
-    public String getSMSRowCount() {
-        String rowCount;
-        rowCount = getText(pageElements.totalSMSRow);
-        rowCount = rowCount.substring(rowCount.indexOf("of") + 3);
-        rowCount = rowCount.replace("Results", "").trim();
-        return rowCount;
-    }
-
-    /**
-     * This Method will return the number of pages of records
-     *
-     * @return page size
-     */
-    public int getNumberOfPages() {
-        int pageCount = 0;
-        int rowCount = Integer.parseInt(getSMSRowCount());
-        if (rowCount % 5 == 0) {
-            pageCount = rowCount / 5;
-        }
-        if (rowCount % 5 != 0) {
-            rowCount = rowCount + (5 - rowCount % 5);
-            pageCount = rowCount / 5;
-        }
-        return pageCount;
-    }
-
-    /**
      * This method will give the no. of rows
      *
      * @return
@@ -301,7 +270,7 @@ public class AmSmsTrails extends BasePage {
      * @return it will return assertCheck value
      */
     public StringBuilder sendSMS(SmsLogsResponse smsLogs) {
-        int pageCount = getNumberOfPages();
+        int pageCount = getNumberOfPages(pageElements.totalRows,5);
         boolean rowFound = false;
         for (int x = 0; x < pageCount; x++) {
             for (int i = 0; i < checkRowSize(); i++) {
@@ -323,9 +292,11 @@ public class AmSmsTrails extends BasePage {
                         clickCrossIcon();
                         break;
                     } else
-                        commonLib.warning("No records found with Txn id as APC on  page no : " + (x + 1));
+                        commonLib.info("No records found with Txn id as APC for row no : " + (i + 1));
+
                 }
                 if (!rowFound) {
+                    commonLib.warning("No records found with Txn id as APC on page no : " + (x + 1));
                     clickAndWaitForLoaderToBeRemoved(pageElements.nextPage);
                 } else {
                     break;
@@ -487,24 +458,6 @@ public class AmSmsTrails extends BasePage {
             clickWithoutLoader((pageElements.selectCustomerRequestFromDropdown));
     }
 
-//    /**
-//     * This method is used to click on select Customer did not get SMS
-//     */
-//    public void selectDidNotGetSmsFromDropdown() {
-//        commonLib.info("Going to click Select Reason");
-//        if (isVisible(pageElements.selectArrow)) ;
-//        clickWithoutLoader((pageElements.selectDidNotGetSmsFromDropdown));
-//    }
-//
-//    /**
-//     * This method is used to click on select Customer deleted the SMS
-//     */
-//    public void selectDeletedTheSmsFromDropdown() {
-//        commonLib.info("Going to click Select Reason");
-//        if (isVisible(pageElements.selectArrow)) ;
-//        clickWithoutLoader((pageElements.selectDeletedTheSmsFromDropdown));
-//    }
-
 
     /**
      * This method is used to write the comment into comment box
@@ -605,4 +558,33 @@ public class AmSmsTrails extends BasePage {
         }
     }
 
+    /**
+     * This method is used to get Customer Msisdn from action trail drop down
+     *
+     * @return
+     */
+    public String getCustomerMsisdn() {
+        commonLib.info(getText(pageElements.customerMsisdn));
+        return getText(pageElements.customerMsisdn);
+    }
+
+    /**
+     * This method is used to get SMS Date and Time from action trail drop down
+     *
+     * @return
+     */
+    public String getSmsDateTime() {
+        commonLib.info(getText(pageElements.smsDateTime));
+        return getText(pageElements.smsDateTime);
+    }
+
+    /**
+     * This method is used to get Txn Id from action trail drop down
+     *
+     * @return
+     */
+    public String getTxnId() {
+        commonLib.info(getText(pageElements.txnId));
+        return getText(pageElements.txnId);
+    }
 }

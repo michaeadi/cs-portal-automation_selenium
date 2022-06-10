@@ -63,6 +63,7 @@ public class ESBURIConstants {
     public static final String FETCH_BALANCE2 = "/balance";
     public static final String ACCOUNT_LEVEL_INFO = "/api/enterprise-service/v1/accounts";
     public static final String PSB_SMS_SUMMMARY = "/arch-in/web/api/am-esb-bank/v1/transactions/sms-summary";
+    public static final String BANK_DETAILS = "/api/am-profile/v1/bank-details?";
 
     /*
     HBB Downstream API
