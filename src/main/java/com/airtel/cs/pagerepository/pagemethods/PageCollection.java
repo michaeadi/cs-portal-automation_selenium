@@ -326,4 +326,8 @@ public class PageCollection {
     public AmReversal getAmReversal() {
         return new AmReversal(driver);
     }
+
+    public AmLinkedBankAccounts getAmLinkedBankAccounts() {
+        return new AmLinkedBankAccounts(driver);
+    }
 }

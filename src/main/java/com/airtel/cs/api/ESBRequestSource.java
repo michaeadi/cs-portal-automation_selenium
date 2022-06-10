@@ -112,6 +112,7 @@ public class ESBRequestSource extends RestCommonUtils {
     private static final String SMS = "sms";
     private static final String ID_NUMBER = "id_number";
     private static final String ID_TYPE = "id_type";
+    private static final String CURRENCY = "currency";
 
 
     /**
@@ -1139,4 +1140,20 @@ public class ESBRequestSource extends RestCommonUtils {
         }
         return result;
     }
+
+    /**
+     * This Method will hit the Downstream API of Linked Accounts
+     */
+    public void callBankDetailsAPI(String msisdn, String type) {
+        try {
+            commonLib.infoColored(constants.getValue(DOWNSTREAM_API_CALLING) + constants.getValue("bank.details"), JavaColors.GREEN, false);
+            queryParam.put(MSISDN, msisdn);
+            queryParam.put(CURRENCY, type);
+            commonGetMethodWithQueryParam(INGRESS_DOWNSTREAM_BASE_URL + msisdn + ESBURIConstants.BANK_DETAILS, queryParam);
+            checkDownstreamAPI(response.getStatusCode(), "Downstream API of Linked Accounts working with data", "Downstream API of Linked Accounts not working with data");
+        } catch (Exception exp) {
+            commonLib.fail(constants.getValue(DOWNSTREAM_API_ERROR) + constants.getValue("bank.details") + exp.getMessage(), false);
+        }
+    }
+
 }

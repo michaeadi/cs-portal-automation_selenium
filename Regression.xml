@@ -134,6 +134,16 @@
             <class name="com.airtel.cs.ui.frontendagent.am.AmLinkedWalletsTest"/>
         </classes>
     </test>
+    <test name="Airtel Money Linked Bank Accounts Test">
+        <groups>
+            <run>
+                <include name="RegressionTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.am.AmLinkedBankAccounts"/>
+        </classes>
+    </test>
     <test name="Validate Current Balance Widget" preserve-order="true">
         <groups>
             <run>

@@ -70,6 +70,7 @@ public class AmReversalTest extends Driver {
             } else {
                 assertCheck = pages.getAmReversal().reversal(amTransactionHistoryAPI);
             }
+            actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
             commonLib.fail("Exception in Method - testAmReversal" + e.fillInStackTrace(), true);
         }

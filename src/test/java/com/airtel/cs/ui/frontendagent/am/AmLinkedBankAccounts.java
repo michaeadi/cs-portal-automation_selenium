@@ -5,18 +5,17 @@ import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
 import com.airtel.cs.commonutils.applicationutils.constants.PermissionConstants;
 import com.airtel.cs.commonutils.utils.UtilsMethods;
 import com.airtel.cs.driver.Driver;
-import com.airtel.cs.model.cs.response.amprofile.AMProfile;
+import com.airtel.cs.model.cs.response.psb.cs.bankdetails.BankDetailsResponse;
 import org.apache.commons.lang3.StringUtils;
 import org.testng.SkipException;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-public class AmLinkedWalletsTest extends Driver {
+public class AmLinkedBankAccounts extends Driver {
     String customerNumber = null;
-    AMProfile amProfile;
     Boolean isPermissionEnable = false;
-    int size;
-    public static final String RUN_AM_LINKED_WALLET = constants.getValue(ApplicationConstants.RUN_AM_LINKED_WALLET);
+    BankDetailsResponse bankDetails;
+    public static final String RUN_AM_LINKED_ACCOUNTS = constants.getValue(ApplicationConstants.RUN_AM_LINKED_ACCOUNTS);
 
     @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void checkExecution() {
@@ -26,13 +25,14 @@ public class AmLinkedWalletsTest extends Driver {
         }
     }
 
-    @BeforeMethod(groups = {"ProdTest", "SmokeTest","SanityTest", "RegressionTest"})
+    @BeforeMethod(groups = {"ProdTest", "SmokeTest", "SanityTest", "RegressionTest"})
     public void checkLinkedWalletFlag() {
-        if (!StringUtils.equals(RUN_AM_LINKED_WALLET, "true")) {
-            commonLib.skip("Skipping because Run Airtel Money Linked Wallets Test Case Flag Value is - " + RUN_AM_LINKED_WALLET);
+        if (!StringUtils.equals(RUN_AM_LINKED_ACCOUNTS, "true")) {
+            commonLib.skip("Skipping because Run Airtel Money Linked Wallets Test Case Flag Value is - " + RUN_AM_LINKED_ACCOUNTS);
             throw new SkipException("Skipping because this functionality does not applicable for current Opco");
         }
     }
+
     /**
      * This method is used to Open Customer Profile Page with valid MSISDN
      */
@@ -69,10 +69,10 @@ public class AmLinkedWalletsTest extends Driver {
     }
 
     /**
-     * This method is used to Open Wallets tab
+     * This method is used to Open Bank Accounts tab
      */
-    @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"openCustomerInteraction", "isUserHasPermission"})
-    public void openWalletsTab() {
+    @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"isUserHasPermission"})
+    public void openBankAccountsTab() {
         try {
             selUtils.addTestcaseDescription("Validate AM Transactions Widget visible or not ,Open detailed page of Am Transactions widget , Validate auuid at the footer and middle of widget ", "description");
             assertCheck.append(actions.assertEqualBoolean(pages.getAmLinkedWallets().isAmTransactionsWidgetVisible(), true, "Am Transaction Widget is visible", "Am Transaction Widget is NOT visible"));
@@ -87,24 +87,24 @@ public class AmLinkedWalletsTest extends Driver {
                 commonLib.fail("Am Profile Details widget is not visible as user has not permission to view it", true);
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
-            commonLib.fail("Exception in Method - openWalletsTab" + e.fillInStackTrace(), true);
+            commonLib.fail("Exception in Method - openBankAccountsTab" + e.fillInStackTrace(), true);
         }
     }
 
     /**
      * This method is used to test Wallets tab Layout
      */
-    @Test(priority = 4, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "openCustomerInteraction")
-    public void testWalletsLayout() {
+    @Test(priority = 4, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "openBankAccountsTab")
+    public void testBankAccountsLayout() {
         try {
             selUtils.addTestcaseDescription("Validate all the fields are visible or not in Wallets", "description");
-            amProfile = api.amServiceProfileAPITest(customerNumber);
-            assertCheck.append(actions.assertEqualIntType(amProfile.getStatusCode(), 200, "Am Profile API status code matched and is :" + amProfile.getStatusCode(), "Am Profile API status code NOT matched  and is :" + amProfile.getStatusCode(), false));
-            if (amProfile.getStatusCode() == 200 && amProfile.getResult().getWallets().size() == 0) {
+            bankDetails = api.getAmBankDetails(customerNumber);
+            assertCheck.append(actions.assertEqualIntType(bankDetails.getStatusCode(), 200, "Am Profile API status code matched and is :" + bankDetails.getStatusCode(), "Am Profile API status code NOT matched  and is :" + bankDetails.getStatusCode(), false));
+            if (bankDetails.getStatusCode() == 200 && bankDetails.getResult().size() == 0) {
                 assertCheck.append(actions.assertEqualBoolean(pages.getAmLinkedWallets().isNoResultFoundVisible(), true, "Error Message is Visible", "Error Message is not Visible"));
                 assertCheck.append(actions.assertEqualStringType(pages.getAmLinkedWallets().getNoResultFoundMessage(), "No Result found", "Error Message is as expected", "Error Message is not as expected"));
-                commonLib.warning("Linked Wallets data is not available for the punched msisdn");
-            } else if (amProfile.getStatusCode() == 3007 && amProfile.getStatus().equalsIgnoreCase("Failure")) {
+                commonLib.warning("No Account is linked to this MSISDN");
+            } else if (bankDetails.getStatusCode() == 3007 && bankDetails.getStatus().equalsIgnoreCase("Failure")) {
                 assertCheck.append(actions.assertEqualBoolean(pages.getAmLinkedWallets().isWidgetErrorMessageVisible(), true, "CS API and widget both are giving error", "CS API is giving error but widget is not showing error message"));
                 commonLib.fail("CS API is unable to give Linked Wallets data ", true);
             } else {
@@ -119,42 +119,44 @@ public class AmLinkedWalletsTest extends Driver {
             }
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
-            commonLib.fail("Exception in Method - testWalletsLayout" + e.fillInStackTrace(), true);
+            commonLib.fail("Exception in Method - testBankAccountsLayout" + e.fillInStackTrace(), true);
         }
     }
 
-    /**
-     * This method is used to check Wallets data
-     */
-    @Test(priority = 5, groups = {"SanityTest", "RegressionTest"}, dependsOnMethods = "openCustomerInteraction")
-    public void testWalletsData() {
+
+    @Test(priority = 5, groups = {"SanityTest", "ProdTest", "RegressionTest"}, dependsOnMethods = {"openBankAccountsTab"})
+    public void testBankAccounts() {
         try {
-            selUtils.addTestcaseDescription("Validate data of all the fields of Wallets tab", "description");
-            if (amProfile.getStatusCode() == 200 && amProfile.getResult().getWallets().size() == 0) {
-                commonLib.warning("Linked Wallets data is not available for the punched msisdn");
-            } else if (amProfile.getStatusCode() == 3007 && amProfile.getStatus().equalsIgnoreCase("status.failure")) {
-                commonLib.fail("CS API is unable to give Linked Wallets data ", true);
+            selUtils.addTestcaseDescription("Validate Bank Accounts tab data", "description");
+            bankDetails = api.getAmBankDetails(customerNumber);
+            assertCheck.append(actions.assertEqualIntType(bankDetails.getStatusCode(), 200, "Bank Details API Status Code Matched and is :" + bankDetails.getStatusCode(), "Bank Details API Status Code NOT Matched and is :" + bankDetails.getStatusCode(), false));
+            if (bankDetails.getStatusCode() == 200 && bankDetails.getResult().size() == 0) {
+                commonLib.warning("No Account is linked to this MSISDN");
+            } else if (bankDetails.getStatusCode() == 2500 && bankDetails.getStatus().equalsIgnoreCase("status.failure")) {
+                commonLib.fail("CS API is unable to give Bank Accounts", true);
             } else {
-                size = pages.getAmLinkedWallets().getNoOfRows();
+                int size = pages.getAmSmsTrails().checkRowSize();
                 for (int i = 0; i < size; i++) {
                     int row = i + 1;
-                    String currency = amProfile.getResult().getWallets().get(i).getCurrency();
-                    assertCheck.append(actions.assertEqualStringType(pages.getAmLinkedWallets().getRowValue(row, 1), amProfile.getResult().getWallets().get(i).getWalletType(), "Wallet Type is same as expected ", "Wallet Type is NOT same as expected"));
-                    assertCheck.append(actions.assertEqualStringType(pages.getAmLinkedWallets().getRowValue(row, 2), amProfile.getResult().getWallets().get(i).getTcpId(), "Tcp Id is same as expected ", "Tcp Id is NOT same as expected"));
-                    assertCheck.append(actions.assertEqualStringType(pages.getAmLinkedWallets().getRowValue(row, 3), currency + " " + amProfile.getResult().getWallets().get(i).getBalance(), "Balance is same as expected ", "Balance is NOT same as expected"));
-                    assertCheck.append(actions.assertEqualStringType(pages.getAmLinkedWallets().getRowValue(row, 4), currency + " " + amProfile.getResult().getWallets().get(i).getFrozen(), "Frozen Amount is same as expected ", "Frozen Amount is NOT same as expected"));
-                    assertCheck.append(actions.assertEqualStringType(pages.getAmLinkedWallets().getRowValue(row, 5), currency + " " + amProfile.getResult().getWallets().get(i).getFundsInClearance(), "FIC is same as expected ", "FIC is NOT same as expected"));
-                    assertCheck.append(actions.assertEqualStringType(pages.getAmLinkedWallets().getRowValue(row, 6), amProfile.getResult().getWallets().get(i).getPrimary(), "Primary Value is same as expected ", "Primary Value is NOT same as expected"));
-                    assertCheck.append(actions.assertEqualStringType(pages.getAmLinkedWallets().getRowValue(row, 7), currency + " " + amProfile.getResult().getWallets().get(i).getTotalCredit(), "Total Credit is same as expected ", "Total Credit is NOT same as expected"));
-                    assertCheck.append(actions.assertEqualStringType(pages.getAmLinkedWallets().getRowValue(row, 8), currency + " " + amProfile.getResult().getWallets().get(i).getTotalDebit(), "Total Debit is same as expected ", "Total Debit is NOT same as expected"));
+                    assertCheck.append(actions.assertEqualStringType(pages.getBankAccount().getHeaderValue(row, 1), bankDetails.getResult().get(i).getAccountNumber(), "Account No. is same as expected ", "Account No.is NOT same as expected"));
+                    assertCheck.append(actions.assertEqualStringType(pages.getBankAccount().getHeaderValue(row, 2), bankDetails.getResult().get(i).getCustomerNo(), "Customer No. is same as expected ", "Account No.is NOT same as expected"));
+                    assertCheck.append(actions.assertEqualStringType(pages.getBankAccount().getHeaderValue(row, 3), bankDetails.getResult().get(i).getOpeningBalance(), "Opening Balance is same as expected ", "Opening Balance is NOT same as expected"));
+                    assertCheck.append(actions.assertEqualStringType(pages.getBankAccount().getHeaderValue(row, 4), bankDetails.getResult().get(i).getAvailableBalance(), "Available Balance is same as expected ", "Available Balance is NOT same as expected"));
+                    assertCheck.append(actions.assertEqualStringType(pages.getBankAccount().getHeaderValue(row, 5), bankDetails.getResult().get(i).getFrozen(), "Frozen Balance is same as expected ", "Frozen Balance is NOT same as expected"));
+                    assertCheck.append(actions.assertEqualStringType(pages.getBankAccount().getHeaderValue(row, 6), bankDetails.getResult().get(i).getCurrentBalance(), "Current Balance is same as expected ", "Current Balance is NOT same as expected"));
+                    String accountStatus = pages.getBankAccount().getHeaderValue(row, 7);
+                    assertCheck.append(actions.assertEqualStringType(accountStatus, bankDetails.getResult().get(i).getStatus(), "Account status is same as expected ", "Account status is NOT same as expected"));
+                    if (accountStatus.equalsIgnoreCase("ACTIVE"))
+                        assertCheck.append(actions.assertEqualStringType(pages.getBankAccount().getHeaderValueColor(row, 7), "#33a833", "Colour of Account Status is same as expected", "Colour of Account Status is NOT same as expected"));
+                    else if (accountStatus.equalsIgnoreCase("INACTIVE"))
+                        assertCheck.append(actions.assertEqualStringType(pages.getBankAccount().getHeaderValueColor(row, 7), "#e4000e", "Colour of Account Status is same as expected", "Colour of Account Status is NOT same as expected"));
                 }
             }
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
-            commonLib.fail("Exception in Method - testWalletsData" + e.fillInStackTrace(), true);
+            commonLib.fail("Exception in Method - testBankAccounts" + e.fillInStackTrace(), true);
         }
     }
-
 
     /**
      * This method is used to validate widgets in profile management
@@ -182,6 +184,5 @@ public class AmLinkedWalletsTest extends Driver {
         } catch (Exception e) {
             commonLib.fail("Exception in Method - profileManagementTest" + e.fillInStackTrace(), true);
         }
-
     }
 }

@@ -126,6 +126,7 @@ public class ApplicationConstants {
     public static final String INVALID_CUSTOMER_MSISDN = "cs.invalid.customer.msisdn";
     public static final String INVALID_NUBAN_ID = "cs.invalid.nuban.id";
     public static final String INVALID_CUSTOMER_ID = "cs.invalid.customer.id";
+    public static final String RUN_AM_LINKED_ACCOUNTS = "cs.run.linked.accounts.test.case";
 
     private ApplicationConstants() {
         throw new IllegalStateException();

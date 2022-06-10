@@ -25,8 +25,10 @@ import com.airtel.cs.model.cs.request.interactionissue.InteractionIssueRequest;
 import com.airtel.cs.model.cs.request.issue.CreateIssueRequest;
 import com.airtel.cs.model.cs.request.issuehistory.IssueHistoryRequest;
 import com.airtel.cs.model.cs.request.layout.AutofillConfigsResponse;
+import com.airtel.cs.model.cs.request.psb.cs.BankDetailsRequest;
 import com.airtel.cs.model.cs.request.ticketstats.TicketStatsTicketSearchCriteria;
 import com.airtel.cs.model.cs.response.am.SmsLogsResponse;
+import com.airtel.cs.model.cs.response.psb.cs.bankdetails.BankDetailsResponse;
 import com.airtel.cs.model.sr.request.layout.LayoutConfigRequest;
 import com.airtel.cs.model.sr.request.ticketsearch.IssueFields;
 import com.airtel.cs.model.sr.request.ticketsearch.TicketSearchRequest;
@@ -2288,4 +2290,26 @@ public class RequestSource extends RestCommonUtils {
         return result;
     }
 
+    /**
+     * This Method will hit the API "/cs-am-service/v1/bank/details" and return the response
+     *
+     * @param msisdn The msisdn
+     * @return The Response
+     */
+    public BankDetailsResponse getAmBankDetails(String msisdn) {
+        commonLib.infoColored(constants.getValue(CALLING_CS_API) + constants.getValue("bank.details"), JavaColors.GREEN, false);
+        BankDetailsResponse result = null;
+        String type = constants.getValue(ApplicationConstants.ACCOUNT_TYPE);
+        try {
+            commonPostMethod(URIConstants.BANK_DETAILS, new GenericRequest(msisdn));
+            result = response.as(BankDetailsResponse.class);
+            if (result.getStatusCode() != 200) {
+                esbRequestSource.callBankDetailsAPI(msisdn, type);
+            }
+        } catch (Exception e) {
+            commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + " - getAmBankDetails " + e.getMessage(), false);
+            esbRequestSource.callBankDetailsAPI(msisdn, type);
+        }
+        return result;
+    }
 }
