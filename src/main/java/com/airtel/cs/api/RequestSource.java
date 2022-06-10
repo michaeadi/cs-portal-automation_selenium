@@ -192,6 +192,8 @@ public class RequestSource extends RestCommonUtils {
     public static final String INGRESS_OPEN_API_BASE_URL_2 = "." + OPCO.toLowerCase() + "." + evnName.toLowerCase();
     private static final String INGRESS_OPEN_API_BASE_URL_3 = constants.getValue("ingress.open.api.base.url2");
     public static final String INGRESS_OPEN_API_BASE_URL = INGRESS_OPEN_API_BASE_URL_1 + INGRESS_OPEN_API_BASE_URL_2 + INGRESS_OPEN_API_BASE_URL_3;
+    public static final String BUNDLE_TYPE = "bundleType";
+    public static final String SERVICE_TYPE = "serviceType";
 
 
     /*
@@ -405,18 +407,18 @@ public class RequestSource extends RestCommonUtils {
      * @param msisdn The msisdn
      * @return The Response
      */
-    public HbbUserDetailsResponse hbbUserDetailsTest(String msisdn) {
+    public HbbUserDetailsResponse hbbUserDetailsTest(String msisdn, String type) {
         commonLib.infoColored(constants.getValue(CALLING_CS_API) + constants.getValue("hbb.user.details"), JavaColors.GREEN, false);
         HbbUserDetailsResponse result = null;
         try {
             commonPostMethod(HBB_USER, new GenericRequest(msisdn));
             result = response.as(HbbUserDetailsResponse.class);
             if (result.getStatusCode() != 200) {
-                esbRequestSource.callGsmKycESBAPI(msisdn);
+                esbRequestSource.hbbLinkedAccount(msisdn, type);
             }
         } catch (Exception e) {
             commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + " - gsmKYCAPITest " + e.getMessage(), false);
-            esbRequestSource.callGsmKycESBAPI(msisdn);
+            esbRequestSource.hbbLinkedAccount(msisdn, type);
         }
         return result;
     }
@@ -579,7 +581,7 @@ public class RequestSource extends RestCommonUtils {
         commonLib.infoColored(constants.getValue(CALLING_CS_API) + constants.getValue("accounts.balance"), JavaColors.GREEN, false);
         AccountsBalance result = null;
         try {
-            commonPostMethod(URIConstants.ACCOUNT_BALANCE, new AccountBalanceRequest(msisdn, 10, 1));
+            commonPostMethod(URIConstants.ACCOUNT_BALANCE, new AccountBalanceRequest(msisdn, 10, 1,false));
             result = response.as(AccountsBalance.class);
             if (result.getStatusCode() != 200) {
                 commonPostMethod(constants.getValue(AM_TRANSACTION_HISTORY_API_URL) + ESBURIConstants.TRANSACTION_HISTORY, new TransactionHistoryRequest(msisdn, 5, 1, null, null));
@@ -1938,17 +1940,18 @@ public class RequestSource extends RestCommonUtils {
      * This method is used to get hbb linked accounts response from CS API
      *
      * @param msisdn The msisdn
+     * @param type   The Type
      * @return The response
      */
 
-    public HbbLinkedAccountsResponse getLinkedHbbNumber(String msisdn) {
+    public HbbLinkedAccountsResponse getLinkedAccountAndUserDetails(String msisdn, String type) {
         commonLib.infoColored(constants.getValue(CALLING_CS_API) + constants.getValue("hbb.linked.accounts"), JavaColors.GREEN, false);
         HbbLinkedAccountsResponse result = null;
         try {
             commonPostMethod(URIConstants.GET_HBB_LINKED_ACCOUNTS_API, new HbbLinkedAccountsRequest(msisdn, false));
             result = response.as(HbbLinkedAccountsResponse.class);
             if (result.getStatusCode() != 200) {
-                esbRequestSource.hbbLinkedAccount(CHANNEL, msisdn);
+                esbRequestSource.hbbLinkedAccount(msisdn, type);
             }
         } catch (Exception e) {
             commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + LINKED_ACCOUNT_ORCHESTRATOR + e.getMessage(), false);
@@ -2290,26 +2293,4 @@ public class RequestSource extends RestCommonUtils {
         return result;
     }
 
-    /**
-     * This Method will hit the API "/cs-am-service/v1/bank/details" and return the response
-     *
-     * @param msisdn The msisdn
-     * @return The Response
-     */
-    public BankDetailsResponse getAmBankDetails(String msisdn) {
-        commonLib.infoColored(constants.getValue(CALLING_CS_API) + constants.getValue("bank.details"), JavaColors.GREEN, false);
-        BankDetailsResponse result = null;
-        String type = constants.getValue(ApplicationConstants.ACCOUNT_TYPE);
-        try {
-            commonPostMethod(URIConstants.BANK_DETAILS, new GenericRequest(msisdn));
-            result = response.as(BankDetailsResponse.class);
-            if (result.getStatusCode() != 200) {
-                esbRequestSource.callBankDetailsAPI(msisdn, type);
-            }
-        } catch (Exception e) {
-            commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + " - getAmBankDetails " + e.getMessage(), false);
-            esbRequestSource.callBankDetailsAPI(msisdn, type);
-        }
-        return result;
-    }
 }

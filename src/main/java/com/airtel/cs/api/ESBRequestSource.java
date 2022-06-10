@@ -922,13 +922,13 @@ public class ESBRequestSource extends RestCommonUtils {
     /**
      * This method is used to call downstream api for hbb linked account details
      *
-     * @param channel the channel for ex. PORTAL
+     * @param type the channel for ex. PORTAL
      * @param msisdn  the msisdn
      */
-    public void hbbLinkedAccount(String channel, String msisdn) {
+    public void hbbLinkedAccount(String type, String msisdn) {
         try {
             commonLib.infoColored(constants.getValue(DOWNSTREAM_API_CALLING) + constants.getValue("linked.account.orchestrator"), JavaColors.GREEN, false);
-            queryParam.put("channel", channel);
+            queryParam.put("type", type);
             queryParam.put(MSISDN, msisdn);
             commonGetMethodWithQueryParam(ESBURIConstants.HBB_LINKED_ACCOUNT_DETAILS, queryParam, map, constants.getValue(ESBURIConstants.HBB_LINKED_ACCOUNT_ORCHESTRATOR_BASE_URL));
             checkDownstreamAPI(response.getStatusCode(), "Downstream API for hbb linked accounts orchestrator working fine with data", "Downstream API for hbb linked accounts orchestrator working fine with data");
@@ -1139,21 +1139,6 @@ public class ESBRequestSource extends RestCommonUtils {
             commonLib.fail(EXCEPTION_IN_METHOD + "callAccountLevelInfo " + e.getMessage(), false);
         }
         return result;
-    }
-
-    /**
-     * This Method will hit the Downstream API of Linked Accounts
-     */
-    public void callBankDetailsAPI(String msisdn, String type) {
-        try {
-            commonLib.infoColored(constants.getValue(DOWNSTREAM_API_CALLING) + constants.getValue("bank.details"), JavaColors.GREEN, false);
-            queryParam.put(MSISDN, msisdn);
-            queryParam.put(CURRENCY, type);
-            commonGetMethodWithQueryParam(INGRESS_DOWNSTREAM_BASE_URL + msisdn + ESBURIConstants.BANK_DETAILS, queryParam);
-            checkDownstreamAPI(response.getStatusCode(), "Downstream API of Linked Accounts working with data", "Downstream API of Linked Accounts not working with data");
-        } catch (Exception exp) {
-            commonLib.fail(constants.getValue(DOWNSTREAM_API_ERROR) + constants.getValue("bank.details") + exp.getMessage(), false);
-        }
     }
 
 }

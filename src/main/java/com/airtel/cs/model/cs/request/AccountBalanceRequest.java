@@ -9,4 +9,5 @@ public class AccountBalanceRequest {
     private String msisdn;
     private Integer pageSize;
     private Integer pageNumber;
+    private boolean isHBBProfile;
 }

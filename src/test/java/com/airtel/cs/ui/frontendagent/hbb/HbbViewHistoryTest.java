@@ -15,14 +15,14 @@ import org.testng.SkipException;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-public class HbbViewHistory extends Driver {
+public class HbbViewHistoryTest extends Driver {
 
     String comments = "Adding comment using Automation";
     RequestSource api = new RequestSource();
     private static String customerNumber = null;
 
 
-    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"})
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void checkExecution() {
         if (!continueExecutionFA) {
             commonLib.skip("Skipping tests because user NOT able to login Over Portal");
@@ -30,7 +30,7 @@ public class HbbViewHistory extends Driver {
         }
     }
 
-    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"})
+    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void openCustomerInteraction() {
         try {
             selUtils.addTestcaseDescription("Open Customer Profile Page with valid MSISDN, Validate Customer Profile Page Loaded or not", "description");
@@ -62,7 +62,7 @@ public class HbbViewHistory extends Driver {
                 for (int i = 0; i < size; i++) {
                     commonLib.info("Printing Info for Row Number " + i + 1);
                     assertCheck.append(actions.matchUiAndAPIResponse(pages.getActionTrailPage().getValue(i + 1, 1), actionTrailAPI.getResult().get(i).getActionType(), "Action Type Column value displayed Correctly", "Action Type Column Value does not displayed Correctly"));
-                    assertCheck.append(actions.matchUiAndAPIResponse(pages.getActionTrailPage().getValue(i + 1, 2), UtilsMethods.getDateFromEpoch(Long.valueOf(actionTrailAPI.getResult().get(i).getCreatedOn()), constants.getValue(CommonConstants.APPLICATION_UI_TIME_FORMAT)), "Date & Time Column displayed Correctly", "Date & Time Column does not displayed Correctly"));
+                    assertCheck.append(actions.matchUiAndAPIResponse(pages.getActionTrailPage().getValue(i + 1, 2), UtilsMethods.getDateFromEpoch(Long.parseLong(actionTrailAPI.getResult().get(i).getCreatedOn()), constants.getValue(CommonConstants.APPLICATION_UI_TIME_FORMAT)), "Date & Time Column displayed Correctly", "Date & Time Column does not displayed Correctly"));
                     assertCheck.append(actions.matchUiAndAPIResponse(pages.getActionTrailPage().getValue(i + 1, 3), actionTrailAPI.getResult().get(i).getReason(), "Reason Column displayed Correctly", "Reason Column does not displayed Correctly"));
                     assertCheck.append(actions.assertEqualStringType(pages.getActionTrailPage().getValue(i + 1, 4), actionTrailAPI.getResult().get(i).getAgentId(), "Agent Id Column displayed Correctly", "Agent Id Column does not displayed Correctly"));
                     assertCheck.append(actions.matchUiAndAPIResponse(pages.getActionTrailPage().getValue(i + 1, 5), actionTrailAPI.getResult().get(i).getAgentName(), "Agent name Column displayed Correctly", "Agent name Column does not displayed in Correctly"));

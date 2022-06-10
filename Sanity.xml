@@ -199,16 +199,6 @@
             <class name="com.airtel.cs.ui.frontendagent.hbb.HbbSearchTest"/>
         </classes>
     </test>
-    <test name="Validate Hbb Search on Dashboard Page ">
-        <groups>
-            <run>
-                <include name="SanityTest"/>
-            </run>
-        </groups>
-        <classes>
-            <class name="com.airtel.cs.ui.frontendagent.hbb.HbbDashboardSearchTest"/>
-        </classes>
-    </test>
     <test name="Validating Hbb Profile ">
         <groups>
             <run>
@@ -229,16 +219,6 @@
             <class name="com.airtel.cs.ui.frontendagent.hbb.HbbWidgetsVisibilityTest"/>
         </classes>
     </test>
-    <test name="Validate Hbb GSM Profile ">
-        <groups>
-            <run>
-                <include name="SanityTest"/>
-            </run>
-        </groups>
-        <classes>
-            <class name="com.airtel.cs.ui.frontendagent.hbb.HbbGsmProfileTest"/>
-        </classes>
-    </test>
     <test name="Validating Hbb View History ">
         <groups>
             <run>
@@ -246,7 +226,7 @@
             </run>
         </groups>
         <classes>
-            <class name="com.airtel.cs.ui.frontendagent.hbb.HbbViewHistory"/>
+            <class name="com.airtel.cs.ui.frontendagent.hbb.HbbViewHistoryTest"/>
         </classes>
     </test>
     <test name="Validating Creating Interaction for HBB ">
@@ -930,48 +910,48 @@
         </classes>
     </test>
 
-    <test name="Logout Test from Backend Agent">
-        <groups>
-            <run>
-                <include name="SanityTest"/>
-            </run>
-        </groups>
-        <classes>
-            <class name="com.airtel.cs.ui.frontendagent.loginandlogout.LogoutTest"/>
-        </classes>
-    </test>
+     <test name="Logout Test from Backend Agent">
+         <groups>
+             <run>
+                 <include name="SanityTest"/>
+             </run>
+         </groups>
+         <classes>
+             <class name="com.airtel.cs.ui.frontendagent.loginandlogout.LogoutTest"/>
+         </classes>
+     </test>
 
 
-    <test name="Test Login Into Portal With Enterprise">
-        <groups>
-            <run>
-                <include name="SanityTest"/>
-            </run>
-        </groups>
-        <classes>
-            <class name="com.airtel.cs.ui.frontendagent.loginandlogout.LoginPortalTests"/>
-        </classes>
-    </test>
-    <test name="Enterprise Account Info Widget">
-        <groups>
-            <run>
-                <include name="SanityTest"/>
-            </run>
-        </groups>
-        <classes>
-            <class name="com.airtel.cs.ui.frontendagent.hometab.EnterpriseAccountInfoWidgetTest"/>
-        </classes>
-    </test>
-    <test name="Enterprise Linked Service">
-        <groups>
-            <run>
-                <include name="SanityTest"/>
-            </run>
-        </groups>
-        <classes>
-            <class name="com.airtel.cs.ui.frontendagent.hometab.EnterpriseLinkedServicesTest"/>
-        </classes>
-    </test>
+     <test name="Test Login Into Portal With Enterprise">
+         <groups>
+             <run>
+                 <include name="SanityTest"/>
+             </run>
+         </groups>
+         <classes>
+             <class name="com.airtel.cs.ui.frontendagent.loginandlogout.LoginPortalTests"/>
+         </classes>
+     </test>
+     <test name="Enterprise Account Info Widget">
+         <groups>
+             <run>
+                 <include name="SanityTest"/>
+             </run>
+         </groups>
+         <classes>
+             <class name="com.airtel.cs.ui.frontendagent.hometab.EnterpriseAccountInfoWidgetTest"/>
+         </classes>
+     </test>
+     <test name="Enterprise Linked Service">
+         <groups>
+             <run>
+                 <include name="SanityTest"/>
+             </run>
+         </groups>
+         <classes>
+             <class name="com.airtel.cs.ui.frontendagent.hometab.EnterpriseLinkedServicesTest"/>
+         </classes>
+     </test>
 
     <test name="Enterprise Search Account">
         <groups>

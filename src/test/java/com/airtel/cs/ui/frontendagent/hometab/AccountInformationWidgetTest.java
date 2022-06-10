@@ -94,23 +94,23 @@ public class AccountInformationWidgetTest extends Driver {
             KYCProfile kycProfile = api.kycProfileAPITest(customerNumber);
             final Integer statusCode = kycProfile.getStatusCode();
             assertCheck.append(actions.assertEqualIntType(statusCode, 200, "KYC Profile API Status Code Matched and is :" + statusCode, "KYC Profile API Status Code NOT Matched and is :" + statusCode, false));
-            String connectionType = pages.getDemoGraphicPage().getConnectionType().toUpperCase().trim();
+            String connectionType = pages.getDemoGraphicPage().getConnectionType();
             final boolean umPermission = pages.getAccountInformationWidget().isAccountInformationWidgetDisplay();
-            assertCheck.append(actions.assertEqualStringType(pages.getDemoGraphicPage().getConnectionType().toLowerCase().trim(),
+            assertCheck.append(actions.assertEqualStringType(connectionType.toLowerCase().trim(),
                     kycProfile.getResult().getLineType().toLowerCase().trim(), "Customer Connection Type is as expected",
                     "Customer Connection Type as not expected"));
-            if (connectionType.equalsIgnoreCase("POSTPAID") && umPermission) {
-                assertCheck.append(actions.assertEqualStringType(connectionType, "POSTPAID", "Valid connection type found", "Invalid connection type found"));
+            if (connectionType.toUpperCase().trim().equalsIgnoreCase("POSTPAID") && umPermission) {
+                assertCheck.append(actions.assertEqualStringType(connectionType.toUpperCase().trim(), "POSTPAID", "Valid connection type found", "Invalid connection type found"));
                 assertCheck.append(actions.assertEqualBoolean(pages.getAccountInformationWidget().isAccountInformationWidgetDisplay(), true, "User has permission for account information widget", "User doesn't have permission for account information widget"));
-            } else if (connectionType.equalsIgnoreCase("POSTPAID") && !umPermission) {
-                assertCheck.append(actions.assertEqualStringType(connectionType, "POSTPAID", "Valid connection type found", "Invalid connection type found"));
+            } else if (connectionType.toUpperCase().trim().equalsIgnoreCase("POSTPAID") && !umPermission) {
+                assertCheck.append(actions.assertEqualStringType(connectionType.toUpperCase().trim(), "POSTPAID", "Valid connection type found", "Invalid connection type found"));
                 assertCheck.append(actions.assertEqualBoolean(pages.getAccountInformationWidget().isAccountInformationWidgetDisplay(), false, "User has permission for account information widget", "User doesn't have permission for account information widget"));
-            } else if (connectionType.equalsIgnoreCase("PREPAID") && umPermission) {
-                assertCheck.append(actions.assertEqualStringType(connectionType, "PREPAID", "Valid connection type found", "Invalid connection type found"));
+            } else if (connectionType.toUpperCase().trim().equalsIgnoreCase("PREPAID") && umPermission) {
+                assertCheck.append(actions.assertEqualStringType(connectionType.toUpperCase().trim(), "PREPAID", "Valid connection type found", "Invalid connection type found"));
                 assertCheck.append(actions.assertEqualBoolean(pages.getAccountInformationWidget().isAccountInformationWidgetDisplay(), true, "User has permission for account information widget", "User doesn't have permission for account information widget"));
 
-            } else if (connectionType.equalsIgnoreCase("PREPAID") && !umPermission) {
-                assertCheck.append(actions.assertEqualStringType(connectionType, "PREPAID", "Valid connection type found", "Invalid connection type found"));
+            } else if (connectionType.toUpperCase().trim().equalsIgnoreCase("PREPAID") && !umPermission) {
+                assertCheck.append(actions.assertEqualStringType(connectionType.toUpperCase().trim(), "PREPAID", "Valid connection type found", "Invalid connection type found"));
                 assertCheck.append(actions.assertEqualBoolean(pages.getAccountInformationWidget().isAccountInformationWidgetDisplay(), false, "User has permission for account information widget", "User doesn't have permission for account information widget"));
             } else {
                 commonLib.fail(" Account Information Widget is not displayed", true);
@@ -151,9 +151,10 @@ public class AccountInformationWidgetTest extends Driver {
              */
             AccountLevelInformationResponse accountsResponse = apiEsb.callAccountLevelInfo(customerNumber);
             final String statusCode = accountsResponse.getStatus();
+            assertCheck.append(actions.assertEqualStringType(statusCode, "200", "API Status Code Matched Successfully and is " + statusCode, "API Status Code NOT Matched and is " + statusCode));
             if (statusCode.trim().equalsIgnoreCase("200")) {
                 customerAccountNumber = accountsResponse.getResponse().getAccounts().get(0).accountNo;
-                commonLib.info("Customer Account Number from esb : " + customerAccountNumber);
+                commonLib.info("Customer Account Number from Downstream is : " + customerAccountNumber);
             } else if (statusCode.trim().equalsIgnoreCase("500"))
                 commonLib.info("Internal server error");
             else
@@ -175,31 +176,30 @@ public class AccountInformationWidgetTest extends Driver {
      * This method is used to validate other tab and email id
      */
     @Test(priority = 6, groups = {"SanityTest"}, dependsOnMethods = {"isUserHasAccountInformationPermission"})
-    public void otherTabDisplay() {
+    public void testEmailId() {
         try {
             selUtils.addTestcaseDescription("Verify that Other tab and email id should be visible", "description");
-            assertCheck.append(actions.assertEqualBoolean(pages.getAccountInformationWidget().isOthersTabVisible(), true, "Others tab visible as expected", "Others tab not visible as expected"));
-            pages.getAccountInformationWidget().openOthersTab();
             /**
              * Calling ESB api customer profile v2 to get email id
              */
             CustomerProfileResponse customerProfileResponse = apiEsb.customerProfileResponse(customerNumber);
             final String status = customerProfileResponse.getStatus();
             if (status.trim().equalsIgnoreCase("ACTIVE")) {
-                if (Objects.nonNull(pages.getAccountInformationWidget().getEmailId()) && !pages.getAccountInformationWidget().getEmailId().isEmpty()) {
-                    commonLib.info("Email from esb: " + customerProfileResponse.getEmail().trim());
-                    commonLib.info("Email on portal : " + pages.getAccountInformationWidget().getEmailId());
-                    assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getEmailId(), customerProfileResponse.getEmail().trim(), "Email ID display as per ESB response", "Email ID display is not as per ESB response"));
+                final String emailId = pages.getAccountInformationWidget().getEmailId();
+                if (Objects.nonNull(emailId) && !emailId.isEmpty()) {
+                    final String emaiIdFromAPI = customerProfileResponse.getEmail().trim();
+                    commonLib.info("Email from esb: " + emaiIdFromAPI);
+                    commonLib.info("Email on portal : " + emailId);
+                    assertCheck.append(actions.assertEqualStringType(emailId, emaiIdFromAPI, "Email ID display as per Downstream API response and is " + emailId, "Email ID display is not as per Downstream API response and is "+ emailId));
                 }
             } else if (status.trim().equalsIgnoreCase("500")) {
                 commonLib.info("Internal server error");
             } else {
                 commonLib.info("Customer profile V2 downstream api not working");
             }
-
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (NoSuchElementException | TimeoutException | NullPointerException e) {
-            commonLib.fail("Exception in Method - otherTabDisplay" + e.fillInStackTrace(), true);
+            commonLib.fail("Exception in Method - testEmailId" + e.fillInStackTrace(), true);
         }
     }
 
@@ -238,7 +238,7 @@ public class AccountInformationWidgetTest extends Driver {
             selUtils.addTestcaseDescription("Validate Last Payment Mode, Date and Amount are visible", "description");
             assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getValue(postpaidAccountInformation, "lastPaymentAmount", "statusCode"), "200", "Status Code for Postpaid Account Information API to get Last Payment Mode Matched", "Status Code for Postpaid Account Information API to get Last Payment Mode NOT Matched", false));
             final String lastPaymentMode = pages.getAccountInformationWidget().getLastPaymentMode();
-            assertCheck.append(actions.assertEqualStringType(lastPaymentMode.toLowerCase(),pages.getAccountInformationWidget().getValue(postpaidAccountInformation, "lastPaymentMode", "lastPaymentMode").toLowerCase(), "Last payment mode displays as expected and is :" + lastPaymentMode, "Last payment mode not displays as expected and is :" + lastPaymentMode));
+            assertCheck.append(actions.assertEqualStringType(lastPaymentMode.toLowerCase(), pages.getAccountInformationWidget().getValue(postpaidAccountInformation, "lastPaymentMode", "lastPaymentMode").toLowerCase(), "Last payment mode displays as expected and is :" + lastPaymentMode, "Last payment mode not displays as expected and is :" + lastPaymentMode));
             assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getLastPaymentModeStyle(), "Bold", "Last Payment Mode is in Bold State", "Last Payment Mode NOT in Bold state"));
             final String lastPaymentAmount = pages.getAccountInformationWidget().getLastPaymentAmount();
             assertCheck.append(actions.assertEqualStringType(lastPaymentAmount, pages.getAccountInformationWidget().getValue(postpaidAccountInformation, "lastPaymentAmount", "lastPaymentAmount"), "Last Payment amount displayed as expected and is :" + lastPaymentAmount, "Last Payment amount not displayed as expected and is : " + lastPaymentAmount));
@@ -395,7 +395,7 @@ public class AccountInformationWidgetTest extends Driver {
             selUtils.addTestcaseDescription("Validating Total Credit limit have SR Icon must be visible,After clicking on SR Icon Validate Issue pop modal opened,Validate Account number field displayed,validate Comment box displayed,validate submit button disabled as mandatory field does not filled,Validate Cancel button displayed", "description");
             assertCheck.append(actions.assertEqualBoolean(pages.getAccountInformationWidget().isSRIconDisplay(), true, constants.getValue("cs.account.information.sr.icon.found"), constants.getValue("cs.account.information.sr.icon.not.found"), true));
             String accountNumber = pages.getAccountInformationWidget().getAccountNumber();
-            pages.getAccountInformationWidget().clickSRRaiseIcon();
+            pages.getAccountInformationWidget().clickTempCreditSRRaiseBtn();
             boolean modalOpen = pages.getAccountInformationWidget().isIssueDetailPopUpDisplay();
             if (modalOpen) {
                 assertCheck.append(actions.assertEqualBoolean(modalOpen, true, constants.getValue("create.sr.popup.open"), constants.getValue("create.sr.popup.not.open")));
@@ -420,7 +420,7 @@ public class AccountInformationWidgetTest extends Driver {
             selUtils.addTestcaseDescription("Validating Total Credit limit have SR Icon must be visible,After clicking on SR Icon Issue detail pop up open,Validate user able to enter amount,Validate user able to add comment, Validate Submit button enabled,Validate after clicking on submit button Success message displayed,Validate ticket id and expected closure date displayed.", "description");
             assertCheck.append(actions.assertEqualBoolean(pages.getAccountInformationWidget().isSRIconDisplay(), true, constants.getValue("cs.account.information.sr.icon.found"), constants.getValue("cs.account.information.sr.icon.not.found"), true));
             String accountNumber = pages.getAccountInformationWidget().getAccountNumber();
-            pages.getAccountInformationWidget().clickSRRaiseIcon();
+            pages.getAccountInformationWidget().clickTempCreditSRRaiseBtn();
             boolean modalOpen = pages.getAccountInformationWidget().isIssueDetailPopUpDisplay();
             if (modalOpen) {
                 if (accountNumber == null) {

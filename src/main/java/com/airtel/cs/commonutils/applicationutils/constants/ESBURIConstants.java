@@ -47,7 +47,6 @@ public class ESBURIConstants {
     public static final String POSTPAID_ACCOUNTS_LINE = "/api/enterprise-service/v1/accounts/lines";
     public static final String MY_PLAN = "/api/subscriber-profile/v1/fetch/my-plans";
     public static final String MY_PACK = "/api/subscriber-profile/v1/fetch/my-packs";
-    public static final String HBB_LINKED_ACCOUNT_DETAILS = "/api/linked-account-orchestrator/v1/account/detail";
     public static final String ENTERPRISE_SEARCH_ACCOUNT = "/api/enterprise-service/v1/accounts";
     public static final String ENTERPRISE_INVOICE_HISTORY = "/api/enterprise-service/v1/accounts/invoices";
     public static final String ENTERPRISE_ACCOUNT_LINES = "/api/enterprise-service/v1/accounts/lines";
@@ -65,6 +64,12 @@ public class ESBURIConstants {
     public static final String ACCOUNT_LEVEL_INFO = "/api/enterprise-service/v1/accounts";
     public static final String PSB_SMS_SUMMMARY = "/arch-in/web/api/am-esb-bank/v1/transactions/sms-summary";
     public static final String BANK_DETAILS = "/api/am-profile/v1/bank-details?";
+
+    /*
+    HBB Downstream API
+     */
+    public static final String HBB_LINKED_ACCOUNT_DETAILS = "/api/linked-account-orchestrator/v2/account/detail";
+    public static final String HBB_QUERY_BALANCE = "/api/subscriber-profile/v2/hbb-query-balance";
 
     /*
     Ip Port Constants

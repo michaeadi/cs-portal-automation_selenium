@@ -3,7 +3,7 @@ package com.airtel.cs.commonutils.applicationutils.constants;
 public class URIConstants {
 
     /**
-     *  CS URI Constants
+     * CS URI Constants
      */
     public static final String ACCOUNT_PLAN = "/cs-gsm-service/v1/account/plans";
     public static final String USAGE_HISTORY = "/cs-gsm-service/v1/usage/history";
@@ -62,18 +62,27 @@ public class URIConstants {
     public static final String CREATE_CONFIGURATION_API = "/api/cs-service/v1/create/config";
     public static final String DELETE_CONFIGURATION_API = "/api/cs-service/v1/delete/config";
     public static final String UPDATE_CONFIGURATION_API = "/api/cs-service/v1/update/config";
-    public static final String GET_HBB_LINKED_ACCOUNTS_API = "/cs-gsm-service/v1/hbb/linked/accounts";
     public static final String NOTIFICATION_SERVICE_API = "/cs-notification-service/v1/send/notification";
 
+    /*
+    Enterprise API
+     */
     public static final String ENTERPRISE_POSTPAID_ACCOUNT_INFORMATION = "/cs-gsm-service/v1/enterprise/accounts";
     public static final String ENTERPRISE_ACCOUNT_SEARCH = "/cs-gsm-service/v1/enterprise/search";
     public static final String ENTERPRISE_LINKED_SERVICES = "/cs-gsm-service/v1/enterprise/linked/services";
     public static final String ENTERPRISE_INTERACTION_HISTORY = "/sr/api/sr-service/v1/issue/history";
     public static final String ENTERPRISE_PAYMENT_HISTORY = "/cs-gsm-service/v1/enterprise/payment/history";
+
     public static final String VAS_SUBSCRIPTION_HISTORY = "/cs-vas-service/v1/subscriptions/history";
     public static final String TCP_LIMITS = "/cs-am-service/v1/tcplimits";
     public static final String SMS_TRAILS = "/cs-am-service/v1/sms/trail";
     public static final String FETCH_BALANCE = "/cs-am-service/v1/fetch/balances";
+
+    /*
+    HBB API
+     */
+    public static final String GET_HBB_LINKED_ACCOUNTS_API = "/cs-gsm-service/v1/hbb/linked/accounts";
+    public static final String HBB_USER = "/api/user-service/user/v1/details";
 
 
     /**
@@ -81,7 +90,6 @@ public class URIConstants {
      */
 
     public static final String TICKET_STATS = "/api/sr-service/v1/ticket/stats";
-    public static final String HBB_USER = "/api/user-service/user/v1/details";
     public static final String INTERACTION_ISSUE = "/api/sr-service/v1/interactions/issue";
     public static final String OPEN_API_INTERACTION_ISSUE = "/api/sr-service/v1/openapi/interactions/issue";
     public static final String OPEN_API_CREATE_COMMENT = "/api/sr-service/v1/openapi/comment";
@@ -115,6 +123,6 @@ public class URIConstants {
     public static final String FILE_UPLOAD = "/api/sr-service/v1/files";
     public static final String FILE_DOWNLOAD = "/api/sr-service/v1/files";
     public static final String FILE_DELETE = "/api/sr-service/v1/files";
-    public static final String  CLM_DETAILS = "/cs-am-service/v1/clm/details";
-    public static final String BANK_DETAILS="/cs-am-service/v1/bank/details";
+    public static final String CLM_DETAILS = "/cs-am-service/v1/clm/details";
+    public static final String BANK_DETAILS = "/cs-am-service/v1/bank/details";
 }
