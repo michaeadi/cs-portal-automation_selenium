@@ -11,7 +11,7 @@ import org.testng.SkipException;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-public class AmLinkedBankAccounts extends Driver {
+public class AmLinkedBankAccountsTest extends Driver {
     String customerNumber = null;
     Boolean isPermissionEnable = false;
     BankDetailsResponse bankDetails;

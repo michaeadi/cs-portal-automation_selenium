@@ -136,7 +136,7 @@
             </run>
         </groups>
         <classes>
-            <class name="com.airtel.cs.ui.frontendagent.am.AmLinkedBankAccounts"/>
+            <class name="com.airtel.cs.ui.frontendagent.am.AmLinkedBankAccountsTest"/>
         </classes>
     </test>
     <test name="Current Balance Widget Test">
