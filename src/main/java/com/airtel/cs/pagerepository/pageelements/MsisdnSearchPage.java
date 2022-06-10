@@ -8,5 +8,9 @@ public class MsisdnSearchPage {
     public By errorMessage = By.xpath("//div[@class='error top-space ng-star-inserted']");
     public By numberDashboardSearchBox = By.xpath("//input[@data-csautomation-key='dashBoardSearchBox']");
 
-
+    /*
+    Locators for selecting Reason and Bartype from dropdown in Issue details pop up
+     */
+    public String headerType=("//*[contains(text(),'");
+    public String selectReasonOrBarTypeFromDropdown =("')]/ancestor::div/following-sibling::div//mat-option[1]");
 }

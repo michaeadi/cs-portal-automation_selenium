@@ -52,11 +52,11 @@ public class AmReversal extends BasePage {
     /**
      * This method is used to perform reversal action by selecting reason and comment
      */
-    public void performReversal() {
+    public void performReversal(String header) {
         commonLib.info("Going to perform ReversalAction");
         try {
             pages.getBarUnbar().clickOnSelectReason();
-            selectReasonFromDropdown();
+            pages.getMsisdnSearchPage().selectReasonOrBarTypeFromDropdown(header);
             pages.getBarUnbar().enterComment(COMMENT);
             pages.getBarUnbar().clickOnSubmitButton();
         } catch (Exception e) {
@@ -65,36 +65,6 @@ public class AmReversal extends BasePage {
         }
     }
 
-    /**
-     * This Method will return the number of pages of records
-     *
-     * @return page size
-     */
-    public int getNumberOfPages() {
-        int pageCount = 0;
-        int rowCount = Integer.parseInt(getRowCount());
-        if (rowCount % 5 == 0) {
-            pageCount = rowCount / 5;
-        }
-        if (rowCount % 5 != 0) {
-            rowCount = rowCount + (5 - rowCount % 5);
-            pageCount = rowCount / 5;
-        }
-        return pageCount;
-    }
-
-    /**
-     * This Method will be used to get the total row size in a table
-     *
-     * @return the row count
-     */
-    public String getRowCount() {
-        String rowCount;
-        rowCount = getText(pageElements.totalRows);
-        rowCount = rowCount.substring(rowCount.indexOf("of") + 3);
-        rowCount = rowCount.replace("Results", "").trim();
-        return rowCount;
-    }
 
     /**
      * This method is used to click on cross icon of success pop up
@@ -118,7 +88,7 @@ public class AmReversal extends BasePage {
     This method is used to perform txn reversal by clicking the enabled reversal icon of a particular txn id
      */
     public StringBuilder reversal(AirtelMoney amTransactionHistoryAPI) {
-        int pageCount = pages.getAmReversal().getNumberOfPages();
+        int pageCount = getNumberOfPages(pageElements.totalRows,5);
         boolean rowFound = false;
         for (int x = 0; x < pageCount; x++) {
             for (int i = 0; i < pages.getAmReversal().getRowSize(); i++) {
@@ -127,7 +97,7 @@ public class AmReversal extends BasePage {
                     pages.getAmReversal().clickReversalIcon(i + 1);
                     pages.getDemoGraphicPage().selectPolicyQuestion();
                     pages.getAuthTabPage().clickAuthBtn();
-                    pages.getAmReversal().performReversal();
+                    pages.getAmReversal().performReversal("REVERSAL");
                     assertCheck.append(actions.assertEqualBoolean(pages.getBarUnbar().isSuccessPopUpVisible(), true, "Success Popup is visible after performing txn reversal", "Success Popup is not visible after performing txn reversal"));
                     String successText = "";
                     assertCheck.append(actions.assertEqualStringType(pages.getBarUnbar().getSuccessText(), successText, "Success text is displayed as expected", "Success text is not displayed as expected"));

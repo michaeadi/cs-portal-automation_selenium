@@ -24,7 +24,7 @@ public class BarUnbarPage {
     public By commentBox=By.xpath("//textarea[contains(@id, 'interactionComment')]");
     public By successMessage=By.xpath("//div[contains(@class,'main-container__body--message')]");
     public By crossIcon=By.xpath("//mat-icon[contains(@class,'cursor-pointer')]");
-    public By selectReasonFromDropdown=By.xpath("//span[contains(text(),'Lost Sim')]");
+    public By selectReasonFromDropdown=By.xpath("//*[text()=' BAR ']/../../../../../../following-sibling::div//mat-option[1]");
     public By selectBarTypeFromDropdown=By.xpath("//span[contains(text(),'DEBIT')]");
 
     /*

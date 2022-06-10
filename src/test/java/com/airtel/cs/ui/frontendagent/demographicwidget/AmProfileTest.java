@@ -8,7 +8,6 @@ import com.airtel.cs.model.cs.response.actionconfig.ActionConfigResult;
 import com.airtel.cs.model.cs.response.actionconfig.Condition;
 import com.airtel.cs.model.cs.response.agents.RoleDetails;
 import com.airtel.cs.model.cs.response.amprofile.AMProfile;
-import com.airtel.cs.model.cs.response.filedmasking.FieldMaskConfigs;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.NoSuchElementException;
@@ -97,17 +96,18 @@ public class AmProfileTest extends Driver {
                     commonLib.warning("Service Status is :" + serviceStatus + " so Barred By and Remarks fields will not be displayed");
             } else
                 commonLib.warning("Am Profile status code is : " + amProfileAPIStatusCode + " so unable to display data");
+            actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
             commonLib.fail("Exception in Method - validateAmProfile" + e.fillInStackTrace(), true);
         }
     }
 
-   /* @Test(priority = 3, groups = {"SanityTest", "RegressionTest"}, dependsOnMethods = {"openCustomerInteraction"})
+    @Test(priority = 3, groups = {"SanityTest", "RegressionTest"}, dependsOnMethods = {"openCustomerInteraction"})
     public void checkAmMasking() {
         try {
             selUtils.addTestcaseDescription("Verify Airtel Money Profile's maksing", "description");
-            //String airtelMoneyString = pages.getDemoGraphicPage().getWalletBalance().replaceAll("[^0-9]", "").trim();
-            //int airtelMoney = StringUtils.isEmpty(airtelMoneyString) ? 0 : Integer.parseInt(airtelMoneyString);
+            String airtelMoneyString = pages.getDemoGraphicPage().getWalletBalance().replaceAll("[^0-9]", "").trim();
+            int airtelMoney = StringUtils.isEmpty(airtelMoneyString) ? 0 : Integer.parseInt(airtelMoneyString);
             ActionConfigResult actionConfigResult = api.getActionConfig("resetPin");
             List<String> actionConfigRoles = actionConfigResult.getRoles();
             List<RoleDetails> agentRoles = UtilsMethods.getAgentDetail().getUserDetails().getUserDetails().getRole();
@@ -126,7 +126,7 @@ public class AmProfileTest extends Driver {
         } catch (NoSuchElementException | TimeoutException | NullPointerException e) {
             commonLib.fail("Exception in method - checkAmMasking " + e, true);
         }
-    }*/
+    }
 }
 
 

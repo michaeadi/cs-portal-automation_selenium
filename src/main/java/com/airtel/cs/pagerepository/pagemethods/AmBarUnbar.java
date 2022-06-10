@@ -19,13 +19,13 @@ public class AmBarUnbar extends BasePage {
     /**
      * This method is used to  BAR/UNBAR AM Profile by selecting reason and comment
      */
-    public void performBarUnBar() {
+    public void performBarUnbar(String header) {
         commonLib.info("Going to perform Bar/unbar Action");
         try {
             pages.getBarUnbar().clickOnSelectReason();
-            pages.getAmBarUnbar().selectReasonFromDropdown();
+            pages.getMsisdnSearchPage().selectReasonOrBarTypeFromDropdown(header);
             pages.getBarUnbar().clickOnBarType();
-            pages.getAmBarUnbar().selectBarTypeFromDropdown();
+            pages.getMsisdnSearchPage().selectReasonOrBarTypeFromDropdown(header);
             pages.getBarUnbar().enterComment(COMMENT);
             pages.getBarUnbar().clickOnSubmitButton();
         } catch (Exception e) {
@@ -35,23 +35,6 @@ public class AmBarUnbar extends BasePage {
 
     }
 
-    /**
-     * This method is used to select reason from dropdown
-     */
-    public void selectReasonFromDropdown() {
-        commonLib.info("Going to select reason : Lost sim card");
-        if (isVisible(pageElements.selectReasonFromDropdown))
-            clickWithoutLoader((pageElements.selectReasonFromDropdown));
-    }
-
-    /**
-     * This method is used to select Bar Type from dropdown
-     */
-    public void selectBarTypeFromDropdown() {
-        commonLib.info("Going to select Bar Type :Sender ");
-        if (isVisible(pageElements.selectBarTypeFromDropdown))
-            clickWithoutLoader((pageElements.selectBarTypeFromDropdown));
-    }
 
     /**
      * This method will be used to test Bar action
@@ -66,7 +49,7 @@ public class AmBarUnbar extends BasePage {
         assertCheck.append(actions.assertEqualBoolean(pages.getBarUnbar().isCommentBoxVisible(), true, "Comment box is visible", "Comment box is not visible"));
         assertCheck.append(actions.assertEqualBoolean(pages.getBarUnbar().isSubmitBtnDisabled(), false, "Submit button is disabled", "Submit button is not disabled"));
         assertCheck.append(actions.assertEqualBoolean(pages.getBarUnbar().isCancelButtonVisible(), true, "Cancel Button is visible ", "Cancel Button is not visible"));
-        performBarUnBar();
+        performBarUnbar("BAR");
         assertCheck.append(actions.assertEqualBoolean(pages.getBarUnbar().isSuccessPopUpVisible(), true, "Success Popup is visible after performing Bar action", "Success Popup is not visible after performing Bar action"));
         String successText = constants.getValue("cs.am.bar.success.message");
         if (pages.getBarUnbar().getSuccessText().contains(successText))
@@ -89,7 +72,7 @@ public class AmBarUnbar extends BasePage {
         assertCheck.append(actions.assertEqualBoolean(pages.getBarUnbar().isCommentBoxVisible(), true, "Comment box is visible", "Comment box is not visible"));
         assertCheck.append(actions.assertEqualBoolean(pages.getBarUnbar().isSubmitBtnDisabled(), false, "Submit button is disabled", "Submit button is not disabled"));
         assertCheck.append(actions.assertEqualBoolean(pages.getBarUnbar().isCancelButtonVisible(), true, "Cancel Button is visible ", "Cancel Button is not visible"));
-        performBarUnBar();
+        performBarUnbar("UNBAR");
         assertCheck.append(actions.assertEqualBoolean(pages.getBarUnbar().isSuccessPopUpVisible(), true, "Success Popup is visible after performing Bar action", "Success Popup is not visible after performing Bar action"));
         String successText = constants.getValue("cs.am.unbar.success.message").trim();
         if (pages.getBarUnbar().getSuccessText().trim().contains(successText))

@@ -2,7 +2,7 @@ package com.airtel.cs.pagerepository.pagemethods;
 
 import com.airtel.cs.pagerepository.pageelements.MsisdnSearchPage;
 import lombok.extern.log4j.Log4j2;
-import org.openqa.selenium.Keys;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -80,11 +80,20 @@ public class MsisdnSearch extends BasePage {
 
 
     /**
-     * This method is use to clear searchbox
+     * This method is use to clear search box
      */
     public void clearCustomerNumber() {
         commonLib.info("Clearing search box :");
         driver.findElement(pageElements.numberSearch).clear();
+    }
+
+    /**
+     * This method is used to select first reason or bartype from dropdown
+     */
+    public void selectReasonOrBarTypeFromDropdown(String header) {
+        commonLib.info("Going to select first reason or bartype from the dropdown");
+        if (isVisible(By.xpath(pageElements.headerType + header + pageElements.selectReasonOrBarTypeFromDropdown)))
+            clickWithoutLoader(By.xpath(pageElements.headerType + header + pageElements.selectReasonOrBarTypeFromDropdown));
     }
 
 }

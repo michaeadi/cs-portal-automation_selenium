@@ -753,4 +753,35 @@ public class BasePage extends Driver {
     public String getKeyValueAPI(String apiKeyValue) {
         return "null".equals(apiKeyValue) || ("").equalsIgnoreCase(apiKeyValue) || apiKeyValue == null || ("0.00").equalsIgnoreCase(apiKeyValue) ? "-" : apiKeyValue.toLowerCase().trim();
     }
+
+    /**
+     * This Method will return the number of pages of records
+     * @param pageSize Default page size of a particular widget
+     * @return page Count
+     */
+    public int getNumberOfPages(By elementLocation, int pageSize) {
+        int pageCount = 0;
+         int rowCount = Integer.parseInt(getRowCount(elementLocation));
+        if (rowCount % pageSize == 0) {
+            pageCount = rowCount / pageSize;
+        }
+        if (rowCount % pageSize != 0) {
+            rowCount = rowCount + (pageSize - rowCount % pageSize);
+            pageCount = rowCount / pageSize;
+        }
+        return pageCount;
+    }
+
+    /**
+     * This Method will be used to get the total row count in a widget
+     *
+     * @return the row count
+     */
+    public String getRowCount(By elementLocation) {
+        String rowCount;
+        rowCount = getText(elementLocation);
+        rowCount = rowCount.substring(rowCount.indexOf("of") + 3);
+        rowCount = rowCount.replace("Results", "").trim();
+        return rowCount;
+    }
 }
