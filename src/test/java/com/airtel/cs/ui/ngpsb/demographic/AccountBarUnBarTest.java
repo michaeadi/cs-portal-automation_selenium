@@ -63,7 +63,7 @@ public class AccountBarUnBarTest extends Driver {
                 assertCheck.append(actions.assertEqualBoolean(pages.getBarUnbar().isCommentBoxVisible(), true, "Comment box is visible", "Comment box is not visible"));
                 assertCheck.append(actions.assertEqualBoolean(pages.getBarUnbar().isSubmitBtnDisabled(), false, "Submit button is disabled", "Submit button is not disabled"));
                 assertCheck.append(actions.assertEqualBoolean(pages.getBarUnbar().isCancelButtonVisible(), true, "Cancel Button is visible ", "Cancel Button is not visible"));
-                pages.getBarUnbar().performBarUnBar();
+                pages.getBarUnbar().performBarUnBar("BAR");
                 assertCheck.append(actions.assertEqualBoolean(pages.getBarUnbar().isSuccessPopUpVisible(), true, "Success Popup is visible after performing Bar action", "Success Popup is not visible after performing Bar action"));
                 String successText = "Your Barring request of Smartcash Account is accepted and issue is also created successfully";
                 assertCheck.append(actions.assertEqualStringType(pages.getBarUnbar().getSuccessText(), successText, "Success text is displayed as expected", "Success text is not displayed as expected"));
@@ -75,7 +75,7 @@ public class AccountBarUnBarTest extends Driver {
                 assertCheck.append(actions.assertEqualBoolean(pages.getBarUnbar().isCommentBoxVisible(), true, "Comment box is visible", "Comment box is NOT visible"));
                 assertCheck.append(actions.assertEqualBoolean(pages.getBarUnbar().isSubmitBtnDisabled(), false, "Submit button is disabled", "Submit button is not disabled"));
                 assertCheck.append(actions.assertEqualBoolean(pages.getBarUnbar().isCancelButtonVisible(), true, "Cancel Button is visible ", "Cancel Button is NOT visible"));
-                pages.getBarUnbar().performBarUnBar();
+                pages.getBarUnbar().performBarUnBar("UNBAR");
                 assertCheck.append(actions.assertEqualBoolean(pages.getBarUnbar().isSuccessPopUpVisible(), true, "Success Popup is visible after performing UnBar action", "Success Popup is visible not after performing UnBar action"));
                 String successText = "Your Un-Barring request of Smartcash Account is accepted and issue is also created successfully";
                 assertCheck.append(actions.assertEqualStringType(pages.getBarUnbar().getSuccessText(), successText, "Success text is displayed as expected", "Success text is not displayed as expected"));

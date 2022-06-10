@@ -164,7 +164,7 @@ public class ESBRequestSource extends RestCommonUtils {
     public void callAmServiceProfileESBAPI(String msisdn) {
         try {
             commonLib.infoColored(constants.getValue(DOWNSTREAM_API_CALLING) + KYC_REQUEST, JavaColors.GREEN, false);
-            commonGetMethod(ESBURIConstants.AM_PROFILE+msisdn, map, constants.getValue(ESBURIConstants.AM_PROFILE_SERVICE_PROFILE_BASE_URL));
+            commonGetMethod(ESBURIConstants.AM_PROFILE + msisdn, map, constants.getValue(ESBURIConstants.AM_PROFILE_SERVICE_PROFILE_BASE_URL));
             checkDownstreamAPI(response.getStatusCode(), "Downstream API KYC request not working with data ", "Downstream API KYC request working with data ");
         } catch (Exception exp) {
             commonLib.fail(constants.getValue(DOWNSTREAM_API_ERROR) + KYC_REQUEST + exp.getMessage(), false);
@@ -623,7 +623,7 @@ public class ESBRequestSource extends RestCommonUtils {
 
         } catch (Exception exp) {
             commonLib.fail(constants.getValue(DOWNSTREAM_API_ERROR) + ACCOUNT_STATEMENT + SLASH + exp.getMessage(),
-                            false);
+                    false);
         }
     }
 
@@ -922,8 +922,8 @@ public class ESBRequestSource extends RestCommonUtils {
     /**
      * This method is used to call downstream api for hbb linked account details
      *
-     * @param type the channel for ex. PORTAL
-     * @param msisdn  the msisdn
+     * @param type   the channel for ex. PORTAL
+     * @param msisdn the msisdn
      */
     public void hbbLinkedAccount(String type, String msisdn) {
         try {
@@ -1139,6 +1139,21 @@ public class ESBRequestSource extends RestCommonUtils {
             commonLib.fail(EXCEPTION_IN_METHOD + "callAccountLevelInfo " + e.getMessage(), false);
         }
         return result;
+    }
+
+    /**
+     * This Method will hit the Downstream API of Linked Accounts
+     */
+    public void callBankDetailsAPI(String msisdn, String type) {
+        try {
+            commonLib.infoColored(constants.getValue(DOWNSTREAM_API_CALLING) + constants.getValue("bank.details"), JavaColors.GREEN, false);
+            queryParam.put(MSISDN, msisdn);
+            queryParam.put(CURRENCY, type);
+            commonGetMethodWithQueryParam(INGRESS_DOWNSTREAM_BASE_URL + msisdn + ESBURIConstants.BANK_DETAILS, queryParam);
+            checkDownstreamAPI(response.getStatusCode(), "Downstream API of Linked Accounts working with data", "Downstream API of Linked Accounts not working with data");
+        } catch (Exception exp) {
+            commonLib.fail(constants.getValue(DOWNSTREAM_API_ERROR) + constants.getValue("bank.details") + exp.getMessage(), false);
+        }
     }
 
 }

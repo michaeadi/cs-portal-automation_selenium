@@ -1,6 +1,6 @@
 package com.airtel.cs.pagerepository.pagemethods;
 
-import com.airtel.cs.pagerepository.pageelements.AmBarUnbarPage;
+import com.airtel.cs.pagerepository.pageelements.BarUnbarPage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 
@@ -8,12 +8,12 @@ import org.openqa.selenium.support.PageFactory;
 import static com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants.COMMENT;
 
 public class AmBarUnbar extends BasePage {
-    AmBarUnbarPage pageElements;
+    BarUnbarPage pageElements;
 
 
     public AmBarUnbar(WebDriver driver) {
         super(driver);
-        pageElements = PageFactory.initElements(driver, AmBarUnbarPage.class);
+        pageElements = PageFactory.initElements(driver, BarUnbarPage.class);
     }
 
     /**

@@ -2323,4 +2323,29 @@ public class RequestSource extends RestCommonUtils {
 
     }
 
+    /**
+     * This Method will hit the API "/cs-am-service/v1/bank/details" and return the response
+     *
+     * @param msisdn The msisdn
+     * @return The Response
+     */
+    public BankDetailsResponse getAmBankDetails(String msisdn) {
+        commonLib.infoColored(constants.getValue(CALLING_CS_API) + constants.getValue("bank.details"), JavaColors.GREEN, false);
+        BankDetailsResponse result = null;
+        String type = constants.getValue(ApplicationConstants.ACCOUNT_TYPE);
+        try {
+            commonPostMethod(URIConstants.BANK_DETAILS, new GenericRequest(msisdn));
+            result = response.as(BankDetailsResponse.class);
+            if (result.getStatusCode() != 200) {
+                esbRequestSource.callBankDetailsAPI(msisdn, type);
+            }
+        } catch (Exception e) {
+            commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + " - getAmBankDetails " + e.getMessage(), false);
+            esbRequestSource.callBankDetailsAPI(msisdn, type);
+        }
+        return result;
+    }
+
+
+
 }
